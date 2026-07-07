@@ -1,6 +1,3 @@
-/** @jsx jsx */
-/** @jsxImportSource hono/jsx */
-
 import { zValidator } from "@hono/zod-validator";
 import { Hono } from "hono";
 import { serveStatic } from "hono/bun";
