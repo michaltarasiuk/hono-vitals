@@ -46,7 +46,7 @@ app.get("/page/about", (context) => {
 });
 
 app.post(
-  "/analytics",
+  "/collect",
   zValidator(
     "json",
     z.object({
@@ -54,7 +54,6 @@ app.post(
     }),
   ),
   (context) => {
-    context.req.valid("json");
     return context.json({
       ok: true,
     });
