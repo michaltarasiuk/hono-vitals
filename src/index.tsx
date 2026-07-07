@@ -1,7 +1,6 @@
 import { zValidator } from "@hono/zod-validator";
 import { Hono } from "hono";
 import { serveStatic } from "hono/bun";
-import { jsxRenderer } from "hono/jsx-renderer";
 import * as z from "zod";
 import { delay } from "./utils/delay";
 
@@ -26,21 +25,6 @@ app.get(
     root: "./src",
   }),
 );
-
-app.get(
-  "/page/*",
-  jsxRenderer(({ children }) => {
-    return (
-      <html>
-        <body>{children}</body>
-      </html>
-    );
-  }),
-);
-
-app.get("/page/about", (context) => {
-  return context.render(<h1>About me!</h1>);
-});
 
 app.post(
   "/collect",
