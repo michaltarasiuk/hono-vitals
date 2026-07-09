@@ -1,49 +1,6 @@
-import { zValidator } from "@hono/zod-validator";
-import { Hono } from "hono";
-import { serveStatic } from "hono/bun";
 import * as z from "zod";
-import { delay } from "./utils/delay";
 
-const app = new Hono();
-
-app.get(
-  "/static/*",
-  zValidator(
-    "query",
-    z.object({
-      delay: z.coerce.number().optional(),
-    }),
-  ),
-  async (context, next) => {
-    const { delay: timeout } = context.req.valid("query");
-    if (timeout !== undefined) {
-      await delay(timeout);
-    }
-    next();
-  },
-  serveStatic({
-    root: "./src",
-  }),
-);
-
-app.post(
-  "/collect",
-  zValidator(
-    "json",
-    z.object({
-      metric: z.lazy(() => MetricSchema),
-    }),
-  ),
-  (context) => {
-    return context.json({
-      ok: true,
-    });
-  },
-);
-
-export default app;
-
-const MetricSchema = z.object({
+export const MetricSchema = z.object({
   /**
    * The name of the metric (in acronym form).
    */
