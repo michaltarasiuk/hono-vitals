@@ -1,4 +1,5 @@
 import * as z from "zod";
+
 import { queryBoolean } from "./coerce";
 
 export const BaseMetricFlagsSchema = z

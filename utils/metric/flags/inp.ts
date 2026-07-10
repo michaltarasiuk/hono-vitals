@@ -1,4 +1,5 @@
 import * as z from "zod";
+
 import { BaseMetricFlagsSchema } from "./shared";
 
 export const InpFlagsSchema = BaseMetricFlagsSchema;

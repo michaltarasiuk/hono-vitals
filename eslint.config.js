@@ -15,14 +15,7 @@ export default defineConfig(
       perfectionist,
     },
     rules: {
-      "perfectionist/sort-imports": [
-        "error",
-        {
-          type: "natural",
-          order: "asc",
-          newlinesBetween: 0,
-        },
-      ],
+      "perfectionist/sort-imports": ["error"],
     },
   },
 );
