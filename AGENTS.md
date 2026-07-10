@@ -41,6 +41,7 @@ hono-vitals/
 │   ├── global.d.ts            # React renderer type augmentation
 │   ├── routes/
 │   │   ├── _renderer.tsx      # HTML shell, Link + Script
+│   │   ├── index.tsx          # Home — links to metric demos
 │   │   └── metric/            # Demo routes per metric (/metric/cls, …)
 │   │       ├── cls.tsx
 │   │       ├── fcp.tsx
@@ -51,12 +52,34 @@ hono-vitals/
 │   │   ├── button/
 │   │   ├── dialog/
 │   │   ├── field/
+│   │   ├── metric/
+│   │   │   ├── nav.tsx        # Home-only metric nav links
+│   │   │   └── test-shell.tsx # Shared metric test page shell + chrome links
 │   │   ├── number-field/
 │   │   └── switch/
 │   └── islands/               # Interactive client components (hydrated)
-│       └── flags-editor.tsx   # Query-flag editor modal
+│       ├── flags-editor.tsx   # Query-flag editor modal
+│       ├── cls.tsx            # onCLS observer
+│       ├── fcp.tsx            # onFCP observer
+│       ├── inp.tsx            # onINP observer + blocking-time form
+│       ├── lcp.tsx            # onLCP observer
+│       └── ttfb.tsx           # onTTFB observer
 ├── utils/
 │   ├── metric/
+│   │   ├── batch-reporting.ts # Queue metrics; flush on visibility hidden
+│   │   ├── element-timing.ts  # elementtiming attribute helper for SSR markup
+│   │   ├── metrics.ts         # METRIC_NAV link constants
+│   │   ├── inp-blocking.ts    # INP demo event-loop blocking controls
+│   │   ├── load-web-vitals.ts # Lazy import web-vitals after ready promises
+│   │   ├── observer-options.ts # Build on* options from validated flags
+│   │   ├── override-response-start.ts # TTFB navigation timing stub
+│   │   ├── prerender-href.ts  # Prerender link + speculation-rules JSON
+│   │   ├── ready.ts           # afterLoad() / afterElementsRendered() / afterFirstInput()
+│   │   ├── remove-lcp-element.ts # Remove LCP image before observer registration
+│   │   ├── report.ts          # reportMetric → POST /collect beacon
+│   │   ├── stub-hidden.ts     # hidden flag page visibility stub
+│   │   ├── stub-was-discarded.ts # wasDiscarded flag stub
+│   │   ├── to-safe-object.ts  # Serialize metric payloads for beacons
 │   │   └── flags/             # Per-route query flag Zod schemas
 │   │       ├── coerce.ts      # queryBoolean, queryNumberDefault
 │   │       ├── serialize.ts   # applyFlags — URL navigation on save
@@ -72,7 +95,11 @@ hono-vitals/
 │   ├── format-flag-label.ts   # camelCase flag keys → readable labels
 │   └── delay.ts               # Async delay helper (static asset middleware)
 ├── static/                    # Public assets served at /static/*
-│   └── square.png
+│   ├── square.png
+│   └── metric/
+│       ├── async.js           # Async script for delayLoad flag
+│       ├── defer.js           # Defer script for delayDCL flag
+│       └── styles.css         # Render-blocking stylesheet for renderBlocking flag
 ├── .cursor/rules/             # Agent rules (git, Hono, Base UI)
 ├── vite.config.ts             # Dual build: client bundle + SSR server
 ├── tsconfig.json
@@ -87,7 +114,7 @@ hono-vitals/
 Browser (island)                Hono server                 ClickHouse
 ─────────────────              ─────────────               ──────────
 web-vitals onCLS/onLCP/…  →    POST /collect          →    INSERT metrics
-reportMetric()                 zValidator(MetricSchema)
+reportMetric()                 zValidator({ metric: MetricSchema })
 navigator.sendBeacon           toSafeObject on client
 ```
 
@@ -113,14 +140,15 @@ Always reuse `MetricSchema` for server validation. Do not duplicate field defini
 ### Metric demo routes (`app/routes/metric/`)
 
 - **URLs:** `/metric/cls`, `/metric/fcp`, `/metric/inp`, `/metric/lcp`, `/metric/ttfb` — mirrors [web-vitals test views](https://github.com/GoogleChrome/web-vitals/tree/main/test/views).
-- **Validation:** Each route uses `zValidator('query', XxxFlagsSchema)` — import directly from `utils/metric/flags/{cls,fcp,...}.ts`. Flags are booleans or numbers. Booleans use `queryBoolean` (`z.coerce.boolean().default(false)`); numbers use `queryNumberDefault(n)`. Parsed output always contains every key.
-- **Editor:** Each route renders `FlagsEditor` with validated `flags` and `defaults` (`XxxFlagsSchema.parse({})`). Booleans render as `Switch`; numbers as `NumberField`. List is sorted booleans first, then numbers.
+- **Validation:** Each route uses `zValidator('query', XxxFlagsSchema)` — import directly from `utils/metric/flags/{cls,fcp,...}.ts`. Flags are booleans or numbers. Booleans use `queryBoolean` (`z.coerce.boolean().default(false)`); numbers use `queryNumberDefault(n)` or `queryNumberDefault()` when optional. Parsed output always contains every key.
+- **Editor:** Each route renders `MetricTestShell` (includes `FlagsEditor`) with validated `flags` and `defaults` (`XxxFlagsSchema.parse({})`). Booleans render as `Switch`; numbers as `NumberField`. List is sorted booleans first, then numbers.
+- **Markup:** SSR content mirrors [web-vitals test views](https://github.com/GoogleChrome/web-vitals/tree/main/test/views); observers live in `app/islands/{cls,fcp,...}.tsx`.
 
 ### Client islands (`app/islands/`)
 
 - **Placement:** One metric (or metric group) per island file, e.g. `cls.tsx`.
 - **Hydration:** Islands are registered and hydrated via `app/client.ts`.
-- **Reporting:** Call `reportMetric()` from `utils/metric/report.ts`. It serializes via `toSafeObject()` and sends a beacon to `/collect`.
+- **Reporting:** Call `reportMetric()` from `utils/metric/report.ts`. It serializes via `toSafeObject()` and sends `{ metric: … }` to `/collect` via `navigator.sendBeacon`.
 - **Batching:** CLS supports optional `batchReporting` — queues updates and flushes on `visibilitychange` to `hidden`.
 
 ### UI

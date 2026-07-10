@@ -1,8 +1,11 @@
 import * as z from "zod";
 
-import { queryBoolean } from "./coerce";
+import { queryBoolean, queryNumberDefault } from "./coerce";
 
 export const BaseMetricFlagsSchema = z.object({
+  delayDCL: queryNumberDefault(0),
+  delayLoad: queryNumberDefault(0),
+  renderBlocking: queryNumberDefault(0),
   reportAllChanges: queryBoolean,
   generateTarget: queryBoolean,
   includeProcessedEventEntries: queryBoolean,

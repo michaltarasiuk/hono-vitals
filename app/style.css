@@ -1,4 +1,5 @@
 @import "./components/button/button.css";
+@import "./components/metric/nav.css";
 @import "./components/dialog/dialog.css";
 @import "./components/field/field.css";
 @import "./components/number-field/number-field.css";
@@ -6,4 +7,30 @@
 
 html {
   font-family: Inter, system-ui;
+}
+
+.metric-test {
+  border: 1px solid transparent;
+  box-sizing: border-box;
+  min-height: 100vh;
+  padding: 0 1em;
+  position: relative;
+  width: 100%;
+}
+
+.metric-test *,
+.metric-test *::before,
+.metric-test *::after {
+  box-sizing: border-box;
+}
+
+.metric-test [hidden] {
+  visibility: hidden;
+}
+
+.FlagsEditorFab {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 100;
 }
