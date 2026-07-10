@@ -129,6 +129,8 @@ Always reuse `MetricSchema` for server validation. Do not duplicate field defini
 ### Formatting
 
 - Prettier for formatting (`bun run format`). `AGENTS.md` and `*.mdc` are excluded via `.prettierignore`.
+- ESLint `perfectionist/sort-imports` enforces import order (external → `@/` → relative, no blank lines between imports). Run `bun run lint:fix` to apply.
+- `.vscode/settings.json` disables TypeScript organize-imports on save and runs ESLint fix instead — avoids fighting the ESLint import order.
 
 ---
 
@@ -140,6 +142,8 @@ Always reuse `MetricSchema` for server validation. Do not duplicate field defini
 | Build | `bun run build` | Client bundle + SSR server → `dist/` |
 | Start | `bun run start` | Run production build from `dist/` |
 | Typecheck | `bun run type:check` | `tsc --noEmit` |
+| Lint | `bun run lint` | ESLint (import order + recommended) |
+| Lint fix | `bun run lint:fix` | ESLint with `--fix` |
 | Format | `bun run format` | Prettier write |
 
 ## Agent Maintenance
