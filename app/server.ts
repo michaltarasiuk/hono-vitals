@@ -3,8 +3,8 @@ import { serveStatic } from "hono/bun";
 import { showRoutes } from "hono/dev";
 import { createApp } from "honox/server";
 import * as z from "zod";
-import { delay } from "../utils/delay";
-import { MetricSchema } from "../utils/metric-schema";
+import { delay } from "@/utils/delay";
+import { MetricSchema } from "@/utils/metric-schema";
 
 const app = createApp();
 
