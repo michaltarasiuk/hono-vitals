@@ -9,15 +9,20 @@
     "format:check": "prettier --check ."
   },
   "dependencies": {
+    "@hono/react-renderer": "^1.0.1",
     "@hono/zod-validator": "^0.8.0",
     "hono": "^4.12.27",
     "honox": "^0.1.58",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
     "zod": "^4.4.3"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@hono/vite-build": "^1.11.1",
     "@types/bun": "latest",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
     "eslint": "^10.6.0",
     "prettier": "^3.9.4",
     "typescript": "^5.8.0",

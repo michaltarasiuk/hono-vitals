@@ -6,7 +6,7 @@
     "moduleResolution": "bundler",
     "strict": true,
     "jsx": "react-jsx",
-    "jsxImportSource": "hono/jsx",
+    "jsxImportSource": "react",
     "types": ["vite/client", "bun"],
     "skipLibCheck": true,
     "esModuleInterop": true,
