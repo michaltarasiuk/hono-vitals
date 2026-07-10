@@ -15,6 +15,7 @@ export default defineConfig(
       perfectionist,
     },
     rules: {
+      "@typescript-eslint/consistent-type-definitions": ["error", "interface"],
       "perfectionist/sort-imports": ["error"],
     },
   },

@@ -16,7 +16,7 @@ export default defineConfig(({ mode }) => {
       },
       build: {
         rollupOptions: {
-          input: ["./app/client.ts"],
+          input: ["./app/client.ts", "./app/style.css"],
         },
         manifest: true,
         emptyOutDir: false,
@@ -30,10 +30,18 @@ export default defineConfig(({ mode }) => {
       },
     },
     ssr: {
-      external: ["react", "react-dom"],
+      external: [
+        "react",
+        "react-dom",
+        "use-sync-external-store",
+        "use-sync-external-store/shim",
+      ],
     },
     plugins: [
       honox({
+        client: {
+          input: ["/app/client.ts", "/app/style.css"],
+        },
         devServer: { adapter },
       }),
       build(),

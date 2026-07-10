@@ -1,0 +1,8 @@
+@import "./components/button/button.css";
+@import "./components/dialog/dialog.css";
+@import "./components/field/field.css";
+@import "./components/switch/switch.css";
+
+html {
+  font-family: Inter, system-ui;
+}

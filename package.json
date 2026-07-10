@@ -11,6 +11,8 @@
     "format:check": "prettier --check ."
   },
   "dependencies": {
+    "@base-ui/react": "^1.6.0",
+    "@fontsource/inter": "^5.2.8",
     "@hono/react-renderer": "^1.0.1",
     "@hono/zod-validator": "^0.8.0",
     "hono": "^4.12.27",
