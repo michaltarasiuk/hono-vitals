@@ -5,6 +5,6 @@ import { BaseMetricFlagsSchema } from "./shared";
 
 export const FcpFlagsSchema = BaseMetricFlagsSchema.extend({
   imgHidden: queryBoolean,
-}).partial();
+});
 
 export type FcpFlags = z.infer<typeof FcpFlagsSchema>;

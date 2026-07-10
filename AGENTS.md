@@ -23,6 +23,7 @@ Demo app for collecting **Core Web Vitals** in the browser, posting them to a Ho
 | Server | [Hono](https://hono.dev) + [Honox](https://github.com/honojs/honox) (file-based routing, SSR) |
 | Client | React 19 (islands, partial hydration) |
 | Validation | [Zod](https://zod.dev) via `@hono/zod-validator` |
+| UI | [@base-ui/react](https://base-ui.com) + [Inter](https://fontsource.org/fonts/inter) |
 | Metrics | [`web-vitals`](https://github.com/GoogleChrome/web-vitals) v5 |
 | Analytics DB | ClickHouse |
 | Build | Vite 8 (`@hono/vite-build`, `@hono/vite-dev-server`) |
@@ -36,21 +37,28 @@ hono-vitals/
 ├── app/
 │   ├── server.ts              # Honox app: routes, middleware, /collect endpoint
 │   ├── client.ts              # Island hydration entry (honox/client)
+│   ├── style.css              # Global component styles (linked in _renderer)
 │   ├── global.d.ts            # React renderer type augmentation
 │   ├── routes/
-│   │   ├── _renderer.tsx      # HTML shell, loads client bundle
+│   │   ├── _renderer.tsx      # HTML shell, Link + Script
 │   │   └── metric/            # Demo routes per metric (/metric/cls, …)
 │   │       ├── cls.tsx
 │   │       ├── fcp.tsx
 │   │       ├── inp.tsx
 │   │       ├── lcp.tsx
 │   │       └── ttfb.tsx
+│   ├── components/            # Styled Base UI wrappers (CSS Modules from docs)
+│   │   ├── button/
+│   │   ├── dialog/
+│   │   ├── field/
+│   │   └── switch/
 │   └── islands/               # Interactive client components (hydrated)
-│       └── island.tsx         # CLS observer island
+│       └── flags-editor.tsx   # Query-flag editor modal
 ├── utils/
 │   ├── metric/
 │   │   └── flags/             # Per-route query flag Zod schemas
-│   │       ├── coerce.ts      # queryBoolean helper (enable/disable flags only)
+│   │       ├── coerce.ts      # queryBoolean (coerce + default false)
+│   │       ├── serialize.ts   # applyFlags — URL navigation on save
 │   │       ├── shared.ts      # BaseMetricFlagsSchema
 │   │       ├── cls.ts         # ClsFlagsSchema
 │   │       ├── fcp.ts         # FcpFlagsSchema
@@ -101,7 +109,8 @@ Always reuse `MetricSchema` for server validation. Do not duplicate field defini
 ### Metric demo routes (`app/routes/metric/`)
 
 - **URLs:** `/metric/cls`, `/metric/fcp`, `/metric/inp`, `/metric/lcp`, `/metric/ttfb` — mirrors [web-vitals test views](https://github.com/GoogleChrome/web-vitals/tree/main/test/views).
-- **Validation:** Each route uses `zValidator('query', XxxFlagsSchema)` — import directly from `utils/metric/flags/{cls,fcp,...}.ts`. Flags are **boolean only** (enable/disable toggles).
+- **Validation:** Each route uses `zValidator('query', XxxFlagsSchema)` — import directly from `utils/metric/flags/{cls,fcp,...}.ts`. Flags are **boolean only** (enable/disable toggles). Schemas use `queryBoolean` (`z.coerce.boolean().default(false)`) so parsed output always contains every key.
+- **Editor:** Each route renders `FlagsEditor` island with validated `flags` only — no separate keys prop.
 
 ### Client islands (`app/islands/`)
 
@@ -110,10 +119,11 @@ Always reuse `MetricSchema` for server validation. Do not duplicate field defini
 - **Reporting:** Call `reportMetric()` from `utils/metric/report.ts`. It serializes via `toSafeObject()` and sends a beacon to `/collect`.
 - **Batching:** CLS supports optional `batchReporting` — queues updates and flushes on `visibilitychange` to `hidden`.
 
-### UI (when added)
+### UI
 
 - **Package:** Use `@base-ui/react` for composable, unstyled primitives.
-- **Styling:** Plain CSS only — no Tailwind. Style via `className` and project stylesheets.
+- **Wrappers:** Reusable styled components in `app/components/`; interactive flows in `app/islands/`.
+- **Styling:** Plain global CSS (Base UI class names from docs demos). Aggregate in [`app/style.css`](app/style.css); link via `<Link href="/app/style.css" rel="stylesheet" />` in [`app/routes/_renderer.tsx`](app/routes/_renderer.tsx) so SSR HTML is styled before hydration. No Tailwind.
 - **Docs:** Before implementing UI, fetch [https://base-ui.com/llms.txt](https://base-ui.com/llms.txt).
 
 ### Hono / Honox

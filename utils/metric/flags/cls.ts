@@ -7,6 +7,6 @@ export const ClsFlagsSchema = BaseMetricFlagsSchema.extend({
   noLayoutShifts: queryBoolean,
   imgHidden: queryBoolean,
   img2Hidden: queryBoolean,
-}).partial();
+});
 
 export type ClsFlags = z.infer<typeof ClsFlagsSchema>;
