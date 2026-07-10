@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 
 import type { FlagValue } from "@/utils/metric/flags/serialize";
 
+import { MetricNav } from "@/app/components/metric/nav";
 import FlagsEditor from "@/app/islands/flags-editor";
 import {
   prerenderHref,
@@ -14,12 +15,14 @@ interface MetricShellProps {
   children: ReactNode;
   defaults: Record<string, FlagValue>;
   flags: Record<string, FlagValue>;
+  metric: string;
 }
 
 export function MetricShell({
   children,
   defaults,
   flags,
+  metric,
 }: MetricShellProps) {
   const renderBlocking =
     typeof flags.renderBlocking === "number" ? flags.renderBlocking : 0;
@@ -29,6 +32,10 @@ export function MetricShell({
 
   return (
     <>
+      <header className="MetricToolbar">
+        <MetricNav currentPath={`/metric/${metric}`} />
+        <FlagsEditor defaults={defaults} flags={flags} />
+      </header>
       <main className="metric-test" {...(htmlHidden ? { hidden: true } : {})}>
         {renderBlocking > 0 ? (
           <link
@@ -54,9 +61,6 @@ export function MetricShell({
           <script async src={`/static/metric/async.js?delay=${delayLoad}`} />
         ) : null}
       </main>
-      <div className="FlagsEditorFab">
-        <FlagsEditor defaults={defaults} flags={flags} />
-      </div>
     </>
   );
 }

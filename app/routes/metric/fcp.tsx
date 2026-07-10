@@ -14,7 +14,7 @@ export default createRoute(zValidator("query", FcpFlagsSchema), (c) => {
   const defaults = FcpFlagsSchema.parse({});
 
   return c.render(
-    <MetricShell defaults={defaults} flags={flags}>
+    <MetricShell defaults={defaults} flags={flags} metric="fcp">
       <h1 {...elementTiming("main-heading")}>FCP Test</h1>
       <p>
         <img

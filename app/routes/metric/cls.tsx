@@ -14,7 +14,7 @@ export default createRoute(zValidator("query", ClsFlagsSchema), (c) => {
   const defaults = ClsFlagsSchema.parse({});
 
   return c.render(
-    <MetricShell defaults={defaults} flags={flags}>
+    <MetricShell defaults={defaults} flags={flags} metric="cls">
       <h1 {...elementTiming("main-heading")}>CLS Test</h1>
       {flags.noLayoutShifts ? (
         <p>This text does not shift.</p>

@@ -9,3 +9,4 @@ alwaysApply: false
 - Put reusable, non-UI logic in `utils/` (or a domain subpath such as `utils/metric/flags/`).
 - Do **not** declare shared helpers inline in routes, islands, or components — import from `utils/` instead.
 - Before adding a helper, search `utils/` for an existing one (e.g. `assertNever` in `utils/assert-never.ts`).
+- Do **not** annotate function return types — let TypeScript infer them. Exceptions: `assertNever` (`: never` for exhaustiveness) and overload signatures when required for call-site typing.

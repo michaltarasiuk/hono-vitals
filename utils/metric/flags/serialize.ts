@@ -5,7 +5,7 @@ export type FlagValue = boolean | number;
 export function applyFlags(
   flags: Record<string, FlagValue>,
   defaults: Record<string, FlagValue>,
-): void {
+) {
   const url = new URL(window.location.href);
   for (const [key, value] of Object.entries(flags)) {
     const defaultValue = defaults[key];

@@ -1,5 +1,6 @@
 @import "./components/button/button.css";
 @import "./components/metric/nav.css";
+@import "./components/metric/toolbar.css";
 @import "./components/dialog/dialog.css";
 @import "./components/field/field.css";
 @import "./components/number-field/number-field.css";
@@ -26,11 +27,4 @@ html {
 
 .metric-test [hidden] {
   visibility: hidden;
-}
-
-.FlagsEditorFab {
-  position: fixed;
-  right: 1rem;
-  bottom: 1rem;
-  z-index: 100;
 }

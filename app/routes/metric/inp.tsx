@@ -14,7 +14,7 @@ export default createRoute(zValidator("query", InpFlagsSchema), (c) => {
   const defaults = InpFlagsSchema.parse({});
 
   return c.render(
-    <MetricShell defaults={defaults} flags={flags}>
+    <MetricShell defaults={defaults} flags={flags} metric="inp">
       <h1 {...elementTiming("main-heading")}>INP Test</h1>
       <InpObserver flags={flags} />
       <MetricChrome defaults={defaults} flags={flags} metric="inp" />
