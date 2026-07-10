@@ -1,0 +1,50 @@
+---
+description: Git commit naming and push conventions for this project
+alwaysApply: true
+---
+
+# Git Commits & Push
+
+## When to commit or push
+
+- **Only commit** when the user explicitly asks. Do not commit proactively after finishing work.
+- **Only push** when the user explicitly asks. Creating a commit does not imply pushing.
+- Never update `git config`, skip hooks (`--no-verify`), or run destructive commands (`push --force`, `reset --hard`) unless the user explicitly requests it.
+- Never force-push to `main` or `master`.
+
+## Commit message style
+
+Match existing repo history: short, lowercase, imperative mood. Focus on **why** the change exists, not a file list.
+
+```
+add metric query flag schemas and demo routes
+migrate honox to react 19
+remove unused directives
+```
+
+- Use verbs like `add`, `fix`, `remove`, `migrate`, `update`, `format`.
+- One line is enough for most changes; add a second sentence only when context is needed.
+- Do **not** use Conventional Commits prefixes (`feat:`, `fix:`) unless the user asks for them.
+- Do not commit secrets (`.env`, credentials, tokens).
+
+## Creating commits
+
+Before committing, run `git status`, `git diff`, and `git log` to match recent style. Stage only relevant files.
+
+Pass the message via a HEREDOC:
+
+```bash
+git commit -m "$(cat <<'EOF'
+add metric query flag schemas and demo routes
+
+EOF
+)"
+```
+
+Avoid `git commit --amend` unless the user explicitly requests it, the prior commit was yours in this session, and it has not been pushed.
+
+## Pushing
+
+Push only on explicit request. Use `-u origin HEAD` when setting upstream on a new branch.
+
+For pull requests, use `gh pr create` after pushing — do not push unless the user asked for that too.

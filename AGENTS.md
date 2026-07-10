@@ -61,7 +61,7 @@ hono-vitals/
 │   └── delay.ts               # Async delay helper (static asset middleware)
 ├── static/                    # Public assets served at /static/*
 │   └── square.png
-├── .cursor/rules/             # File-scoped agent rules (Hono, Base UI)
+├── .cursor/rules/             # Agent rules (git, Hono, Base UI)
 ├── vite.config.ts             # Dual build: client bundle + SSR server
 ├── tsconfig.json
 └── package.json
