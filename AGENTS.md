@@ -66,6 +66,7 @@ hono-vitals/
 │   │       ├── lcp.ts         # LcpFlagsSchema
 │   │       └── ttfb.ts        # TtfbFlagsSchema
 │   ├── metric-schema.ts       # Shared Zod schema for web-vitals Metric payloads
+│   ├── format-flag-label.ts   # camelCase flag keys → readable labels
 │   └── delay.ts               # Async delay helper (static asset middleware)
 ├── static/                    # Public assets served at /static/*
 │   └── square.png

@@ -4,6 +4,7 @@ import { Button } from "@/app/components/button/button";
 import { Dialog } from "@/app/components/dialog/dialog";
 import { Field } from "@/app/components/field/field";
 import { Switch } from "@/app/components/switch/switch";
+import { formatFlagLabel } from "@/utils/format-flag-label";
 import { applyFlags } from "@/utils/metric/flags/serialize";
 
 interface FlagsEditorProps {
@@ -46,7 +47,7 @@ export default function FlagsEditor({ flags }: FlagsEditorProps) {
                       }));
                     }}
                   />
-                  {key}
+                  {formatFlagLabel(key)}
                 </Field.Label>
               </Field.Root>
             ))}
