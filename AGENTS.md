@@ -51,14 +51,16 @@ hono-vitals/
 │   │   ├── button/
 │   │   ├── dialog/
 │   │   ├── field/
+│   │   ├── number-field/
 │   │   └── switch/
 │   └── islands/               # Interactive client components (hydrated)
 │       └── flags-editor.tsx   # Query-flag editor modal
 ├── utils/
 │   ├── metric/
 │   │   └── flags/             # Per-route query flag Zod schemas
-│   │       ├── coerce.ts      # queryBoolean (coerce + default false)
+│   │       ├── coerce.ts      # queryBoolean, queryNumberDefault
 │   │       ├── serialize.ts   # applyFlags — URL navigation on save
+│   │       ├── sort-flag-entries.ts # booleans first, then numbers
 │   │       ├── shared.ts      # BaseMetricFlagsSchema
 │   │       ├── cls.ts         # ClsFlagsSchema
 │   │       ├── fcp.ts         # FcpFlagsSchema
@@ -66,6 +68,7 @@ hono-vitals/
 │   │       ├── lcp.ts         # LcpFlagsSchema
 │   │       └── ttfb.ts        # TtfbFlagsSchema
 │   ├── metric-schema.ts       # Shared Zod schema for web-vitals Metric payloads
+│   ├── assert-never.ts        # Exhaustive switch default helper
 │   ├── format-flag-label.ts   # camelCase flag keys → readable labels
 │   └── delay.ts               # Async delay helper (static asset middleware)
 ├── static/                    # Public assets served at /static/*
@@ -110,8 +113,8 @@ Always reuse `MetricSchema` for server validation. Do not duplicate field defini
 ### Metric demo routes (`app/routes/metric/`)
 
 - **URLs:** `/metric/cls`, `/metric/fcp`, `/metric/inp`, `/metric/lcp`, `/metric/ttfb` — mirrors [web-vitals test views](https://github.com/GoogleChrome/web-vitals/tree/main/test/views).
-- **Validation:** Each route uses `zValidator('query', XxxFlagsSchema)` — import directly from `utils/metric/flags/{cls,fcp,...}.ts`. Flags are **boolean only** (enable/disable toggles). Schemas use `queryBoolean` (`z.coerce.boolean().default(false)`) so parsed output always contains every key.
-- **Editor:** Each route renders `FlagsEditor` island with validated `flags` only — no separate keys prop.
+- **Validation:** Each route uses `zValidator('query', XxxFlagsSchema)` — import directly from `utils/metric/flags/{cls,fcp,...}.ts`. Flags are booleans or numbers. Booleans use `queryBoolean` (`z.coerce.boolean().default(false)`); numbers use `queryNumberDefault(n)`. Parsed output always contains every key.
+- **Editor:** Each route renders `FlagsEditor` with validated `flags` and `defaults` (`XxxFlagsSchema.parse({})`). Booleans render as `Switch`; numbers as `NumberField`. List is sorted booleans first, then numbers.
 
 ### Client islands (`app/islands/`)
 

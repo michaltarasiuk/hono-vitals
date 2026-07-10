@@ -6,10 +6,11 @@ import { LcpFlagsSchema } from "@/utils/metric/flags/lcp";
 
 export default createRoute(zValidator("query", LcpFlagsSchema), (c) => {
   const flags = c.req.valid("query");
+  const defaults = LcpFlagsSchema.parse({});
 
   return c.render(
     <main>
-      <FlagsEditor flags={flags} />
+      <FlagsEditor defaults={defaults} flags={flags} />
     </main>,
   );
 });

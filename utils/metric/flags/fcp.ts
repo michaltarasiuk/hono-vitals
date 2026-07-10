@@ -1,9 +1,10 @@
 import * as z from "zod";
 
-import { queryBoolean } from "./coerce";
+import { queryBoolean, queryNumberDefault } from "./coerce";
 import { BaseMetricFlagsSchema } from "./shared";
 
 export const FcpFlagsSchema = BaseMetricFlagsSchema.extend({
+  imgDelay: queryNumberDefault(500),
   imgHidden: queryBoolean,
 });
 

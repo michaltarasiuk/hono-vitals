@@ -6,10 +6,11 @@ import { ClsFlagsSchema } from "@/utils/metric/flags/cls";
 
 export default createRoute(zValidator("query", ClsFlagsSchema), (c) => {
   const flags = c.req.valid("query");
+  const defaults = ClsFlagsSchema.parse({});
 
   return c.render(
     <main>
-      <FlagsEditor flags={flags} />
+      <FlagsEditor defaults={defaults} flags={flags} />
     </main>,
   );
 });
