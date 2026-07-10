@@ -9,7 +9,6 @@ export function createBatchReporter() {
 
   function flush() {
     for (const metric of queue) {
-      console.log("document.addEventListener");
       reportMetric(metric);
     }
     queue.clear();

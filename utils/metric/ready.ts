@@ -17,10 +17,7 @@ export function afterElementsRendered() {
           const nodes = new Set([
             ...document.querySelectorAll("[elementtiming]:not([hidden])"),
           ]);
-          if (
-            nodes.size === 0 ||
-            !PerformanceObserver.supportedEntryTypes.includes("element")
-          ) {
+          if (nodes.size === 0) {
             resolve();
             return;
           }

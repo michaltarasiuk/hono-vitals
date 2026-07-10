@@ -71,21 +71,6 @@ function Title({
   );
 }
 
-function Description({
-  children,
-  className,
-  ...props
-}: React.ComponentProps<typeof BaseDialog.Description>) {
-  return (
-    <BaseDialog.Description
-      className={className ? `Description ${className}` : "Description"}
-      {...props}
-    >
-      {children}
-    </BaseDialog.Description>
-  );
-}
-
 function List({ children, className, ...props }: React.ComponentProps<"div">) {
   return (
     <div className={className ? `List ${className}` : "List"} {...props}>
@@ -117,7 +102,6 @@ export const Dialog = {
   Actions,
   Backdrop,
   Close,
-  Description,
   Intro,
   List,
   Popup,

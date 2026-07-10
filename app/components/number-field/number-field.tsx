@@ -38,7 +38,6 @@ function PlusIcon(props: React.ComponentProps<"svg">) {
 }
 
 interface NumberFieldProps {
-  id?: string;
   min?: number;
   name?: string;
   onValueChange: (value: number) => void;
@@ -47,15 +46,13 @@ interface NumberFieldProps {
 }
 
 export function NumberField({
-  id: idProp,
   min = 0,
   name,
   onValueChange,
   step = 1,
   value,
 }: NumberFieldProps) {
-  const generatedId = useId();
-  const id = idProp ?? generatedId;
+  const id = useId();
 
   return (
     <BaseNumberField.Root

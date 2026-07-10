@@ -1,6 +1,6 @@
 import type { FlagValue } from "@/utils/metric/flags/serialize";
 
-export function flagsToQueryString(
+function flagsToQueryString(
   flags: Record<string, FlagValue>,
   defaults: Record<string, FlagValue>,
 ) {

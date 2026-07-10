@@ -54,7 +54,7 @@ hono-vitals/
 │   │   ├── field/
 │   │   ├── metric/
 │   │   │   ├── nav.tsx        # Home-only metric nav links
-│   │   │   └── test-shell.tsx # Shared metric test page shell + chrome links
+│   │   │   └── shell.tsx      # Shared metric page shell + chrome links
 │   │   ├── number-field/
 │   │   └── switch/
 │   └── islands/               # Interactive client components (hydrated)
@@ -141,7 +141,7 @@ Always reuse `MetricSchema` for server validation. Do not duplicate field defini
 
 - **URLs:** `/metric/cls`, `/metric/fcp`, `/metric/inp`, `/metric/lcp`, `/metric/ttfb` — mirrors [web-vitals test views](https://github.com/GoogleChrome/web-vitals/tree/main/test/views).
 - **Validation:** Each route uses `zValidator('query', XxxFlagsSchema)` — import directly from `utils/metric/flags/{cls,fcp,...}.ts`. Flags are booleans or numbers. Booleans use `queryBoolean` (`z.coerce.boolean().default(false)`); numbers use `queryNumberDefault(n)` or `queryNumberDefault()` when optional. Parsed output always contains every key.
-- **Editor:** Each route renders `MetricTestShell` (includes `FlagsEditor`) with validated `flags` and `defaults` (`XxxFlagsSchema.parse({})`). Booleans render as `Switch`; numbers as `NumberField`. List is sorted booleans first, then numbers.
+- **Editor:** Each route renders `MetricShell` (includes `FlagsEditor`) with validated `flags` and `defaults` (`XxxFlagsSchema.parse({})`). Booleans render as `Switch`; numbers as `NumberField`. List is sorted booleans first, then numbers.
 - **Markup:** SSR content mirrors [web-vitals test views](https://github.com/GoogleChrome/web-vitals/tree/main/test/views); observers live in `app/islands/{cls,fcp,...}.tsx`.
 
 ### Client islands (`app/islands/`)

@@ -3,8 +3,8 @@ import { createRoute } from "honox/factory";
 
 import {
   MetricChrome,
-  MetricTestShell,
-} from "@/app/components/metric/test-shell";
+  MetricShell,
+} from "@/app/components/metric/shell";
 import LcpObserver from "@/app/islands/lcp";
 import { elementTiming } from "@/utils/metric/element-timing";
 import { LcpFlagsSchema } from "@/utils/metric/flags/lcp";
@@ -14,7 +14,7 @@ export default createRoute(zValidator("query", LcpFlagsSchema), (c) => {
   const defaults = LcpFlagsSchema.parse({});
 
   return c.render(
-    <MetricTestShell defaults={defaults} flags={flags}>
+    <MetricShell defaults={defaults} flags={flags}>
       <h1 {...elementTiming("main-heading")}>LCP Test</h1>
       <p>
         <img
@@ -30,6 +30,6 @@ export default createRoute(zValidator("query", LcpFlagsSchema), (c) => {
       <div style={{ height: "100vh" }} />
       <footer>Text below the full-height element.</footer>
       <LcpObserver flags={flags} />
-    </MetricTestShell>,
+    </MetricShell>,
   );
 });

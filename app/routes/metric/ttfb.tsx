@@ -3,8 +3,8 @@ import { createRoute } from "honox/factory";
 
 import {
   MetricChrome,
-  MetricTestShell,
-} from "@/app/components/metric/test-shell";
+  MetricShell,
+} from "@/app/components/metric/shell";
 import TtfbObserver from "@/app/islands/ttfb";
 import { elementTiming } from "@/utils/metric/element-timing";
 import { TtfbFlagsSchema } from "@/utils/metric/flags/ttfb";
@@ -14,7 +14,7 @@ export default createRoute(zValidator("query", TtfbFlagsSchema), (c) => {
   const defaults = TtfbFlagsSchema.parse({});
 
   return c.render(
-    <MetricTestShell defaults={defaults} flags={flags}>
+    <MetricShell defaults={defaults} flags={flags}>
       <h1 {...elementTiming("main-heading")}>TTFB Test</h1>
       <p>
         <img
@@ -26,6 +26,6 @@ export default createRoute(zValidator("query", TtfbFlagsSchema), (c) => {
       <p>Text below the image</p>
       <MetricChrome defaults={defaults} flags={flags} metric="ttfb" />
       <TtfbObserver flags={flags} />
-    </MetricTestShell>,
+    </MetricShell>,
   );
 });

@@ -3,8 +3,8 @@ import { createRoute } from "honox/factory";
 
 import {
   MetricChrome,
-  MetricTestShell,
-} from "@/app/components/metric/test-shell";
+  MetricShell,
+} from "@/app/components/metric/shell";
 import InpObserver from "@/app/islands/inp";
 import { elementTiming } from "@/utils/metric/element-timing";
 import { InpFlagsSchema } from "@/utils/metric/flags/inp";
@@ -14,7 +14,7 @@ export default createRoute(zValidator("query", InpFlagsSchema), (c) => {
   const defaults = InpFlagsSchema.parse({});
 
   return c.render(
-    <MetricTestShell defaults={defaults} flags={flags}>
+    <MetricShell defaults={defaults} flags={flags}>
       <h1 {...elementTiming("main-heading")}>INP Test</h1>
       <InpObserver flags={flags} />
       <MetricChrome defaults={defaults} flags={flags} metric="inp" />
@@ -31,6 +31,6 @@ export default createRoute(zValidator("query", InpFlagsSchema), (c) => {
         massa, rutrum ut leo quis, tempor dapibus dui. Proin in mauris non risus
         maximus tincidunt quis a mauris.
       </p>
-    </MetricTestShell>,
+    </MetricShell>,
   );
 });

@@ -1,4 +1,4 @@
-export function applyWasDiscardedStub() {
+function applyWasDiscardedStub() {
   if (!document.wasDiscarded) {
     Object.defineProperty(document, "wasDiscarded", {
       value: true,
