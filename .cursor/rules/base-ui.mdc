@@ -13,6 +13,4 @@ Before implementing UI, fetch and read https://base-ui.com/llms.txt.
 - **Package:** `@base-ui/react`.
 - **Architecture:** Interactive UI in `app/islands/`, hydrated via `app/client.ts`.
 - **Styling:** Plain CSS only — no Tailwind. Style via `className`.
-- **Example styles:** Start from the **CSS Modules** demo on each component’s docs page (https://base-ui.com/react/components/*). Copy/adapt class rules into global `app/components/*/*.css` (same class names as the demo, e.g. `.Button`), aggregate via [`app/style.css`](app/style.css), and link in `_renderer.tsx` with Honox `Link` — do not use Tailwind.
-- **Wrappers:** Reusable styled primitives live in `app/components/`; interactive flows stay in `app/islands/`.
 - **Composition:** Use `render` and `mergeProps`; avoid extra DOM wrappers.
