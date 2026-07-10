@@ -6,10 +6,11 @@ import { FcpFlagsSchema } from "@/utils/metric/flags/fcp";
 
 export default createRoute(zValidator("query", FcpFlagsSchema), (c) => {
   const flags = c.req.valid("query");
+  const defaults = FcpFlagsSchema.parse({});
 
   return c.render(
     <main>
-      <FlagsEditor flags={flags} />
+      <FlagsEditor defaults={defaults} flags={flags} />
     </main>,
   );
 });

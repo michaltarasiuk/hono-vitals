@@ -6,10 +6,11 @@ import { TtfbFlagsSchema } from "@/utils/metric/flags/ttfb";
 
 export default createRoute(zValidator("query", TtfbFlagsSchema), (c) => {
   const flags = c.req.valid("query");
+  const defaults = TtfbFlagsSchema.parse({});
 
   return c.render(
     <main>
-      <FlagsEditor flags={flags} />
+      <FlagsEditor defaults={defaults} flags={flags} />
     </main>,
   );
 });

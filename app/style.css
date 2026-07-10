@@ -1,6 +1,7 @@
 @import "./components/button/button.css";
 @import "./components/dialog/dialog.css";
 @import "./components/field/field.css";
+@import "./components/number-field/number-field.css";
 @import "./components/switch/switch.css";
 
 html {

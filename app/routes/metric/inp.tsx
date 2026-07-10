@@ -6,10 +6,11 @@ import { InpFlagsSchema } from "@/utils/metric/flags/inp";
 
 export default createRoute(zValidator("query", InpFlagsSchema), (c) => {
   const flags = c.req.valid("query");
+  const defaults = InpFlagsSchema.parse({});
 
   return c.render(
     <main>
-      <FlagsEditor flags={flags} />
+      <FlagsEditor defaults={defaults} flags={flags} />
     </main>,
   );
 });
