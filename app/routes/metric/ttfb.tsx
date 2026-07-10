@@ -14,7 +14,7 @@ export default createRoute(zValidator("query", TtfbFlagsSchema), (c) => {
   const defaults = TtfbFlagsSchema.parse({});
 
   return c.render(
-    <MetricShell defaults={defaults} flags={flags}>
+    <MetricShell defaults={defaults} flags={flags} metric="ttfb">
       <h1 {...elementTiming("main-heading")}>TTFB Test</h1>
       <p>
         <img

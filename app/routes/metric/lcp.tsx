@@ -14,7 +14,7 @@ export default createRoute(zValidator("query", LcpFlagsSchema), (c) => {
   const defaults = LcpFlagsSchema.parse({});
 
   return c.render(
-    <MetricShell defaults={defaults} flags={flags}>
+    <MetricShell defaults={defaults} flags={flags} metric="lcp">
       <h1 {...elementTiming("main-heading")}>LCP Test</h1>
       <p>
         <img

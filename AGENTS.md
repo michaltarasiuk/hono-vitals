@@ -53,8 +53,9 @@ hono-vitals/
 │   │   ├── dialog/
 │   │   ├── field/
 │   │   ├── metric/
-│   │   │   ├── nav.tsx        # Home-only metric nav links
-│   │   │   └── shell.tsx      # Shared metric page shell + chrome links
+│   │   │   ├── nav.tsx        # Metric nav links
+│   │   │   ├── shell.tsx      # Shared metric page shell + chrome links
+│   │   │   └── toolbar.css    # Sticky header: nav + Edit flags
 │   │   ├── number-field/
 │   │   └── switch/
 │   └── islands/               # Interactive client components (hydrated)
