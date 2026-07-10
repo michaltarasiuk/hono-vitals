@@ -1,0 +1,18 @@
+---
+description: Base UI component docs and conventions for this project
+globs: app/**/*.{ts,tsx}
+alwaysApply: false
+---
+
+# Base UI Integration Guidelines
+
+Before implementing any UI components, you **MUST** consult the official documentation:
+* **Core Index:** Fetch and read [https://base-ui.com/llms.txt](https://base-ui.com/llms.txt).
+* **Component Details:** For a specific component or handbook topic, follow the linked `.md` URLs provided in the index (e.g., `https://base-ui.com/react/components/dialog.md`).
+
+## Project Specifics
+
+* **Package:** Always use `@base-ui/react` for composable, unstyled primitives.
+* **Architecture:** Islands and interactive UI components must be placed in `app/islands/` and hydrated via `app/client.ts`.
+* **Styling (Plain CSS):** Do not use Tailwind CSS. We style components using plain CSS files. When referencing Base UI documentation, look at the plain CSS or CSS Modules examples and apply styles via the `className` prop using our project's stylesheet structure.
+* **Composition:** Leverage Base UI parts alongside the `render` and `mergeProps` patterns outlined in the handbook. Strictly avoid wrapping components in unnecessary DOM layers.
