@@ -38,14 +38,26 @@ hono-vitals/
 │   ├── client.ts              # Island hydration entry (honox/client)
 │   ├── global.d.ts            # React renderer type augmentation
 │   ├── routes/
-│   │   └── _renderer.tsx      # HTML shell, loads client bundle
+│   │   ├── _renderer.tsx      # HTML shell, loads client bundle
+│   │   └── metric/            # Demo routes per metric (/metric/cls, …)
+│   │       ├── cls.tsx
+│   │       ├── fcp.tsx
+│   │       ├── inp.tsx
+│   │       ├── lcp.tsx
+│   │       └── ttfb.tsx
 │   └── islands/               # Interactive client components (hydrated)
 │       └── island.tsx         # CLS observer island
 ├── utils/
 │   ├── metric/
-│   │   ├── schema.ts          # Shared Zod schema for web-vitals Metric payloads
-│   │   └── report.ts          # sendBeacon helper → POST /collect
-│   ├── to-safe-object.ts      # Strip functions / EventTargets before JSON serialization
+│   │   └── flags/             # Per-route query flag Zod schemas
+│   │       ├── coerce.ts      # queryBoolean helper (enable/disable flags only)
+│   │       ├── shared.ts      # BaseMetricFlagsSchema
+│   │       ├── cls.ts         # ClsFlagsSchema
+│   │       ├── fcp.ts         # FcpFlagsSchema
+│   │       ├── inp.ts         # InpFlagsSchema
+│   │       ├── lcp.ts         # LcpFlagsSchema
+│   │       └── ttfb.ts        # TtfbFlagsSchema
+│   ├── metric-schema.ts       # Shared Zod schema for web-vitals Metric payloads
 │   └── delay.ts               # Async delay helper (static asset middleware)
 ├── static/                    # Public assets served at /static/*
 │   └── square.png
@@ -69,7 +81,7 @@ navigator.sendBeacon           toSafeObject on client
 
 ### Metric payload shape
 
-Validated by `utils/metric/schema.ts` — mirrors the [`web-vitals` `Metric`](https://github.com/GoogleChrome/web-vitals#metric) interface:
+Validated by `utils/metric-schema.ts` — mirrors the [`web-vitals` `Metric`](https://github.com/GoogleChrome/web-vitals#metric) interface:
 
 - `name` — `"CLS" | "FCP" | "INP" | "LCP" | "TTFB"`
 - `value`, `delta`, `rating`, `id`, `entries`, `navigationType`
@@ -85,6 +97,11 @@ Always reuse `MetricSchema` for server validation. Do not duplicate field defini
 - **Architecture:** Custom routes and middleware live in `app/server.ts`. Honox file routes live under `app/routes/`.
 - **Validation:** Strictly use `@hono/zod-validator` with shared Zod schemas from `utils/`.
 - **Static assets:** Served at `/static/*` from `./static`. Optional `?delay=<ms>` query param for load-testing.
+
+### Metric demo routes (`app/routes/metric/`)
+
+- **URLs:** `/metric/cls`, `/metric/fcp`, `/metric/inp`, `/metric/lcp`, `/metric/ttfb` — mirrors [web-vitals test views](https://github.com/GoogleChrome/web-vitals/tree/main/test/views).
+- **Validation:** Each route uses `zValidator('query', XxxFlagsSchema)` — import directly from `utils/metric/flags/{cls,fcp,...}.ts`. Flags are **boolean only** (enable/disable toggles).
 
 ### Client islands (`app/islands/`)
 
