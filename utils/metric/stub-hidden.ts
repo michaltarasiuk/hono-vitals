@@ -1,4 +1,4 @@
-export function applyHiddenPageStub() {
+function applyHiddenPageStub() {
   Object.defineProperty(document, "visibilityState", {
     value: "hidden",
     configurable: true,

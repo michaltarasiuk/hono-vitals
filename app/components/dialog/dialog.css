@@ -68,17 +68,6 @@
   font-weight: 700;
 }
 
-.Description {
-  margin: 0;
-  font-size: 0.875rem;
-  line-height: 1.25rem;
-  color: oklch(43.9% 0 0deg);
-
-  @media (prefers-color-scheme: dark) {
-    color: oklch(70.8% 0 0deg);
-  }
-}
-
 .Actions {
   display: flex;
   justify-content: end;

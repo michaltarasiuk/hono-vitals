@@ -10,17 +10,17 @@ import {
 import { HIDDEN_PAGE_STUB_SCRIPT } from "@/utils/metric/stub-hidden";
 import { WAS_DISCARDED_STUB_SCRIPT } from "@/utils/metric/stub-was-discarded";
 
-interface MetricTestShellProps {
+interface MetricShellProps {
   children: ReactNode;
   defaults: Record<string, FlagValue>;
   flags: Record<string, FlagValue>;
 }
 
-export function MetricTestShell({
+export function MetricShell({
   children,
   defaults,
   flags,
-}: MetricTestShellProps) {
+}: MetricShellProps) {
   const renderBlocking =
     typeof flags.renderBlocking === "number" ? flags.renderBlocking : 0;
   const delayDCL = typeof flags.delayDCL === "number" ? flags.delayDCL : 0;

@@ -1,12 +1,10 @@
 import { afterElementsRendered, afterFirstInput, afterLoad } from "./ready";
 
-export interface LoadWebVitalsOptions {
+export async function loadWebVitals(options: {
   attribution?: boolean;
   lazyLoad?: boolean;
   loadAfterInput?: boolean;
-}
-
-export async function loadWebVitals(options: LoadWebVitalsOptions) {
+}) {
   const readyPromises: Promise<void>[] = [];
 
   if (options.lazyLoad) {
