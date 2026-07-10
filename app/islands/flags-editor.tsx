@@ -21,6 +21,7 @@ export default function FlagsEditor({ flags }: FlagsEditorProps) {
       setDraft(flags);
     }
   }
+
   function handleSave() {
     applyFlags(draft);
   }
