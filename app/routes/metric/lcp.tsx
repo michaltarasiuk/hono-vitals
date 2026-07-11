@@ -17,7 +17,7 @@ export default createRoute(zValidator("query", LcpFlagsSchema), (c) => {
         <img
           data-target="main-image"
           hidden={flags.imgHidden}
-          src={`/static/square.png?delay=${flags.imgDelay}`}
+          src={`/public/square.png?delay=${flags.imgDelay}`}
           {...elementTiming("main-image")}
           {...(flags.removeElement ? { id: "lcp-image" } : {})}
         />

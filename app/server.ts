@@ -15,8 +15,8 @@ const StaticQuerySchema = z.object({
 });
 
 app
-  .use("/static/*", zValidator("query", StaticQuerySchema))
-  .use("/static/*", async (context, next) => {
+  .use("/public/*", zValidator("query", StaticQuerySchema))
+  .use("/public/*", async (context, next) => {
     const { delay: timeout } = context.req.valid("query") as z.infer<
       typeof StaticQuerySchema
     >;
@@ -26,7 +26,7 @@ app
     await next();
   })
   .use(
-    "/static/*",
+    "/public/*",
     serveStatic({
       root: ".",
     }),
