@@ -108,8 +108,8 @@ hono-vitals/
 │   │   └── summary.ts         # Aggregated count, avg, p75, rating breakdown query
 │   ├── assert-never.ts        # Exhaustive switch default helper
 │   ├── format-flag-label.ts   # camelCase flag keys → readable labels
-│   └── delay.ts               # Async delay helper (static asset middleware)
-├── static/                    # Public assets served at /static/*
+│   └── delay.ts               # Async delay helper (public asset middleware)
+├── public/                    # Demo assets served at /public/*
 │   ├── square.png
 │   └── metric/
 │       ├── async.js           # Async script for delayLoad flag
@@ -153,7 +153,7 @@ Always reuse `MetricSchema` for server validation. Do not duplicate field defini
 
 - **Architecture:** Custom routes and middleware live in `app/server.ts`. Honox file routes live under `app/routes/`.
 - **Validation:** Strictly use `@hono/zod-validator` with shared Zod schemas from `utils/`.
-- **Static assets:** Served at `/static/*` from `./static`. Optional `?delay=<ms>` query param for load-testing.
+- **Public assets:** Served at `/public/*` from `./public`. Optional `?delay=<ms>` query param for load-testing. `publicDir` is disabled in Vite so assets are not served at root paths; the build copies `public/` to `dist/public/`.
 - **Collect:** `POST /collect` validates with `MetricSchema`, inserts via `utils/clickhouse/insert-metric.ts`, returns `204` or `500` with no body.
 - **Summary API:** `GET /api/metrics/summary` returns aggregated stats validated by `MetricsSummaryResponseSchema`.
 
