@@ -168,7 +168,7 @@ Always reuse `MetricSchema` for server validation. Do not duplicate field defini
 
 - **Local:** Copy `.env.example` to `.env`. [Bun loads `.env` automatically](https://bun.sh/docs/runtime/env) when the process starts (`bun run dev`, `bun run start`, `bun run clickhouse:init`).
 - **Validation:** `utils/env.ts` reads `process.env` and validates with Zod — no custom loader.
-- **Vite / Honox:** `vite.config.ts` sets `define: { 'process.env': 'process.env' }` so production builds do not replace env with `{}` ([honox#307](https://github.com/honojs/honox/issues/307)). Server secrets stay in `.env`; do not use `VITE_` prefixes (those are exposed to the client).
+- **Vite / Honox:** `vite.config.ts` sets `define: { 'process.env': 'process.env' }` only for the production SSR build so Bun can read env at runtime ([honox#307](https://github.com/honojs/honox/issues/307)). Do not apply in dev — `@vite/client` loads `env.mjs` in the browser and would throw `process is not defined`. Server secrets stay in `.env`; do not use `VITE_` prefixes (those are exposed to the client).
 - **Production:** For `bun run start` (`cd dist`), place `.env` in `dist/` or set vars in the shell. Restart the dev server after changing `.env`.
 
 ### ClickHouse
