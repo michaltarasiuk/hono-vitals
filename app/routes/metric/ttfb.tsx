@@ -4,14 +4,13 @@ import { createRoute } from "honox/factory";
 import { MetricChrome, MetricShell } from "@/app/components/shell";
 import TtfbObserver from "@/app/islands/ttfb";
 import { elementTiming } from "@/utils/metric/element-timing";
-import { TtfbFlagsSchema } from "@/utils/metric/flags/ttfb";
+import { TtfbFlagsSchema, ttfbFlagDefaults } from "@/utils/metric/flags/ttfb";
 
 export default createRoute(zValidator("query", TtfbFlagsSchema), (c) => {
   const flags = c.req.valid("query");
-  const defaults = TtfbFlagsSchema.parse({});
 
   return c.render(
-    <MetricShell metric="ttfb" flags={flags} defaults={defaults}>
+    <MetricShell metric="ttfb" flags={flags} defaults={ttfbFlagDefaults}>
       <h1 {...elementTiming("main-heading")}>TTFB Test</h1>
       <p>
         <img
@@ -22,7 +21,7 @@ export default createRoute(zValidator("query", TtfbFlagsSchema), (c) => {
         />
       </p>
       <p>Text below the image</p>
-      <MetricChrome metric="ttfb" flags={flags} defaults={defaults} />
+      <MetricChrome metric="ttfb" />
       <TtfbObserver flags={flags} />
     </MetricShell>,
   );

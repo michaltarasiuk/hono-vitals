@@ -1,6 +1,7 @@
 import * as z from "zod";
 
 import { queryBoolean, queryNumberDefault } from "./coerce";
+import { schemaDefaults } from "./defaults";
 import { BaseMetricFlagsSchema } from "./shared";
 
 export const TtfbFlagsSchema = BaseMetricFlagsSchema.extend({
@@ -10,3 +11,5 @@ export const TtfbFlagsSchema = BaseMetricFlagsSchema.extend({
 });
 
 export type TtfbFlags = z.infer<typeof TtfbFlagsSchema>;
+
+export const ttfbFlagDefaults = schemaDefaults(TtfbFlagsSchema);

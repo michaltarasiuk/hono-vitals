@@ -4,14 +4,13 @@ import { createRoute } from "honox/factory";
 import { MetricChrome, MetricShell } from "@/app/components/shell";
 import ClsObserver from "@/app/islands/cls";
 import { elementTiming } from "@/utils/metric/element-timing";
-import { ClsFlagsSchema } from "@/utils/metric/flags/cls";
+import { ClsFlagsSchema, clsFlagDefaults } from "@/utils/metric/flags/cls";
 
 export default createRoute(zValidator("query", ClsFlagsSchema), (c) => {
   const flags = c.req.valid("query");
-  const defaults = ClsFlagsSchema.parse({});
 
   return c.render(
-    <MetricShell metric="cls" flags={flags} defaults={defaults}>
+    <MetricShell metric="cls" flags={flags} defaults={clsFlagDefaults}>
       <h1 {...elementTiming("main-heading")}>CLS Test</h1>
       {flags.noLayoutShifts ? (
         <p>This text does not shift.</p>
@@ -37,7 +36,7 @@ export default createRoute(zValidator("query", ClsFlagsSchema), (c) => {
           <p>Text below the images that will get pushed down.</p>
         </>
       )}
-      <MetricChrome metric="cls" flags={flags} defaults={defaults} />
+      <MetricChrome metric="cls" />
       <ClsObserver flags={flags} />
     </MetricShell>,
   );
