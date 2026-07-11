@@ -110,6 +110,7 @@ hono-vitals/
 │   ├── format-flag-label.ts   # camelCase flag keys → readable labels
 │   └── delay.ts               # Async delay helper (public asset middleware)
 ├── public/                    # Demo assets served at /public/*
+│   ├── favicon.svg
 │   ├── square.png
 │   └── metric/
 │       ├── async.js           # Async script for delayLoad flag
