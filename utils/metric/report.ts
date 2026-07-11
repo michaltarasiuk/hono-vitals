@@ -1,8 +1,10 @@
 import { toSafeObject } from "./to-safe-object";
 
 export function reportMetric(metric: object) {
+  const body = JSON.stringify({ metric: toSafeObject(metric) });
+
   navigator.sendBeacon(
     "/collect",
-    JSON.stringify({ metric: toSafeObject(metric) }),
+    new Blob([body], { type: "application/json" }),
   );
 }
