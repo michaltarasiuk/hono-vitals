@@ -11,7 +11,7 @@ html {
   font-family: Inter, system-ui;
 }
 
-.metric-test {
+.metric-shell {
   border: 1px solid transparent;
   box-sizing: border-box;
   min-height: 100vh;
@@ -20,12 +20,12 @@ html {
   width: 100%;
 }
 
-.metric-test *,
-.metric-test *::before,
-.metric-test *::after {
+.metric-shell *,
+.metric-shell *::before,
+.metric-shell *::after {
   box-sizing: border-box;
 }
 
-.metric-test [hidden] {
+.metric-shell [hidden] {
   visibility: hidden;
 }

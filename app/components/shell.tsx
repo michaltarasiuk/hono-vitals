@@ -36,7 +36,7 @@ export function MetricShell({
       <MetricToolbar currentPath={`/metric/${metric}`}>
         <FlagsEditor flags={flags} defaults={defaults} />
       </MetricToolbar>
-      <main className="metric-test" {...(htmlHidden ? { hidden: true } : {})}>
+      <main className="metric-shell" {...(htmlHidden ? { hidden: true } : {})}>
         {renderBlocking > 0 ? (
           <link
             href={`/static/metric/styles.css?delay=${renderBlocking}`}
