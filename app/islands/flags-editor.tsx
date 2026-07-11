@@ -15,6 +15,9 @@ interface FlagsEditorProps {
   defaults: Record<string, FlagValue>;
 }
 
+/** Stable id so island hydration matches full-page SSR (Honox useId path differs). */
+const FLAGS_EDITOR_TRIGGER_ID = "metric-flags-trigger";
+
 export default function FlagsEditor({ flags, defaults }: FlagsEditorProps) {
   const [open, setOpen] = useState(false);
   const [draft, setDraft] = useState(flags);
@@ -31,8 +34,14 @@ export default function FlagsEditor({ flags, defaults }: FlagsEditorProps) {
   }
 
   return (
-    <Dialog.Root open={open} onOpenChange={handleOpenChange}>
-      <Dialog.Trigger render={<Button />}>Edit flags</Dialog.Trigger>
+    <Dialog.Root
+      open={open}
+      onOpenChange={handleOpenChange}
+      triggerId={FLAGS_EDITOR_TRIGGER_ID}
+    >
+      <Dialog.Trigger id={FLAGS_EDITOR_TRIGGER_ID} render={<Button />}>
+        Edit flags
+      </Dialog.Trigger>
       <Dialog.Portal>
         <Dialog.Backdrop />
         <Dialog.Popup>
