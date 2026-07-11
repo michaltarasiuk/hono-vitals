@@ -9,13 +9,13 @@ export function MetricNav({ currentPath }: MetricNavProps) {
     <nav className="MetricNav">
       {METRIC_NAV.map(({ href, label }) => (
         <a
+          key={href}
+          href={href}
           className={
             currentPath === href
               ? "MetricNavLink MetricNavLinkActive"
               : "MetricNavLink"
           }
-          href={href}
-          key={href}
         >
           {label}
         </a>

@@ -11,17 +11,17 @@ export default createRoute(zValidator("query", TtfbFlagsSchema), (c) => {
   const defaults = TtfbFlagsSchema.parse({});
 
   return c.render(
-    <MetricShell defaults={defaults} flags={flags} metric="ttfb">
+    <MetricShell metric="ttfb" flags={flags} defaults={defaults}>
       <h1 {...elementTiming("main-heading")}>TTFB Test</h1>
       <p>
         <img
-          {...elementTiming("main-image")}
-          hidden={flags.imgHidden}
           src={`/static/square.png?delay=${flags.imgDelay}`}
+          hidden={flags.imgHidden}
+          {...elementTiming("main-image")}
         />
       </p>
       <p>Text below the image</p>
-      <MetricChrome defaults={defaults} flags={flags} metric="ttfb" />
+      <MetricChrome metric="ttfb" flags={flags} defaults={defaults} />
       <TtfbObserver flags={flags} />
     </MetricShell>,
   );

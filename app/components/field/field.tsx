@@ -1,8 +1,8 @@
 import { Field as BaseField } from "@base-ui/react/field";
 
 function Root({
-  children,
   className,
+  children,
   ...props
 }: React.ComponentProps<typeof BaseField.Root>) {
   return (
@@ -16,8 +16,8 @@ function Root({
 }
 
 function Label({
-  children,
   className,
+  children,
   ...props
 }: React.ComponentProps<typeof BaseField.Label>) {
   return (

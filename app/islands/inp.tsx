@@ -80,9 +80,9 @@ export default function InpObserver({ flags }: InpObserverProps) {
           <label key={eventName}>
             {eventName} blocking time
             <input
-              defaultValue={typeof value === "number" ? value : 0}
               id={`${eventName}-blocking-time`}
               type="number"
+              defaultValue={typeof value === "number" ? value : 0}
             />
           </label>
         );
