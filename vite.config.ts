@@ -52,20 +52,7 @@ export default defineConfig(({ command, mode }) => {
         },
         devServer: { adapter },
       }),
-      build({
-        entryContentBeforeHooks: [
-          async (appName, options) => {
-            const paths = (options?.staticPaths ?? []).filter(
-              (path) => path !== "/public/*",
-            );
-            let code = "import { serveStatic } from 'hono/bun'\n";
-            for (const path of paths) {
-              code += `${appName}.use('${path}', serveStatic({ root: './' }))\n`;
-            }
-            return code;
-          },
-        ],
-      }),
+      build(),
     ],
   };
 });
