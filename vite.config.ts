@@ -9,6 +9,9 @@ const root = fileURLToPath(new URL(".", import.meta.url));
 export default defineConfig(({ mode }) => {
   if (mode === "client") {
     return {
+      define: {
+        "process.env": "process.env",
+      },
       resolve: {
         alias: {
           "@": root,
@@ -24,6 +27,9 @@ export default defineConfig(({ mode }) => {
     };
   }
   return {
+    define: {
+      "process.env": "process.env",
+    },
     resolve: {
       alias: {
         "@": root,
@@ -35,6 +41,7 @@ export default defineConfig(({ mode }) => {
         "react-dom",
         "use-sync-external-store",
         "use-sync-external-store/shim",
+        "@clickhouse/client",
       ],
     },
     plugins: [
