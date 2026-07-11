@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 
 import type { FlagValue } from "@/utils/metric/flags/serialize";
 
-import { MetricNav } from "@/app/components/metric/nav";
+import { MetricToolbar } from "@/app/components/metric/toolbar";
 import FlagsEditor from "@/app/islands/flags-editor";
 import {
   prerenderHref,
@@ -32,10 +32,9 @@ export function MetricShell({
 
   return (
     <>
-      <header className="MetricToolbar">
-        <MetricNav currentPath={`/metric/${metric}`} />
+      <MetricToolbar currentPath={`/metric/${metric}`}>
         <FlagsEditor defaults={defaults} flags={flags} />
-      </header>
+      </MetricToolbar>
       <main className="metric-test" {...(htmlHidden ? { hidden: true } : {})}>
         {renderBlocking > 0 ? (
           <link

@@ -9,6 +9,7 @@
 
 .MetricNavLink {
   font-size: 0.875rem;
+  font-weight: 500;
   line-height: 1.25rem;
   color: oklch(14.5% 0 0deg);
   text-decoration-color: oklch(87% 0 0deg);
@@ -39,6 +40,5 @@
 
   &.MetricNavLinkActive {
     text-decoration-line: underline;
-    font-weight: 500;
   }
 }
