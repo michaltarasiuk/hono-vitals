@@ -87,7 +87,8 @@ hono-vitals/
 │   │   ├── stub-was-discarded.ts # wasDiscarded flag stub
 │   │   ├── to-safe-object.ts  # Serialize metric payloads for beacons
 │   │   └── flags/             # Per-route query flag Zod schemas
-│   │       ├── coerce.ts      # queryBoolean, queryNumberDefault
+│   │       ├── coerce.ts      # queryBoolean, queryNumberDefault (Zod prefault)
+│   │       ├── defaults.ts    # schemaDefaults — derive flag defaults from a schema
 │   │       ├── serialize.ts   # applyFlags — URL navigation on save
 │   │       ├── sort-flag-entries.ts # booleans first, then numbers
 │   │       ├── shared.ts      # BaseMetricFlagsSchema
@@ -182,7 +183,7 @@ Always reuse `MetricSchema` for server validation. Do not duplicate field defini
 
 - **URLs:** `/metric/cls`, `/metric/fcp`, `/metric/inp`, `/metric/lcp`, `/metric/ttfb` — mirrors [web-vitals test views](https://github.com/GoogleChrome/web-vitals/tree/main/test/views).
 - **Validation:** Each route uses `zValidator('query', XxxFlagsSchema)` — import directly from `utils/metric/flags/{cls,fcp,...}.ts`. Flags are booleans or numbers. Booleans use `queryBoolean` (`z.coerce.boolean().default(false)`); numbers use `queryNumberDefault(n)` or `queryNumberDefault()` when optional. Parsed output always contains every key.
-- **Editor:** Each route renders `MetricShell` (includes `FlagsEditor`) with validated `flags` and `defaults` (`XxxFlagsSchema.parse({})`). Booleans render as `Switch`; numbers as `NumberField`. List is sorted booleans first, then numbers.
+- **Editor:** Each route renders `MetricShell` (includes `FlagsEditor`) with validated `flags` and co-located defaults (e.g. `clsFlagDefaults` from `utils/metric/flags/cls.ts`). Booleans render as `Switch`; numbers as `NumberField`. List is sorted booleans first, then numbers. `MetricChrome` reads flags/defaults from `MetricShell` context via `useMetricFlags()`.
 - **Markup:** SSR content mirrors [web-vitals test views](https://github.com/GoogleChrome/web-vitals/tree/main/test/views); observers live in `app/islands/{cls,fcp,...}.tsx`.
 
 ### Client islands (`app/islands/`)

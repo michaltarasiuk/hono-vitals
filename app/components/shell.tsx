@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import { createContext, use, type ReactNode } from "react";
 
 import type { FlagValue } from "@/utils/metric/flags/serialize";
 import type { MetricSlug } from "@/utils/metric/metrics";
@@ -11,6 +11,21 @@ import {
 } from "@/utils/metric/prerender-href";
 import { HIDDEN_PAGE_STUB_SCRIPT } from "@/utils/metric/stub-hidden";
 import { WAS_DISCARDED_STUB_SCRIPT } from "@/utils/metric/stub-was-discarded";
+
+interface MetricFlagsContextValue {
+  flags: Record<string, FlagValue>;
+  defaults: Record<string, FlagValue>;
+}
+
+const MetricFlagsContext = createContext<MetricFlagsContextValue | null>(null);
+
+export function useMetricFlags() {
+  const value = use(MetricFlagsContext);
+  if (!value) {
+    throw new Error("useMetricFlags must be used within MetricShell");
+  }
+  return value;
+}
 
 interface MetricShellProps {
   metric: MetricSlug;
@@ -32,7 +47,7 @@ export function MetricShell({
   const htmlHidden = Boolean(flags.hidden || flags.invisible);
 
   return (
-    <>
+    <MetricFlagsContext value={{ flags, defaults }}>
       <MetricToolbar currentPath={`/metric/${metric}`}>
         <FlagsEditor flags={flags} defaults={defaults} />
       </MetricToolbar>
@@ -61,17 +76,16 @@ export function MetricShell({
           <script src={`/public/metric/async.js?delay=${delayLoad}`} async />
         ) : null}
       </main>
-    </>
+    </MetricFlagsContext>
   );
 }
 
 interface MetricChromeProps {
   metric: MetricSlug;
-  flags: Record<string, FlagValue>;
-  defaults: Record<string, FlagValue>;
 }
 
-export function MetricChrome({ metric, flags, defaults }: MetricChromeProps) {
+export function MetricChrome({ metric }: MetricChromeProps) {
+  const { flags, defaults } = useMetricFlags();
   const href = prerenderHref(metric, flags, defaults);
 
   return (

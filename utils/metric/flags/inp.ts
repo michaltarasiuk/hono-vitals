@@ -1,6 +1,7 @@
 import * as z from "zod";
 
 import { queryNumberDefault } from "./coerce";
+import { schemaDefaults } from "./defaults";
 import { BaseMetricFlagsSchema } from "./shared";
 
 export const InpFlagsSchema = BaseMetricFlagsSchema.extend({
@@ -16,3 +17,5 @@ export const InpFlagsSchema = BaseMetricFlagsSchema.extend({
 });
 
 export type InpFlags = z.infer<typeof InpFlagsSchema>;
+
+export const inpFlagDefaults = schemaDefaults(InpFlagsSchema);
