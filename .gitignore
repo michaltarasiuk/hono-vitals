@@ -1,5 +1,13 @@
 # deps
 node_modules/
 
+# env
+.env
+
 # build
 dist/
+
+# local clickhouse server artifacts (project uses ClickHouse Cloud)
+.clickhouse/
+access/
+preprocessed_configs/
