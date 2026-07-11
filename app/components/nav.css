@@ -11,16 +11,11 @@
   font-size: 0.875rem;
   font-weight: 500;
   line-height: 1.25rem;
-  color: oklch(14.5% 0 0deg);
-  text-decoration-color: oklch(87% 0 0deg);
+  color: var(--foreground);
+  text-decoration-color: var(--border-subtle);
   text-decoration-thickness: 1px;
   text-decoration-line: none;
   text-underline-offset: 2px;
-
-  @media (prefers-color-scheme: dark) {
-    color: white;
-    text-decoration-color: oklch(37.1% 0 0deg);
-  }
 
   @media (hover: hover) {
     &:hover {
@@ -29,13 +24,9 @@
   }
 
   &:focus-visible {
-    outline: 2px solid oklch(14.5% 0 0deg);
+    outline: 2px solid var(--foreground);
     outline-offset: 2px;
     text-decoration-line: none;
-
-    @media (prefers-color-scheme: dark) {
-      outline-color: white;
-    }
   }
 
   &.MetricNavLinkActive {

@@ -6,12 +6,12 @@
   opacity: 0.2;
   transition: opacity 150ms;
 
-  @supports (-webkit-touch-callout: none) {
-    position: absolute;
-  }
-
   @media (prefers-color-scheme: dark) {
     opacity: 0.5;
+  }
+
+  @supports (-webkit-touch-callout: none) {
+    position: absolute;
   }
 
   &[data-starting-style],
@@ -33,20 +33,13 @@
   max-width: calc(100vw - 3rem);
   margin-top: -2rem;
   padding: 1rem;
-  border: 1px solid oklch(14.5% 0 0deg);
-  background-color: white;
-  color: oklch(14.5% 0 0deg);
-  box-shadow: 0.25rem 0.25rem 0 rgb(0 0 0 / 12%);
+  border: 1px solid var(--border);
+  background-color: var(--background);
+  color: var(--foreground);
+  box-shadow: var(--shadow-offset);
   transition:
     transform 100ms ease-out,
     opacity 100ms ease-out;
-
-  @media (prefers-color-scheme: dark) {
-    border: 1px solid white;
-    background-color: oklch(14.5% 0 0deg);
-    color: white;
-    box-shadow: none;
-  }
 
   &[data-starting-style],
   &[data-ending-style] {

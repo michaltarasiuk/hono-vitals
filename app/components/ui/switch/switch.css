@@ -2,54 +2,33 @@
   box-sizing: border-box;
   display: flex;
   flex-shrink: 0;
-  border: 1px solid oklch(14.5% 0 0deg);
+  border: 1px solid var(--border);
   padding: 0.125rem;
   width: 2.25rem;
   height: 1.25rem;
-  background-color: white;
+  background-color: var(--background);
   transition: background-color 150ms ease;
 
-  @media (prefers-color-scheme: dark) {
-    border: 1px solid white;
-    background-color: oklch(14.5% 0 0deg);
-  }
-
   &[data-checked] {
-    background-color: oklch(14.5% 0 0deg);
-
-    @media (prefers-color-scheme: dark) {
-      background-color: white;
-    }
+    background-color: var(--foreground);
   }
 
   &:focus-visible {
-    outline: 2px solid oklch(14.5% 0 0deg);
+    outline: 2px solid var(--foreground);
     outline-offset: 2px;
-
-    @media (prefers-color-scheme: dark) {
-      outline-color: white;
-    }
   }
 }
 
 .Thumb {
   width: 0.875rem;
   height: 0.875rem;
-  background-color: oklch(14.5% 0 0deg);
+  background-color: var(--foreground);
   transition:
     translate 150ms ease,
     background-color 150ms ease;
 
-  @media (prefers-color-scheme: dark) {
-    background-color: white;
-  }
-
   &[data-checked] {
     translate: 1rem 0;
-    background-color: white;
-
-    @media (prefers-color-scheme: dark) {
-      background-color: oklch(14.5% 0 0deg);
-    }
+    background-color: var(--background);
   }
 }
