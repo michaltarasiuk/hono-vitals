@@ -15,8 +15,9 @@ export default createRoute(zValidator("query", FcpFlagsSchema), (c) => {
       <h1 {...elementTiming("main-heading")}>FCP Test</h1>
       <p>
         <img
-          hidden={flags.imgHidden}
           src={`/public/square.png?delay=${flags.imgDelay}`}
+          alt="Gray square"
+          hidden={flags.imgHidden}
           {...elementTiming("main-image")}
         />
       </p>
