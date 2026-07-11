@@ -1,0 +1,13 @@
+---
+description: Run Prettier and ESLint fix after editing code
+alwaysApply: true
+---
+
+# Format & lint
+
+After creating or editing project files, run before finishing:
+
+1. `bun run format`
+2. `bun run lint:fix`
+
+Run both even for small changes. If either command modifies files, leave those edits in the working tree unless the user asked you to commit.
