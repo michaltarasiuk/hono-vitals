@@ -35,13 +35,15 @@ Demo app for collecting **Core Web Vitals** in the browser, posting them to a Ho
 ```
 hono-vitals/
 ├── app/
-│   ├── server.ts              # Honox app: routes, middleware, /collect endpoint
+│   ├── server.ts              # Honox app: routes, middleware, /collect, summary API
 │   ├── client.ts              # Island hydration entry (honox/client)
 │   ├── style.css              # Global component styles (linked in _renderer)
+│   ├── tokens.css             # Shared light/dark design tokens (Base UI demo palette)
 │   ├── global.d.ts            # React renderer type augmentation
 │   ├── routes/
 │   │   ├── _renderer.tsx      # HTML shell, Link + Script
-│   │   ├── index.tsx          # Home — links to metric demos
+│   │   ├── index.tsx          # Metrics dashboard — aggregated stats from ClickHouse
+│   │   ├── metrics.tsx        # Redirects to /
 │   │   └── metric/            # Demo routes per metric (/metric/cls, …)
 │   │       ├── cls.tsx
 │   │       ├── fcp.tsx
@@ -50,6 +52,8 @@ hono-vitals/
 │   │       └── ttfb.tsx
 │   ├── components/            # Styled Base UI wrappers (CSS Modules from docs)
 │   │   ├── nav.tsx            # Metric nav links
+│   │   ├── metrics-summary.tsx # Summary cards: count, avg, p75, rating breakdown
+│   │   ├── metrics-summary.css
 │   │   ├── shell.tsx          # Shared metric page shell + chrome links
 │   │   ├── toolbar.css        # Sticky header styles
 │   │   ├── toolbar.tsx        # Shared header: nav + optional actions
@@ -92,7 +96,16 @@ hono-vitals/
 │   │       ├── inp.ts         # InpFlagsSchema
 │   │       ├── lcp.ts         # LcpFlagsSchema
 │   │       └── ttfb.ts        # TtfbFlagsSchema
+│   ├── env.ts                 # Validated env vars from process.env (Bun loads .env)
 │   ├── metric-schema.ts       # Shared Zod schema for web-vitals Metric payloads
+│   ├── metrics-summary-schema.ts # Zod schema for aggregated summary API/page data
+│   ├── format-metric-value.ts # CLS decimals vs ms formatting for display
+│   ├── clickhouse/
+│   │   ├── client.ts          # Singleton @clickhouse/client from env vars
+│   │   ├── init-schema.ts     # Apply schema SQL to ClickHouse Cloud
+│   │   ├── insert-metric.ts   # INSERT validated metric into metrics table
+│   │   ├── sql.ts             # Dedented ClickHouse SQL strings
+│   │   └── summary.ts         # Aggregated count, avg, p75, rating breakdown query
 │   ├── assert-never.ts        # Exhaustive switch default helper
 │   ├── format-flag-label.ts   # camelCase flag keys → readable labels
 │   └── delay.ts               # Async delay helper (static asset middleware)
@@ -102,6 +115,7 @@ hono-vitals/
 │       ├── async.js           # Async script for delayLoad flag
 │       ├── defer.js           # Defer script for delayDCL flag
 │       └── styles.css         # Render-blocking stylesheet for renderBlocking flag
+├── .env.example               # ClickHouse Cloud connection vars
 ├── .cursor/rules/             # Agent rules (git, format, Hono, Base UI)
 ├── vite.config.ts             # Dual build: client bundle + SSR server
 ├── tsconfig.json
@@ -117,7 +131,9 @@ Browser (island)                Hono server                 ClickHouse
 ─────────────────              ─────────────               ──────────
 web-vitals onCLS/onLCP/…  →    POST /collect          →    INSERT metrics
 reportMetric()                 zValidator({ metric: MetricSchema })
-navigator.sendBeacon           toSafeObject on client
+navigator.sendBeacon           insertMetric()              metrics table
+                               GET /api/metrics/summary →  SELECT aggregates
+                               / (SSR)                  ←    getMetricsSummary()
 ```
 
 ### Metric payload shape
@@ -138,6 +154,28 @@ Always reuse `MetricSchema` for server validation. Do not duplicate field defini
 - **Architecture:** Custom routes and middleware live in `app/server.ts`. Honox file routes live under `app/routes/`.
 - **Validation:** Strictly use `@hono/zod-validator` with shared Zod schemas from `utils/`.
 - **Static assets:** Served at `/static/*` from `./static`. Optional `?delay=<ms>` query param for load-testing.
+- **Collect:** `POST /collect` validates with `MetricSchema`, inserts via `utils/clickhouse/insert-metric.ts`, returns `204` or `500` with no body.
+- **Summary API:** `GET /api/metrics/summary` returns aggregated stats validated by `MetricsSummaryResponseSchema`.
+
+### Metrics dashboard (`app/routes/index.tsx`)
+
+- **URL:** `/` — SSR summary page; calls `getMetricsSummary()` directly (no client island).
+- **`/metrics`:** Redirects to `/` for backwards compatibility.
+- **Display:** Per-metric cards with sample count, average, p75, and good/needs-improvement/poor breakdown.
+- **Empty state:** Shows “No metrics collected yet.” when no data has been collected.
+
+### Environment variables
+
+- **Local:** Copy `.env.example` to `.env`. [Bun loads `.env` automatically](https://bun.sh/docs/runtime/env) when the process starts (`bun run dev`, `bun run start`, `bun run clickhouse:init`).
+- **Validation:** `utils/env.ts` reads `process.env` and validates with Zod — no custom loader.
+- **Vite / Honox:** `vite.config.ts` sets `define: { 'process.env': 'process.env' }` so production builds do not replace env with `{}` ([honox#307](https://github.com/honojs/honox/issues/307)). Server secrets stay in `.env`; do not use `VITE_` prefixes (those are exposed to the client).
+- **Production:** For `bun run start` (`cd dist`), place `.env` in `dist/` or set vars in the shell. Restart the dev server after changing `.env`.
+
+### ClickHouse
+
+- **ClickHouse Cloud:** Create a service at [clickhouse.cloud](https://clickhouse.cloud), open **Connect → HTTPS**, and copy the host URL, username, and password into `.env` (see `.env.example`). Use `https://…:8443` for `CLICKHOUSE_URL`. Run `bun run clickhouse:init` once to create the `metrics` table (or run `CREATE_METRICS_TABLE_SQL` from `utils/clickhouse/sql.ts` in the Cloud SQL console).
+- **Table:** `metrics` — DDL in `utils/clickhouse/sql.ts`. Stores `metric_id`, `name`, `value`, `delta`, `rating`, `navigation_type`, `collected_at`.
+- **Client:** `@clickhouse/client` singleton in `utils/clickhouse/client.ts`; required env vars validated by `utils/env.ts` — `CLICKHOUSE_URL`, `CLICKHOUSE_USERNAME`, `CLICKHOUSE_PASSWORD` (see `.env.example`).
 
 ### Metric demo routes (`app/routes/metric/`)
 
@@ -157,7 +195,7 @@ Always reuse `MetricSchema` for server validation. Do not duplicate field defini
 
 - **Package:** Use `@base-ui/react` for composable, unstyled primitives.
 - **Wrappers:** Reusable styled components in `app/components/`; interactive flows in `app/islands/`.
-- **Styling:** Plain global CSS (Base UI class names from docs demos). Aggregate in [`app/style.css`](app/style.css); link via `<Link href="/app/style.css" rel="stylesheet" />` in [`app/routes/_renderer.tsx`](app/routes/_renderer.tsx) so SSR HTML is styled before hydration. No Tailwind.
+- **Styling:** Plain global CSS (Base UI class names from docs demos). Shared light/dark tokens in [`app/tokens.css`](app/tokens.css) via `prefers-color-scheme`; aggregate component styles in [`app/style.css`](app/style.css); link via `<Link href="/app/style.css" rel="stylesheet" />` in [`app/routes/_renderer.tsx`](app/routes/_renderer.tsx) so SSR HTML is styled before hydration. No Tailwind.
 - **Docs:** Before implementing UI, fetch [https://base-ui.com/llms.txt](https://base-ui.com/llms.txt).
 
 ### Hono / Honox
@@ -183,6 +221,7 @@ Always reuse `MetricSchema` for server validation. Do not duplicate field defini
 | Script | Command | Purpose |
 |---|---|---|
 | Dev | `bun run dev` | Vite dev server with Honox |
+| ClickHouse init | `bun run clickhouse:init` | Create `metrics` table in ClickHouse Cloud |
 | Build | `bun run build` | Client bundle + SSR server → `dist/` |
 | Start | `bun run start` | Run production build from `dist/` |
 | Typecheck | `bun run type:check` | `tsc --noEmit` |
