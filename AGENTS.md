@@ -102,7 +102,7 @@ hono-vitals/
 │       ├── async.js           # Async script for delayLoad flag
 │       ├── defer.js           # Defer script for delayDCL flag
 │       └── styles.css         # Render-blocking stylesheet for renderBlocking flag
-├── .cursor/rules/             # Agent rules (git, Hono, Base UI)
+├── .cursor/rules/             # Agent rules (git, format, Hono, Base UI)
 ├── vite.config.ts             # Dual build: client bundle + SSR server
 ├── tsconfig.json
 └── package.json
