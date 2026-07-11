@@ -1,6 +1,6 @@
 import { createRoute } from "honox/factory";
 
-import { MetricToolbar } from "@/app/components/metric/toolbar";
+import { MetricToolbar } from "@/app/components/toolbar";
 
 export default createRoute((c) => {
   return c.render(

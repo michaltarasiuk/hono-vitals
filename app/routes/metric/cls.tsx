@@ -1,7 +1,7 @@
 import { zValidator } from "@hono/zod-validator";
 import { createRoute } from "honox/factory";
 
-import { MetricChrome, MetricShell } from "@/app/components/metric/shell";
+import { MetricChrome, MetricShell } from "@/app/components/shell";
 import ClsObserver from "@/app/islands/cls";
 import { elementTiming } from "@/utils/metric/element-timing";
 import { ClsFlagsSchema } from "@/utils/metric/flags/cls";

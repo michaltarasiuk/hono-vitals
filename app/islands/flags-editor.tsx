@@ -1,10 +1,10 @@
 import { useState } from "react";
 
-import { Button } from "@/app/components/button/button";
-import { Dialog } from "@/app/components/dialog/dialog";
-import { Field } from "@/app/components/field/field";
-import { NumberField } from "@/app/components/number-field/number-field";
-import { Switch } from "@/app/components/switch/switch";
+import { Button } from "@/app/components/ui/button/button";
+import { Dialog } from "@/app/components/ui/dialog/dialog";
+import { Field } from "@/app/components/ui/field/field";
+import { NumberField } from "@/app/components/ui/number-field/number-field";
+import { Switch } from "@/app/components/ui/switch/switch";
 import { assertNever } from "@/utils/assert-never";
 import { formatFlagLabel } from "@/utils/format-flag-label";
 import { applyFlags, type FlagValue } from "@/utils/metric/flags/serialize";
