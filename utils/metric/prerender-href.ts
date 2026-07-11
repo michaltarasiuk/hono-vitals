@@ -1,4 +1,5 @@
 import type { FlagValue } from "@/utils/metric/flags/serialize";
+import type { MetricSlug } from "@/utils/metric/metrics";
 
 function flagsToQueryString(
   flags: Record<string, FlagValue>,
@@ -19,7 +20,7 @@ function flagsToQueryString(
 }
 
 export function prerenderHref(
-  metric: string,
+  metric: MetricSlug,
   flags: Record<string, FlagValue>,
   defaults: Record<string, FlagValue>,
 ) {
