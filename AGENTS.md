@@ -49,16 +49,16 @@ hono-vitals/
 │   │       ├── lcp.tsx
 │   │       └── ttfb.tsx
 │   ├── components/            # Styled Base UI wrappers (CSS Modules from docs)
-│   │   ├── button/
-│   │   ├── dialog/
-│   │   ├── field/
-│   │   ├── metric/
-│   │   │   ├── nav.tsx        # Metric nav links
-│   │   │   ├── shell.tsx      # Shared metric page shell + chrome links
-│   │   │   ├── toolbar.css    # Sticky header styles
-│   │   │   └── toolbar.tsx    # Shared header: nav + optional actions
-│   │   ├── number-field/
-│   │   └── switch/
+│   │   ├── nav.tsx            # Metric nav links
+│   │   ├── shell.tsx          # Shared metric page shell + chrome links
+│   │   ├── toolbar.css        # Sticky header styles
+│   │   ├── toolbar.tsx        # Shared header: nav + optional actions
+│   │   └── ui/
+│   │       ├── button/
+│   │       ├── dialog/
+│   │       ├── field/
+│   │       ├── number-field/
+│   │       └── switch/
 │   └── islands/               # Interactive client components (hydrated)
 │       ├── flags-editor.tsx   # Query-flag editor modal
 │       ├── cls.tsx            # onCLS observer

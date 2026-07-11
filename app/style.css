@@ -1,11 +1,11 @@
 @import "@fontsource/inter/latin.css";
-@import "./components/button/button.css";
-@import "./components/metric/nav.css";
-@import "./components/metric/toolbar.css";
-@import "./components/dialog/dialog.css";
-@import "./components/field/field.css";
-@import "./components/number-field/number-field.css";
-@import "./components/switch/switch.css";
+@import "./components/ui/button/button.css";
+@import "./components/nav.css";
+@import "./components/toolbar.css";
+@import "./components/ui/dialog/dialog.css";
+@import "./components/ui/field/field.css";
+@import "./components/ui/number-field/number-field.css";
+@import "./components/ui/switch/switch.css";
 
 html {
   font-family: Inter, system-ui;
