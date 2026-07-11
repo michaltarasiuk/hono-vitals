@@ -1,7 +1,7 @@
 import { NumberField as BaseNumberField } from "@base-ui/react/number-field";
 import { useId } from "react";
 
-function MinusIcon(props: React.ComponentProps<"svg">) {
+function MinusIcon({ style, ...props }: React.ComponentProps<"svg">) {
   return (
     <svg
       width="16"
@@ -11,15 +11,15 @@ function MinusIcon(props: React.ComponentProps<"svg">) {
       stroke="currentColor"
       strokeLinecap="square"
       strokeLinejoin="round"
+      style={{ display: "block", ...style }}
       {...props}
-      style={{ display: "block", ...props.style }}
     >
       <path d="M1.5 8h13" />
     </svg>
   );
 }
 
-function PlusIcon(props: React.ComponentProps<"svg">) {
+function PlusIcon({ style, ...props }: React.ComponentProps<"svg">) {
   return (
     <svg
       width="16"
@@ -29,8 +29,8 @@ function PlusIcon(props: React.ComponentProps<"svg">) {
       stroke="currentColor"
       strokeLinecap="square"
       strokeLinejoin="round"
+      style={{ display: "block", ...style }}
       {...props}
-      style={{ display: "block", ...props.style }}
     >
       <path d="M1.5 8h13M8 14.5v-13" />
     </svg>
@@ -38,32 +38,32 @@ function PlusIcon(props: React.ComponentProps<"svg">) {
 }
 
 interface NumberFieldProps {
-  min?: number;
   name?: string;
-  onValueChange: (value: number) => void;
-  step?: number;
   value: number;
+  min?: number;
+  step?: number;
+  onValueChange: (value: number) => void;
 }
 
 export function NumberField({
-  min = 0,
   name,
-  onValueChange,
-  step = 1,
   value,
+  min = 0,
+  step = 1,
+  onValueChange,
 }: NumberFieldProps) {
   const id = useId();
 
   return (
     <BaseNumberField.Root
       id={id}
-      min={min}
       name={name}
+      value={value}
+      min={min}
+      step={step}
       onValueChange={(next) => {
         onValueChange(next ?? 0);
       }}
-      step={step}
-      value={value}
     >
       <BaseNumberField.Group className="NumberFieldGroup">
         <BaseNumberField.Decrement className="NumberFieldDecrement">

@@ -3,11 +3,11 @@ import type { ReactNode } from "react";
 import { MetricNav } from "@/app/components/metric/nav";
 
 interface MetricToolbarProps {
-  children?: ReactNode;
   currentPath: string;
+  children?: ReactNode;
 }
 
-export function MetricToolbar({ children, currentPath }: MetricToolbarProps) {
+export function MetricToolbar({ currentPath, children }: MetricToolbarProps) {
   return (
     <header className="MetricToolbar">
       <MetricNav currentPath={currentPath} />

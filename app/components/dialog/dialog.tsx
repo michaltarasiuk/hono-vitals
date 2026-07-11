@@ -34,8 +34,8 @@ function Backdrop({
 }
 
 function Popup({
-  children,
   className,
+  children,
   ...props
 }: React.ComponentProps<typeof BaseDialog.Popup>) {
   return (
@@ -48,7 +48,7 @@ function Popup({
   );
 }
 
-function Intro({ children, className, ...props }: React.ComponentProps<"div">) {
+function Intro({ className, children, ...props }: React.ComponentProps<"div">) {
   return (
     <div className={className ? `Intro ${className}` : "Intro"} {...props}>
       {children}
@@ -57,8 +57,8 @@ function Intro({ children, className, ...props }: React.ComponentProps<"div">) {
 }
 
 function Title({
-  children,
   className,
+  children,
   ...props
 }: React.ComponentProps<typeof BaseDialog.Title>) {
   return (
@@ -71,7 +71,7 @@ function Title({
   );
 }
 
-function List({ children, className, ...props }: React.ComponentProps<"div">) {
+function List({ className, children, ...props }: React.ComponentProps<"div">) {
   return (
     <div className={className ? `List ${className}` : "List"} {...props}>
       {children}
@@ -80,8 +80,8 @@ function List({ children, className, ...props }: React.ComponentProps<"div">) {
 }
 
 function Actions({
-  children,
   className,
+  children,
   ...props
 }: React.ComponentProps<"div">) {
   return (

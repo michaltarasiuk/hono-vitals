@@ -11,10 +11,10 @@ export default createRoute(zValidator("query", InpFlagsSchema), (c) => {
   const defaults = InpFlagsSchema.parse({});
 
   return c.render(
-    <MetricShell defaults={defaults} flags={flags} metric="inp">
+    <MetricShell metric="inp" flags={flags} defaults={defaults}>
       <h1 {...elementTiming("main-heading")}>INP Test</h1>
       <InpObserver flags={flags} />
-      <MetricChrome defaults={defaults} flags={flags} metric="inp" />
+      <MetricChrome metric="inp" flags={flags} defaults={defaults} />
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin nec porta
         orci, ac sagittis augue. Nullam orci tellus, suscipit sed magna id,

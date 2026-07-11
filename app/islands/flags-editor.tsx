@@ -11,11 +11,11 @@ import { applyFlags, type FlagValue } from "@/utils/metric/flags/serialize";
 import { sortFlagEntries } from "@/utils/metric/flags/sort-flag-entries";
 
 interface FlagsEditorProps {
-  defaults: Record<string, FlagValue>;
   flags: Record<string, FlagValue>;
+  defaults: Record<string, FlagValue>;
 }
 
-export default function FlagsEditor({ defaults, flags }: FlagsEditorProps) {
+export default function FlagsEditor({ flags, defaults }: FlagsEditorProps) {
   const [open, setOpen] = useState(false);
   const [draft, setDraft] = useState(flags);
 
@@ -64,10 +64,10 @@ export default function FlagsEditor({ defaults, flags }: FlagsEditorProps) {
                     <Field.Root key={key} name={key}>
                       <Field.Label>{formatFlagLabel(key)}</Field.Label>
                       <NumberField
-                        min={0}
                         name={key}
-                        step={1}
                         value={value}
+                        min={0}
+                        step={1}
                         onValueChange={(next) => {
                           setDraft((draft) => ({
                             ...draft,

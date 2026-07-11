@@ -11,19 +11,19 @@ export default createRoute(zValidator("query", LcpFlagsSchema), (c) => {
   const defaults = LcpFlagsSchema.parse({});
 
   return c.render(
-    <MetricShell defaults={defaults} flags={flags} metric="lcp">
+    <MetricShell metric="lcp" flags={flags} defaults={defaults}>
       <h1 {...elementTiming("main-heading")}>LCP Test</h1>
       <p>
         <img
           data-target="main-image"
-          {...elementTiming("main-image")}
-          hidden={flags.imgHidden}
-          {...(flags.removeElement ? { id: "lcp-image" } : {})}
           src={`/static/square.png?delay=${flags.imgDelay}`}
+          hidden={flags.imgHidden}
+          {...elementTiming("main-image")}
+          {...(flags.removeElement ? { id: "lcp-image" } : {})}
         />
       </p>
       <p>Text below the image</p>
-      <MetricChrome defaults={defaults} flags={flags} metric="lcp" />
+      <MetricChrome metric="lcp" flags={flags} defaults={defaults} />
       <div style={{ height: "100vh" }} />
       <footer>Text below the full-height element.</footer>
       <LcpObserver flags={flags} />

@@ -12,17 +12,17 @@ import { HIDDEN_PAGE_STUB_SCRIPT } from "@/utils/metric/stub-hidden";
 import { WAS_DISCARDED_STUB_SCRIPT } from "@/utils/metric/stub-was-discarded";
 
 interface MetricShellProps {
-  children: ReactNode;
-  defaults: Record<string, FlagValue>;
-  flags: Record<string, FlagValue>;
   metric: string;
+  flags: Record<string, FlagValue>;
+  defaults: Record<string, FlagValue>;
+  children: ReactNode;
 }
 
 export function MetricShell({
-  children,
-  defaults,
-  flags,
   metric,
+  flags,
+  defaults,
+  children,
 }: MetricShellProps) {
   const renderBlocking =
     typeof flags.renderBlocking === "number" ? flags.renderBlocking : 0;
@@ -33,7 +33,7 @@ export function MetricShell({
   return (
     <>
       <MetricToolbar currentPath={`/metric/${metric}`}>
-        <FlagsEditor defaults={defaults} flags={flags} />
+        <FlagsEditor flags={flags} defaults={defaults} />
       </MetricToolbar>
       <main className="metric-test" {...(htmlHidden ? { hidden: true } : {})}>
         {renderBlocking > 0 ? (
@@ -54,10 +54,10 @@ export function MetricShell({
         ) : null}
         {children}
         {delayDCL > 0 ? (
-          <script defer src={`/static/metric/defer.js?delay=${delayDCL}`} />
+          <script src={`/static/metric/defer.js?delay=${delayDCL}`} defer />
         ) : null}
         {delayLoad > 0 ? (
-          <script async src={`/static/metric/async.js?delay=${delayLoad}`} />
+          <script src={`/static/metric/async.js?delay=${delayLoad}`} async />
         ) : null}
       </main>
     </>
@@ -65,12 +65,12 @@ export function MetricShell({
 }
 
 interface MetricChromeProps {
-  defaults: Record<string, FlagValue>;
-  flags: Record<string, FlagValue>;
   metric: string;
+  flags: Record<string, FlagValue>;
+  defaults: Record<string, FlagValue>;
 }
 
-export function MetricChrome({ defaults, flags, metric }: MetricChromeProps) {
+export function MetricChrome({ metric, flags, defaults }: MetricChromeProps) {
   const href = prerenderHref(metric, flags, defaults);
 
   return (
