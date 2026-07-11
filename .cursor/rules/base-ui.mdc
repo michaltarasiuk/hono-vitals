@@ -10,7 +10,7 @@ Before implementing UI, fetch and read https://base-ui.com/llms.txt.
 
 ## Project specifics
 
-- **Package:** `@base-ui/react`.
-- **Architecture:** Interactive UI in `app/islands/`, hydrated via `app/client.ts`.
-- **Styling:** Plain CSS only — no Tailwind. Style via `className`.
+- **Package:** `@base-ui/react` for composable, unstyled primitives.
+- **Architecture:** Reusable styled wrappers in `app/components/`; interactive flows in `app/islands/`, hydrated via `app/client.ts`.
+- **Styling:** Plain global CSS — no Tailwind. Shared light/dark tokens in `app/tokens.css` via `prefers-color-scheme`; component styles in `app/style.css`. Link stylesheet in `app/routes/_renderer.tsx` so SSR HTML is styled before hydration.
 - **Composition:** Use `render` and `mergeProps`; avoid extra DOM wrappers.
