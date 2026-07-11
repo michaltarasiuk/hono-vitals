@@ -1,0 +1,30 @@
+/* Base UI demo tokens — https://base-ui.com/react/components/dialog */
+:root {
+  color-scheme: light;
+  color: oklch(14.5% 0 0deg);
+  --foreground: oklch(14.5% 0 0deg);
+  --muted-foreground: oklch(43.9% 0 0deg);
+  --border: oklch(14.5% 0 0deg);
+  --border-subtle: oklch(87% 0 0deg);
+  --background: white;
+  --surface-hover: oklch(97% 0 0deg);
+  --surface-active: oklch(92.2% 0 0deg);
+  --disabled: oklch(55.6% 0 0deg);
+  --shadow-offset: 0.25rem 0.25rem 0 rgb(0 0 0 / 12%);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    color: white;
+    --foreground: white;
+    --muted-foreground: oklch(70.8% 0 0deg);
+    --border: white;
+    --border-subtle: oklch(37.1% 0 0deg);
+    --background: oklch(14.5% 0 0deg);
+    --surface-hover: oklch(26.9% 0 0deg);
+    --surface-active: oklch(37.1% 0 0deg);
+    --disabled: oklch(70.8% 0 0deg);
+    --shadow-offset: none;
+  }
+}
