@@ -70,7 +70,7 @@ hono-vitals/
 │   ├── metric/
 │   │   ├── batch-reporting.ts # Queue metrics; flush on visibility hidden
 │   │   ├── element-timing.ts  # elementtiming attribute helper for SSR markup
-│   │   ├── metrics.ts         # METRIC_NAV link constants
+│   │   ├── metrics.ts         # METRIC_SLUGS, MetricSlug, METRIC_NAV link constants
 │   │   ├── inp-blocking.ts    # INP demo event-loop blocking controls
 │   │   ├── load-web-vitals.ts # Lazy import web-vitals after ready promises
 │   │   ├── observer-options.ts # Build on* options from validated flags

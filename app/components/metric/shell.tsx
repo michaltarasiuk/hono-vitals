@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 
 import type { FlagValue } from "@/utils/metric/flags/serialize";
+import type { MetricSlug } from "@/utils/metric/metrics";
 
 import { MetricToolbar } from "@/app/components/metric/toolbar";
 import FlagsEditor from "@/app/islands/flags-editor";
@@ -12,7 +13,7 @@ import { HIDDEN_PAGE_STUB_SCRIPT } from "@/utils/metric/stub-hidden";
 import { WAS_DISCARDED_STUB_SCRIPT } from "@/utils/metric/stub-was-discarded";
 
 interface MetricShellProps {
-  metric: string;
+  metric: MetricSlug;
   flags: Record<string, FlagValue>;
   defaults: Record<string, FlagValue>;
   children: ReactNode;
@@ -65,7 +66,7 @@ export function MetricShell({
 }
 
 interface MetricChromeProps {
-  metric: string;
+  metric: MetricSlug;
   flags: Record<string, FlagValue>;
   defaults: Record<string, FlagValue>;
 }
