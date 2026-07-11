@@ -15,8 +15,8 @@ export default createRoute(zValidator("query", TtfbFlagsSchema), (c) => {
       <h1 {...elementTiming("main-heading")}>TTFB Test</h1>
       <p>
         <img
-          src={`/static/square.png?delay=${flags.imgDelay}`}
           hidden={flags.imgHidden}
+          src={`/static/square.png?delay=${flags.imgDelay}`}
           {...elementTiming("main-image")}
         />
       </p>
