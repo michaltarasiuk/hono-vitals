@@ -6,12 +6,9 @@ import { defineConfig } from "vite";
 
 const root = fileURLToPath(new URL(".", import.meta.url));
 
-export default defineConfig(({ mode }) => {
+export default defineConfig(({ command, mode }) => {
   if (mode === "client") {
     return {
-      define: {
-        "process.env": "process.env",
-      },
       resolve: {
         alias: {
           "@": root,
@@ -28,9 +25,12 @@ export default defineConfig(({ mode }) => {
   }
   return {
     publicDir: false,
-    define: {
-      "process.env": "process.env",
-    },
+    // Keep real process.env only in the production SSR bundle (honox#307).
+    // Do not apply in dev: @vite/client loads env.mjs in the browser and would
+    // evaluate `process.env` from this define, causing ReferenceError.
+    ...(command === "build"
+      ? { define: { "process.env": "process.env" } }
+      : {}),
     resolve: {
       alias: {
         "@": root,
