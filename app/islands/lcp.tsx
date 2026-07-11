@@ -41,10 +41,8 @@ export default function LcpObserver({ flags }: LcpObserverProps) {
         onLCP(
           (lcp) => {
             (lcp as { instance?: number }).instance = 1;
-            console.log("LCP:", lcp);
 
             if (batch) {
-              console.log("Adding to queue");
               batch.enqueue(lcp);
             } else {
               reportMetric(lcp);
@@ -56,10 +54,6 @@ export default function LcpObserver({ flags }: LcpObserverProps) {
 
       if (flags.registerOnVisibilityChange) {
         document.addEventListener("visibilitychange", () => {
-          console.log(
-            "Got a visibilitychange event",
-            document.visibilityState,
-          );
           if (document.visibilityState === "visible") {
             registerLCP();
           }
@@ -72,7 +66,6 @@ export default function LcpObserver({ flags }: LcpObserverProps) {
         onLCP(
           (lcp) => {
             (lcp as { instance?: number }).instance = 2;
-            console.log("LCP2:", lcp);
             reportMetric(lcp);
           },
           buildLcpOptions(flags, 2),
