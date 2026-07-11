@@ -1,4 +1,3 @@
-import "@fontsource/inter/latin.css";
 import type { ReactElement } from "react";
 
 import { createClient } from "honox/client";
