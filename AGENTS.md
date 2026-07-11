@@ -35,94 +35,22 @@ Demo app for collecting **Core Web Vitals** in the browser, posting them to a Ho
 ```
 hono-vitals/
 ├── app/
-│   ├── server.ts              # Honox app: routes, middleware, /collect, summary API
-│   ├── client.ts              # Island hydration entry (honox/client)
-│   ├── style.css              # Global component styles (linked in _renderer)
-│   ├── tokens.css             # Shared light/dark design tokens (Base UI demo palette)
-│   ├── global.d.ts            # React renderer type augmentation
-│   ├── routes/
-│   │   ├── _renderer.tsx      # HTML shell, Link + Script
-│   │   ├── index.tsx          # Metrics dashboard — aggregated stats from ClickHouse
-│   │   ├── metrics.tsx        # Redirects to /
-│   │   └── metric/            # Demo routes per metric (/metric/cls, …)
-│   │       ├── cls.tsx
-│   │       ├── fcp.tsx
-│   │       ├── inp.tsx
-│   │       ├── lcp.tsx
-│   │       └── ttfb.tsx
-│   ├── components/            # Styled Base UI wrappers (CSS Modules from docs)
-│   │   ├── nav.tsx            # Metric nav links
-│   │   ├── metrics-summary.tsx # Summary cards: count, avg, p75, rating breakdown
-│   │   ├── metrics-summary.css
-│   │   ├── shell.tsx          # Shared metric page shell + chrome links
-│   │   ├── toolbar.css        # Sticky header styles
-│   │   ├── toolbar.tsx        # Shared header: nav + optional actions
-│   │   └── ui/
-│   │       ├── button/
-│   │       ├── dialog/
-│   │       ├── field/
-│   │       ├── number-field/
-│   │       └── switch/
-│   └── islands/               # Interactive client components (hydrated)
-│       ├── flags-editor.tsx   # Query-flag editor modal
-│       ├── cls.tsx            # onCLS observer
-│       ├── fcp.tsx            # onFCP observer
-│       ├── inp.tsx            # onINP observer + blocking-time form
-│       ├── lcp.tsx            # onLCP observer
-│       └── ttfb.tsx           # onTTFB observer
+│   ├── server.ts              # Custom routes, middleware, /collect, summary API
+│   ├── client.ts              # Island hydration entry
+│   ├── routes/                # Honox file routes (_renderer, index, metric/*)
+│   ├── components/            # Styled Base UI wrappers + shell/toolbar/nav
+│   └── islands/               # Hydrated observers + flags editor
 ├── utils/
-│   ├── metric/
-│   │   ├── batch-reporting.ts # Queue metrics; flush on visibility hidden
-│   │   ├── element-timing.ts  # elementtiming attribute helper for SSR markup
-│   │   ├── metrics.ts         # METRIC_SLUGS, MetricSlug, METRIC_NAV link constants
-│   │   ├── inp-blocking.ts    # INP demo event-loop blocking controls
-│   │   ├── load-web-vitals.ts # Lazy import web-vitals after ready promises
-│   │   ├── observer-options.ts # Build on* options from validated flags
-│   │   ├── override-response-start.ts # TTFB navigation timing stub
-│   │   ├── prerender-href.ts  # Prerender link + speculation-rules JSON
-│   │   ├── ready.ts           # afterLoad() / afterElementsRendered() / afterFirstInput()
-│   │   ├── remove-lcp-element.ts # Remove LCP image before observer registration
-│   │   ├── report.ts          # reportMetric → POST /collect beacon
-│   │   ├── stub-hidden.ts     # hidden flag page visibility stub
-│   │   ├── stub-was-discarded.ts # wasDiscarded flag stub
-│   │   ├── to-safe-object.ts  # Serialize metric payloads for beacons
-│   │   └── flags/             # Per-route query flag Zod schemas
-│   │       ├── coerce.ts      # queryBoolean, queryNumberDefault (Zod prefault)
-│   │       ├── defaults.ts    # schemaDefaults — derive flag defaults from a schema
-│   │       ├── serialize.ts   # applyFlags — URL navigation on save
-│   │       ├── sort-flag-entries.ts # booleans first, then numbers
-│   │       ├── shared.ts      # BaseMetricFlagsSchema
-│   │       ├── cls.ts         # ClsFlagsSchema
-│   │       ├── fcp.ts         # FcpFlagsSchema
-│   │       ├── inp.ts         # InpFlagsSchema
-│   │       ├── lcp.ts         # LcpFlagsSchema
-│   │       └── ttfb.ts        # TtfbFlagsSchema
-│   ├── env.ts                 # Validated env vars from process.env (Bun loads .env)
-│   ├── metric-schema.ts       # Shared Zod schema for web-vitals Metric payloads
-│   ├── metrics-summary-schema.ts # Zod schema for aggregated summary API/page data
-│   ├── format-metric-value.ts # CLS decimals vs ms formatting for display
-│   ├── clickhouse/
-│   │   ├── client.ts          # Singleton @clickhouse/client from env vars
-│   │   ├── init-schema.ts     # Apply schema SQL to ClickHouse Cloud
-│   │   ├── insert-metric.ts   # INSERT validated metric into metrics table
-│   │   ├── sql.ts             # Dedented ClickHouse SQL strings
-│   │   └── summary.ts         # Aggregated count, avg, p75, rating breakdown query
-│   ├── assert-never.ts        # Exhaustive switch default helper
-│   ├── format-flag-label.ts   # camelCase flag keys → readable labels
-│   └── delay.ts               # Async delay helper (public asset middleware)
-├── public/                    # Demo assets served at /public/*
-│   ├── favicon.svg
-│   ├── square.png
-│   └── metric/
-│       ├── async.js           # Async script for delayLoad flag
-│       ├── defer.js           # Defer script for delayDCL flag
-│       └── styles.css         # Render-blocking stylesheet for renderBlocking flag
-├── .env.example               # ClickHouse Cloud connection vars
-├── .cursor/rules/             # Agent rules (git, format, Hono, Base UI)
-├── vite.config.ts             # Dual build: client bundle + SSR server
-├── tsconfig.json
-└── package.json
+│   ├── metric/                # Observers, reporting, query-flag schemas
+│   ├── clickhouse/            # Client, insert, summary query, DDL
+│   ├── env.ts                 # Validated process.env
+│   └── metric-schema.ts       # Shared Metric Zod schema
+├── public/                    # Assets at /public/* (metric demo scripts/styles)
+├── .cursor/rules/             # Format, git, Hono, Base UI conventions
+└── vite.config.ts             # Dual build: client bundle + SSR server
 ```
+
+Key paths: `app/server.ts` (API), `app/routes/metric/` (demo pages), `utils/metric/flags/` (per-metric query schemas), `utils/clickhouse/` (persistence).
 
 ---
 
@@ -154,8 +82,8 @@ Always reuse `MetricSchema` for server validation. Do not duplicate field defini
 ### Server (`app/server.ts`)
 
 - **Architecture:** Custom routes and middleware live in `app/server.ts`. Honox file routes live under `app/routes/`.
-- **Validation:** Strictly use `@hono/zod-validator` with shared Zod schemas from `utils/`.
-- **Public assets:** Served at `/public/*` from `./public`. Optional `?delay=<ms>` query param for load-testing. `publicDir` is disabled in Vite so assets are not served at root paths; the build copies `public/` to `dist/public/`.
+- **Validation:** Use `@hono/zod-validator` with shared Zod schemas from `utils/`.
+- **Public assets:** Served at `/public/*` from `./public`. Optional `?delay=<ms>` query param for load-testing. `publicDir` is disabled in Vite; the build copies `public/` to `dist/public/`.
 - **Collect:** `POST /collect` validates with `MetricSchema`, inserts via `utils/clickhouse/insert-metric.ts`, returns `204` or `500` with no body.
 - **Summary API:** `GET /api/metrics/summary` returns aggregated stats validated by `MetricsSummaryResponseSchema`.
 
@@ -182,8 +110,8 @@ Always reuse `MetricSchema` for server validation. Do not duplicate field defini
 ### Metric demo routes (`app/routes/metric/`)
 
 - **URLs:** `/metric/cls`, `/metric/fcp`, `/metric/inp`, `/metric/lcp`, `/metric/ttfb` — mirrors [web-vitals test views](https://github.com/GoogleChrome/web-vitals/tree/main/test/views).
-- **Validation:** Each route uses `zValidator('query', XxxFlagsSchema)` — import directly from `utils/metric/flags/{cls,fcp,...}.ts`. Flags are booleans or numbers. Booleans use `queryBoolean` (`z.coerce.boolean().default(false)`); numbers use `queryNumberDefault(n)` or `queryNumberDefault()` when optional. Parsed output always contains every key.
-- **Editor:** Each route renders `MetricShell` (includes `FlagsEditor`) with validated `flags` and co-located defaults (e.g. `clsFlagDefaults` from `utils/metric/flags/cls.ts`). Booleans render as `Switch`; numbers as `NumberField`. List is sorted booleans first, then numbers. `MetricChrome` reads flags/defaults from `MetricShell` context via `useMetricFlags()`.
+- **Validation:** Each route uses `zValidator('query', XxxFlagsSchema)` — import from `utils/metric/flags/{cls,fcp,...}.ts`. Booleans use `queryBoolean`; numbers use `queryNumberDefault(n)` or `queryNumberDefault()` when optional. Parsed output always contains every key.
+- **Editor:** Each route renders `MetricShell` (includes `FlagsEditor`) with validated `flags` and co-located defaults (e.g. `clsFlagDefaults`). Booleans render as `Switch`; numbers as `NumberField`. List is sorted booleans first, then numbers. `MetricChrome` reads flags/defaults from `MetricShell` context via `useMetricFlags()`.
 - **Markup:** SSR content mirrors [web-vitals test views](https://github.com/GoogleChrome/web-vitals/tree/main/test/views); observers live in `app/islands/{cls,fcp,...}.tsx`.
 
 ### Client islands (`app/islands/`)
@@ -193,28 +121,10 @@ Always reuse `MetricSchema` for server validation. Do not duplicate field defini
 - **Reporting:** Call `reportMetric()` from `utils/metric/report.ts`. It serializes via `toSafeObject()` and sends `{ metric: … }` to `/collect` via `navigator.sendBeacon`.
 - **Batching:** CLS supports optional `batchReporting` — queues updates and flushes on `visibilitychange` to `hidden`.
 
-### UI
-
-- **Package:** Use `@base-ui/react` for composable, unstyled primitives.
-- **Wrappers:** Reusable styled components in `app/components/`; interactive flows in `app/islands/`.
-- **Styling:** Plain global CSS (Base UI class names from docs demos). Shared light/dark tokens in [`app/tokens.css`](app/tokens.css) via `prefers-color-scheme`; aggregate component styles in [`app/style.css`](app/style.css); link via `<Link href="/app/style.css" rel="stylesheet" />` in [`app/routes/_renderer.tsx`](app/routes/_renderer.tsx) so SSR HTML is styled before hydration. No Tailwind.
-- **Docs:** Before implementing UI, fetch [https://base-ui.com/llms.txt](https://base-ui.com/llms.txt).
-
-### Hono / Honox
-
-- Before implementing routing, middleware, or validators, fetch and read [https://hono.dev/llms.txt](https://hono.dev/llms.txt).
-- Mirror existing patterns in `app/server.ts` and `app/routes/_renderer.tsx`.
-
 ### TypeScript
 
 - **Strict mode** enabled. Target ESNext, JSX `react-jsx`.
 - Prefer shared schemas and utilities in `utils/` over inline duplication.
-
-### Formatting
-
-- Prettier for formatting (`bun run format`). `AGENTS.md` and `*.mdc` are excluded via `.prettierignore`.
-- ESLint `perfectionist/sort-imports` enforces import order (external → `@/` → relative, no blank lines between imports). Run `bun run lint:fix` to apply.
-- `.vscode/settings.json` disables TypeScript organize-imports on save and runs ESLint fix instead — avoids fighting the ESLint import order.
 
 ---
 
@@ -231,11 +141,26 @@ Always reuse `MetricSchema` for server validation. Do not duplicate field defini
 | Lint fix | `bun run lint:fix` | ESLint with `--fix` |
 | Format | `bun run format` | Prettier write |
 
+---
+
+## Agent rules
+
+Scoped conventions live in `.cursor/rules/`:
+
+| Rule | Scope |
+|---|---|
+| `format.mdc` | Run `bun run format` and `bun run lint:fix` after edits |
+| `git.mdc` | Commit/push only when asked; lowercase imperative messages |
+| `hono.mdc` | Hono/Honox patterns for `app/**/*` |
+| `base-ui.mdc` | Base UI components and styling for `app/**/*` |
+
+---
+
 ## Agent Maintenance
 
 When you **create**, **move**, **rename**, or **delete** files/directories, or introduce new stack dependencies or routes:
 
 1. **Update this file** in the same task before finishing.
-2. **Keep paths accurate** — do not leave stale entries in the layout tree or conventions.
-3. **Match the style** — one-line purpose comments on layout entries; short, imperative bullets elsewhere.
+2. **Keep paths accurate** — update the layout section and any affected convention bullets.
+3. **Match the style** — short, imperative bullets; one-line comments on layout entries.
 4. *(Skip updates for trivial edits inside existing files.)*

@@ -6,9 +6,12 @@ alwaysApply: false
 
 # Hono & Honox on Bun
 
-Before implementing routing, middleware, or validators, you MUST fetch and read:
-- Index: https://hono.dev/llms.txt (or https://hono.dev/llms-full.txt if deep context is needed).
+Before implementing routing, middleware, or validators, fetch and read https://hono.dev/llms.txt.
 
-## Project specifics:
-- **Architecture**: Server is in `app/server.ts`, client in `app/client.ts`. Mirror existing patterns.
-- **Validation**: strictly use `@hono/zod-validator` with shared Zod schemas.
+## Project specifics
+
+- **Architecture:** Custom routes and middleware in `app/server.ts`. Honox file routes in `app/routes/`. Mirror existing patterns in `app/server.ts` and `app/routes/_renderer.tsx`.
+- **Validation:** Use `@hono/zod-validator` with shared Zod schemas from `utils/`.
+- **Collect:** `POST /collect` validates with `MetricSchema`, inserts via `utils/clickhouse/insert-metric.ts`, returns `204` or `500` with no body.
+- **Summary API:** `GET /api/metrics/summary` returns aggregated stats validated by `MetricsSummaryResponseSchema`.
+- **Public assets:** Served at `/public/*` from `./public`. Optional `?delay=<ms>` for load-testing. `publicDir` is disabled in Vite; build copies `public/` to `dist/public/`.
