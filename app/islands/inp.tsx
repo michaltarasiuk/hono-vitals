@@ -45,10 +45,8 @@ export default function InpObserver({ flags }: InpObserverProps) {
       onINP(
         (inp) => {
           (inp as { instance?: number }).instance = 1;
-          console.log("INP:", inp);
 
           if (batch) {
-            console.log("Adding to queue");
             batch.enqueue(inp);
           } else {
             reportMetric(inp);
@@ -61,7 +59,6 @@ export default function InpObserver({ flags }: InpObserverProps) {
         onINP(
           (inp) => {
             (inp as { instance?: number }).instance = 2;
-            console.log("INP2:", inp);
             reportMetric(inp);
           },
           buildInpOptions(flags, 2),
@@ -77,8 +74,7 @@ export default function InpObserver({ flags }: InpObserverProps) {
   return (
     <form>
       {EVENT_NAMES.map((eventName) => {
-        const key =
-          `${eventName}BlockingTime` as keyof InpFlags;
+        const key = `${eventName}BlockingTime` as keyof InpFlags;
         const value = flags[key];
         return (
           <label key={eventName}>

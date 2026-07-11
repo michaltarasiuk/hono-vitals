@@ -35,7 +35,6 @@ export default function TtfbObserver({ flags }: TtfbObserverProps) {
       onTTFB(
         (ttfb) => {
           (ttfb as { instance?: number }).instance = 1;
-          console.log("TTFB:", ttfb);
           reportMetric(ttfb);
         },
         buildTtfbOptions(flags, 1),
@@ -45,7 +44,6 @@ export default function TtfbObserver({ flags }: TtfbObserverProps) {
         onTTFB(
           (ttfb) => {
             (ttfb as { instance?: number }).instance = 2;
-            console.log("TTFB2:", ttfb);
             reportMetric(ttfb);
           },
           buildTtfbOptions(flags, 2),

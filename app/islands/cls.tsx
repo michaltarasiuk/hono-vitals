@@ -31,10 +31,8 @@ export default function ClsObserver({ flags }: ClsObserverProps) {
       onCLS(
         (cls) => {
           (cls as { instance?: number }).instance = 1;
-          console.log("CLS:", cls);
 
           if (batch) {
-            console.log("Adding to queue");
             batch.enqueue(cls);
           } else {
             reportMetric(cls);
@@ -47,7 +45,6 @@ export default function ClsObserver({ flags }: ClsObserverProps) {
         onCLS(
           (cls) => {
             (cls as { instance?: number }).instance = 2;
-            console.log("CLS2:", cls);
             reportMetric(cls);
           },
           buildClsOptions(flags, 2),

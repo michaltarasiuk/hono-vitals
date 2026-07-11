@@ -9,25 +9,27 @@ import { MetricSchema } from "@/utils/metric-schema";
 
 const app = createApp();
 
-app.get(
-  "/static/*",
-  zValidator(
-    "query",
-    z.object({
-      delay: z.coerce.number().optional(),
-    }),
-  ),
-  async (context, next) => {
-    const { delay: timeout } = context.req.valid("query");
+const StaticQuerySchema = z.object({
+  delay: z.coerce.number().optional(),
+});
+
+app
+  .use("/static/*", zValidator("query", StaticQuerySchema))
+  .use("/static/*", async (context, next) => {
+    const { delay: timeout } = context.req.valid("query") as z.infer<
+      typeof StaticQuerySchema
+    >;
     if (timeout !== undefined) {
       await delay(timeout);
     }
     await next();
-  },
-  serveStatic({
-    root: "./static",
-  }),
-);
+  })
+  .use(
+    "/static/*",
+    serveStatic({
+      root: ".",
+    }),
+  );
 
 app.post(
   "/collect",

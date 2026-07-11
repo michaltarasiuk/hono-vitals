@@ -28,7 +28,6 @@ export default function FcpObserver({ flags }: FcpObserverProps) {
       onFCP(
         (fcp) => {
           (fcp as { instance?: number }).instance = 1;
-          console.log("FCP:", fcp);
           reportMetric(fcp);
         },
         buildFcpOptions(flags, 1),
@@ -38,7 +37,6 @@ export default function FcpObserver({ flags }: FcpObserverProps) {
         onFCP(
           (fcp) => {
             (fcp as { instance?: number }).instance = 2;
-            console.log("FCP2:", fcp);
             reportMetric(fcp);
           },
           buildFcpOptions(flags, 2),
