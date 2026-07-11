@@ -19,18 +19,18 @@ export default createRoute(zValidator("query", ClsFlagsSchema), (c) => {
         <>
           <p>
             <img
+              src="/public/square.png?delay=500"
               alt="Gray square"
               hidden={flags.imgHidden}
-              src="/public/square.png?delay=500"
               {...elementTiming("main-image")}
             />
             [text node contents]
           </p>
           <p data-target="secondary-image-wrapper">
             <img
+              src="/public/square.png?delay=1000"
               alt="Gray square"
               hidden={flags.img2Hidden}
-              src="/public/square.png?delay=1000"
               {...elementTiming("secondary-image")}
             />
           </p>
