@@ -1,10 +1,7 @@
 import { zValidator } from "@hono/zod-validator";
 import { createRoute } from "honox/factory";
 
-import {
-  MetricChrome,
-  MetricShell,
-} from "@/app/components/metric/shell";
+import { MetricChrome, MetricShell } from "@/app/components/metric/shell";
 import InpObserver from "@/app/islands/inp";
 import { elementTiming } from "@/utils/metric/element-timing";
 import { InpFlagsSchema } from "@/utils/metric/flags/inp";
@@ -19,9 +16,9 @@ export default createRoute(zValidator("query", InpFlagsSchema), (c) => {
       <InpObserver flags={flags} />
       <MetricChrome defaults={defaults} flags={flags} metric="inp" />
       <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin nec
-        porta orci, ac sagittis augue. Nullam orci tellus, suscipit sed magna
-        id, mattis iaculis ex. Etiam felis lectus, accumsan eu magna lacinia,
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin nec porta
+        orci, ac sagittis augue. Nullam orci tellus, suscipit sed magna id,
+        mattis iaculis ex. Etiam felis lectus, accumsan eu magna lacinia,
         lobortis tempus lacus. Donec nulla metus, blandit eget ullamcorper in,
         placerat eu massa. Curabitur vitae elementum orci, ac tincidunt neque.
         Maecenas accumsan odio sit amet arcu elementum, non vestibulum enim
