@@ -12,15 +12,7 @@ let env: Env | null = null;
 
 export function getEnv() {
   if (!env) {
-    const result = EnvSchema.safeParse(process.env);
-
-    if (!result.success) {
-      const message = `Invalid environment configuration: ${result.error.issues.map((issue) => `${issue.path.join(".")}: ${issue.message}`).join(", ")}`;
-      console.error(message);
-      throw new Error(message);
-    }
-
-    env = result.data;
+    env = EnvSchema.parse(process.env);
   }
 
   return env;
