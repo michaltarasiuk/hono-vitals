@@ -2,16 +2,15 @@ import { useEffect } from "react";
 
 import type { ClsFlags } from "@/utils/metric/flags/cls";
 
+import { useMetricFlags } from "@/app/components/metric/context";
 import { createBatchReporter } from "@/utils/metric/batch-reporting";
 import { loadWebVitals } from "@/utils/metric/load-web-vitals";
 import { buildClsOptions } from "@/utils/metric/observer-options";
 import { reportMetric } from "@/utils/metric/report";
 
-interface ClsObserverProps {
-  flags: ClsFlags;
-}
+export default function ClsObserver() {
+  const flags = useMetricFlags<ClsFlags>();
 
-export default function ClsObserver({ flags }: ClsObserverProps) {
   useEffect(() => {
     let cancelled = false;
 

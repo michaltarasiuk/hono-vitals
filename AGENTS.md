@@ -39,9 +39,9 @@ hono-vitals/
 │   ├── client.ts              # Island hydration entry
 │   ├── routes/                # Honox file routes (_renderer, index, metric/*)
 │   ├── components/            # Base UI wrappers, layout chrome, dashboard
-│   │   └── metric/            # MetricShell, MetricChrome
+│   │   └── metric/            # Metric compound API, context, page layout
 │   └── islands/
-│       └── metric/            # Hydrated observers + flags editor
+│       └── metric/            # Hydrated observers, flags editor, client provider
 ├── utils/
 │   ├── metric/                # Schema, reporting, flags, demo helpers
 │   ├── clickhouse/            # Client, insert, summary query, DDL
@@ -51,7 +51,7 @@ hono-vitals/
 └── vite.config.ts             # Dual build: client bundle + SSR server
 ```
 
-Key paths: `app/server.ts` (API), `app/routes/metric/` (demo pages), `app/components/metric/shell.tsx` (demo shell), `app/islands/metric/` (observers), `utils/metric/schema.ts` (collect payload), `utils/metric/flags/` (query schemas), `utils/clickhouse/` (persistence).
+Key paths: `app/server.ts` (API), `app/routes/metric/` (demo pages), `app/components/metric/shell.tsx` (compound `Metric.*` API), `app/components/metric/context.tsx` (shared context), `app/islands/metric/` (observers), `utils/metric/schema.ts` (collect payload), `utils/metric/flags/` (query schemas), `utils/clickhouse/` (persistence).
 
 ---
 
@@ -112,13 +112,14 @@ Always reuse `MetricSchema` for server validation. Do not duplicate field defini
 
 - **URLs:** `/metric/cls`, `/metric/fcp`, `/metric/inp`, `/metric/lcp`, `/metric/ttfb` — mirrors [web-vitals test views](https://github.com/GoogleChrome/web-vitals/tree/main/test/views).
 - **Validation:** Each route uses `zValidator('query', XxxFlagsSchema)` — import from `utils/metric/flags/{cls,fcp,...}.ts`. Booleans use `queryBoolean`; numbers use `queryNumberDefault(n)` or `queryNumberDefault()` when optional. Parsed output always contains every key.
-- **Editor:** Each route renders `MetricShell` from `app/components/metric/shell.tsx` (includes `FlagsEditor`) with validated `flags` and co-located defaults (e.g. `clsFlagDefaults`). Booleans render as `Switch`; numbers as `NumberField`. List is sorted booleans first, then numbers. `MetricChrome` reads flags/defaults from `MetricShell` context via `useMetricFlags()`.
+- **Composition:** Each route composes `Metric.Provider`, `Metric.Toolbar`, `Metric.Main`, `Metric.Assets`, and `Metric.Chrome` from `app/components/metric/shell.tsx` with validated `flags` and co-located defaults (e.g. `clsFlagDefaults`). `Metric.Provider` embeds `MetricFlagsProvider` (`app/islands/metric/flags-provider.tsx`) so islands share context after hydration. Dashboard uses `MetricPageLayout` from `app/components/metric/layout.tsx`.
+- **Editor:** Routes place `FlagsEditor` in `Metric.Toolbar`. Booleans render as `Switch`; numbers as `NumberField`. List is sorted booleans first, then numbers. `Metric.Chrome` and islands read flags via `useMetric()` / `useMetricFlags()` from `app/components/metric/context.tsx`.
 - **Markup:** SSR content mirrors [web-vitals test views](https://github.com/GoogleChrome/web-vitals/tree/main/test/views); observers live in `app/islands/metric/{cls,fcp,...}.tsx`.
 
 ### Client islands (`app/islands/metric/`)
 
-- **Placement:** One metric per island file, e.g. `app/islands/metric/cls.tsx`.
-- **Hydration:** Islands are registered and hydrated via `app/client.ts`.
+- **Placement:** One metric per island file, e.g. `app/islands/metric/cls.tsx`. `flags-provider.tsx` re-provides metric context inside hydrated boundaries.
+- **Hydration:** Islands are registered and hydrated via `app/client.ts`. Observers and `FlagsEditor` call `useMetric()` / `useMetricFlags()` — no flag props.
 - **Reporting:** Call `reportMetric()` from `utils/metric/report.ts`. It serializes via `toSafeObject()` and sends `{ metric: … }` to `/collect` via `navigator.sendBeacon`.
 - **Batching:** CLS supports optional `batchReporting` — queues updates and flushes on `visibilitychange` to `hidden`.
 

@@ -1,24 +1,21 @@
 import { useState } from "react";
 
+import { useMetric } from "@/app/components/metric/context";
 import { Button } from "@/app/components/ui/button/button";
 import { Dialog } from "@/app/components/ui/dialog/dialog";
 import { Field } from "@/app/components/ui/field/field";
 import { NumberField } from "@/app/components/ui/number-field/number-field";
 import { Switch } from "@/app/components/ui/switch/switch";
 import { assertNever } from "@/utils/assert-never";
-import { applyFlags, type FlagValue } from "@/utils/metric/flags/serialize";
+import { applyFlags } from "@/utils/metric/flags/serialize";
 import { sortFlagEntries } from "@/utils/metric/flags/sort-flag-entries";
 import { formatFlagLabel } from "@/utils/metric/format-flag-label";
-
-interface FlagsEditorProps {
-  flags: Record<string, FlagValue>;
-  defaults: Record<string, FlagValue>;
-}
 
 /** Stable id so island hydration matches full-page SSR (Honox useId path differs). */
 const FLAGS_EDITOR_TRIGGER_ID = "metric-flags-trigger";
 
-export default function FlagsEditor({ flags, defaults }: FlagsEditorProps) {
+export default function FlagsEditor() {
+  const { flags, defaults } = useMetric();
   const [open, setOpen] = useState(false);
   const [draft, setDraft] = useState(flags);
 
