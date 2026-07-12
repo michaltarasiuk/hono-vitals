@@ -1,8 +1,8 @@
 import { zValidator } from "@hono/zod-validator";
 import { createRoute } from "honox/factory";
 
-import { MetricChrome, MetricShell } from "@/app/components/shell";
-import TtfbObserver from "@/app/islands/ttfb";
+import { MetricChrome, MetricShell } from "@/app/components/metric/shell";
+import TtfbObserver from "@/app/islands/metric/ttfb";
 import { elementTiming } from "@/utils/metric/element-timing";
 import { TtfbFlagsSchema, ttfbFlagDefaults } from "@/utils/metric/flags/ttfb";
 

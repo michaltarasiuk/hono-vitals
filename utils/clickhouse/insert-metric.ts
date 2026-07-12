@@ -1,7 +1,7 @@
 import type * as z from "zod";
 
 import { getClickHouseClient } from "@/utils/clickhouse/client";
-import { MetricSchema } from "@/utils/metric-schema";
+import { MetricSchema } from "@/utils/metric/schema";
 
 type Metric = z.infer<typeof MetricSchema>;
 

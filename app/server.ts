@@ -5,7 +5,7 @@ import { createApp } from "honox/server";
 import * as z from "zod";
 
 import { delay } from "@/utils/delay";
-import { MetricSchema } from "@/utils/metric-schema";
+import { MetricSchema } from "@/utils/metric/schema";
 import { MetricsSummaryResponseSchema } from "@/utils/metrics-summary-schema";
 
 const app = createApp();

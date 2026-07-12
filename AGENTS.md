@@ -38,19 +38,20 @@ hono-vitals/
 │   ├── server.ts              # Custom routes, middleware, /collect, summary API
 │   ├── client.ts              # Island hydration entry
 │   ├── routes/                # Honox file routes (_renderer, index, metric/*)
-│   ├── components/            # Styled Base UI wrappers + shell/toolbar/nav
-│   └── islands/               # Hydrated observers + flags editor
+│   ├── components/            # Base UI wrappers, layout chrome, dashboard
+│   │   └── metric/            # MetricShell, MetricChrome
+│   └── islands/
+│       └── metric/            # Hydrated observers + flags editor
 ├── utils/
-│   ├── metric/                # Observers, reporting, query-flag schemas
+│   ├── metric/                # Schema, reporting, flags, demo helpers
 │   ├── clickhouse/            # Client, insert, summary query, DDL
-│   ├── env.ts                 # Validated process.env
-│   └── metric-schema.ts       # Shared Metric Zod schema
+│   └── env.ts                 # Validated process.env
 ├── public/                    # Assets at /public/* (metric demo scripts/styles)
 ├── .cursor/rules/             # Format, git, Hono, Base UI conventions
 └── vite.config.ts             # Dual build: client bundle + SSR server
 ```
 
-Key paths: `app/server.ts` (API), `app/routes/metric/` (demo pages), `utils/metric/flags/` (per-metric query schemas), `utils/clickhouse/` (persistence).
+Key paths: `app/server.ts` (API), `app/routes/metric/` (demo pages), `app/components/metric/shell.tsx` (demo shell), `app/islands/metric/` (observers), `utils/metric/schema.ts` (collect payload), `utils/metric/flags/` (query schemas), `utils/clickhouse/` (persistence).
 
 ---
 
@@ -68,7 +69,7 @@ navigator.sendBeacon           insertMetric()              metrics table
 
 ### Metric payload shape
 
-Validated by `utils/metric-schema.ts` — mirrors the [`web-vitals` `Metric`](https://github.com/GoogleChrome/web-vitals#metric) interface:
+Validated by `utils/metric/schema.ts` — mirrors the [`web-vitals` `Metric`](https://github.com/GoogleChrome/web-vitals#metric) interface:
 
 - `name` — `"CLS" | "FCP" | "INP" | "LCP" | "TTFB"`
 - `value`, `delta`, `rating`, `id`, `entries`, `navigationType`
@@ -111,12 +112,12 @@ Always reuse `MetricSchema` for server validation. Do not duplicate field defini
 
 - **URLs:** `/metric/cls`, `/metric/fcp`, `/metric/inp`, `/metric/lcp`, `/metric/ttfb` — mirrors [web-vitals test views](https://github.com/GoogleChrome/web-vitals/tree/main/test/views).
 - **Validation:** Each route uses `zValidator('query', XxxFlagsSchema)` — import from `utils/metric/flags/{cls,fcp,...}.ts`. Booleans use `queryBoolean`; numbers use `queryNumberDefault(n)` or `queryNumberDefault()` when optional. Parsed output always contains every key.
-- **Editor:** Each route renders `MetricShell` (includes `FlagsEditor`) with validated `flags` and co-located defaults (e.g. `clsFlagDefaults`). Booleans render as `Switch`; numbers as `NumberField`. List is sorted booleans first, then numbers. `MetricChrome` reads flags/defaults from `MetricShell` context via `useMetricFlags()`.
-- **Markup:** SSR content mirrors [web-vitals test views](https://github.com/GoogleChrome/web-vitals/tree/main/test/views); observers live in `app/islands/{cls,fcp,...}.tsx`.
+- **Editor:** Each route renders `MetricShell` from `app/components/metric/shell.tsx` (includes `FlagsEditor`) with validated `flags` and co-located defaults (e.g. `clsFlagDefaults`). Booleans render as `Switch`; numbers as `NumberField`. List is sorted booleans first, then numbers. `MetricChrome` reads flags/defaults from `MetricShell` context via `useMetricFlags()`.
+- **Markup:** SSR content mirrors [web-vitals test views](https://github.com/GoogleChrome/web-vitals/tree/main/test/views); observers live in `app/islands/metric/{cls,fcp,...}.tsx`.
 
-### Client islands (`app/islands/`)
+### Client islands (`app/islands/metric/`)
 
-- **Placement:** One metric (or metric group) per island file, e.g. `cls.tsx`.
+- **Placement:** One metric per island file, e.g. `app/islands/metric/cls.tsx`.
 - **Hydration:** Islands are registered and hydrated via `app/client.ts`.
 - **Reporting:** Call `reportMetric()` from `utils/metric/report.ts`. It serializes via `toSafeObject()` and sends `{ metric: … }` to `/collect` via `navigator.sendBeacon`.
 - **Batching:** CLS supports optional `batchReporting` — queues updates and flushes on `visibilitychange` to `hidden`.

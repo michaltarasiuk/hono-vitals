@@ -6,9 +6,9 @@ import { Field } from "@/app/components/ui/field/field";
 import { NumberField } from "@/app/components/ui/number-field/number-field";
 import { Switch } from "@/app/components/ui/switch/switch";
 import { assertNever } from "@/utils/assert-never";
-import { formatFlagLabel } from "@/utils/format-flag-label";
 import { applyFlags, type FlagValue } from "@/utils/metric/flags/serialize";
 import { sortFlagEntries } from "@/utils/metric/flags/sort-flag-entries";
+import { formatFlagLabel } from "@/utils/metric/format-flag-label";
 
 interface FlagsEditorProps {
   flags: Record<string, FlagValue>;
