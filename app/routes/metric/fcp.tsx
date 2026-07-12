@@ -1,8 +1,9 @@
 import { zValidator } from "@hono/zod-validator";
 import { createRoute } from "honox/factory";
 
-import { MetricChrome, MetricShell } from "@/app/components/metric/shell";
+import { Metric } from "@/app/components/metric/shell";
 import FcpObserver from "@/app/islands/metric/fcp";
+import FlagsEditor from "@/app/islands/metric/flags-editor";
 import { elementTiming } from "@/utils/metric/element-timing";
 import { FcpFlagsSchema, fcpFlagDefaults } from "@/utils/metric/flags/fcp";
 
@@ -10,19 +11,25 @@ export default createRoute(zValidator("query", FcpFlagsSchema), (c) => {
   const flags = c.req.valid("query");
 
   return c.render(
-    <MetricShell metric="fcp" flags={flags} defaults={fcpFlagDefaults}>
-      <h1 {...elementTiming("main-heading")}>FCP Test</h1>
-      <p>
-        <img
-          src={`/public/square.png?delay=${flags.imgDelay}`}
-          alt="Gray square"
-          hidden={flags.imgHidden}
-          {...elementTiming("main-image")}
-        />
-      </p>
-      <p>Text below the image</p>
-      <MetricChrome metric="fcp" />
-      <FcpObserver flags={flags} />
-    </MetricShell>,
+    <Metric.Provider metric="fcp" flags={flags} defaults={fcpFlagDefaults}>
+      <Metric.Toolbar>
+        <FlagsEditor />
+      </Metric.Toolbar>
+      <Metric.Main>
+        <Metric.Assets />
+        <h1 {...elementTiming("main-heading")}>FCP Test</h1>
+        <p>
+          <img
+            src={`/public/square.png?delay=${flags.imgDelay}`}
+            alt="Gray square"
+            hidden={flags.imgHidden}
+            {...elementTiming("main-image")}
+          />
+        </p>
+        <p>Text below the image</p>
+        <Metric.Chrome />
+        <FcpObserver />
+      </Metric.Main>
+    </Metric.Provider>,
   );
 });

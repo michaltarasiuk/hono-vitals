@@ -1,7 +1,7 @@
 import { createRoute } from "honox/factory";
 
+import { MetricPageLayout } from "@/app/components/metric/layout";
 import { MetricsSummary } from "@/app/components/metrics-summary";
-import { MetricToolbar } from "@/app/components/toolbar";
 import { MetricSummary } from "@/utils/metrics-summary-schema";
 
 export default createRoute(async (c) => {
@@ -14,11 +14,8 @@ export default createRoute(async (c) => {
   }
 
   return c.render(
-    <>
-      <MetricToolbar currentPath={c.req.path} />
-      <main className="metric-shell">
-        <MetricsSummary data={summary} />
-      </main>
-    </>,
+    <MetricPageLayout currentPath={c.req.path}>
+      <MetricsSummary data={summary} />
+    </MetricPageLayout>,
   );
 });
