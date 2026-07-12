@@ -41,7 +41,7 @@ hono-vitals/
 │   ├── components/            # Base UI wrappers, layout chrome, dashboard
 │   │   └── metric/            # Metric compound API, context, page layout
 │   └── islands/
-│       └── metric/            # Hydrated observers, flags editor, client provider
+│       └── metric/            # Hydrated observers and flags editor
 ├── utils/
 │   ├── metric/                # Schema, reporting, flags, demo helpers
 │   ├── clickhouse/            # Client, insert, summary query, DDL
@@ -112,13 +112,13 @@ Always reuse `MetricSchema` for server validation. Do not duplicate field defini
 
 - **URLs:** `/metric/cls`, `/metric/fcp`, `/metric/inp`, `/metric/lcp`, `/metric/ttfb` — mirrors [web-vitals test views](https://github.com/GoogleChrome/web-vitals/tree/main/test/views).
 - **Validation:** Each route uses `zValidator('query', XxxFlagsSchema)` — import from `utils/metric/flags/{cls,fcp,...}.ts`. Booleans use `queryBoolean`; numbers use `queryNumberDefault(n)` or `queryNumberDefault()` when optional. Parsed output always contains every key.
-- **Composition:** Each route composes `Metric.Provider`, `Metric.Toolbar`, `Metric.Main`, `Metric.Assets`, and `Metric.Chrome` from `app/components/metric/shell.tsx` with validated `flags` and co-located defaults (e.g. `clsFlagDefaults`). `Metric.Provider` embeds `MetricFlagsProvider` (`app/islands/metric/flags-provider.tsx`) so islands share context after hydration. Dashboard uses `MetricPageLayout` from `app/components/metric/layout.tsx`.
+- **Composition:** Each route composes `Metric.Provider`, `Metric.Toolbar`, `Metric.Main`, `Metric.Assets`, and `Metric.Chrome` from `app/components/metric/shell.tsx` with validated `flags` and co-located defaults (e.g. `clsFlagDefaults`). Dashboard uses `MetricPageLayout` from `app/components/metric/layout.tsx`.
 - **Editor:** Routes place `FlagsEditor` in `Metric.Toolbar`. Booleans render as `Switch`; numbers as `NumberField`. List is sorted booleans first, then numbers. `Metric.Chrome` and islands read flags via `useMetric()` / `useMetricFlags()` from `app/components/metric/context.tsx`.
-- **Markup:** SSR content mirrors [web-vitals test views](https://github.com/GoogleChrome/web-vitals/tree/main/test/views); observers live in `app/islands/metric/{cls,fcp,...}.tsx`.
+- **Markup:** Each route declares a file-local `View` component below the route export with SSR content mirroring [web-vitals test views](https://github.com/GoogleChrome/web-vitals/tree/main/test/views); observers live in `app/islands/metric/{cls,fcp,...}.tsx`.
 
 ### Client islands (`app/islands/metric/`)
 
-- **Placement:** One metric per island file, e.g. `app/islands/metric/cls.tsx`. `flags-provider.tsx` re-provides metric context inside hydrated boundaries.
+- **Placement:** One metric per island file, e.g. `app/islands/metric/cls.tsx`.
 - **Hydration:** Islands are registered and hydrated via `app/client.ts`. Observers and `FlagsEditor` call `useMetric()` / `useMetricFlags()` — no flag props.
 - **Reporting:** Call `reportMetric()` from `utils/metric/report.ts`. It serializes via `toSafeObject()` and sends `{ metric: … }` to `/collect` via `navigator.sendBeacon`.
 - **Batching:** CLS supports optional `batchReporting` — queues updates and flushes on `visibilitychange` to `hidden`.

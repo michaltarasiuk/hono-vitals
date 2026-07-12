@@ -5,7 +5,6 @@ import type { MetricSlug } from "@/utils/metric/metrics";
 
 import { MetricContext, useMetric } from "@/app/components/metric/context";
 import { MetricToolbar } from "@/app/components/toolbar";
-import MetricFlagsProvider from "@/app/islands/metric/flags-provider";
 import {
   prerenderHref,
   speculationRulesJson,
@@ -23,9 +22,7 @@ interface ProviderProps {
 function Provider({ metric, flags, defaults, children }: ProviderProps) {
   return (
     <MetricContext value={{ flags, defaults, metric }}>
-      <MetricFlagsProvider flags={flags} defaults={defaults} metric={metric}>
-        {children}
-      </MetricFlagsProvider>
+      {children}
     </MetricContext>
   );
 }

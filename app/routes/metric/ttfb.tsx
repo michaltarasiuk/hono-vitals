@@ -5,7 +5,11 @@ import { Metric } from "@/app/components/metric/shell";
 import FlagsEditor from "@/app/islands/metric/flags-editor";
 import TtfbObserver from "@/app/islands/metric/ttfb";
 import { elementTiming } from "@/utils/metric/element-timing";
-import { TtfbFlagsSchema, ttfbFlagDefaults } from "@/utils/metric/flags/ttfb";
+import {
+  type TtfbFlags,
+  TtfbFlagsSchema,
+  ttfbFlagDefaults,
+} from "@/utils/metric/flags/ttfb";
 
 export default createRoute(zValidator("query", TtfbFlagsSchema), (c) => {
   const flags = c.req.valid("query");
@@ -17,19 +21,27 @@ export default createRoute(zValidator("query", TtfbFlagsSchema), (c) => {
       </Metric.Toolbar>
       <Metric.Main>
         <Metric.Assets />
-        <h1 {...elementTiming("main-heading")}>TTFB Test</h1>
-        <p>
-          <img
-            src={`/public/square.png?delay=${flags.imgDelay}`}
-            alt="Gray square"
-            hidden={flags.imgHidden}
-            {...elementTiming("main-image")}
-          />
-        </p>
-        <p>Text below the image</p>
+        <View flags={flags} />
         <Metric.Chrome />
         <TtfbObserver />
       </Metric.Main>
     </Metric.Provider>,
   );
 });
+
+function View({ flags }: { flags: TtfbFlags }) {
+  return (
+    <>
+      <h1 {...elementTiming("main-heading")}>TTFB Test</h1>
+      <p>
+        <img
+          src={`/public/square.png?delay=${flags.imgDelay}`}
+          alt="Gray square"
+          hidden={flags.imgHidden}
+          {...elementTiming("main-image")}
+        />
+      </p>
+      <p>Text below the image</p>
+    </>
+  );
+}

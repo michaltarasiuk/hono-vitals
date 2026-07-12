@@ -5,7 +5,11 @@ import { Metric } from "@/app/components/metric/shell";
 import FcpObserver from "@/app/islands/metric/fcp";
 import FlagsEditor from "@/app/islands/metric/flags-editor";
 import { elementTiming } from "@/utils/metric/element-timing";
-import { FcpFlagsSchema, fcpFlagDefaults } from "@/utils/metric/flags/fcp";
+import {
+  type FcpFlags,
+  FcpFlagsSchema,
+  fcpFlagDefaults,
+} from "@/utils/metric/flags/fcp";
 
 export default createRoute(zValidator("query", FcpFlagsSchema), (c) => {
   const flags = c.req.valid("query");
@@ -17,19 +21,27 @@ export default createRoute(zValidator("query", FcpFlagsSchema), (c) => {
       </Metric.Toolbar>
       <Metric.Main>
         <Metric.Assets />
-        <h1 {...elementTiming("main-heading")}>FCP Test</h1>
-        <p>
-          <img
-            src={`/public/square.png?delay=${flags.imgDelay}`}
-            alt="Gray square"
-            hidden={flags.imgHidden}
-            {...elementTiming("main-image")}
-          />
-        </p>
-        <p>Text below the image</p>
+        <View flags={flags} />
         <Metric.Chrome />
         <FcpObserver />
       </Metric.Main>
     </Metric.Provider>,
   );
 });
+
+function View({ flags }: { flags: FcpFlags }) {
+  return (
+    <>
+      <h1 {...elementTiming("main-heading")}>FCP Test</h1>
+      <p>
+        <img
+          src={`/public/square.png?delay=${flags.imgDelay}`}
+          alt="Gray square"
+          hidden={flags.imgHidden}
+          {...elementTiming("main-image")}
+        />
+      </p>
+      <p>Text below the image</p>
+    </>
+  );
+}
