@@ -1,8 +1,8 @@
 import { zValidator } from "@hono/zod-validator";
 import { createRoute } from "honox/factory";
 
-import { MetricChrome, MetricShell } from "@/app/components/shell";
-import FcpObserver from "@/app/islands/fcp";
+import { MetricChrome, MetricShell } from "@/app/components/metric/shell";
+import FcpObserver from "@/app/islands/metric/fcp";
 import { elementTiming } from "@/utils/metric/element-timing";
 import { FcpFlagsSchema, fcpFlagDefaults } from "@/utils/metric/flags/fcp";
 

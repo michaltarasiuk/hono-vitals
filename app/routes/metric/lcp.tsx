@@ -1,8 +1,8 @@
 import { zValidator } from "@hono/zod-validator";
 import { createRoute } from "honox/factory";
 
-import { MetricChrome, MetricShell } from "@/app/components/shell";
-import LcpObserver from "@/app/islands/lcp";
+import { MetricChrome, MetricShell } from "@/app/components/metric/shell";
+import LcpObserver from "@/app/islands/metric/lcp";
 import { elementTiming } from "@/utils/metric/element-timing";
 import { LcpFlagsSchema, lcpFlagDefaults } from "@/utils/metric/flags/lcp";
 

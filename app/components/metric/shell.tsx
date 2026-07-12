@@ -4,7 +4,7 @@ import type { FlagValue } from "@/utils/metric/flags/serialize";
 import type { MetricSlug } from "@/utils/metric/metrics";
 
 import { MetricToolbar } from "@/app/components/toolbar";
-import FlagsEditor from "@/app/islands/flags-editor";
+import FlagsEditor from "@/app/islands/metric/flags-editor";
 import {
   prerenderHref,
   speculationRulesJson,
