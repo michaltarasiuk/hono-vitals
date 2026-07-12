@@ -11,9 +11,6 @@ export type Env = z.infer<typeof EnvSchema>;
 let env: Env | null = null;
 
 export function getEnv() {
-  if (!env) {
-    env = EnvSchema.parse(process.env);
-  }
-
+  env ??= EnvSchema.parse(process.env);
   return env;
 }
