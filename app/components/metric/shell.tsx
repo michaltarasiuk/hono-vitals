@@ -29,9 +29,15 @@ function Provider({ metric, flags, defaults, children }: ProviderProps) {
 
 function Toolbar({ children }: { children?: ReactNode }) {
   const { metric } = useMetric();
+  const currentPath = `/metric/${metric}`;
 
   return (
-    <LayoutToolbar currentPath={`/metric/${metric}`}>{children}</LayoutToolbar>
+    <LayoutToolbar.Root>
+      <LayoutToolbar.Nav currentPath={currentPath} />
+      {children ? (
+        <LayoutToolbar.Actions>{children}</LayoutToolbar.Actions>
+      ) : null}
+    </LayoutToolbar.Root>
   );
 }
 
