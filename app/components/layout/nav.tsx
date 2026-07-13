@@ -1,4 +1,4 @@
-import { METRIC_NAV } from "@/utils/metric/metrics";
+import { METRIC_NAV } from "@/lib/metric/nav";
 
 interface MetricNavProps {
   currentPath: string;

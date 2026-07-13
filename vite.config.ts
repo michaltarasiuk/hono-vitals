@@ -16,7 +16,7 @@ export default defineConfig(({ command, mode }) => {
       },
       build: {
         rollupOptions: {
-          input: ["./app/client.ts", "./app/style.css"],
+          input: ["./app/client.ts", "./app/styles/global.css"],
         },
         manifest: true,
         emptyOutDir: false,
@@ -48,7 +48,7 @@ export default defineConfig(({ command, mode }) => {
     plugins: [
       honox({
         client: {
-          input: ["/app/client.ts", "/app/style.css"],
+          input: ["/app/client.ts", "/app/styles/global.css"],
         },
         devServer: { adapter },
       }),

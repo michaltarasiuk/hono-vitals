@@ -1,5 +1,5 @@
-import type { FlagValue } from "@/utils/metric/flags/serialize";
-import type { MetricSlug } from "@/utils/metric/metrics";
+import type { FlagValue } from "@/lib/metric/flags/serialize";
+import type { MetricSlug } from "@/lib/metric/nav";
 
 function flagsToQueryString(
   flags: Record<string, FlagValue>,

@@ -1,7 +1,7 @@
 import { reactRenderer } from "@hono/react-renderer";
 import { Link, Script } from "honox/server";
 
-import devStyles from "../style.css?inline";
+import devStyles from "../styles/global.css?inline";
 
 export default reactRenderer(({ children }) => {
   return (
@@ -13,7 +13,7 @@ export default reactRenderer(({ children }) => {
         {import.meta.env.DEV ? (
           <style dangerouslySetInnerHTML={{ __html: devStyles }} />
         ) : (
-          <Link href="/app/style.css" rel="stylesheet" />
+          <Link href="/app/styles/global.css" rel="stylesheet" />
         )}
         <Script src="/app/client.ts" async />
       </head>

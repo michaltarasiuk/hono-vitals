@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 
-import { MetricNav } from "@/app/components/nav";
+import { MetricNav } from "@/app/components/layout/nav";
 
 interface MetricToolbarProps {
   currentPath: string;

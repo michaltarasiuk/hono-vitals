@@ -1,6 +1,6 @@
 import { createClient } from "@clickhouse/client";
 
-import { getEnv } from "@/utils/env";
+import { getEnv } from "@/lib/env";
 
 let client: ReturnType<typeof createClient> | null = null;
 

@@ -2,14 +2,14 @@ import { zValidator } from "@hono/zod-validator";
 import { createRoute } from "honox/factory";
 
 import { Metric } from "@/app/components/metric/shell";
-import FlagsEditor from "@/app/islands/metric/flags-editor";
+import FlagsEditor from "@/app/islands/flags-editor";
 import TtfbObserver from "@/app/islands/metric/ttfb";
-import { elementTiming } from "@/utils/metric/element-timing";
+import { elementTiming } from "@/lib/metric/element-timing";
 import {
   type TtfbFlags,
   TtfbFlagsSchema,
   ttfbFlagDefaults,
-} from "@/utils/metric/flags/ttfb";
+} from "@/lib/metric/flags/ttfb";
 
 export default createRoute(zValidator("query", TtfbFlagsSchema), (c) => {
   const flags = c.req.valid("query");

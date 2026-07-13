@@ -1,9 +1,9 @@
-import { getClickHouseClient } from "@/utils/clickhouse/client";
-import { METRICS_SUMMARY_SQL } from "@/utils/clickhouse/sql";
+import { getClickHouseClient } from "@/lib/analytics/clickhouse/client";
+import { METRICS_SUMMARY_SQL } from "@/lib/analytics/clickhouse/sql";
 import {
   METRIC_NAMES,
   type MetricSummary,
-} from "@/utils/metrics-summary-schema";
+} from "@/lib/analytics/summary-schema";
 
 interface SummaryRow {
   name: string;

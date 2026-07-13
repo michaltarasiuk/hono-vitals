@@ -9,7 +9,7 @@
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "clickhouse:init": "bun utils/clickhouse/init-schema.ts"
+    "clickhouse:init": "bun lib/analytics/clickhouse/init-schema.ts"
   },
   "dependencies": {
     "@base-ui/react": "^1.6.0",

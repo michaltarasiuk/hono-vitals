@@ -2,14 +2,14 @@ import { zValidator } from "@hono/zod-validator";
 import { createRoute } from "honox/factory";
 
 import { Metric } from "@/app/components/metric/shell";
+import FlagsEditor from "@/app/islands/flags-editor";
 import FcpObserver from "@/app/islands/metric/fcp";
-import FlagsEditor from "@/app/islands/metric/flags-editor";
-import { elementTiming } from "@/utils/metric/element-timing";
+import { elementTiming } from "@/lib/metric/element-timing";
 import {
   type FcpFlags,
   FcpFlagsSchema,
   fcpFlagDefaults,
-} from "@/utils/metric/flags/fcp";
+} from "@/lib/metric/flags/fcp";
 
 export default createRoute(zValidator("query", FcpFlagsSchema), (c) => {
   const flags = c.req.valid("query");
