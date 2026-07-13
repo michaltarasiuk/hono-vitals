@@ -1,4 +1,4 @@
-import { getSql } from "@/lib/analytics/clickhouse/client";
+import { getSQL } from "@/lib/analytics/clickhouse/client";
 import {
   METRIC_NAMES,
   type MetricSummary,
@@ -15,7 +15,7 @@ interface SummaryRow {
 }
 
 export async function getMetricsSummary() {
-  const sql = getSql();
+  const sql = getSQL();
 
   const rows = await sql<SummaryRow>`
     SELECT

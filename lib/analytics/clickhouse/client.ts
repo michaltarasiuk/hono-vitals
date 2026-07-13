@@ -5,7 +5,7 @@ import { getEnv } from "@/lib/env";
 
 let sql: ReturnType<typeof waddler> | null = null;
 
-export function getSql() {
+export function getSQL() {
   if (!sql) {
     const { CLICKHOUSE_URL, CLICKHOUSE_USERNAME, CLICKHOUSE_PASSWORD } =
       getEnv();

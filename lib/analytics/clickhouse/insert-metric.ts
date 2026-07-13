@@ -1,12 +1,12 @@
 import type * as z from "zod";
 
-import { getSql } from "@/lib/analytics/clickhouse/client";
+import { getSQL } from "@/lib/analytics/clickhouse/client";
 import { MetricSchema } from "@/lib/collect/schema";
 
 type Metric = z.infer<typeof MetricSchema>;
 
 export async function insertMetric(metric: Metric) {
-  const sql = getSql();
+  const sql = getSQL();
 
   await sql`
     INSERT INTO ${sql.identifier("metrics")}
