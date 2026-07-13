@@ -1,6 +1,7 @@
 import { useState } from "react";
 
-import { useMetric } from "@/app/components/metric/context";
+import type { FlagValue } from "@/lib/metric/flags/serialize";
+
 import { Button } from "@/app/components/ui/button/button";
 import { Dialog } from "@/app/components/ui/dialog/dialog";
 import { Field } from "@/app/components/ui/field/field";
@@ -14,8 +15,12 @@ import { assertNever } from "@/lib/shared/assert-never";
 /** Stable id so island hydration matches full-page SSR (Honox useId path differs). */
 const FLAGS_EDITOR_TRIGGER_ID = "metric-flags-trigger";
 
-export function FlagsEditor() {
-  const { flags, defaults } = useMetric();
+interface FlagsEditorProps {
+  flags: Record<string, FlagValue>;
+  defaults: Record<string, FlagValue>;
+}
+
+export function FlagsEditor({ flags, defaults }: FlagsEditorProps) {
   const [open, setOpen] = useState(false);
   const [draft, setDraft] = useState(flags);
 

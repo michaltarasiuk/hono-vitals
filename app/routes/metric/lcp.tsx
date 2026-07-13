@@ -17,13 +17,13 @@ export default createRoute(zValidator("query", LcpFlagsSchema), (c) => {
   return c.render(
     <Metric.Provider metric="lcp" flags={flags} defaults={lcpFlagDefaults}>
       <Metric.Toolbar>
-        <FlagsEditor />
+        <FlagsEditor flags={flags} defaults={lcpFlagDefaults} />
       </Metric.Toolbar>
       <Metric.Main>
         <Metric.Assets />
         <View flags={flags} />
         <Metric.Chrome />
-        <LcpObserver />
+        <LcpObserver flags={flags} />
       </Metric.Main>
     </Metric.Provider>,
   );

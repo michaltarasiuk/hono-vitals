@@ -25,7 +25,7 @@ const publicRoutes = new Hono()
   .use(
     "*",
     serveStatic({
-      root: "./public",
+      root: ".",
     }),
   );
 

@@ -1,10 +1,27 @@
 import build from "@hono/vite-build/bun";
+import { defaultOptions as devServerDefaultOptions } from "@hono/vite-dev-server";
 import adapter from "@hono/vite-dev-server/bun";
 import honox from "honox/vite";
 import { fileURLToPath } from "node:url";
 import { defineConfig } from "vite";
 
 const root = fileURLToPath(new URL(".", import.meta.url));
+
+const devServerExclude = [
+  // Let Hono serve demo assets under /public (delay query, raw CSS/JS).
+  /^(?!\/public\/).*\.css$/,
+  /^(?!\/public\/).*\.js$/,
+  /^(?!\/public\/).*\.jsx$/,
+  ...devServerDefaultOptions.exclude.filter(
+    (pattern) =>
+      !(
+        pattern instanceof RegExp &&
+        (pattern.source === ".*\\.css$" ||
+          pattern.source === ".*\\.js$" ||
+          pattern.source === ".*\\.jsx$")
+      ),
+  ),
+];
 
 export default defineConfig(({ command, mode }) => {
   if (mode === "client") {
@@ -50,7 +67,10 @@ export default defineConfig(({ command, mode }) => {
         client: {
           input: ["/app/client.ts", "/app/styles/global.css"],
         },
-        devServer: { adapter },
+        devServer: {
+          adapter,
+          exclude: devServerExclude,
+        },
       }),
       build(),
     ],

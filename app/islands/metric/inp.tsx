@@ -2,7 +2,6 @@ import { useEffect } from "react";
 
 import type { InpFlags } from "@/lib/metric/flags/inp";
 
-import { useMetricFlags } from "@/app/components/metric/context";
 import { reportMetric } from "@/lib/collect/report";
 import { createBatchReporter } from "@/lib/metric/batch-reporting";
 import {
@@ -13,9 +12,7 @@ import {
 import { loadWebVitals } from "@/lib/metric/load-web-vitals";
 import { buildInpOptions } from "@/lib/metric/observer-options";
 
-export function InpObserver() {
-  const flags = useMetricFlags<InpFlags>();
-
+export function InpObserver({ flags }: { flags: InpFlags }) {
   useEffect(() => {
     addBlockingListeners();
     const reset = document.getElementById("reset");

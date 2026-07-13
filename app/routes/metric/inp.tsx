@@ -13,12 +13,13 @@ export default createRoute(zValidator("query", InpFlagsSchema), (c) => {
   return c.render(
     <Metric.Provider metric="inp" flags={flags} defaults={inpFlagDefaults}>
       <Metric.Toolbar>
-        <FlagsEditor />
+        <FlagsEditor flags={flags} defaults={inpFlagDefaults} />
       </Metric.Toolbar>
       <Metric.Main>
         <Metric.Assets />
         <View />
         <Metric.Chrome />
+        <InpObserver flags={flags} />
       </Metric.Main>
     </Metric.Provider>,
   );
@@ -28,7 +29,6 @@ function View() {
   return (
     <>
       <h1 {...elementTiming("main-heading")}>INP Test</h1>
-      <InpObserver />
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin nec porta
         orci, ac sagittis augue. Nullam orci tellus, suscipit sed magna id,
