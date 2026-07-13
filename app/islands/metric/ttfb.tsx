@@ -1,12 +1,12 @@
 import { useEffect } from "react";
 
-import type { TtfbFlags } from "@/utils/metric/flags/ttfb";
+import type { TtfbFlags } from "@/lib/metric/flags/ttfb";
 
 import { useMetricFlags } from "@/app/components/metric/context";
-import { loadWebVitals } from "@/utils/metric/load-web-vitals";
-import { buildTtfbOptions } from "@/utils/metric/observer-options";
-import { overrideResponseStart } from "@/utils/metric/override-response-start";
-import { reportMetric } from "@/utils/metric/report";
+import { reportMetric } from "@/lib/collect/report";
+import { loadWebVitals } from "@/lib/metric/load-web-vitals";
+import { buildTtfbOptions } from "@/lib/metric/observer-options";
+import { overrideResponseStart } from "@/lib/metric/override-response-start";
 
 export default function TtfbObserver() {
   const flags = useMetricFlags<TtfbFlags>();

@@ -1,4 +1,4 @@
-import { reportMetric } from "./report";
+import { reportMetric } from "@/lib/collect/report";
 
 export function createBatchReporter() {
   const queue = new Set<object>();

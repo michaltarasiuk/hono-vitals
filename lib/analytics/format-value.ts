@@ -1,4 +1,4 @@
-import type { MetricSummary } from "@/utils/metrics-summary-schema";
+import type { MetricSummary } from "@/lib/analytics/summary-schema";
 
 export function formatMetricValue(name: MetricSummary["name"], value: number) {
   if (name === "CLS") {

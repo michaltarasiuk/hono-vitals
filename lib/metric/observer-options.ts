@@ -1,5 +1,5 @@
-import type { InpFlags } from "@/utils/metric/flags/inp";
-import type { BaseMetricFlags } from "@/utils/metric/flags/shared";
+import type { InpFlags } from "@/lib/metric/flags/inp";
+import type { BaseMetricFlags } from "@/lib/metric/flags/shared";
 
 type ObserverFlags = BaseMetricFlags & Partial<InpFlags>;
 

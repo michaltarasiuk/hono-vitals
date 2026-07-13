@@ -1,21 +1,25 @@
 import { createRoute } from "honox/factory";
 
-import { MetricPageLayout } from "@/app/components/metric/layout";
-import { MetricsSummary } from "@/app/components/metrics-summary";
-import { MetricSummary } from "@/utils/metrics-summary-schema";
+import { MetricsSummary } from "@/app/components/dashboard/metrics-summary";
+import { Page } from "@/app/components/layout/page";
+import { MetricSummary } from "@/lib/analytics/summary-schema";
 
 export default createRoute(async (c) => {
   let summary: MetricSummary[] = [];
   try {
-    const { getMetricsSummary } = await import("@/utils/clickhouse/summary");
+    const { getMetricsSummary } =
+      await import("@/lib/analytics/clickhouse/summary");
     summary = await getMetricsSummary();
   } catch (error) {
     console.error(error);
   }
 
   return c.render(
-    <MetricPageLayout currentPath={c.req.path}>
-      <MetricsSummary data={summary} />
-    </MetricPageLayout>,
+    <>
+      <Page.Toolbar currentPath={c.req.path} />
+      <Page.Main>
+        <MetricsSummary.Data data={summary} />
+      </Page.Main>
+    </>,
   );
 });

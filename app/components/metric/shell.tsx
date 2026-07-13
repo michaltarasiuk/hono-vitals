@@ -1,16 +1,16 @@
 import type { ReactNode } from "react";
 
-import type { FlagValue } from "@/utils/metric/flags/serialize";
-import type { MetricSlug } from "@/utils/metric/metrics";
+import type { FlagValue } from "@/lib/metric/flags/serialize";
+import type { MetricSlug } from "@/lib/metric/nav";
 
+import { MetricToolbar } from "@/app/components/layout/toolbar";
 import { MetricContext, useMetric } from "@/app/components/metric/context";
-import { MetricToolbar } from "@/app/components/toolbar";
 import {
   prerenderHref,
   speculationRulesJson,
-} from "@/utils/metric/prerender-href";
-import { HIDDEN_PAGE_STUB_SCRIPT } from "@/utils/metric/stub-hidden";
-import { WAS_DISCARDED_STUB_SCRIPT } from "@/utils/metric/stub-was-discarded";
+} from "@/lib/metric/prerender-href";
+import { HIDDEN_PAGE_STUB_SCRIPT } from "@/lib/metric/stub-hidden";
+import { WAS_DISCARDED_STUB_SCRIPT } from "@/lib/metric/stub-was-discarded";
 
 interface ProviderProps {
   metric: MetricSlug;
@@ -21,14 +21,22 @@ interface ProviderProps {
 
 function Provider({ metric, flags, defaults, children }: ProviderProps) {
   return (
-    <MetricContext value={{ flags, defaults, metric }}>
+    <MetricContext
+      value={{
+        state: { flags, defaults, metric },
+        actions: {},
+        meta: {},
+      }}
+    >
       {children}
     </MetricContext>
   );
 }
 
 function Toolbar({ children }: { children?: ReactNode }) {
-  const { metric } = useMetric();
+  const {
+    state: { metric },
+  } = useMetric();
 
   return (
     <MetricToolbar currentPath={`/metric/${metric}`}>{children}</MetricToolbar>
@@ -36,7 +44,9 @@ function Toolbar({ children }: { children?: ReactNode }) {
 }
 
 function Main({ children }: { children: ReactNode }) {
-  const { flags } = useMetric();
+  const {
+    state: { flags },
+  } = useMetric();
   const htmlHidden = Boolean(flags.hidden || flags.invisible);
 
   return (
@@ -47,7 +57,9 @@ function Main({ children }: { children: ReactNode }) {
 }
 
 function Assets() {
-  const { flags } = useMetric();
+  const {
+    state: { flags },
+  } = useMetric();
   const renderBlocking =
     typeof flags.renderBlocking === "number" ? flags.renderBlocking : 0;
   const delayDCL = typeof flags.delayDCL === "number" ? flags.delayDCL : 0;
@@ -80,7 +92,9 @@ function Assets() {
 }
 
 function Chrome() {
-  const { flags, defaults, metric } = useMetric();
+  const {
+    state: { flags, defaults, metric },
+  } = useMetric();
   const href = prerenderHref(metric, flags, defaults);
 
   return (

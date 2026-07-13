@@ -1,17 +1,17 @@
 import { useEffect } from "react";
 
-import type { InpFlags } from "@/utils/metric/flags/inp";
+import type { InpFlags } from "@/lib/metric/flags/inp";
 
 import { useMetricFlags } from "@/app/components/metric/context";
-import { createBatchReporter } from "@/utils/metric/batch-reporting";
+import { reportMetric } from "@/lib/collect/report";
+import { createBatchReporter } from "@/lib/metric/batch-reporting";
 import {
   addBlockingListeners,
   EVENT_NAMES,
   resetBlockingTimes,
-} from "@/utils/metric/inp-blocking";
-import { loadWebVitals } from "@/utils/metric/load-web-vitals";
-import { buildInpOptions } from "@/utils/metric/observer-options";
-import { reportMetric } from "@/utils/metric/report";
+} from "@/lib/metric/inp-blocking";
+import { loadWebVitals } from "@/lib/metric/load-web-vitals";
+import { buildInpOptions } from "@/lib/metric/observer-options";
 
 export default function InpObserver() {
   const flags = useMetricFlags<InpFlags>();

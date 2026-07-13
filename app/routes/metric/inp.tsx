@@ -2,10 +2,10 @@ import { zValidator } from "@hono/zod-validator";
 import { createRoute } from "honox/factory";
 
 import { Metric } from "@/app/components/metric/shell";
-import FlagsEditor from "@/app/islands/metric/flags-editor";
+import FlagsEditor from "@/app/islands/flags-editor";
 import InpObserver from "@/app/islands/metric/inp";
-import { elementTiming } from "@/utils/metric/element-timing";
-import { InpFlagsSchema, inpFlagDefaults } from "@/utils/metric/flags/inp";
+import { elementTiming } from "@/lib/metric/element-timing";
+import { InpFlagsSchema, inpFlagDefaults } from "@/lib/metric/flags/inp";
 
 export default createRoute(zValidator("query", InpFlagsSchema), (c) => {
   const flags = c.req.valid("query");

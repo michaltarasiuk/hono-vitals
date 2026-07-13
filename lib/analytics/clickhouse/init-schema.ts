@@ -1,5 +1,5 @@
-import { getClickHouseClient } from "@/utils/clickhouse/client";
-import { CREATE_METRICS_TABLE_SQL } from "@/utils/clickhouse/sql";
+import { getClickHouseClient } from "@/lib/analytics/clickhouse/client";
+import { CREATE_METRICS_TABLE_SQL } from "@/lib/analytics/clickhouse/sql";
 
 export async function initClickHouseSchema() {
   const client = getClickHouseClient();

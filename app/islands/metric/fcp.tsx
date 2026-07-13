@@ -1,11 +1,11 @@
 import { useEffect } from "react";
 
-import type { FcpFlags } from "@/utils/metric/flags/fcp";
+import type { FcpFlags } from "@/lib/metric/flags/fcp";
 
 import { useMetricFlags } from "@/app/components/metric/context";
-import { loadWebVitals } from "@/utils/metric/load-web-vitals";
-import { buildFcpOptions } from "@/utils/metric/observer-options";
-import { reportMetric } from "@/utils/metric/report";
+import { reportMetric } from "@/lib/collect/report";
+import { loadWebVitals } from "@/lib/metric/load-web-vitals";
+import { buildFcpOptions } from "@/lib/metric/observer-options";
 
 export default function FcpObserver() {
   const flags = useMetricFlags<FcpFlags>();
