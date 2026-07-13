@@ -7,7 +7,7 @@ import { reportMetric } from "@/lib/collect/report";
 import { loadWebVitals } from "@/lib/metric/load-web-vitals";
 import { buildFcpOptions } from "@/lib/metric/observer-options";
 
-export default function FcpObserver() {
+export function FcpObserver() {
   const flags = useMetricFlags<FcpFlags>();
 
   useEffect(() => {

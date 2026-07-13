@@ -1,20 +1,18 @@
 import { METRIC_NAV } from "@/lib/metric/nav";
 
-interface MetricNavProps {
+interface NavProps {
   currentPath: string;
 }
 
-export function MetricNav({ currentPath }: MetricNavProps) {
+export function Nav({ currentPath }: NavProps) {
   return (
-    <nav className="MetricNav">
+    <nav className="Nav">
       {METRIC_NAV.map(({ href, label }) => (
         <a
           key={href}
           href={href}
           className={
-            currentPath === href
-              ? "MetricNavLink MetricNavLinkActive"
-              : "MetricNavLink"
+            currentPath === href ? "NavLink NavLinkActive" : "NavLink"
           }
         >
           {label}

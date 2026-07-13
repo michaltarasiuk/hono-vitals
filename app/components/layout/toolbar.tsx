@@ -1,17 +1,17 @@
 import type { ReactNode } from "react";
 
-import { MetricNav } from "@/app/components/layout/nav";
+import { Nav } from "@/app/components/layout/nav";
 
-interface MetricToolbarProps {
+interface ToolbarProps {
   currentPath: string;
   children?: ReactNode;
 }
 
-export function MetricToolbar({ currentPath, children }: MetricToolbarProps) {
+export function Toolbar({ currentPath, children }: ToolbarProps) {
   return (
-    <header className="MetricToolbar">
-      <MetricNav currentPath={currentPath} />
-      <div className="MetricToolbarActions">{children}</div>
+    <header className="Toolbar">
+      <Nav currentPath={currentPath} />
+      <div className="ToolbarActions">{children}</div>
     </header>
   );
 }

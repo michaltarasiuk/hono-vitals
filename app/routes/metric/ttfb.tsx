@@ -2,8 +2,8 @@ import { zValidator } from "@hono/zod-validator";
 import { createRoute } from "honox/factory";
 
 import { Metric } from "@/app/components/metric/shell";
-import FlagsEditor from "@/app/islands/flags-editor";
-import TtfbObserver from "@/app/islands/metric/ttfb";
+import { FlagsEditor } from "@/app/islands/flags-editor";
+import { TtfbObserver } from "@/app/islands/metric/ttfb";
 import { elementTiming } from "@/lib/metric/element-timing";
 import {
   type TtfbFlags,

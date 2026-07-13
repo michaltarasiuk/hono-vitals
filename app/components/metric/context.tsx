@@ -3,20 +3,10 @@ import { createContext, use } from "react";
 import type { FlagValue } from "@/lib/metric/flags/serialize";
 import type { MetricSlug } from "@/lib/metric/nav";
 
-export interface MetricState {
+interface MetricContextValue {
   flags: Record<string, FlagValue>;
   defaults: Record<string, FlagValue>;
   metric: MetricSlug;
-}
-
-export type MetricActions = Record<string, never>;
-
-export type MetricMeta = Record<string, never>;
-
-export interface MetricContextValue {
-  state: MetricState;
-  actions: MetricActions;
-  meta: MetricMeta;
 }
 
 export const MetricContext = createContext<MetricContextValue | null>(null);
@@ -30,5 +20,5 @@ export function useMetric() {
 }
 
 export function useMetricFlags<T extends Record<string, FlagValue>>(): T {
-  return useMetric().state.flags as T;
+  return useMetric().flags as T;
 }

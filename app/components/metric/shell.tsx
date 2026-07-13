@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 import type { FlagValue } from "@/lib/metric/flags/serialize";
 import type { MetricSlug } from "@/lib/metric/nav";
 
-import { MetricToolbar } from "@/app/components/layout/toolbar";
+import { Toolbar as LayoutToolbar } from "@/app/components/layout/toolbar";
 import { MetricContext, useMetric } from "@/app/components/metric/context";
 import {
   prerenderHref,
@@ -21,32 +21,22 @@ interface ProviderProps {
 
 function Provider({ metric, flags, defaults, children }: ProviderProps) {
   return (
-    <MetricContext
-      value={{
-        state: { flags, defaults, metric },
-        actions: {},
-        meta: {},
-      }}
-    >
+    <MetricContext value={{ flags, defaults, metric }}>
       {children}
     </MetricContext>
   );
 }
 
 function Toolbar({ children }: { children?: ReactNode }) {
-  const {
-    state: { metric },
-  } = useMetric();
+  const { metric } = useMetric();
 
   return (
-    <MetricToolbar currentPath={`/metric/${metric}`}>{children}</MetricToolbar>
+    <LayoutToolbar currentPath={`/metric/${metric}`}>{children}</LayoutToolbar>
   );
 }
 
 function Main({ children }: { children: ReactNode }) {
-  const {
-    state: { flags },
-  } = useMetric();
+  const { flags } = useMetric();
   const htmlHidden = Boolean(flags.hidden || flags.invisible);
 
   return (
@@ -57,9 +47,7 @@ function Main({ children }: { children: ReactNode }) {
 }
 
 function Assets() {
-  const {
-    state: { flags },
-  } = useMetric();
+  const { flags } = useMetric();
   const renderBlocking =
     typeof flags.renderBlocking === "number" ? flags.renderBlocking : 0;
   const delayDCL = typeof flags.delayDCL === "number" ? flags.delayDCL : 0;
@@ -92,9 +80,7 @@ function Assets() {
 }
 
 function Chrome() {
-  const {
-    state: { flags, defaults, metric },
-  } = useMetric();
+  const { flags, defaults, metric } = useMetric();
   const href = prerenderHref(metric, flags, defaults);
 
   return (
@@ -121,5 +107,3 @@ export const Metric = {
   Provider,
   Toolbar,
 };
-
-export { useMetric, useMetricFlags } from "@/app/components/metric/context";

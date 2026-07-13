@@ -15,5 +15,3 @@ export const MetricSummarySchema = z.object({
 });
 
 export type MetricSummary = z.infer<typeof MetricSummarySchema>;
-
-export const MetricsSummaryResponseSchema = z.array(MetricSummarySchema);

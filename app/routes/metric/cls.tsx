@@ -2,8 +2,8 @@ import { zValidator } from "@hono/zod-validator";
 import { createRoute } from "honox/factory";
 
 import { Metric } from "@/app/components/metric/shell";
-import FlagsEditor from "@/app/islands/flags-editor";
-import ClsObserver from "@/app/islands/metric/cls";
+import { FlagsEditor } from "@/app/islands/flags-editor";
+import { ClsObserver } from "@/app/islands/metric/cls";
 import { elementTiming } from "@/lib/metric/element-timing";
 import {
   type ClsFlags,

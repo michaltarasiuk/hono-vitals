@@ -114,7 +114,7 @@ function Card({ summary }: { summary: MetricSummary }) {
   );
 }
 
-function Data({ data }: { data: MetricSummary[] }) {
+export function MetricsSummary({ data }: { data: MetricSummary[] }) {
   const totalSamples = data.reduce((sum, metric) => sum + metric.count, 0);
 
   if (totalSamples === 0) {
@@ -133,14 +133,3 @@ function Data({ data }: { data: MetricSummary[] }) {
     </Root>
   );
 }
-
-export const MetricsSummary = {
-  Card,
-  Data,
-  Empty,
-  Grid,
-  Lead,
-  RatingBar,
-  Root,
-  Title,
-};

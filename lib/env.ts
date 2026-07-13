@@ -6,7 +6,7 @@ const EnvSchema = z.object({
   CLICKHOUSE_PASSWORD: z.string(),
 });
 
-export type Env = z.infer<typeof EnvSchema>;
+type Env = z.infer<typeof EnvSchema>;
 
 let env: Env | null = null;
 

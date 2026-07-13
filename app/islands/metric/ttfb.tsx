@@ -8,7 +8,7 @@ import { loadWebVitals } from "@/lib/metric/load-web-vitals";
 import { buildTtfbOptions } from "@/lib/metric/observer-options";
 import { overrideResponseStart } from "@/lib/metric/override-response-start";
 
-export default function TtfbObserver() {
+export function TtfbObserver() {
   const flags = useMetricFlags<TtfbFlags>();
 
   useEffect(() => {
