@@ -11,11 +11,27 @@ export default createRoute(async (c) => {
       return [];
     });
 
+  const totalSamples = summary.reduce((sum, metric) => sum + metric.count, 0);
+
   return c.render(
     <>
-      <Toolbar currentPath={c.req.path} />
+      <Toolbar.Root>
+        <Toolbar.Nav currentPath={c.req.path} />
+      </Toolbar.Root>
       <main className="metric-shell">
-        <MetricsSummary data={summary} />
+        {totalSamples === 0 ? (
+          <MetricsSummary.Empty />
+        ) : (
+          <MetricsSummary.Root>
+            <MetricsSummary.Title />
+            <MetricsSummary.Lead totalSamples={totalSamples} />
+            <MetricsSummary.Grid>
+              {summary.map((metric) => (
+                <MetricsSummary.Card key={metric.name} summary={metric} />
+              ))}
+            </MetricsSummary.Grid>
+          </MetricsSummary.Root>
+        )}
       </main>
     </>,
   );
