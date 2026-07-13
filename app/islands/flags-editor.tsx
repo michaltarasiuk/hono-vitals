@@ -14,10 +14,8 @@ import { assertNever } from "@/lib/shared/assert-never";
 /** Stable id so island hydration matches full-page SSR (Honox useId path differs). */
 const FLAGS_EDITOR_TRIGGER_ID = "metric-flags-trigger";
 
-export default function FlagsEditor() {
-  const {
-    state: { flags, defaults },
-  } = useMetric();
+export function FlagsEditor() {
+  const { flags, defaults } = useMetric();
   const [open, setOpen] = useState(false);
   const [draft, setDraft] = useState(flags);
 

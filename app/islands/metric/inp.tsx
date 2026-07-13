@@ -13,7 +13,7 @@ import {
 import { loadWebVitals } from "@/lib/metric/load-web-vitals";
 import { buildInpOptions } from "@/lib/metric/observer-options";
 
-export default function InpObserver() {
+export function InpObserver() {
   const flags = useMetricFlags<InpFlags>();
 
   useEffect(() => {

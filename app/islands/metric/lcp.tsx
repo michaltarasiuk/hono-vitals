@@ -9,7 +9,7 @@ import { loadWebVitals } from "@/lib/metric/load-web-vitals";
 import { buildLcpOptions } from "@/lib/metric/observer-options";
 import { removeLcpElement } from "@/lib/metric/remove-lcp-element";
 
-export default function LcpObserver() {
+export function LcpObserver() {
   const flags = useMetricFlags<LcpFlags>();
 
   useEffect(() => {

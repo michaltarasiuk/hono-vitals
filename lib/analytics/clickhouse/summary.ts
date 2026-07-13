@@ -1,5 +1,4 @@
-import { getClickHouseClient } from "@/lib/analytics/clickhouse/client";
-import { METRICS_SUMMARY_SQL } from "@/lib/analytics/clickhouse/sql";
+import { getSql } from "@/lib/analytics/clickhouse/client";
 import {
   METRIC_NAMES,
   type MetricSummary,
@@ -16,14 +15,22 @@ interface SummaryRow {
 }
 
 export async function getMetricsSummary() {
-  const client = getClickHouseClient();
+  const sql = getSql();
 
-  const result = await client.query({
-    query: METRICS_SUMMARY_SQL,
-    format: "JSONEachRow",
-  });
+  const rows = await sql<SummaryRow>`
+    SELECT
+      name,
+      count() AS count,
+      avg(value) AS avg,
+      quantile(0.75)(value) AS p75,
+      countIf(rating = 'good') AS good,
+      countIf(rating = 'needs-improvement') AS needs_improvement,
+      countIf(rating = 'poor') AS poor
+    FROM ${sql.identifier("metrics")}
+    GROUP BY name
+    ORDER BY name
+  `;
 
-  const rows = await result.json<SummaryRow>();
   const byName = new Map(
     rows.map((row) => [
       row.name,

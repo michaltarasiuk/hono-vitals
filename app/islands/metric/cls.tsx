@@ -8,7 +8,7 @@ import { createBatchReporter } from "@/lib/metric/batch-reporting";
 import { loadWebVitals } from "@/lib/metric/load-web-vitals";
 import { buildClsOptions } from "@/lib/metric/observer-options";
 
-export default function ClsObserver() {
+export function ClsObserver() {
   const flags = useMetricFlags<ClsFlags>();
 
   useEffect(() => {

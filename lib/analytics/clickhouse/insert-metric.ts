@@ -1,25 +1,28 @@
 import type * as z from "zod";
 
-import { getClickHouseClient } from "@/lib/analytics/clickhouse/client";
+import { getSql } from "@/lib/analytics/clickhouse/client";
 import { MetricSchema } from "@/lib/collect/schema";
 
 type Metric = z.infer<typeof MetricSchema>;
 
 export async function insertMetric(metric: Metric) {
-  const client = getClickHouseClient();
+  const sql = getSql();
 
-  await client.insert({
-    table: "metrics",
-    values: [
-      {
-        metric_id: metric.id,
-        name: metric.name,
-        value: metric.value,
-        delta: metric.delta,
-        rating: metric.rating,
-        navigation_type: metric.navigationType,
-      },
-    ],
-    format: "JSONEachRow",
-  });
+  await sql`
+    INSERT INTO ${sql.identifier("metrics")}
+    (metric_id, name, value, delta, rating, navigation_type)
+    VALUES ${sql.values(
+      [
+        [
+          metric.id,
+          metric.name,
+          metric.value,
+          metric.delta,
+          metric.rating,
+          metric.navigationType,
+        ],
+      ],
+      ["String", "String", "Float64", "Float64", "String", "String"],
+    )}
+  `.command();
 }

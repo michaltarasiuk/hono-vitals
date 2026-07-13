@@ -1,4 +1,4 @@
-.MetricToolbar {
+.Toolbar {
   position: sticky;
   top: 0;
   z-index: 100;
@@ -14,13 +14,13 @@
   background-color: var(--background);
 }
 
-.MetricToolbar .MetricNav {
+.Toolbar .Nav {
   flex: 1;
   min-width: 0;
   padding: 0;
 }
 
-.MetricToolbarActions {
+.ToolbarActions {
   display: flex;
   flex-shrink: 0;
   align-items: center;
