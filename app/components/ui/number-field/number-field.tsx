@@ -1,42 +1,6 @@
 import { NumberField as BaseNumberField } from "@base-ui/react/number-field";
 import { useId } from "react";
 
-function MinusIcon({ style, ...props }: React.ComponentProps<"svg">) {
-  return (
-    <svg
-      width="16"
-      height="16"
-      viewBox="0 0 16 16"
-      fill="none"
-      stroke="currentColor"
-      strokeLinecap="square"
-      strokeLinejoin="round"
-      style={{ display: "block", ...style }}
-      {...props}
-    >
-      <path d="M1.5 8h13" />
-    </svg>
-  );
-}
-
-function PlusIcon({ style, ...props }: React.ComponentProps<"svg">) {
-  return (
-    <svg
-      width="16"
-      height="16"
-      viewBox="0 0 16 16"
-      fill="none"
-      stroke="currentColor"
-      strokeLinecap="square"
-      strokeLinejoin="round"
-      style={{ display: "block", ...style }}
-      {...props}
-    >
-      <path d="M1.5 8h13M8 14.5v-13" />
-    </svg>
-  );
-}
-
 interface NumberFieldProps {
   name?: string;
   value: number;
@@ -75,5 +39,41 @@ export function NumberField({
         </BaseNumberField.Increment>
       </BaseNumberField.Group>
     </BaseNumberField.Root>
+  );
+}
+
+function MinusIcon({ style, ...props }: React.ComponentProps<"svg">) {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      stroke="currentColor"
+      strokeLinecap="square"
+      strokeLinejoin="round"
+      style={{ display: "block", ...style }}
+      {...props}
+    >
+      <path d="M1.5 8h13" />
+    </svg>
+  );
+}
+
+function PlusIcon({ style, ...props }: React.ComponentProps<"svg">) {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      stroke="currentColor"
+      strokeLinecap="square"
+      strokeLinejoin="round"
+      style={{ display: "block", ...style }}
+      {...props}
+    >
+      <path d="M1.5 8h13M8 14.5v-13" />
+    </svg>
   );
 }
