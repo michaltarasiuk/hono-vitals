@@ -1,7 +1,7 @@
-import { getSql } from "@/lib/analytics/clickhouse/client";
+import { getSQL } from "@/lib/analytics/clickhouse/client";
 
 async function createMetricsTable() {
-  const sql = getSql();
+  const sql = getSQL();
 
   await sql`
     CREATE TABLE IF NOT EXISTS ${sql.identifier("metrics")} (
