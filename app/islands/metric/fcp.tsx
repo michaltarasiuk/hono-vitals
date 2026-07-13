@@ -2,14 +2,11 @@ import { useEffect } from "react";
 
 import type { FcpFlags } from "@/lib/metric/flags/fcp";
 
-import { useMetricFlags } from "@/app/components/metric/context";
 import { reportMetric } from "@/lib/collect/report";
 import { loadWebVitals } from "@/lib/metric/load-web-vitals";
 import { buildFcpOptions } from "@/lib/metric/observer-options";
 
-export function FcpObserver() {
-  const flags = useMetricFlags<FcpFlags>();
-
+export function FcpObserver({ flags }: { flags: FcpFlags }) {
   useEffect(() => {
     let cancelled = false;
 

@@ -17,13 +17,13 @@ export default createRoute(zValidator("query", TtfbFlagsSchema), (c) => {
   return c.render(
     <Metric.Provider metric="ttfb" flags={flags} defaults={ttfbFlagDefaults}>
       <Metric.Toolbar>
-        <FlagsEditor />
+        <FlagsEditor flags={flags} defaults={ttfbFlagDefaults} />
       </Metric.Toolbar>
       <Metric.Main>
         <Metric.Assets />
         <View flags={flags} />
         <Metric.Chrome />
-        <TtfbObserver />
+        <TtfbObserver flags={flags} />
       </Metric.Main>
     </Metric.Provider>,
   );

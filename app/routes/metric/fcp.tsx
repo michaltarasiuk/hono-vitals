@@ -17,13 +17,13 @@ export default createRoute(zValidator("query", FcpFlagsSchema), (c) => {
   return c.render(
     <Metric.Provider metric="fcp" flags={flags} defaults={fcpFlagDefaults}>
       <Metric.Toolbar>
-        <FlagsEditor />
+        <FlagsEditor flags={flags} defaults={fcpFlagDefaults} />
       </Metric.Toolbar>
       <Metric.Main>
         <Metric.Assets />
         <View flags={flags} />
         <Metric.Chrome />
-        <FcpObserver />
+        <FcpObserver flags={flags} />
       </Metric.Main>
     </Metric.Provider>,
   );

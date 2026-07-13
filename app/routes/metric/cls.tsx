@@ -17,13 +17,13 @@ export default createRoute(zValidator("query", ClsFlagsSchema), (c) => {
   return c.render(
     <Metric.Provider metric="cls" flags={flags} defaults={clsFlagDefaults}>
       <Metric.Toolbar>
-        <FlagsEditor />
+        <FlagsEditor flags={flags} defaults={clsFlagDefaults} />
       </Metric.Toolbar>
       <Metric.Main>
         <Metric.Assets />
         <View flags={flags} />
         <Metric.Chrome />
-        <ClsObserver />
+        <ClsObserver flags={flags} />
       </Metric.Main>
     </Metric.Provider>,
   );

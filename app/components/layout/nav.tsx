@@ -11,9 +11,7 @@ export function Nav({ currentPath }: NavProps) {
         <a
           key={href}
           href={href}
-          className={
-            currentPath === href ? "NavLink NavLinkActive" : "NavLink"
-          }
+          className={currentPath === href ? "NavLink NavLinkActive" : "NavLink"}
         >
           {label}
         </a>

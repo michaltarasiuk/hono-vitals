@@ -2,15 +2,12 @@ import { useEffect } from "react";
 
 import type { TtfbFlags } from "@/lib/metric/flags/ttfb";
 
-import { useMetricFlags } from "@/app/components/metric/context";
 import { reportMetric } from "@/lib/collect/report";
 import { loadWebVitals } from "@/lib/metric/load-web-vitals";
 import { buildTtfbOptions } from "@/lib/metric/observer-options";
 import { overrideResponseStart } from "@/lib/metric/override-response-start";
 
-export function TtfbObserver() {
-  const flags = useMetricFlags<TtfbFlags>();
-
+export function TtfbObserver({ flags }: { flags: TtfbFlags }) {
   useEffect(() => {
     if (flags.responseStart !== undefined) {
       overrideResponseStart(flags.responseStart);

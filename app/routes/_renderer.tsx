@@ -1,7 +1,7 @@
 import { reactRenderer } from "@hono/react-renderer";
 import { Link, Script } from "honox/server";
 
-import devStyles from "../styles/global.css";
+import devStyles from "../styles/global.css?inline";
 
 export default reactRenderer(({ children }) => {
   return (

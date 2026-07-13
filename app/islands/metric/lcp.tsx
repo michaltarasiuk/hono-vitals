@@ -2,16 +2,13 @@ import { useEffect } from "react";
 
 import type { LcpFlags } from "@/lib/metric/flags/lcp";
 
-import { useMetricFlags } from "@/app/components/metric/context";
 import { reportMetric } from "@/lib/collect/report";
 import { createBatchReporter } from "@/lib/metric/batch-reporting";
 import { loadWebVitals } from "@/lib/metric/load-web-vitals";
 import { buildLcpOptions } from "@/lib/metric/observer-options";
 import { removeLcpElement } from "@/lib/metric/remove-lcp-element";
 
-export function LcpObserver() {
-  const flags = useMetricFlags<LcpFlags>();
-
+export function LcpObserver({ flags }: { flags: LcpFlags }) {
   useEffect(() => {
     let cancelled = false;
 
