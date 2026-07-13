@@ -35,7 +35,7 @@ function View({ flags }: { flags: TtfbFlags }) {
       <h1 {...elementTiming("main-heading")}>TTFB Test</h1>
       <p>
         <img
-          src={`/public/square.png?delay=${flags.imgDelay}`}
+          src={`/static/square.png?delay=${flags.imgDelay}`}
           alt="Gray square"
           hidden={flags.imgHidden}
           {...elementTiming("main-image")}

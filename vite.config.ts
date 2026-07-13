@@ -8,10 +8,10 @@ import { defineConfig } from "vite";
 const root = fileURLToPath(new URL(".", import.meta.url));
 
 const devServerExclude = [
-  // Let Hono serve demo assets under /public (delay query, raw CSS/JS).
-  /^(?!\/public\/).*\.css$/,
-  /^(?!\/public\/).*\.js$/,
-  /^(?!\/public\/).*\.jsx$/,
+  // Let Hono serve demo assets under /static (delay query, raw CSS/JS).
+  /^(?!\/static\/).*\.css$/,
+  /^(?!\/static\/).*\.js$/,
+  /^(?!\/static\/).*\.jsx$/,
   ...devServerDefaultOptions.exclude.filter(
     (pattern) =>
       !(
