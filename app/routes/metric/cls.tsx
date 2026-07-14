@@ -39,7 +39,7 @@ function View({ flags }: { flags: ClsFlags }) {
         <>
           <p>
             <img
-              src="/static/square.png?delay=500"
+              src="/public/square.png?delay=500"
               alt="Gray square"
               hidden={flags.imgHidden}
               {...elementTiming("main-image")}
@@ -48,7 +48,7 @@ function View({ flags }: { flags: ClsFlags }) {
           </p>
           <p data-target="secondary-image-wrapper">
             <img
-              src="/static/square.png?delay=1000"
+              src="/public/square.png?delay=1000"
               alt="Gray square"
               hidden={flags.img2Hidden}
               {...elementTiming("secondary-image")}

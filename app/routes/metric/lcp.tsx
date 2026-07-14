@@ -35,7 +35,7 @@ function View({ flags }: { flags: LcpFlags }) {
       <h1 {...elementTiming("main-heading")}>LCP Test</h1>
       <p>
         <img
-          src={`/static/square.png?delay=${flags.imgDelay}`}
+          src={`/public/square.png?delay=${flags.imgDelay}`}
           alt="Gray square"
           data-target="main-image"
           hidden={flags.imgHidden}

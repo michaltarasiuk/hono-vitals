@@ -63,7 +63,7 @@ function Assets() {
     <>
       {renderBlocking > 0 ? (
         <link
-          href={`/static/metric/styles.css?delay=${renderBlocking}`}
+          href={`/public/metric/styles.css?delay=${renderBlocking}`}
           rel="stylesheet"
         />
       ) : null}
@@ -76,10 +76,10 @@ function Assets() {
         />
       ) : null}
       {delayDCL > 0 ? (
-        <script src={`/static/metric/defer.js?delay=${delayDCL}`} defer />
+        <script src={`/public/metric/defer.js?delay=${delayDCL}`} defer />
       ) : null}
       {delayLoad > 0 ? (
-        <script src={`/static/metric/async.js?delay=${delayLoad}`} async />
+        <script src={`/public/metric/async.js?delay=${delayLoad}`} async />
       ) : null}
     </>
   );

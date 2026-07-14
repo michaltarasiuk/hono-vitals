@@ -9,7 +9,7 @@ const StaticQuerySchema = z.object({
   delay: z.coerce.number().optional(),
 });
 
-const staticRoutes = new Hono()
+const publicRoutes = new Hono()
   .use("*", zValidator("query", StaticQuerySchema))
   .use("*", async (c, next) => {
     const { delay: timeout } = c.req.valid("query") as z.infer<
@@ -29,4 +29,4 @@ const staticRoutes = new Hono()
     }),
   );
 
-export default staticRoutes;
+export default publicRoutes;
