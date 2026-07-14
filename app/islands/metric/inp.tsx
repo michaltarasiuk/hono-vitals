@@ -23,7 +23,7 @@ export function InpObserver({ flags }: { flags: InpFlags }) {
   }, []);
 
   useEffect(() => {
-    let cancelled = false;
+    let ignore = false;
 
     void (async () => {
       const { onINP } = await loadWebVitals({
@@ -32,7 +32,7 @@ export function InpObserver({ flags }: { flags: InpFlags }) {
         loadAfterInput: flags.loadAfterInput,
       });
 
-      if (cancelled) {
+      if (ignore) {
         return;
       }
 
@@ -63,7 +63,7 @@ export function InpObserver({ flags }: { flags: InpFlags }) {
     })();
 
     return () => {
-      cancelled = true;
+      ignore = true;
     };
   }, [flags]);
 

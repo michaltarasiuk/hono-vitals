@@ -15,7 +15,7 @@ export function TtfbObserver({ flags }: { flags: TtfbFlags }) {
   }, [flags.responseStart]);
 
   useEffect(() => {
-    let cancelled = false;
+    let ignore = false;
 
     void (async () => {
       const { onTTFB } = await loadWebVitals({
@@ -24,7 +24,7 @@ export function TtfbObserver({ flags }: { flags: TtfbFlags }) {
         loadAfterInput: flags.loadAfterInput,
       });
 
-      if (cancelled) {
+      if (ignore) {
         return;
       }
 
@@ -48,7 +48,7 @@ export function TtfbObserver({ flags }: { flags: TtfbFlags }) {
     })();
 
     return () => {
-      cancelled = true;
+      ignore = true;
     };
   }, [flags]);
 
