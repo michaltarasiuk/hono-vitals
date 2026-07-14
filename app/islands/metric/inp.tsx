@@ -15,11 +15,13 @@ import { buildInpOptions } from "@/lib/metric/observer-options";
 export function InpObserver({ flags }: { flags: InpFlags }) {
   useEffect(() => {
     addBlockingListeners();
-    const reset = document.getElementById("reset");
-    reset?.addEventListener("click", resetBlockingTimes);
-    return () => {
-      reset?.removeEventListener("click", resetBlockingTimes);
-    };
+    const resetElement = document.getElementById("reset");
+    if (resetElement) {
+      resetElement.addEventListener("click", resetBlockingTimes);
+      return () => {
+        resetElement.removeEventListener("click", resetBlockingTimes);
+      };
+    }
   }, []);
 
   useEffect(() => {
