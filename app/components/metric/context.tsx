@@ -1,7 +1,7 @@
 import { createContext, use } from "react";
 
 import type { FlagValue } from "@/lib/metric/flags/serialize";
-import type { MetricSlug } from "@/lib/metric/nav";
+import type { MetricSlug } from "@/lib/shared/routes";
 
 interface MetricContextValue {
   flags: Record<string, FlagValue>;
@@ -17,8 +17,4 @@ export function useMetric() {
     throw new Error("useMetric must be used within Metric.Provider");
   }
   return value;
-}
-
-export function useMetricFlags<T extends Record<string, FlagValue>>(): T {
-  return useMetric().flags as T;
 }
