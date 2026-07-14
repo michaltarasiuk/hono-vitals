@@ -2,7 +2,7 @@
   "type": "module",
   "scripts": {
     "dev": "bunx --bun vite",
-    "build": "vite build --mode client && vite build && cp -r static dist/static",
+    "build": "vite build --mode client && vite build && cp -r public dist/public",
     "start": "cd dist && bun index.js",
     "type:check": "tsc --noEmit",
     "lint": "eslint .",
