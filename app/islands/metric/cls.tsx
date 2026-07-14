@@ -9,7 +9,7 @@ import { buildClsOptions } from "@/lib/metric/observer-options";
 
 export function ClsObserver({ flags }: { flags: ClsFlags }) {
   useEffect(() => {
-    let cancelled = false;
+    let ignore = false;
 
     void (async () => {
       const { onCLS } = await loadWebVitals({
@@ -18,7 +18,7 @@ export function ClsObserver({ flags }: { flags: ClsFlags }) {
         loadAfterInput: flags.loadAfterInput,
       });
 
-      if (cancelled) {
+      if (ignore) {
         return;
       }
 
@@ -49,7 +49,7 @@ export function ClsObserver({ flags }: { flags: ClsFlags }) {
     })();
 
     return () => {
-      cancelled = true;
+      ignore = true;
     };
   }, [flags]);
 

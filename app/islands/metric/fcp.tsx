@@ -8,7 +8,7 @@ import { buildFcpOptions } from "@/lib/metric/observer-options";
 
 export function FcpObserver({ flags }: { flags: FcpFlags }) {
   useEffect(() => {
-    let cancelled = false;
+    let ignore = false;
 
     void (async () => {
       const { onFCP } = await loadWebVitals({
@@ -17,7 +17,7 @@ export function FcpObserver({ flags }: { flags: FcpFlags }) {
         loadAfterInput: flags.loadAfterInput,
       });
 
-      if (cancelled) {
+      if (ignore) {
         return;
       }
 
@@ -41,7 +41,7 @@ export function FcpObserver({ flags }: { flags: FcpFlags }) {
     })();
 
     return () => {
-      cancelled = true;
+      ignore = true;
     };
   }, [flags]);
 

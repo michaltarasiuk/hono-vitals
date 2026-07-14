@@ -10,14 +10,14 @@ import { removeLcpElement } from "@/lib/metric/remove-lcp-element";
 
 export function LcpObserver({ flags }: { flags: LcpFlags }) {
   useEffect(() => {
-    let cancelled = false;
+    let ignore = false;
 
     void (async () => {
       if (flags.removeElement) {
         await removeLcpElement();
       }
 
-      if (cancelled) {
+      if (ignore) {
         return;
       }
 
@@ -27,7 +27,7 @@ export function LcpObserver({ flags }: { flags: LcpFlags }) {
         loadAfterInput: flags.loadAfterInput,
       });
 
-      if (cancelled) {
+      if (ignore) {
         return;
       }
 
@@ -70,7 +70,7 @@ export function LcpObserver({ flags }: { flags: LcpFlags }) {
     })();
 
     return () => {
-      cancelled = true;
+      ignore = true;
     };
   }, [flags]);
 
