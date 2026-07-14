@@ -1,5 +1,5 @@
 import type { FlagValue } from "@/lib/metric/flags/serialize";
-import type { MetricSlug } from "@/lib/metric/nav";
+import type { MetricSlug } from "@/lib/shared/routes";
 
 function flagsToQueryString(
   flags: Record<string, FlagValue>,

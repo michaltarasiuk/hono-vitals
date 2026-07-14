@@ -1,4 +1,4 @@
-import { METRIC_NAV } from "@/lib/metric/nav";
+import { ROUTES } from "@/lib/shared/routes";
 
 interface NavProps {
   currentPath: string;
@@ -7,7 +7,7 @@ interface NavProps {
 export function Nav({ currentPath }: NavProps) {
   return (
     <nav className="Nav">
-      {METRIC_NAV.map(({ href, label }) => (
+      {ROUTES.map(({ href, label }) => (
         <a
           key={href}
           href={href}

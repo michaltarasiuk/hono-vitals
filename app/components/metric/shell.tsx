@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 
 import type { FlagValue } from "@/lib/metric/flags/serialize";
-import type { MetricSlug } from "@/lib/metric/nav";
+import type { MetricSlug } from "@/lib/shared/routes";
 
 import { Toolbar as LayoutToolbar } from "@/app/components/layout/toolbar";
 import { MetricContext, useMetric } from "@/app/components/metric/context";
