@@ -9,7 +9,7 @@ import { overrideResponseStart } from "@/lib/metric/override-response-start";
 
 export function TtfbObserver({ flags }: { flags: TtfbFlags }) {
   useEffect(() => {
-    if (flags.responseStart !== undefined) {
+    if (flags.responseStart) {
       overrideResponseStart(flags.responseStart);
     }
   }, [flags.responseStart]);
