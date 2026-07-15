@@ -2,7 +2,7 @@ import { getSQL } from "@/lib/analytics/duckdb/client";
 import { type MetricSummary } from "@/lib/analytics/summary-schema";
 import { METRIC_NAMES, type MetricName } from "@/lib/collect/schema";
 
-interface SummaryRow {
+interface MetricSummaryRow {
   name: MetricName;
   count: number;
   avg: number;
@@ -17,7 +17,7 @@ export async function getMetricsSummary() {
 
   const table = sql.identifier("metrics");
 
-  const rows = await sql<SummaryRow>`
+  const rows = await sql<MetricSummaryRow>`
     SELECT
       name,
       count(*) AS count,
