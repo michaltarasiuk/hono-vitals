@@ -1,9 +1,7 @@
 import * as z from "zod";
 
 const EnvSchema = z.object({
-  CLICKHOUSE_URL: z.url(),
-  CLICKHOUSE_USERNAME: z.string(),
-  CLICKHOUSE_PASSWORD: z.string(),
+  DUCKDB_PATH: z.string().default("data/vitals.duckdb"),
 });
 
 type Env = z.infer<typeof EnvSchema>;

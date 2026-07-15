@@ -2,7 +2,7 @@ import { createRoute } from "honox/factory";
 
 import { MetricsSummary } from "@/app/components/dashboard/metrics-summary";
 import { Toolbar } from "@/app/components/layout/toolbar";
-import { getMetricsSummary } from "@/lib/analytics/clickhouse/summary";
+import { getMetricsSummary } from "@/lib/analytics/duckdb/summary";
 
 export default createRoute(async (c) => {
   const summary = await getMetricsSummary();

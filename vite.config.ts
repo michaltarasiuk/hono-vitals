@@ -38,8 +38,8 @@ export default defineConfig(({ command, mode }) => {
         "react",
         "react-dom",
         "use-sync-external-store",
-        "@clickhouse/client",
-        "@clickhouse/client-common",
+        "@duckdb/node-api",
+        "@duckdb/node-bindings",
       ],
     },
     plugins: [

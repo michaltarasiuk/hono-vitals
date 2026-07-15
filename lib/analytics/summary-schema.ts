@@ -1,6 +1,6 @@
 import * as z from "zod";
 
-import { METRIC_NAMES, type MetricName } from "@/lib/collect/schema";
+import { METRIC_NAMES } from "@/lib/collect/schema";
 
 export const MetricSummarySchema = z.object({
   name: z.enum(METRIC_NAMES),

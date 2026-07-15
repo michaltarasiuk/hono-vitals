@@ -55,7 +55,9 @@ function Label({
 }: React.ComponentProps<"label">) {
   return (
     <label
-      className={className ? `NumberFieldLabel ${className}` : "NumberFieldLabel"}
+      className={
+        className ? `NumberFieldLabel ${className}` : "NumberFieldLabel"
+      }
       {...props}
     >
       {children}
@@ -70,7 +72,9 @@ function Group({
 }: React.ComponentProps<typeof BaseNumberField.Group>) {
   return (
     <BaseNumberField.Group
-      className={className ? `NumberFieldGroup ${className}` : "NumberFieldGroup"}
+      className={
+        className ? `NumberFieldGroup ${className}` : "NumberFieldGroup"
+      }
       {...props}
     >
       {children}
@@ -84,7 +88,9 @@ function Input({
 }: React.ComponentProps<typeof BaseNumberField.Input>) {
   return (
     <BaseNumberField.Input
-      className={className ? `NumberFieldInput ${className}` : "NumberFieldInput"}
+      className={
+        className ? `NumberFieldInput ${className}` : "NumberFieldInput"
+      }
       {...props}
     />
   );
