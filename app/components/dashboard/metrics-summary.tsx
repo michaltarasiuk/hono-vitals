@@ -97,16 +97,25 @@ function Card({ summary }: { summary: MetricSummary }) {
         <RatingBar summary={summary} />
         <ul className="MetricsRatingLegend">
           <li>
-            <span className="MetricsRatingDot MetricsRatingDot--good" />
-            Good {good}
+            <span className="MetricsRatingLegendLabel">
+              <span className="MetricsRatingDot MetricsRatingDot--good" />
+              Good
+            </span>
+            <span className="MetricsRatingLegendValue">{good}</span>
           </li>
           <li>
-            <span className="MetricsRatingDot MetricsRatingDot--needs-improvement" />
-            Needs improvement {needsImprovement}
+            <span className="MetricsRatingLegendLabel">
+              <span className="MetricsRatingDot MetricsRatingDot--needs-improvement" />
+              Needs improvement
+            </span>
+            <span className="MetricsRatingLegendValue">{needsImprovement}</span>
           </li>
           <li>
-            <span className="MetricsRatingDot MetricsRatingDot--poor" />
-            Poor {poor}
+            <span className="MetricsRatingLegendLabel">
+              <span className="MetricsRatingDot MetricsRatingDot--poor" />
+              Poor
+            </span>
+            <span className="MetricsRatingLegendValue">{poor}</span>
           </li>
         </ul>
       </div>

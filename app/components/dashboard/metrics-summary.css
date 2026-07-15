@@ -118,10 +118,16 @@
   background: var(--rating-poor);
 }
 
+.MetricsCardRatings {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
 .MetricsRatingLegend {
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem 1rem;
+  flex-direction: column;
+  gap: 0.25rem;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -133,7 +139,20 @@
 .MetricsRatingLegend li {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.MetricsRatingLegendLabel {
+  display: flex;
+  align-items: center;
   gap: 0.5rem;
+  color: var(--muted-foreground);
+}
+
+.MetricsRatingLegendValue {
+  font-variant-numeric: tabular-nums;
+  color: var(--foreground);
 }
 
 .MetricsRatingDot {
