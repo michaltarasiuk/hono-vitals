@@ -18,15 +18,6 @@ function Title() {
   return <h1>Metrics</h1>;
 }
 
-function Empty() {
-  return (
-    <Root className="MetricsSummary MetricsSummary--empty">
-      <Title />
-      <p>No metrics collected yet.</p>
-    </Root>
-  );
-}
-
 function Lead({ totalSamples }: { totalSamples: number }) {
   return (
     <p className="MetricsSummaryLead">
@@ -125,7 +116,6 @@ function Card({ summary }: { summary: MetricSummary }) {
 
 export const MetricsSummary = {
   Card,
-  Empty,
   Grid,
   Lead,
   RatingBar,
