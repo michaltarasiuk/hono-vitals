@@ -1,30 +1,32 @@
-import { getSQL } from "@/lib/analytics/clickhouse/client";
+import { getSQL } from "@/lib/analytics/duckdb/client";
 import { type MetricSummary } from "@/lib/analytics/summary-schema";
 import { METRIC_NAMES, type MetricName } from "@/lib/collect/schema";
 
 interface SummaryRow {
   name: MetricName;
-  count: string;
-  avg: string;
-  p75: string;
-  good: string;
-  needs_improvement: string;
-  poor: string;
+  count: number;
+  avg: number;
+  p75: number;
+  good: number;
+  needs_improvement: number;
+  poor: number;
 }
 
 export async function getMetricsSummary() {
   const sql = getSQL();
 
+  const table = sql.identifier("metrics");
+
   const rows = await sql<SummaryRow>`
     SELECT
       name,
-      count() AS count,
+      count(*) AS count,
       avg(value) AS avg,
-      quantile(0.75)(value) AS p75,
-      countIf(rating = 'good') AS good,
-      countIf(rating = 'needs-improvement') AS needs_improvement,
-      countIf(rating = 'poor') AS poor
-    FROM ${sql.identifier("metrics")}
+      quantile_cont(value, 0.75) AS p75,
+      count(*) FILTER (WHERE rating = 'good') AS good,
+      count(*) FILTER (WHERE rating = 'needs-improvement') AS needs_improvement,
+      count(*) FILTER (WHERE rating = 'poor') AS poor
+    FROM ${table}
     GROUP BY name
     ORDER BY name
   `;

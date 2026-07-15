@@ -9,11 +9,11 @@
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "clickhouse:init": "bun lib/analytics/clickhouse/init-schema.ts"
+    "duckdb:init": "bun lib/analytics/duckdb/init-schema.ts"
   },
   "dependencies": {
     "@base-ui/react": "^1.6.0",
-    "@clickhouse/client": "^1.23.1",
+    "@duckdb/node-api": "^1.5.4-r.1",
     "@fontsource/inter": "^5.2.8",
     "@hono/react-renderer": "^1.0.1",
     "@hono/zod-validator": "^0.8.0",
