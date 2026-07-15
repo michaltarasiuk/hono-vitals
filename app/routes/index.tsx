@@ -2,17 +2,12 @@ import { createRoute } from "honox/factory";
 
 import { MetricsSummary } from "@/app/components/dashboard/metrics-summary";
 import { Toolbar } from "@/app/components/layout/toolbar";
-import { emptyMetricsSummary } from "@/lib/analytics/summary-schema";
+import { getMetricsSummary } from "@/lib/analytics/clickhouse/summary";
 
 export default createRoute(async (c) => {
-  const summary = await import("@/lib/analytics/clickhouse/summary")
-    .then(({ getMetricsSummary }) => getMetricsSummary())
-    .catch((error) => {
-      console.error("Failed to load metrics summary for dashboard", error);
-      return emptyMetricsSummary();
-    });
+  const summary = await getMetricsSummary();
 
-  const totalSamples = summary.reduce((sum, metric) => sum + metric.count, 0);
+  const totalSamples = summary.reduce((acc, metric) => acc + metric.count, 0);
 
   return c.render(
     <>

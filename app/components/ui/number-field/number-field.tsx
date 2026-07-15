@@ -1,44 +1,124 @@
 import { NumberField as BaseNumberField } from "@base-ui/react/number-field";
-import { useId } from "react";
 
-interface NumberFieldProps {
-  name?: string;
-  value: number;
-  min?: number;
-  step?: number;
-  onValueChange: (value: number) => void;
-}
-
-export function NumberField({
-  name,
-  value,
-  min = 0,
-  step = 1,
-  onValueChange,
-}: NumberFieldProps) {
-  const id = useId();
-
+function Root({
+  children,
+  className,
+  ...props
+}: React.ComponentProps<typeof BaseNumberField.Root>) {
   return (
     <BaseNumberField.Root
-      id={id}
-      name={name}
-      value={value}
-      min={min}
-      step={step}
-      onValueChange={(next) => {
-        onValueChange(next ?? 0);
-      }}
+      className={className ? `NumberField ${className}` : "NumberField"}
+      {...props}
     >
-      <BaseNumberField.Group className="NumberFieldGroup">
-        <BaseNumberField.Decrement className="NumberFieldDecrement">
-          <MinusIcon />
-        </BaseNumberField.Decrement>
-        <BaseNumberField.Input className="NumberFieldInput" />
-        <BaseNumberField.Increment className="NumberFieldIncrement">
-          <PlusIcon />
-        </BaseNumberField.Increment>
-      </BaseNumberField.Group>
+      {children}
     </BaseNumberField.Root>
+  );
+}
+
+function ScrubArea({
+  children,
+  className,
+  ...props
+}: React.ComponentProps<typeof BaseNumberField.ScrubArea>) {
+  return (
+    <BaseNumberField.ScrubArea
+      className={
+        className ? `NumberFieldScrubArea ${className}` : "NumberFieldScrubArea"
+      }
+      {...props}
+    >
+      {children}
+    </BaseNumberField.ScrubArea>
+  );
+}
+
+function ScrubAreaCursor({
+  className,
+  ...props
+}: React.ComponentProps<typeof BaseNumberField.ScrubAreaCursor>) {
+  return (
+    <BaseNumberField.ScrubAreaCursor
+      className={
+        className
+          ? `NumberFieldScrubAreaCursor ${className}`
+          : "NumberFieldScrubAreaCursor"
+      }
+      {...props}
+    />
+  );
+}
+
+function Label({
+  children,
+  className,
+  ...props
+}: React.ComponentProps<"label">) {
+  return (
+    <label
+      className={className ? `NumberFieldLabel ${className}` : "NumberFieldLabel"}
+      {...props}
+    >
+      {children}
+    </label>
+  );
+}
+
+function Group({
+  children,
+  className,
+  ...props
+}: React.ComponentProps<typeof BaseNumberField.Group>) {
+  return (
+    <BaseNumberField.Group
+      className={className ? `NumberFieldGroup ${className}` : "NumberFieldGroup"}
+      {...props}
+    >
+      {children}
+    </BaseNumberField.Group>
+  );
+}
+
+function Input({
+  className,
+  ...props
+}: React.ComponentProps<typeof BaseNumberField.Input>) {
+  return (
+    <BaseNumberField.Input
+      className={className ? `NumberFieldInput ${className}` : "NumberFieldInput"}
+      {...props}
+    />
+  );
+}
+
+function Decrement({
+  className,
+  ...props
+}: React.ComponentProps<typeof BaseNumberField.Decrement>) {
+  return (
+    <BaseNumberField.Decrement
+      className={
+        className ? `NumberFieldDecrement ${className}` : "NumberFieldDecrement"
+      }
+      {...props}
+    >
+      <MinusIcon />
+    </BaseNumberField.Decrement>
+  );
+}
+
+function Increment({
+  className,
+  ...props
+}: React.ComponentProps<typeof BaseNumberField.Increment>) {
+  return (
+    <BaseNumberField.Increment
+      className={
+        className ? `NumberFieldIncrement ${className}` : "NumberFieldIncrement"
+      }
+      {...props}
+    >
+      <PlusIcon />
+    </BaseNumberField.Increment>
   );
 }
 
@@ -77,3 +157,14 @@ function PlusIcon({ style, ...props }: React.ComponentProps<"svg">) {
     </svg>
   );
 }
+
+export const NumberField = {
+  Decrement,
+  Group,
+  Increment,
+  Input,
+  Label,
+  Root,
+  ScrubArea,
+  ScrubAreaCursor,
+};

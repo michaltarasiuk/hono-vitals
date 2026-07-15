@@ -15,7 +15,7 @@ export default createRoute(zValidator("query", TtfbFlagsSchema), (c) => {
   const flags = c.req.valid("query");
 
   return c.render(
-    <Metric.Provider metric="ttfb" flags={flags} defaults={ttfbFlagDefaults}>
+    <Metric.Provider metric="TTFB" flags={flags} defaults={ttfbFlagDefaults}>
       <Metric.Toolbar>
         <FlagsEditor flags={flags} defaults={ttfbFlagDefaults} />
       </Metric.Toolbar>

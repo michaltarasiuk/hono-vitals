@@ -15,7 +15,7 @@ export default createRoute(zValidator("query", ClsFlagsSchema), (c) => {
   const flags = c.req.valid("query");
 
   return c.render(
-    <Metric.Provider metric="cls" flags={flags} defaults={clsFlagDefaults}>
+    <Metric.Provider metric="CLS" flags={flags} defaults={clsFlagDefaults}>
       <Metric.Toolbar>
         <FlagsEditor flags={flags} defaults={clsFlagDefaults} />
       </Metric.Toolbar>

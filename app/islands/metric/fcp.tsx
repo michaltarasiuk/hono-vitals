@@ -23,7 +23,7 @@ export function FcpObserver({ flags }: { flags: FcpFlags }) {
 
       onFCP(
         (fcp) => {
-          (fcp as { instance?: number }).instance = 1;
+          fcp.instance = 1;
           reportMetric(fcp);
         },
         buildFcpOptions(flags, 1),
@@ -32,7 +32,7 @@ export function FcpObserver({ flags }: { flags: FcpFlags }) {
       if (flags.doubleCall) {
         onFCP(
           (fcp) => {
-            (fcp as { instance?: number }).instance = 2;
+            fcp.instance = 2;
             reportMetric(fcp);
           },
           buildFcpOptions(flags, 2),

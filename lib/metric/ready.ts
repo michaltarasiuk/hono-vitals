@@ -3,14 +3,14 @@ export function afterLoad() {
     if (document.readyState === "complete") {
       resolve();
     } else {
-      addEventListener("load", () => resolve());
+      window.addEventListener("load", () => resolve());
     }
   });
 }
 
 export function afterElementsRendered() {
   return new Promise<void>((resolve) => {
-    addEventListener(
+    window.addEventListener(
       "DOMContentLoaded",
       () => {
         if (PerformanceObserver.supportedEntryTypes.includes("element")) {
@@ -23,8 +23,8 @@ export function afterElementsRendered() {
           }
           new PerformanceObserver((list) => {
             for (const entry of list.getEntries()) {
-              if ("element" in entry && entry.element) {
-                nodes.delete(entry.element as Element);
+              if ("element" in entry && entry.element instanceof Element) {
+                nodes.delete(entry.element);
               }
             }
             if (nodes.size === 0) {

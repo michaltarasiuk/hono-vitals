@@ -1,12 +1,9 @@
 import { getSQL } from "@/lib/analytics/clickhouse/client";
-import {
-  METRIC_NAMES,
-  emptyMetricSummary,
-  type MetricSummary,
-} from "@/lib/analytics/summary-schema";
+import { type MetricSummary } from "@/lib/analytics/summary-schema";
+import { METRIC_NAMES, type MetricName } from "@/lib/collect/schema";
 
 interface SummaryRow {
-  name: string;
+  name: MetricName;
   count: string;
   avg: string;
   p75: string;
@@ -36,7 +33,7 @@ export async function getMetricsSummary() {
     rows.map((row) => [
       row.name,
       {
-        name: row.name as MetricSummary["name"],
+        name: row.name,
         count: Number(row.count),
         avg: Number(row.avg),
         p75: Number(row.p75),
@@ -50,6 +47,17 @@ export async function getMetricsSummary() {
   );
 
   return METRIC_NAMES.map(
-    (name) => byName.get(name) ?? emptyMetricSummary(name),
+    (name) =>
+      byName.get(name) ?? {
+        name,
+        count: 0,
+        avg: 0,
+        p75: 0,
+        ratings: {
+          good: 0,
+          needsImprovement: 0,
+          poor: 0,
+        },
+      },
   );
 }

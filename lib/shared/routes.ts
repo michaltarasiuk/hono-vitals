@@ -1,11 +1,8 @@
-const METRIC_SLUGS = ["cls", "fcp", "inp", "lcp", "ttfb"] as const;
-
-export type MetricSlug = (typeof METRIC_SLUGS)[number];
-
 export const ROUTES = [
-  { href: "/", label: "Metrics" },
-  ...METRIC_SLUGS.map((slug) => ({
-    href: `/metric/${slug}`,
-    label: slug.toUpperCase(),
-  })),
+  { label: "Metrics", href: "/" },
+  { label: "CLS", href: "/metric/cls" },
+  { label: "FCP", href: "/metric/fcp" },
+  { label: "INP", href: "/metric/inp" },
+  { label: "LCP", href: "/metric/lcp" },
+  { label: "TTFB", href: "/metric/ttfb" },
 ] as const;

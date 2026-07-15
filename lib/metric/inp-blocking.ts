@@ -1,4 +1,4 @@
-const EVENT_NAMES = [
+export const EVENT_NAMES = [
   "mousedown",
   "mouseup",
   "pointerdown",
@@ -16,7 +16,7 @@ function block(event: Event) {
   const blockingTime = Number(input.value);
   const startTime = performance.now();
   while (performance.now() < startTime + blockingTime) {
-    // Block...
+    // Block
   }
 }
 
@@ -27,9 +27,9 @@ function onInput(event: Event) {
   }
   const eventName = input.id.slice(0, input.id.indexOf("-"));
   if (Number(input.value) > 0) {
-    addEventListener(eventName, block, true);
+    window.addEventListener(eventName, block, true);
   } else {
-    removeEventListener(eventName, block, true);
+    window.removeEventListener(eventName, block, true);
   }
 }
 
@@ -41,7 +41,7 @@ export function addBlockingListeners() {
     }
     input.addEventListener("input", onInput, true);
     if (Number(input.value) > 0) {
-      addEventListener(eventName, block, true);
+      window.addEventListener(eventName, block, true);
     }
   }
 }
@@ -53,5 +53,3 @@ export function resetBlockingTimes() {
     }
   }
 }
-
-export { EVENT_NAMES };
