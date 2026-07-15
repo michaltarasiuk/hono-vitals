@@ -15,3 +15,23 @@ export const MetricSummarySchema = z.object({
 });
 
 export type MetricSummary = z.infer<typeof MetricSummarySchema>;
+
+export function emptyMetricSummary(
+  name: MetricSummary["name"],
+): MetricSummary {
+  return {
+    name,
+    count: 0,
+    avg: 0,
+    p75: 0,
+    ratings: {
+      good: 0,
+      needsImprovement: 0,
+      poor: 0,
+    },
+  };
+}
+
+export function emptyMetricsSummary(): MetricSummary[] {
+  return METRIC_NAMES.map(emptyMetricSummary);
+}

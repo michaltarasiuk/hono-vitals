@@ -1,6 +1,7 @@
 import { getSQL } from "@/lib/analytics/clickhouse/client";
 import {
   METRIC_NAMES,
+  emptyMetricSummary,
   type MetricSummary,
 } from "@/lib/analytics/summary-schema";
 
@@ -48,17 +49,7 @@ export async function getMetricsSummary() {
     ]),
   );
 
-  return METRIC_NAMES.map((name) => byName.get(name) ?? emptySummary(name));
+  return METRIC_NAMES.map(
+    (name) => byName.get(name) ?? emptyMetricSummary(name),
+  );
 }
-
-const emptySummary = (name: MetricSummary["name"]) => ({
-  name,
-  count: 0,
-  avg: 0,
-  p75: 0,
-  ratings: {
-    good: 0,
-    needsImprovement: 0,
-    poor: 0,
-  },
-});
