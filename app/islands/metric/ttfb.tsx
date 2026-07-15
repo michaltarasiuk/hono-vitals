@@ -30,7 +30,7 @@ export function TtfbObserver({ flags }: { flags: TtfbFlags }) {
 
       onTTFB(
         (ttfb) => {
-          (ttfb as { instance?: number }).instance = 1;
+          ttfb.instance = 1;
           reportMetric(ttfb);
         },
         buildTtfbOptions(flags, 1),
@@ -39,7 +39,7 @@ export function TtfbObserver({ flags }: { flags: TtfbFlags }) {
       if (flags.doubleCall) {
         onTTFB(
           (ttfb) => {
-            (ttfb as { instance?: number }).instance = 2;
+            ttfb.instance = 2;
             reportMetric(ttfb);
           },
           buildTtfbOptions(flags, 2),

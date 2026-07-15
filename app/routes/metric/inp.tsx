@@ -11,7 +11,7 @@ export default createRoute(zValidator("query", InpFlagsSchema), (c) => {
   const flags = c.req.valid("query");
 
   return c.render(
-    <Metric.Provider metric="inp" flags={flags} defaults={inpFlagDefaults}>
+    <Metric.Provider metric="INP" flags={flags} defaults={inpFlagDefaults}>
       <Metric.Toolbar>
         <FlagsEditor flags={flags} defaults={inpFlagDefaults} />
       </Metric.Toolbar>

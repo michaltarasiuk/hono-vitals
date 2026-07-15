@@ -26,7 +26,7 @@ export function ClsObserver({ flags }: { flags: ClsFlags }) {
 
       onCLS(
         (cls) => {
-          (cls as { instance?: number }).instance = 1;
+          cls.instance = 1;
 
           if (batch) {
             batch.enqueue(cls);
@@ -40,7 +40,7 @@ export function ClsObserver({ flags }: { flags: ClsFlags }) {
       if (flags.doubleCall) {
         onCLS(
           (cls) => {
-            (cls as { instance?: number }).instance = 2;
+            cls.instance = 2;
             reportMetric(cls);
           },
           buildClsOptions(flags, 2),

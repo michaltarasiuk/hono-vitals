@@ -15,7 +15,7 @@ export default createRoute(zValidator("query", LcpFlagsSchema), (c) => {
   const flags = c.req.valid("query");
 
   return c.render(
-    <Metric.Provider metric="lcp" flags={flags} defaults={lcpFlagDefaults}>
+    <Metric.Provider metric="LCP" flags={flags} defaults={lcpFlagDefaults}>
       <Metric.Toolbar>
         <FlagsEditor flags={flags} defaults={lcpFlagDefaults} />
       </Metric.Toolbar>

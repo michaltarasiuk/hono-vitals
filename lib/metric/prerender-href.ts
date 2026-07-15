@@ -1,5 +1,5 @@
+import type { MetricName } from "@/lib/collect/schema";
 import type { FlagValue } from "@/lib/metric/flags/serialize";
-import type { MetricSlug } from "@/lib/shared/routes";
 
 function flagsToQueryString(
   flags: Record<string, FlagValue>,
@@ -20,12 +20,12 @@ function flagsToQueryString(
 }
 
 export function prerenderHref(
-  metric: MetricSlug,
+  metric: MetricName,
   flags: Record<string, FlagValue>,
   defaults: Record<string, FlagValue>,
 ) {
   const queryString = flagsToQueryString(flags, defaults);
-  const base = `/metric/${metric}`;
+  const base = `/metric/${metric.toLowerCase()}`;
   return queryString ? `${base}?${queryString}` : base;
 }
 

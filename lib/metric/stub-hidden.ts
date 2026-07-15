@@ -4,8 +4,9 @@ function applyHiddenPageStub() {
     configurable: true,
   });
 
-  const originalGetEntriesByType =
-    window.performance.getEntriesByType.bind(performance);
+  const originalGetEntriesByType = window.performance.getEntriesByType.bind(
+    window.performance,
+  );
 
   window.performance.getEntriesByType = function (type: string) {
     const entries = originalGetEntriesByType(type);
@@ -22,11 +23,11 @@ function applyHiddenPageStub() {
     return entries;
   };
 
-  addEventListener(
+  window.addEventListener(
     "visibilitychange",
     (event) => {
       if (event.isTrusted) {
-        delete (document as { visibilityState?: string }).visibilityState;
+        Reflect.deleteProperty(document, "visibilityState");
       }
     },
     true,

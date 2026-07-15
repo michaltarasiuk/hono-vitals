@@ -1,10 +1,9 @@
-import type { ReactNode } from "react";
+import { createContext, use, type ReactNode } from "react";
 
+import type { MetricName } from "@/lib/collect/schema";
 import type { FlagValue } from "@/lib/metric/flags/serialize";
-import type { MetricSlug } from "@/lib/shared/routes";
 
 import { Toolbar as LayoutToolbar } from "@/app/components/layout/toolbar";
-import { MetricContext, useMetric } from "@/app/components/metric/context";
 import {
   prerenderHref,
   speculationRulesJson,
@@ -12,8 +11,22 @@ import {
 import { HIDDEN_PAGE_STUB_SCRIPT } from "@/lib/metric/stub-hidden";
 import { WAS_DISCARDED_STUB_SCRIPT } from "@/lib/metric/stub-was-discarded";
 
+const MetricContext = createContext<{
+  flags: Record<string, FlagValue>;
+  defaults: Record<string, FlagValue>;
+  metric: MetricName;
+} | null>(null);
+
+function useMetric() {
+  const value = use(MetricContext);
+  if (!value) {
+    throw new Error("useMetric must be used within Metric.Provider");
+  }
+  return value;
+}
+
 interface ProviderProps {
-  metric: MetricSlug;
+  metric: MetricName;
   flags: Record<string, FlagValue>;
   defaults: Record<string, FlagValue>;
   children: ReactNode;
@@ -29,7 +42,7 @@ function Provider({ metric, flags, defaults, children }: ProviderProps) {
 
 function Toolbar({ children }: { children?: ReactNode }) {
   const { metric } = useMetric();
-  const currentPath = `/metric/${metric}`;
+  const currentPath = `/metric/${metric.toLowerCase()}`;
 
   return (
     <LayoutToolbar.Root>

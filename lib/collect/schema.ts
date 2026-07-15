@@ -1,10 +1,14 @@
 import * as z from "zod";
 
+export const METRIC_NAMES = ["CLS", "FCP", "INP", "LCP", "TTFB"] as const;
+
+export type MetricName = (typeof METRIC_NAMES)[number];
+
 export const MetricSchema = z.object({
   /**
    * The name of the metric (in acronym form).
    */
-  name: z.enum(["CLS", "FCP", "INP", "LCP", "TTFB"]),
+  name: z.enum(METRIC_NAMES),
   /**
    * The current value of the metric.
    */

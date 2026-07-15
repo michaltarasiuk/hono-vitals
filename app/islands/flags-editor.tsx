@@ -74,7 +74,7 @@ export function FlagsEditor({ flags, defaults }: FlagsEditorProps) {
                   return (
                     <Field.Root key={key} name={key}>
                       <Field.Label>{formatFlagLabel(key)}</Field.Label>
-                      <NumberField
+                      <NumberField.Root
                         name={key}
                         value={value}
                         min={0}
@@ -82,10 +82,16 @@ export function FlagsEditor({ flags, defaults }: FlagsEditorProps) {
                         onValueChange={(next) => {
                           setDraft((draft) => ({
                             ...draft,
-                            [key]: next,
+                            [key]: next ?? 0,
                           }));
                         }}
-                      />
+                      >
+                        <NumberField.Group>
+                          <NumberField.Decrement />
+                          <NumberField.Input />
+                          <NumberField.Increment />
+                        </NumberField.Group>
+                      </NumberField.Root>
                     </Field.Root>
                   );
                 default:

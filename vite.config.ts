@@ -34,7 +34,13 @@ export default defineConfig(({ command, mode }) => {
       },
     },
     ssr: {
-      external: ["react", "react-dom", "use-sync-external-store"],
+      external: [
+        "react",
+        "react-dom",
+        "use-sync-external-store",
+        "@clickhouse/client",
+        "@clickhouse/client-common",
+      ],
     },
     plugins: [
       honox({

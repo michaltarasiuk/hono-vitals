@@ -15,7 +15,7 @@ export default createRoute(zValidator("query", FcpFlagsSchema), (c) => {
   const flags = c.req.valid("query");
 
   return c.render(
-    <Metric.Provider metric="fcp" flags={flags} defaults={fcpFlagDefaults}>
+    <Metric.Provider metric="FCP" flags={flags} defaults={fcpFlagDefaults}>
       <Metric.Toolbar>
         <FlagsEditor flags={flags} defaults={fcpFlagDefaults} />
       </Metric.Toolbar>

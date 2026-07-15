@@ -1,6 +1,6 @@
-import type { MetricSummary } from "@/lib/analytics/summary-schema";
+import type { MetricName } from "@/lib/collect/schema";
 
-export function formatMetricValue(name: MetricSummary["name"], value: number) {
+export function formatMetricValue(name: MetricName, value: number) {
   if (name === "CLS") {
     return value.toFixed(3);
   }

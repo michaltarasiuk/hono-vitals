@@ -2,7 +2,7 @@ import * as z from "zod";
 
 const EnvSchema = z.object({
   CLICKHOUSE_URL: z.url(),
-  CLICKHOUSE_USERNAME: z.string().min(1),
+  CLICKHOUSE_USERNAME: z.string(),
   CLICKHOUSE_PASSWORD: z.string(),
 });
 

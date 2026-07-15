@@ -42,7 +42,7 @@ export function InpObserver({ flags }: { flags: InpFlags }) {
 
       onINP(
         (inp) => {
-          (inp as { instance?: number }).instance = 1;
+          inp.instance = 1;
 
           if (batch) {
             batch.enqueue(inp);
@@ -56,7 +56,7 @@ export function InpObserver({ flags }: { flags: InpFlags }) {
       if (flags.doubleCall) {
         onINP(
           (inp) => {
-            (inp as { instance?: number }).instance = 2;
+            inp.instance = 2;
             reportMetric(inp);
           },
           buildInpOptions(flags, 2),

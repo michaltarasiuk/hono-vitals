@@ -36,7 +36,7 @@ export function LcpObserver({ flags }: { flags: LcpFlags }) {
       function registerLCP() {
         onLCP(
           (lcp) => {
-            (lcp as { instance?: number }).instance = 1;
+            lcp.instance = 1;
 
             if (batch) {
               batch.enqueue(lcp);
@@ -61,7 +61,7 @@ export function LcpObserver({ flags }: { flags: LcpFlags }) {
       if (flags.doubleCall) {
         onLCP(
           (lcp) => {
-            (lcp as { instance?: number }).instance = 2;
+            lcp.instance = 2;
             reportMetric(lcp);
           },
           buildLcpOptions(flags, 2),
