@@ -1,17 +1,14 @@
 import build from "@hono/vite-build/bun";
 import adapter from "@hono/vite-dev-server/bun";
 import honox from "honox/vite";
-import { fileURLToPath } from "node:url";
 import { defineConfig } from "vite";
-
-const root = fileURLToPath(new URL(".", import.meta.url));
 
 export default defineConfig(({ command, mode }) => {
   if (mode === "client") {
     return {
       resolve: {
         alias: {
-          "@": root,
+          "@": import.meta.dirname,
         },
       },
       build: {
@@ -33,17 +30,11 @@ export default defineConfig(({ command, mode }) => {
       : {}),
     resolve: {
       alias: {
-        "@": root,
+        "@": import.meta.dirname,
       },
     },
     ssr: {
-      external: [
-        "react",
-        "react-dom",
-        "use-sync-external-store",
-        "use-sync-external-store/shim",
-        "@clickhouse/client",
-      ],
+      external: ["react", "react-dom", "use-sync-external-store"],
     },
     plugins: [
       honox({
