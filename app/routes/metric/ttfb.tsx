@@ -17,6 +17,7 @@ export default createRoute(zValidator("query", TtfbFlagsSchema), (c) => {
       </Metric.Toolbar>
       <Metric.Main>
         <Metric.Assets />
+
         <h1 {...elementTiming("main-heading")}>TTFB Test</h1>
         <p>
           <img
@@ -27,6 +28,7 @@ export default createRoute(zValidator("query", TtfbFlagsSchema), (c) => {
           />
         </p>
         <p>Text below the image</p>
+
         <Metric.Chrome />
         <TtfbObserver flags={flags} />
       </Metric.Main>

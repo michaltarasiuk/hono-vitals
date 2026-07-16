@@ -17,6 +17,7 @@ export default createRoute(zValidator("query", FcpFlagsSchema), (c) => {
       </Metric.Toolbar>
       <Metric.Main>
         <Metric.Assets />
+
         <h1 {...elementTiming("main-heading")}>FCP Test</h1>
         <p>
           <img
@@ -27,6 +28,7 @@ export default createRoute(zValidator("query", FcpFlagsSchema), (c) => {
           />
         </p>
         <p>Text below the image</p>
+
         <Metric.Chrome />
         <FcpObserver flags={flags} />
       </Metric.Main>

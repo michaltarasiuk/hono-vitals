@@ -17,6 +17,7 @@ export default createRoute(zValidator("query", ClsFlagsSchema), (c) => {
       </Metric.Toolbar>
       <Metric.Main>
         <Metric.Assets />
+
         <h1 {...elementTiming("main-heading")}>CLS Test</h1>
         {flags.noLayoutShifts ? (
           <p>This text does not shift.</p>
@@ -42,6 +43,7 @@ export default createRoute(zValidator("query", ClsFlagsSchema), (c) => {
             <p>Text below the images that will get pushed down.</p>
           </>
         )}
+
         <Metric.Chrome />
         <ClsObserver flags={flags} />
       </Metric.Main>
