@@ -17,6 +17,7 @@ export default createRoute(zValidator("query", LcpFlagsSchema), (c) => {
       </Metric.Toolbar>
       <Metric.Main>
         <Metric.Assets />
+
         <h1 {...elementTiming("main-heading")}>LCP Test</h1>
         <p>
           <img
@@ -31,6 +32,7 @@ export default createRoute(zValidator("query", LcpFlagsSchema), (c) => {
         <p>Text below the image</p>
         <div style={{ height: "100vh" }} />
         <footer>Text below the full-height element.</footer>
+
         <Metric.Chrome />
         <LcpObserver flags={flags} />
       </Metric.Main>
