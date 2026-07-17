@@ -2,9 +2,9 @@ import { zValidator } from "@hono/zod-validator";
 import { createRoute } from "honox/factory";
 
 import { ClsObserver } from "@/app/islands/metric/cls";
+import { Page } from "@/app/components/metric/page";
 import { elementTiming } from "@/lib/metric/element-timing";
 import { ClsFlagsSchema, clsFlagDefaults } from "@/lib/metric/flags/cls";
-import { Page } from "@/app/components/metric/page";
 
 export default createRoute(zValidator("query", ClsFlagsSchema), (c) => {
   const flags = c.req.valid("query");

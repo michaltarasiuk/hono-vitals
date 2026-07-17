@@ -1,10 +1,17 @@
 import * as z from "zod";
 
-import { queryNumberDefault } from "./coerce";
+import { queryBoolean, queryNumberDefault } from "./coerce";
 import { schemaDefaults } from "./defaults";
-import { BaseMetricFlagsSchema } from "./shared";
+import {
+  BaseMetricFlagsSchema,
+  BatchReportingFlagsSchema,
+  GenerateTargetFlagsSchema,
+} from "./shared";
 
 export const InpFlagsSchema = BaseMetricFlagsSchema.extend({
+  ...GenerateTargetFlagsSchema.shape,
+  ...BatchReportingFlagsSchema.shape,
+  includeProcessedEventEntries: queryBoolean,
   clickBlockingTime: queryNumberDefault(0),
   durationThreshold: queryNumberDefault(0),
   durationThreshold2: queryNumberDefault(0),
