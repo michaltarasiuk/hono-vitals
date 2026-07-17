@@ -1,55 +1,82 @@
+import type { ClsFlags } from "@/lib/metric/flags/cls";
+import type { FcpFlags } from "@/lib/metric/flags/fcp";
 import type { InpFlags } from "@/lib/metric/flags/inp";
-import type { BaseMetricFlags } from "@/lib/metric/flags/shared";
+import type { LcpFlags } from "@/lib/metric/flags/lcp";
+import type {
+  BaseMetricFlags,
+  GenerateTargetFlags,
+} from "@/lib/metric/flags/shared";
+import type { TtfbFlags } from "@/lib/metric/flags/ttfb";
 
-type ObserverFlags = BaseMetricFlags & Partial<InpFlags>;
+type Instance = 1 | 2;
+
+function pickInstance<T>(instance: Instance, primary: T, secondary: T) {
+  return instance === 1 ? primary : secondary;
+}
+
+function reportAllChangesOption(
+  flags: Pick<BaseMetricFlags, "reportAllChanges" | "reportAllChanges2">,
+  instance: Instance,
+) {
+  return {
+    reportAllChanges: pickInstance(
+      instance,
+      flags.reportAllChanges,
+      flags.reportAllChanges2,
+    ),
+  };
+}
+
+function generateTargetOption(flags: GenerateTargetFlags, instance: Instance) {
+  if (!pickInstance(instance, flags.generateTarget, flags.generateTarget2)) {
+    return {};
+  }
+  return {
+    generateTarget(node: Node | null) {
+      let target: string | undefined;
+      if (node instanceof HTMLElement) {
+        target = node.dataset.target;
+      }
+      return target;
+    },
+  };
+}
 
 function hasQueryFlag(name: string) {
   return new URLSearchParams(window.location.search).has(name);
 }
 
-export function buildClsOptions(flags: ObserverFlags, instance: 1 | 2 = 1) {
-  const reportAllChanges =
-    instance === 1 ? flags.reportAllChanges : flags.reportAllChanges2;
-  const generateTarget =
-    instance === 1 ? flags.generateTarget : flags.generateTarget2;
-
+function buildTargetMetricOptions(
+  flags: Pick<BaseMetricFlags, "reportAllChanges" | "reportAllChanges2"> &
+    GenerateTargetFlags,
+  instance: Instance,
+) {
   return {
-    reportAllChanges,
-    ...(generateTarget
-      ? {
-          generateTarget: (el: Node | null) =>
-            el instanceof HTMLElement ? el.dataset.target : undefined,
-        }
-      : {}),
+    ...reportAllChangesOption(flags, instance),
+    ...generateTargetOption(flags, instance),
   };
 }
 
-export function buildFcpOptions(flags: ObserverFlags, instance: 1 | 2 = 1) {
-  return {
-    reportAllChanges:
-      instance === 1 ? flags.reportAllChanges : flags.reportAllChanges2,
-  };
+export function buildClsOptions(flags: ClsFlags, instance: Instance = 1) {
+  return buildTargetMetricOptions(flags, instance);
 }
 
-export function buildInpOptions(flags: ObserverFlags, instance: 1 | 2 = 1) {
-  const reportAllChanges =
-    instance === 1 ? flags.reportAllChanges : flags.reportAllChanges2;
-  const generateTarget =
-    instance === 1 ? flags.generateTarget : flags.generateTarget2;
-  const durationThresholdKey =
-    instance === 1 ? "durationThreshold" : "durationThreshold2";
+export function buildFcpOptions(flags: FcpFlags, instance: Instance = 1) {
+  return reportAllChangesOption(flags, instance);
+}
+
+export function buildInpOptions(flags: InpFlags, instance: Instance = 1) {
+  const durationThresholdKey = pickInstance(
+    instance,
+    "durationThreshold",
+    "durationThreshold2",
+  );
   const durationThreshold = flags[durationThresholdKey];
 
   return {
-    reportAllChanges,
+    ...buildTargetMetricOptions(flags, instance),
     ...(hasQueryFlag(durationThresholdKey) && durationThreshold !== undefined
       ? { durationThreshold }
-      : {}),
-    ...(generateTarget
-      ? {
-          generateTarget: (el: Node | null) =>
-            el instanceof HTMLElement ? el.dataset.target : undefined,
-        }
       : {}),
     ...(flags.includeProcessedEventEntries
       ? { includeProcessedEventEntries: true }
@@ -57,26 +84,10 @@ export function buildInpOptions(flags: ObserverFlags, instance: 1 | 2 = 1) {
   };
 }
 
-export function buildLcpOptions(flags: ObserverFlags, instance: 1 | 2 = 1) {
-  const reportAllChanges =
-    instance === 1 ? flags.reportAllChanges : flags.reportAllChanges2;
-  const generateTarget =
-    instance === 1 ? flags.generateTarget : flags.generateTarget2;
-
-  return {
-    reportAllChanges,
-    ...(generateTarget
-      ? {
-          generateTarget: (el: Node | null) =>
-            el instanceof HTMLElement ? el.dataset.target : undefined,
-        }
-      : {}),
-  };
+export function buildLcpOptions(flags: LcpFlags, instance: Instance = 1) {
+  return buildTargetMetricOptions(flags, instance);
 }
 
-export function buildTtfbOptions(flags: ObserverFlags, instance: 1 | 2 = 1) {
-  return {
-    reportAllChanges:
-      instance === 1 ? flags.reportAllChanges : flags.reportAllChanges2,
-  };
+export function buildTtfbOptions(flags: TtfbFlags, instance: Instance = 1) {
+  return reportAllChangesOption(flags, instance);
 }

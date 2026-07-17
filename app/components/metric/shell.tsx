@@ -11,11 +11,13 @@ import {
 import { HIDDEN_PAGE_STUB_SCRIPT } from "@/lib/metric/stub-hidden";
 import { WAS_DISCARDED_STUB_SCRIPT } from "@/lib/metric/stub-was-discarded";
 
-const MetricContext = createContext<{
+interface ContextType {
   flags: Record<string, FlagValue>;
   defaults: Record<string, FlagValue>;
   metric: MetricName;
-} | null>(null);
+}
+
+const MetricContext = createContext<ContextType | null>(null);
 
 function useMetric() {
   const value = use(MetricContext);
@@ -78,6 +80,7 @@ function Assets() {
         <link
           href={`/public/metric/styles.css?delay=${renderBlocking}`}
           rel="stylesheet"
+          precedence="default"
         />
       ) : null}
       {flags.hidden ? (
