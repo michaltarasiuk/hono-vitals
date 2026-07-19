@@ -1,16 +1,14 @@
-import { zValidator } from "@hono/zod-validator";
-import { createRoute } from "honox/factory";
-
-import { Page } from "@/app/components/metric/page";
 import { LcpObserver } from "@/app/islands/metric/lcp";
+import { createMetricRoute } from "@/lib/metric/create-metric-route";
 import { elementTiming } from "@/lib/metric/element-timing";
-import { LcpFlagsSchema, lcpFlagDefaults } from "@/lib/metric/flags/lcp";
+import { LcpFlagsSchema } from "@/lib/metric/flags/lcp";
 
-export default createRoute(zValidator("query", LcpFlagsSchema), (c) => {
-  const flags = c.req.valid("query");
-
-  return c.render(
-    <Page metric="LCP" flags={flags} defaults={lcpFlagDefaults}>
+export default createMetricRoute({
+  metric: "LCP",
+  schema: LcpFlagsSchema,
+  observer: LcpObserver,
+  children: (flags) => (
+    <>
       <h1 {...elementTiming("main-heading")}>LCP Test</h1>
       <p>
         <img
@@ -25,8 +23,6 @@ export default createRoute(zValidator("query", LcpFlagsSchema), (c) => {
       <p>Text below the image</p>
       <div style={{ height: "100vh" }} />
       <footer>Text below the full-height element.</footer>
-
-      <LcpObserver flags={flags} />
-    </Page>,
-  );
+    </>
+  ),
 });

@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import type { FlagValue } from "@/lib/metric/flags/serialize";
+import type { Flags } from "@/lib/metric/flags/serialize";
 
 import { Button } from "@/app/components/ui/button/button";
 import { Dialog } from "@/app/components/ui/dialog/dialog";
@@ -16,8 +16,8 @@ import { assertNever } from "@/lib/shared/assert-never";
 const FLAGS_EDITOR_TRIGGER_ID = "metric-flags-trigger";
 
 interface FlagsEditorProps {
-  flags: Record<string, FlagValue>;
-  defaults: Record<string, FlagValue>;
+  flags: Flags;
+  defaults: Flags;
 }
 
 export function FlagsEditor({ flags, defaults }: FlagsEditorProps) {

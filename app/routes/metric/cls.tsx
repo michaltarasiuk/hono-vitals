@@ -1,16 +1,14 @@
-import { zValidator } from "@hono/zod-validator";
-import { createRoute } from "honox/factory";
-
-import { Page } from "@/app/components/metric/page";
 import { ClsObserver } from "@/app/islands/metric/cls";
+import { createMetricRoute } from "@/lib/metric/create-metric-route";
 import { elementTiming } from "@/lib/metric/element-timing";
-import { ClsFlagsSchema, clsFlagDefaults } from "@/lib/metric/flags/cls";
+import { ClsFlagsSchema } from "@/lib/metric/flags/cls";
 
-export default createRoute(zValidator("query", ClsFlagsSchema), (c) => {
-  const flags = c.req.valid("query");
-
-  return c.render(
-    <Page metric="CLS" flags={flags} defaults={clsFlagDefaults}>
+export default createMetricRoute({
+  metric: "CLS",
+  schema: ClsFlagsSchema,
+  observer: ClsObserver,
+  children: (flags) => (
+    <>
       <h1 {...elementTiming("main-heading")}>CLS Test</h1>
       {flags.noLayoutShifts ? (
         <p>This text does not shift.</p>
@@ -36,8 +34,6 @@ export default createRoute(zValidator("query", ClsFlagsSchema), (c) => {
           <p>Text below the images that will get pushed down.</p>
         </>
       )}
-
-      <ClsObserver flags={flags} />
-    </Page>,
-  );
+    </>
+  ),
 });

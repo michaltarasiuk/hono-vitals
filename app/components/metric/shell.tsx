@@ -1,7 +1,7 @@
 import { createContext, use, type ReactNode } from "react";
 
 import type { MetricName } from "@/lib/collect/schema";
-import type { FlagValue } from "@/lib/metric/flags/serialize";
+import type { Flags } from "@/lib/metric/flags/serialize";
 
 import { Toolbar as LayoutToolbar } from "@/app/components/layout/toolbar";
 import {
@@ -12,8 +12,8 @@ import { HIDDEN_PAGE_STUB_SCRIPT } from "@/lib/metric/stub-hidden";
 import { WAS_DISCARDED_STUB_SCRIPT } from "@/lib/metric/stub-was-discarded";
 
 interface ContextType {
-  flags: Record<string, FlagValue>;
-  defaults: Record<string, FlagValue>;
+  flags: Flags;
+  defaults: Flags;
   metric: MetricName;
 }
 
@@ -29,8 +29,8 @@ function useMetric() {
 
 interface ProviderProps {
   metric: MetricName;
-  flags: Record<string, FlagValue>;
-  defaults: Record<string, FlagValue>;
+  flags: Flags;
+  defaults: Flags;
   children: ReactNode;
 }
 

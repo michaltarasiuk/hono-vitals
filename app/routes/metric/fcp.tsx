@@ -1,16 +1,14 @@
-import { zValidator } from "@hono/zod-validator";
-import { createRoute } from "honox/factory";
-
-import { Page } from "@/app/components/metric/page";
 import { FcpObserver } from "@/app/islands/metric/fcp";
+import { createMetricRoute } from "@/lib/metric/create-metric-route";
 import { elementTiming } from "@/lib/metric/element-timing";
-import { FcpFlagsSchema, fcpFlagDefaults } from "@/lib/metric/flags/fcp";
+import { FcpFlagsSchema } from "@/lib/metric/flags/fcp";
 
-export default createRoute(zValidator("query", FcpFlagsSchema), (c) => {
-  const flags = c.req.valid("query");
-
-  return c.render(
-    <Page metric="FCP" flags={flags} defaults={fcpFlagDefaults}>
+export default createMetricRoute({
+  metric: "FCP",
+  schema: FcpFlagsSchema,
+  observer: FcpObserver,
+  children: (flags) => (
+    <>
       <h1 {...elementTiming("main-heading")}>FCP Test</h1>
       <p>
         <img
@@ -21,8 +19,6 @@ export default createRoute(zValidator("query", FcpFlagsSchema), (c) => {
         />
       </p>
       <p>Text below the image</p>
-
-      <FcpObserver flags={flags} />
-    </Page>,
-  );
+    </>
+  ),
 });

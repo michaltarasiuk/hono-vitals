@@ -1,7 +1,6 @@
 import * as z from "zod";
 
 import { queryBoolean, queryNumberDefault } from "./coerce";
-import { schemaDefaults } from "./defaults";
 import {
   BaseMetricFlagsSchema,
   BatchReportingFlagsSchema,
@@ -18,5 +17,3 @@ export const LcpFlagsSchema = BaseMetricFlagsSchema.extend({
 });
 
 export type LcpFlags = z.infer<typeof LcpFlagsSchema>;
-
-export const lcpFlagDefaults = schemaDefaults(LcpFlagsSchema);

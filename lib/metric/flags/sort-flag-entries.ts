@@ -1,6 +1,6 @@
-import type { FlagValue } from "./serialize";
+import type { Flags } from "./serialize";
 
-export function sortFlagEntries(flags: Record<string, FlagValue>) {
+export function sortFlagEntries(flags: Flags) {
   return Object.entries(flags).sort(([keyA, a], [keyB, b]) => {
     const typeOrder =
       (typeof a === "boolean" ? 0 : 1) - (typeof b === "boolean" ? 0 : 1);
