@@ -5,9 +5,7 @@ import { Toolbar } from "@/app/components/layout/toolbar";
 import { getMetricsSummary } from "@/lib/analytics/duckdb/summary";
 
 export default createRoute(async (c) => {
-  const summary = await getMetricsSummary();
-
-  const totalSamples = summary.reduce((acc, metric) => acc + metric.count, 0);
+  const summaries = await getMetricsSummary();
 
   return c.render(
     <>
@@ -15,15 +13,7 @@ export default createRoute(async (c) => {
         <Toolbar.Nav currentPath={c.req.path} />
       </Toolbar.Root>
       <main className="metric-shell">
-        <MetricsSummary.Root>
-          <MetricsSummary.Title />
-          <MetricsSummary.Lead totalSamples={totalSamples} />
-          <MetricsSummary.Grid>
-            {summary.map((metric) => (
-              <MetricsSummary.Card key={metric.name} summary={metric} />
-            ))}
-          </MetricsSummary.Grid>
-        </MetricsSummary.Root>
+        <MetricsSummary summaries={summaries} />
       </main>
     </>,
   );
