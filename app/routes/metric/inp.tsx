@@ -1,16 +1,14 @@
-import { zValidator } from "@hono/zod-validator";
-import { createRoute } from "honox/factory";
-
-import { Page } from "@/app/components/metric/page";
 import { InpObserver } from "@/app/islands/metric/inp";
+import { createMetricRoute } from "@/lib/metric/create-metric-route";
 import { elementTiming } from "@/lib/metric/element-timing";
-import { InpFlagsSchema, inpFlagDefaults } from "@/lib/metric/flags/inp";
+import { InpFlagsSchema } from "@/lib/metric/flags/inp";
 
-export default createRoute(zValidator("query", InpFlagsSchema), (c) => {
-  const flags = c.req.valid("query");
-
-  return c.render(
-    <Page metric="INP" flags={flags} defaults={inpFlagDefaults}>
+export default createMetricRoute({
+  metric: "INP",
+  schema: InpFlagsSchema,
+  observer: InpObserver,
+  children: () => (
+    <>
       <h1 {...elementTiming("main-heading")}>INP Test</h1>
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin nec porta
@@ -25,8 +23,6 @@ export default createRoute(zValidator("query", InpFlagsSchema), (c) => {
         massa, rutrum ut leo quis, tempor dapibus dui. Proin in mauris non risus
         maximus tincidunt quis a mauris.
       </p>
-
-      <InpObserver flags={flags} />
-    </Page>,
-  );
+    </>
+  ),
 });

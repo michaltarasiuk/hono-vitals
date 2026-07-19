@@ -2,10 +2,9 @@ import { assertNever } from "@/lib/shared/assert-never";
 
 export type FlagValue = boolean | number;
 
-export function applyFlags(
-  flags: Record<string, FlagValue>,
-  defaults: Record<string, FlagValue>,
-) {
+export type Flags = Record<string, FlagValue>;
+
+export function applyFlags(flags: Flags, defaults: Flags) {
   const url = new URL(window.location.href);
   for (const [key, value] of Object.entries(flags)) {
     const defaultValue = defaults[key];

@@ -1,10 +1,7 @@
 import type { MetricName } from "@/lib/collect/schema";
-import type { FlagValue } from "@/lib/metric/flags/serialize";
+import type { Flags } from "@/lib/metric/flags/serialize";
 
-function flagsToQueryString(
-  flags: Record<string, FlagValue>,
-  defaults: Record<string, FlagValue>,
-) {
+function flagsToQueryString(flags: Flags, defaults: Flags) {
   const params = new URLSearchParams();
   for (const [key, value] of Object.entries(flags)) {
     const defaultValue = defaults[key];
@@ -21,8 +18,8 @@ function flagsToQueryString(
 
 export function prerenderHref(
   metric: MetricName,
-  flags: Record<string, FlagValue>,
-  defaults: Record<string, FlagValue>,
+  flags: Flags,
+  defaults: Flags,
 ) {
   const queryString = flagsToQueryString(flags, defaults);
   const base = `/metric/${metric.toLowerCase()}`;
