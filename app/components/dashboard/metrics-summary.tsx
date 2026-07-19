@@ -1,34 +1,6 @@
-import type { ReactNode } from "react";
-
 import type { MetricSummary } from "@/lib/analytics/summary-schema";
 
 import { formatMetricValue } from "@/lib/analytics/format-value";
-
-function Root({
-  children,
-  className,
-}: {
-  children: ReactNode;
-  className?: string;
-}) {
-  return <div className={className ?? "MetricsSummary"}>{children}</div>;
-}
-
-function Title() {
-  return <h1>Metrics</h1>;
-}
-
-function Lead({ totalSamples }: { totalSamples: number }) {
-  return (
-    <p className="MetricsSummaryLead">
-      Summary across {totalSamples.toLocaleString()} collected samples.
-    </p>
-  );
-}
-
-function Grid({ children }: { children: ReactNode }) {
-  return <div className="MetricsCardGrid">{children}</div>;
-}
 
 function RatingBar({ summary }: { summary: MetricSummary }) {
   const { good, needsImprovement, poor } = summary.ratings;
@@ -64,7 +36,7 @@ function RatingBar({ summary }: { summary: MetricSummary }) {
   );
 }
 
-function Card({ summary }: { summary: MetricSummary }) {
+function MetricCard({ summary }: { summary: MetricSummary }) {
   const { good, needsImprovement, poor } = summary.ratings;
 
   return (
@@ -114,11 +86,20 @@ function Card({ summary }: { summary: MetricSummary }) {
   );
 }
 
-export const MetricsSummary = {
-  Card,
-  Grid,
-  Lead,
-  RatingBar,
-  Root,
-  Title,
-};
+export function MetricsSummary({ summaries }: { summaries: MetricSummary[] }) {
+  const totalSamples = summaries.reduce((acc, metric) => acc + metric.count, 0);
+
+  return (
+    <div className="MetricsSummary">
+      <h1>Metrics</h1>
+      <p className="MetricsSummaryLead">
+        Summary across {totalSamples.toLocaleString()} collected samples.
+      </p>
+      <div className="MetricsCardGrid">
+        {summaries.map((metric) => (
+          <MetricCard key={metric.name} summary={metric} />
+        ))}
+      </div>
+    </div>
+  );
+}
