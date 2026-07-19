@@ -3,9 +3,8 @@ import { type ReactNode } from "react";
 import type { MetricName } from "@/lib/collect/schema";
 import type { FlagValue } from "@/lib/metric/flags/serialize";
 
-import { FlagsEditor } from "@/app/islands/flags-editor";
-
 import { Metric } from "@/app/components/metric/shell";
+import { FlagsEditor } from "@/app/islands/flags-editor";
 
 interface PageProps {
   metric: MetricName;
