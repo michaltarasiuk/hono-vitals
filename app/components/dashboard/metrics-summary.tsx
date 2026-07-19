@@ -2,36 +2,20 @@ import type { MetricSummary } from "@/lib/analytics/summary-schema";
 
 import { formatMetricValue } from "@/lib/analytics/format-value";
 
-function RatingBar({ summary }: { summary: MetricSummary }) {
-  const { good, needsImprovement, poor } = summary.ratings;
-  const total = good + needsImprovement + poor;
-
-  if (total === 0) {
-    return <div className="MetricsRatingBar MetricsRatingBar--empty" />;
-  }
-
-  const goodPct = (good / total) * 100;
-  const needsPct = (needsImprovement / total) * 100;
-  const poorPct = (poor / total) * 100;
+export function MetricsSummary({ summaries }: { summaries: MetricSummary[] }) {
+  const totalSamples = summaries.reduce((acc, metric) => acc + metric.count, 0);
 
   return (
-    <div
-      className="MetricsRatingBar"
-      role="img"
-      aria-label="Rating distribution"
-    >
-      <div
-        className="MetricsRatingBarSegment MetricsRatingBarSegment--good"
-        style={{ width: `${goodPct}%` }}
-      />
-      <div
-        className="MetricsRatingBarSegment MetricsRatingBarSegment--needs-improvement"
-        style={{ width: `${needsPct}%` }}
-      />
-      <div
-        className="MetricsRatingBarSegment MetricsRatingBarSegment--poor"
-        style={{ width: `${poorPct}%` }}
-      />
+    <div className="MetricsSummary">
+      <h1>Metrics</h1>
+      <p className="MetricsSummaryLead">
+        Summary across {totalSamples.toLocaleString()} collected samples.
+      </p>
+      <div className="MetricsCardGrid">
+        {summaries.map((metric) => (
+          <MetricCard key={metric.name} summary={metric} />
+        ))}
+      </div>
     </div>
   );
 }
@@ -86,20 +70,36 @@ function MetricCard({ summary }: { summary: MetricSummary }) {
   );
 }
 
-export function MetricsSummary({ summaries }: { summaries: MetricSummary[] }) {
-  const totalSamples = summaries.reduce((acc, metric) => acc + metric.count, 0);
+function RatingBar({ summary }: { summary: MetricSummary }) {
+  const { good, needsImprovement, poor } = summary.ratings;
+  const total = good + needsImprovement + poor;
+
+  if (total === 0) {
+    return <div className="MetricsRatingBar MetricsRatingBar--empty" />;
+  }
+
+  const goodPct = (good / total) * 100;
+  const needsPct = (needsImprovement / total) * 100;
+  const poorPct = (poor / total) * 100;
 
   return (
-    <div className="MetricsSummary">
-      <h1>Metrics</h1>
-      <p className="MetricsSummaryLead">
-        Summary across {totalSamples.toLocaleString()} collected samples.
-      </p>
-      <div className="MetricsCardGrid">
-        {summaries.map((metric) => (
-          <MetricCard key={metric.name} summary={metric} />
-        ))}
-      </div>
+    <div
+      className="MetricsRatingBar"
+      role="img"
+      aria-label="Rating distribution"
+    >
+      <div
+        className="MetricsRatingBarSegment MetricsRatingBarSegment--good"
+        style={{ width: `${goodPct}%` }}
+      />
+      <div
+        className="MetricsRatingBarSegment MetricsRatingBarSegment--needs-improvement"
+        style={{ width: `${needsPct}%` }}
+      />
+      <div
+        className="MetricsRatingBarSegment MetricsRatingBarSegment--poor"
+        style={{ width: `${poorPct}%` }}
+      />
     </div>
   );
 }
