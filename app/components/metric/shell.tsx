@@ -10,6 +10,7 @@ import {
 } from "@/lib/metric/prerender-href";
 import { HIDDEN_PAGE_STUB_SCRIPT } from "@/lib/metric/stub-hidden";
 import { WAS_DISCARDED_STUB_SCRIPT } from "@/lib/metric/stub-was-discarded";
+import { isDefined } from "@/lib/shared/is-defined";
 
 interface ContextType {
   flags: Flags;
@@ -21,7 +22,7 @@ const MetricContext = createContext<ContextType | null>(null);
 
 function useMetric() {
   const value = use(MetricContext);
-  if (!value) {
+  if (!isDefined(value)) {
     throw new Error("useMetric must be used within Metric.Provider");
   }
   return value;

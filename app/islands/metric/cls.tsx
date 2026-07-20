@@ -6,6 +6,7 @@ import { reportMetric } from "@/lib/collect/report";
 import { createBatchReporter } from "@/lib/metric/batch-reporting";
 import { loadWebVitals } from "@/lib/metric/load-web-vitals";
 import { buildClsOptions } from "@/lib/metric/observer-options";
+import { isDefined } from "@/lib/shared/is-defined";
 
 export function ClsObserver({ flags }: { flags: ClsFlags }) {
   useEffect(() => {
@@ -28,7 +29,7 @@ export function ClsObserver({ flags }: { flags: ClsFlags }) {
         (cls) => {
           cls.instance = 1;
 
-          if (batch) {
+          if (isDefined(batch)) {
             batch.enqueue(cls);
           } else {
             reportMetric(cls);

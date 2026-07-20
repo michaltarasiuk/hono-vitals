@@ -11,6 +11,7 @@ import { applyFlags } from "@/lib/metric/flags/serialize";
 import { sortFlagEntries } from "@/lib/metric/flags/sort-flag-entries";
 import { formatFlagLabel } from "@/lib/metric/format-flag-label";
 import { assertNever } from "@/lib/shared/assert-never";
+import { isDefined } from "@/lib/shared/is-defined";
 
 /** Stable id so island hydration matches full-page SSR (Honox useId path differs). */
 const FLAGS_EDITOR_TRIGGER_ID = "metric-flags-trigger";
@@ -82,7 +83,7 @@ export function FlagsEditor({ flags, defaults }: FlagsEditorProps) {
                         onValueChange={(next) => {
                           setDraft((draft) => ({
                             ...draft,
-                            [key]: next ?? 0,
+                            [key]: isDefined(next) ? next : 0,
                           }));
                         }}
                       >
