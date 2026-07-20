@@ -11,12 +11,13 @@ import {
 } from "@/lib/metric/inp-blocking";
 import { loadWebVitals } from "@/lib/metric/load-web-vitals";
 import { buildInpOptions } from "@/lib/metric/observer-options";
+import { isDefined } from "@/lib/shared/is-defined";
 
 export function InpObserver({ flags }: { flags: InpFlags }) {
   useEffect(() => {
     addBlockingListeners();
     const resetElement = document.getElementById("reset");
-    if (resetElement) {
+    if (isDefined(resetElement)) {
       resetElement.addEventListener("click", resetBlockingTimes);
       return () => {
         resetElement.removeEventListener("click", resetBlockingTimes);
@@ -44,7 +45,7 @@ export function InpObserver({ flags }: { flags: InpFlags }) {
         (inp) => {
           inp.instance = 1;
 
-          if (batch) {
+          if (isDefined(batch)) {
             batch.enqueue(inp);
           } else {
             reportMetric(inp);

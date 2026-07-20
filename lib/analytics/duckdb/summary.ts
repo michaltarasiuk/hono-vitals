@@ -1,6 +1,7 @@
 import { getSQL } from "@/lib/analytics/duckdb/client";
 import { type MetricSummary } from "@/lib/analytics/summary-schema";
 import { METRIC_NAMES, type MetricName } from "@/lib/collect/schema";
+import { isDefined } from "@/lib/shared/is-defined";
 
 interface MetricSummaryRow {
   name: MetricName;
@@ -48,18 +49,21 @@ export async function getMetricsSummary() {
     ]),
   );
 
-  return METRIC_NAMES.map(
-    (name) =>
-      byName.get(name) ?? {
-        name,
-        count: 0,
-        avg: 0,
-        p75: 0,
-        ratings: {
-          good: 0,
-          needsImprovement: 0,
-          poor: 0,
-        },
+  return METRIC_NAMES.map((name) => {
+    const summary = byName.get(name);
+    if (isDefined(summary)) {
+      return summary;
+    }
+    return {
+      name,
+      count: 0,
+      avg: 0,
+      p75: 0,
+      ratings: {
+        good: 0,
+        needsImprovement: 0,
+        poor: 0,
       },
-  );
+    };
+  });
 }

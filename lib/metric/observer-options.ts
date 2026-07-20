@@ -8,6 +8,8 @@ import type {
 } from "@/lib/metric/flags/shared";
 import type { TtfbFlags } from "@/lib/metric/flags/ttfb";
 
+import { isDefined } from "@/lib/shared/is-defined";
+
 type Instance = 1 | 2;
 
 function pickInstance<T>(instance: Instance, primary: T, secondary: T) {
@@ -75,7 +77,7 @@ export function buildInpOptions(flags: InpFlags, instance: Instance = 1) {
 
   return {
     ...buildTargetMetricOptions(flags, instance),
-    ...(hasQueryFlag(durationThresholdKey) && durationThreshold !== undefined
+    ...(hasQueryFlag(durationThresholdKey) && isDefined(durationThreshold)
       ? { durationThreshold }
       : {}),
     ...(flags.includeProcessedEventEntries

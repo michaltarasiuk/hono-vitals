@@ -1,5 +1,7 @@
+import { isDefined } from "@/lib/shared/is-defined";
+
 export function toSafeObject(oldObj: unknown) {
-  if (oldObj === null || typeof oldObj !== "object") {
+  if (!isDefined(oldObj) || typeof oldObj !== "object") {
     return oldObj;
   }
   if (oldObj instanceof EventTarget) {

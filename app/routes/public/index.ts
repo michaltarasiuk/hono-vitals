@@ -4,6 +4,7 @@ import { serveStatic } from "hono/bun";
 import * as z from "zod";
 
 import { delay } from "@/lib/shared/delay";
+import { isDefined } from "@/lib/shared/is-defined";
 
 const StaticQuerySchema = z.object({
   delay: z.coerce.number().optional(),
@@ -16,7 +17,7 @@ const publicRoutes = new Hono()
       typeof StaticQuerySchema
     >;
 
-    if (timeout !== undefined) {
+    if (isDefined(timeout)) {
       await delay(timeout);
     }
 

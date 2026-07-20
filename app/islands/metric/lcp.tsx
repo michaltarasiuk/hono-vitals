@@ -7,6 +7,7 @@ import { createBatchReporter } from "@/lib/metric/batch-reporting";
 import { loadWebVitals } from "@/lib/metric/load-web-vitals";
 import { buildLcpOptions } from "@/lib/metric/observer-options";
 import { removeLcpElement } from "@/lib/metric/remove-lcp-element";
+import { isDefined } from "@/lib/shared/is-defined";
 
 export function LcpObserver({ flags }: { flags: LcpFlags }) {
   useEffect(() => {
@@ -38,7 +39,7 @@ export function LcpObserver({ flags }: { flags: LcpFlags }) {
           (lcp) => {
             lcp.instance = 1;
 
-            if (batch) {
+            if (isDefined(batch)) {
               batch.enqueue(lcp);
             } else {
               reportMetric(lcp);

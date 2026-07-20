@@ -1,3 +1,5 @@
+import { isDefined } from "@/lib/shared/is-defined";
+
 import { afterElementsRendered } from "./ready";
 
 export async function removeLcpElement() {
@@ -6,7 +8,7 @@ export async function removeLcpElement() {
     setTimeout(resolve, 0);
   });
   const img = document.getElementById("lcp-image");
-  if (img) {
+  if (isDefined(img)) {
     img.remove();
   }
 }
