@@ -2,14 +2,25 @@
 
 @import "./tokens.css";
 
-@import "../components/ui/button/button.css";
-@import "../components/layout/nav.css";
 @import "../components/dashboard/metrics-summary.css";
+@import "../components/layout/nav.css";
 @import "../components/layout/toolbar.css";
+@import "../components/metric/shell.css";
+@import "../components/ui/button/button.css";
 @import "../components/ui/dialog/dialog.css";
 @import "../components/ui/field/field.css";
 @import "../components/ui/number-field/number-field.css";
 @import "../components/ui/switch/switch.css";
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+[hidden] {
+  visibility: hidden;
+}
 
 html {
   font-family: Inter, system-ui;
@@ -24,20 +35,25 @@ body {
   color: var(--foreground);
 }
 
-.metric-shell {
-  box-sizing: border-box;
-  flex: 1;
-  padding: 0 1em;
-  position: relative;
-  width: 100%;
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
 }
 
-.metric-shell *,
-.metric-shell *::before,
-.metric-shell *::after {
-  box-sizing: border-box;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+ol,
+dl {
+  margin: 0;
+  padding: 0;
 }
 
-.metric-shell [hidden] {
-  visibility: hidden;
-}
