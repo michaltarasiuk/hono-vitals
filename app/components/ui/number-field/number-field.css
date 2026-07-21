@@ -29,7 +29,6 @@
 }
 
 .NumberFieldInput {
-  box-sizing: border-box;
   margin: 0;
   padding: 0 0.5rem;
   border: 1px solid var(--border);
@@ -59,7 +58,6 @@
 
 .NumberFieldDecrement,
 .NumberFieldIncrement {
-  box-sizing: border-box;
   display: flex;
   align-items: center;
   justify-content: center;
