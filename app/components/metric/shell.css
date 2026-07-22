@@ -6,7 +6,6 @@
 }
 
 .metric-shell > .Text {
-  box-sizing: border-box;
   width: 100%;
   max-width: var(--page-max-width);
   margin-top: 1rem;
@@ -27,7 +26,6 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 1.25rem;
-  box-sizing: border-box;
   width: 100%;
   max-width: var(--page-max-width);
   margin-inline: auto;
