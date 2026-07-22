@@ -1,4 +1,4 @@
-import type { MetricSummary } from "@/lib/analytics/summary-schema";
+import type { MetricSummary } from "@/lib/analytics/summary";
 
 import { Heading } from "@/app/components/ui/heading/heading";
 import { Text } from "@/app/components/ui/text/text";

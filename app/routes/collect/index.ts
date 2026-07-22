@@ -2,7 +2,7 @@ import { zValidator } from "@hono/zod-validator";
 import { Hono } from "hono";
 import * as z from "zod";
 
-import { insertMetric } from "@/lib/analytics/duckdb/insert-metric";
+import { insertMetric } from "@/lib/analytics/metrics";
 import { MetricSchema } from "@/lib/collect/schema";
 
 const collect = new Hono().post(
