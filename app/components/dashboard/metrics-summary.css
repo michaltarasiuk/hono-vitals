@@ -21,7 +21,6 @@
   }
 }
 
-/* Adjacent Text margins are for free-flow layout; flex gap owns spacing here. */
 .MetricsSummary > .Heading + .Text {
   margin-top: 0;
 }
