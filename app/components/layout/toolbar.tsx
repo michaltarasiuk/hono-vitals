@@ -3,7 +3,11 @@ import type { ReactNode } from "react";
 import { Nav } from "@/app/components/layout/nav";
 
 function Root({ children }: { children: ReactNode }) {
-  return <header className="Toolbar">{children}</header>;
+  return (
+    <header className="Toolbar">
+      <div className="ToolbarInner">{children}</div>
+    </header>
+  );
 }
 
 function Actions({ children }: { children: ReactNode }) {

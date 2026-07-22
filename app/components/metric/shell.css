@@ -2,12 +2,17 @@
   flex: 1;
   position: relative;
   width: 100%;
-  padding: 2rem 1rem 3rem;
+  padding: 1.5rem 0 3rem;
 }
 
 /* Chrome outside the content (e.g. prerender link) */
 .metric-shell > .Text {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: var(--page-max-width);
   margin-top: 1rem;
+  margin-inline: auto;
+  padding-inline: var(--page-inline-padding);
 }
 
 .metric-shell > .Text a {
@@ -23,6 +28,11 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 1.25rem;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: var(--page-max-width);
+  margin-inline: auto;
+  padding-inline: var(--page-inline-padding);
 }
 
 /* Adjacent Text margins are for free-flow layout; flex gap owns spacing here. */

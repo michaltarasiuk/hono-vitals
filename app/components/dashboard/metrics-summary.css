@@ -5,10 +5,12 @@
 
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
-  max-width: 72rem;
+  gap: 0.375rem;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: var(--page-max-width);
   margin: 0 auto;
-  padding: 2rem 1rem;
+  padding: 0 var(--page-inline-padding);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -25,27 +27,38 @@
 }
 
 .MetricsSummary > .MetricsCardGrid {
-  margin-top: 0.75rem;
+  margin-top: 1.25rem;
 }
 
 .MetricsCardGrid {
   display: grid;
-  gap: 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+  gap: 1.25rem;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 36rem) {
+  .MetricsCardGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 56rem) {
+  .MetricsCardGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 }
 
 .MetricsCard {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  padding: 1rem;
+  padding: 1.5rem;
   border: 1px solid var(--border);
   background-color: var(--background);
   box-shadow: var(--shadow-offset);
 }
 
 .MetricsCardTitle {
-  margin: 0;
+  margin: 0 0 1rem;
   font-size: 1rem;
   line-height: 1.5rem;
   font-weight: 700;
@@ -61,7 +74,7 @@
 .MetricsCardStats div {
   display: flex;
   justify-content: space-between;
-  gap: 1rem;
+  gap: 0.75rem;
 }
 
 .MetricsCardStats dt {
@@ -74,11 +87,20 @@
 
 .MetricsCardStats dd {
   margin: 0;
+  min-width: 5ch;
   font-size: 0.875rem;
   line-height: 1.25rem;
   font-weight: 400;
   font-variant-numeric: tabular-nums;
+  text-align: right;
   color: var(--foreground);
+}
+
+.MetricsCardRatings {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  margin-top: 1.5rem;
 }
 
 .MetricsRatingBar {
@@ -108,16 +130,10 @@
   background: var(--rating-poor);
 }
 
-.MetricsCardRatings {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
 .MetricsRatingLegend {
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
+  gap: 0.375rem;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -130,7 +146,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1rem;
+  gap: 0.75rem;
 }
 
 .MetricsRatingLegendLabel {
@@ -141,7 +157,10 @@
 }
 
 .MetricsRatingLegendValue {
+  flex-shrink: 0;
+  min-width: 3ch;
   font-variant-numeric: tabular-nums;
+  text-align: right;
   color: var(--foreground);
 }
 
