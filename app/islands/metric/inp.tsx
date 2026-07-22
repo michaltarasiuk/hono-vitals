@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import type { InpFlags } from "@/lib/metric/flags/inp";
 
 import { Button } from "@/app/components/ui/button/button";
-import { Field } from "@/app/components/ui/field/field";
 import { NumberField } from "@/app/components/ui/number-field/number-field";
 import { reportMetric } from "@/lib/collect/report";
 import { createBatchReporter } from "@/lib/metric/batch-reporting";
@@ -101,28 +100,37 @@ export function InpObserver({ flags }: { flags: InpFlags }) {
         event.preventDefault();
       }}
     >
-      {EVENT_NAMES.map((eventName) => (
-        <Field.Root key={eventName} name={`${eventName}-blocking-time`}>
-          <Field.Label>{eventName} blocking time</Field.Label>
-          <NumberField.Root
-            value={blockingTimes[eventName]}
-            min={0}
-            step={1}
-            onValueChange={(next) => {
-              setBlockingTimes((curr) => ({
-                ...curr,
-                [eventName]: next ?? 0,
-              }));
-            }}
-          >
-            <NumberField.Group>
-              <NumberField.Decrement />
-              <NumberField.Input id={`${eventName}-blocking-time`} />
-              <NumberField.Increment />
-            </NumberField.Group>
-          </NumberField.Root>
-        </Field.Root>
-      ))}
+      {EVENT_NAMES.map((eventName) => {
+        // Stable id so island hydration matches full-page SSR (Honox useId path differs).
+        const id = `${eventName}-blocking-time`;
+
+        return (
+          <div key={eventName} className="Field">
+            <label className="Label" htmlFor={id}>
+              {eventName} blocking time
+            </label>
+            <NumberField.Root
+              id={id}
+              name={id}
+              value={blockingTimes[eventName]}
+              min={0}
+              step={1}
+              onValueChange={(next) => {
+                setBlockingTimes((curr) => ({
+                  ...curr,
+                  [eventName]: next ?? 0,
+                }));
+              }}
+            >
+              <NumberField.Group>
+                <NumberField.Decrement />
+                <NumberField.Input />
+                <NumberField.Increment />
+              </NumberField.Group>
+            </NumberField.Root>
+          </div>
+        );
+      })}
       <Button type="button" onClick={handleReset}>
         Reset blocking time to zero
       </Button>
