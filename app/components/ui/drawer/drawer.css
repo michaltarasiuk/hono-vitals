@@ -1,0 +1,96 @@
+.DrawerBackdrop {
+  --drawer-backdrop-opacity: 0.2;
+  --drawer-bleed: 3rem;
+  position: fixed;
+  min-height: 100dvh;
+  inset: 0;
+  background-color: black;
+  opacity: calc(
+    var(--drawer-backdrop-opacity) * (1 - var(--drawer-swipe-progress))
+  );
+  transition: opacity 450ms cubic-bezier(0.32, 0.72, 0, 1);
+
+  @media (prefers-color-scheme: dark) {
+    --drawer-backdrop-opacity: 0.5;
+  }
+
+  @supports (-webkit-touch-callout: none) {
+    position: absolute;
+  }
+
+  &[data-starting-style],
+  &[data-ending-style] {
+    opacity: 0;
+  }
+
+  &[data-swiping] {
+    transition-duration: 0ms;
+  }
+
+  &[data-ending-style] {
+    transition-duration: calc(var(--drawer-swipe-strength) * 400ms);
+  }
+}
+
+.DrawerViewport {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.DrawerPopup {
+  --drawer-bleed: 3rem;
+  width: 100%;
+  max-height: calc(80vh + var(--drawer-bleed));
+  margin-bottom: calc(-1 * var(--drawer-bleed));
+  padding: 0.75rem var(--page-inline-padding) 1.25rem;
+  padding-bottom: calc(
+    1.25rem + env(safe-area-inset-bottom, 0px) + var(--drawer-bleed)
+  );
+  border-top: 1px solid var(--border);
+  background-color: var(--background);
+  outline: none;
+  box-shadow: var(--shadow-offset);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  transform: translateY(var(--drawer-swipe-movement-y));
+  transition: transform 450ms cubic-bezier(0.32, 0.72, 0, 1);
+
+  &[data-starting-style],
+  &[data-ending-style] {
+    transform: translateY(calc(100% - var(--drawer-bleed) + 2px));
+  }
+
+  &[data-ending-style] {
+    transition-duration: calc(var(--drawer-swipe-strength) * 400ms);
+  }
+
+  &[data-swiping] {
+    user-select: none;
+  }
+}
+
+.DrawerHandle {
+  width: 3rem;
+  height: 0.25rem;
+  margin: 0 auto 0.75rem;
+  background-color: var(--border-subtle);
+}
+
+.DrawerContent {
+  width: 100%;
+  max-width: var(--page-max-width);
+  margin-inline: auto;
+}
+
+.DrawerTitle {
+  margin-bottom: 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1rem;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}

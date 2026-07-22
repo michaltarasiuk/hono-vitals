@@ -8,6 +8,7 @@
 @import "../components/metric/shell.css";
 @import "../components/ui/button/button.css";
 @import "../components/ui/dialog/dialog.css";
+@import "../components/ui/drawer/drawer.css";
 @import "../components/ui/field/field.css";
 @import "../components/ui/heading/heading.css";
 @import "../components/ui/number-field/number-field.css";
@@ -29,12 +30,18 @@ html {
 }
 
 body {
-  display: flex;
-  flex-direction: column;
+  position: relative;
   margin: 0;
   min-height: 100dvh;
   background-color: var(--background);
   color: var(--foreground);
+}
+
+.AppRoot {
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
 }
 
 button,

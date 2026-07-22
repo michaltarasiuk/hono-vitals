@@ -17,7 +17,9 @@ export default reactRenderer(({ children }) => {
         )}
         <Script src="/app/client.ts" async />
       </head>
-      <body>{children}</body>
+      <body>
+        <div className="AppRoot">{children}</div>
+      </body>
     </html>
   );
 });
