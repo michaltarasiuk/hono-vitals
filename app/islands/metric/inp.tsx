@@ -16,14 +16,12 @@ import { loadWebVitals } from "@/lib/metric/load-web-vitals";
 import { buildInpOptions } from "@/lib/metric/observer-options";
 import { isDefined } from "@/lib/shared/is-defined";
 
-function initialBlockingTimes(flags: InpFlags) {
-  return Object.fromEntries(
-    EVENT_NAMES.map((eventName) => {
-      const key = `${eventName}BlockingTime` as keyof InpFlags;
-      const value = flags[key];
-      return [eventName, typeof value === "number" ? value : 0] as const;
-    }),
-  ) as Record<EventName, number>;
+function initialBlockingTimes(flags: InpFlags): Record<EventName, number> {
+  const blockingTimes = {} as Record<EventName, number>;
+  for (const eventName of EVENT_NAMES) {
+    blockingTimes[eventName] = flags[`${eventName}BlockingTime`];
+  }
+  return blockingTimes;
 }
 
 export function InpObserver({ flags }: { flags: InpFlags }) {
