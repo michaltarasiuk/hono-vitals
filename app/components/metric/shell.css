@@ -5,7 +5,6 @@
   padding: 1.5rem 0 3rem;
 }
 
-/* Chrome outside the content (e.g. prerender link) */
 .metric-shell > .Text {
   box-sizing: border-box;
   width: 100%;
@@ -35,7 +34,6 @@
   padding-inline: var(--page-inline-padding);
 }
 
-/* Adjacent Text margins are for free-flow layout; flex gap owns spacing here. */
 .metric-content > .Heading + .Text,
 .metric-content > .Text + .Text {
   margin-top: 0;
