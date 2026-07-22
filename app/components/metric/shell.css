@@ -1,6 +1,41 @@
 .metric-shell {
   flex: 1;
-  padding: 0 1em;
   position: relative;
   width: 100%;
+  padding: 2rem 1rem 3rem;
+}
+
+/* Chrome outside the content (e.g. prerender link) */
+.metric-shell > .Text {
+  margin-top: 1rem;
+}
+
+.metric-shell > .Text a {
+  color: var(--foreground);
+  text-decoration-line: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+  text-decoration-color: var(--border-subtle);
+}
+
+.metric-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.25rem;
+}
+
+/* Adjacent Text margins are for free-flow layout; flex gap owns spacing here. */
+.metric-content > .Heading + .Text,
+.metric-content > .Text + .Text {
+  margin-top: 0;
+}
+
+.metric-content form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2rem;
+  width: 100%;
+  max-width: 20rem;
 }

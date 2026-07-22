@@ -1,0 +1,7 @@
+.Heading {
+  margin: 0;
+  font-size: 1.3125rem;
+  font-weight: 700;
+  line-height: 1.625rem;
+  color: var(--foreground);
+}

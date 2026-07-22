@@ -13,7 +13,7 @@ export default reactRenderer(
           </Metric.Toolbar>
           <Metric.Main>
             <Metric.Assets />
-            {children}
+            <Metric.Content>{children}</Metric.Content>
             <Metric.Chrome />
           </Metric.Main>
         </Metric.Provider>

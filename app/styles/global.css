@@ -9,8 +9,10 @@
 @import "../components/ui/button/button.css";
 @import "../components/ui/dialog/dialog.css";
 @import "../components/ui/field/field.css";
+@import "../components/ui/heading/heading.css";
 @import "../components/ui/number-field/number-field.css";
 @import "../components/ui/switch/switch.css";
+@import "../components/ui/text/text.css";
 
 *,
 *::before,
@@ -56,4 +58,3 @@ dl {
   margin: 0;
   padding: 0;
 }
-

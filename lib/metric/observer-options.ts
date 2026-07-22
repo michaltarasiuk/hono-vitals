@@ -29,19 +29,18 @@ function reportAllChangesOption(
   };
 }
 
+function generateTarget(node: Node | null) {
+  if (!(node instanceof HTMLElement)) {
+    return;
+  }
+  return node.dataset.target;
+}
+
 function generateTargetOption(flags: GenerateTargetFlags, instance: Instance) {
   if (!pickInstance(instance, flags.generateTarget, flags.generateTarget2)) {
     return {};
   }
-  return {
-    generateTarget(node: Node | null) {
-      let target: string | undefined;
-      if (node instanceof HTMLElement) {
-        target = node.dataset.target;
-      }
-      return target;
-    },
-  };
+  return { generateTarget };
 }
 
 function hasQueryFlag(name: string) {
