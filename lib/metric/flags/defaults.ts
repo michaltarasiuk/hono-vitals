@@ -7,5 +7,10 @@ export type { Flags };
 export type FlagsSchema<T extends Flags = Flags> = z.ZodType<T>;
 
 export function schemaDefaults<T extends Flags>(schema: FlagsSchema<T>): T {
-  return schema.parse({});
+  const result = schema.safeParse({});
+  if (!result.success) {
+    const keys = result.error.issues.map((i) => i.path.join(".")).join(", ");
+    throw new Error(`Flags schema missing defaults for: ${keys}`);
+  }
+  return result.data;
 }
