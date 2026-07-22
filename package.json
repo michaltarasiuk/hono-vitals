@@ -3,13 +3,13 @@
   "scripts": {
     "dev": "bunx --bun vite",
     "build": "vite build --mode client && vite build && cp -r public dist/public",
-    "start": "cd dist && bun index.js",
+    "start": "bun dist/index.js",
     "type:check": "tsc --noEmit",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "duckdb:init": "bun lib/analytics/duckdb/init-schema.ts"
+    "duckdb:init": "bun lib/analytics/duckdb/init.ts"
   },
   "dependencies": {
     "@base-ui/react": "^1.6.0",
