@@ -116,8 +116,8 @@ export function InpObserver({ flags }: { flags: InpFlags }) {
               min={0}
               step={1}
               onValueChange={(next) => {
-                setBlockingTimes((curr) => ({
-                  ...curr,
+                setBlockingTimes((bt) => ({
+                  ...bt,
                   [eventName]: next ?? 0,
                 }));
               }}
