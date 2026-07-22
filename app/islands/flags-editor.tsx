@@ -42,7 +42,10 @@ export function FlagsEditor({ flags, defaults }: FlagsEditorProps) {
       triggerId={FLAGS_EDITOR_TRIGGER_ID}
     >
       <Dialog.Trigger id={FLAGS_EDITOR_TRIGGER_ID} render={<Button />}>
-        Edit flags
+        <span className="FlagsEditorLabel FlagsEditorLabel--full">
+          Edit flags
+        </span>
+        <span className="FlagsEditorLabel FlagsEditorLabel--short">Flags</span>
       </Dialog.Trigger>
       <Dialog.Portal>
         <Dialog.Backdrop />

@@ -14,15 +14,15 @@
   gap: 0.75rem 1rem;
   width: 100%;
   max-width: var(--page-max-width);
-  min-height: calc(0.75rem * 2 + 2rem);
+  min-height: calc(0.75rem * 2 + 2.5rem);
   margin-inline: auto;
   padding: 0.75rem var(--page-inline-padding);
 }
 
-.Toolbar .Nav {
+.Toolbar .NavDesktop,
+.Toolbar honox-island:has(.NavMobile) {
   flex: 1;
   min-width: 0;
-  padding: 0;
 }
 
 .ToolbarActions {
@@ -30,6 +30,23 @@
   flex-shrink: 0;
   align-items: center;
   justify-content: flex-end;
-  min-width: 5.5rem;
-  min-height: 2rem;
+  min-height: 2.5rem;
+}
+
+.FlagsEditorLabel--short {
+  display: none;
+}
+
+@media (max-width: 39.99rem) {
+  .ToolbarActions .Button {
+    min-height: 2.5rem;
+  }
+
+  .FlagsEditorLabel--full {
+    display: none;
+  }
+
+  .FlagsEditorLabel--short {
+    display: inline;
+  }
 }
