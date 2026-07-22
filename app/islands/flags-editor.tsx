@@ -12,7 +12,7 @@ import { sortFlagEntries } from "@/lib/metric/flags/sort-flag-entries";
 import { formatFlagLabel } from "@/lib/metric/format-flag-label";
 import { assertNever } from "@/lib/shared/assert-never";
 
-/** Stable id so island hydration matches full-page SSR (Honox useId path differs). */
+// Stable id so island hydration matches full-page SSR (Honox useId path differs).
 const FLAGS_EDITOR_TRIGGER_ID = "metric-flags-trigger";
 
 interface FlagsEditorProps {
@@ -60,8 +60,8 @@ export function FlagsEditor({ flags, defaults }: FlagsEditorProps) {
                         <Switch
                           checked={value}
                           onCheckedChange={(checked) => {
-                            setDraft((draft) => ({
-                              ...draft,
+                            setDraft((d) => ({
+                              ...d,
                               [key]: checked,
                             }));
                           }}
@@ -80,8 +80,8 @@ export function FlagsEditor({ flags, defaults }: FlagsEditorProps) {
                         min={0}
                         step={1}
                         onValueChange={(next) => {
-                          setDraft((draft) => ({
-                            ...draft,
+                          setDraft((d) => ({
+                            ...d,
                             [key]: next ?? 0,
                           }));
                         }}

@@ -16,7 +16,7 @@ import { loadWebVitals } from "@/lib/metric/load-web-vitals";
 import { buildInpOptions } from "@/lib/metric/observer-options";
 import { isDefined } from "@/lib/shared/is-defined";
 
-function initialBlockingTimes(flags: InpFlags): Record<EventName, number> {
+function initialBlockingTimes(flags: InpFlags) {
   const blockingTimes = {} as Record<EventName, number>;
   for (const eventName of EVENT_NAMES) {
     blockingTimes[eventName] = flags[`${eventName}BlockingTime`];
@@ -114,8 +114,8 @@ export function InpObserver({ flags }: { flags: InpFlags }) {
               min={0}
               step={1}
               onValueChange={(next) => {
-                setBlockingTimes((prevBlockingTimes) => ({
-                  ...prevBlockingTimes,
+                setBlockingTimes((bt) => ({
+                  ...bt,
                   [eventName]: next ?? 0,
                 }));
               }}
