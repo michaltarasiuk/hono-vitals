@@ -4,6 +4,7 @@ import type { MetricName } from "@/lib/collect/schema";
 import type { Flags } from "@/lib/metric/flags/serialize";
 
 import { Toolbar as LayoutToolbar } from "@/app/components/layout/toolbar";
+import { Text } from "@/app/components/ui/text/text";
 import {
   prerenderHref,
   speculationRulesJson,
@@ -68,6 +69,10 @@ function Main({ children }: { children: ReactNode }) {
   );
 }
 
+function Content({ children }: { children: ReactNode }) {
+  return <div className="metric-content">{children}</div>;
+}
+
 function Assets() {
   const { flags } = useMetric();
   const renderBlocking =
@@ -109,9 +114,9 @@ function Chrome() {
   return (
     <>
       {flags.prerender ? (
-        <p>
+        <Text>
           <a href={href}>Prerender link</a>
-        </p>
+        </Text>
       ) : null}
       {flags.prerender ? (
         <script
@@ -126,6 +131,7 @@ function Chrome() {
 export const Metric = {
   Assets,
   Chrome,
+  Content,
   Main,
   Provider,
   Toolbar,

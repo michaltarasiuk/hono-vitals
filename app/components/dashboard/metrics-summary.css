@@ -3,9 +3,12 @@
   --rating-needs-improvement: rgb(255 204 0);
   --rating-poor: rgb(255 56 60);
 
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
   max-width: 72rem;
   margin: 0 auto;
-  padding: 2rem 0;
+  padding: 2rem 1rem;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -16,24 +19,19 @@
   }
 }
 
-.MetricsSummary h1 {
-  margin: 0 0 0.25rem;
-  font-size: 1rem;
-  line-height: 1.5rem;
-  font-weight: 700;
+/* Adjacent Text margins are for free-flow layout; flex gap owns spacing here. */
+.MetricsSummary > .Heading + .Text {
+  margin-top: 0;
 }
 
-.MetricsSummaryLead {
-  margin: 0 0 1rem;
-  font-size: 0.875rem;
-  line-height: 1.25rem;
-  color: var(--muted-foreground);
+.MetricsSummary > .MetricsCardGrid {
+  margin-top: 0.75rem;
 }
 
 .MetricsCardGrid {
   display: grid;
   gap: 1rem;
-  grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
 }
 
 .MetricsCard {

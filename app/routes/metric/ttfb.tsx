@@ -1,3 +1,5 @@
+import { Heading } from "@/app/components/ui/heading/heading";
+import { Text } from "@/app/components/ui/text/text";
 import { TtfbObserver } from "@/app/islands/metric/ttfb";
 import { createMetricRoute } from "@/lib/metric/create-metric-route";
 import { elementTiming } from "@/lib/metric/element-timing";
@@ -9,16 +11,16 @@ export default createMetricRoute({
   observer: TtfbObserver,
   children: (flags) => (
     <>
-      <h1 {...elementTiming("main-heading")}>TTFB Test</h1>
-      <p>
+      <Heading {...elementTiming("main-heading")}>TTFB Test</Heading>
+      <Text>
         <img
           src={`/public/square.png?delay=${flags.imgDelay}`}
           alt="Gray square"
           hidden={flags.imgHidden}
           {...elementTiming("main-image")}
         />
-      </p>
-      <p>Text below the image</p>
+      </Text>
+      <Text>Text below the image</Text>
     </>
   ),
 });

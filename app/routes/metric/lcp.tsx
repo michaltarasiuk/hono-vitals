@@ -1,3 +1,5 @@
+import { Heading } from "@/app/components/ui/heading/heading";
+import { Text } from "@/app/components/ui/text/text";
 import { LcpObserver } from "@/app/islands/metric/lcp";
 import { createMetricRoute } from "@/lib/metric/create-metric-route";
 import { elementTiming } from "@/lib/metric/element-timing";
@@ -9,8 +11,8 @@ export default createMetricRoute({
   observer: LcpObserver,
   children: (flags) => (
     <>
-      <h1 {...elementTiming("main-heading")}>LCP Test</h1>
-      <p>
+      <Heading {...elementTiming("main-heading")}>LCP Test</Heading>
+      <Text>
         <img
           src={`/public/square.png?delay=${flags.imgDelay}`}
           alt="Gray square"
@@ -19,10 +21,10 @@ export default createMetricRoute({
           {...elementTiming("main-image")}
           {...(flags.removeElement ? { id: "lcp-image" } : {})}
         />
-      </p>
-      <p>Text below the image</p>
+      </Text>
+      <Text>Text below the image</Text>
       <div style={{ height: "100vh" }} />
-      <footer>Text below the full-height element.</footer>
+      <Text>Text below the full-height element.</Text>
     </>
   ),
 });

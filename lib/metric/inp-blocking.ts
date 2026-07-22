@@ -8,48 +8,34 @@ export const EVENT_NAMES = [
   "click",
 ] as const;
 
+export type EventName = (typeof EVENT_NAMES)[number];
+
+const blockingTimes = new Map<EventName, number>();
+
 function block(event: Event) {
-  const input = document.getElementById(`${event.type}-blocking-time`);
-  if (!(input instanceof HTMLInputElement)) {
+  const blockingTime = blockingTimes.get(event.type as EventName) ?? 0;
+  if (blockingTime <= 0) {
     return;
   }
-  const blockingTime = Number(input.value);
   const startTime = performance.now();
   while (performance.now() < startTime + blockingTime) {
     // Block
   }
 }
 
-function onInput(event: Event) {
-  const input = event.target;
-  if (!(input instanceof HTMLInputElement)) {
-    return;
-  }
-  const eventName = input.id.slice(0, input.id.indexOf("-"));
-  if (Number(input.value) > 0) {
+export function setBlockingTime(eventName: EventName, value: number) {
+  const previous = blockingTimes.get(eventName) ?? 0;
+  blockingTimes.set(eventName, value);
+
+  if (value > 0 && previous <= 0) {
     window.addEventListener(eventName, block, true);
-  } else {
+  } else if (value <= 0 && previous > 0) {
     window.removeEventListener(eventName, block, true);
   }
 }
 
-export function addBlockingListeners() {
-  for (const eventName of EVENT_NAMES) {
-    const input = document.getElementById(`${eventName}-blocking-time`);
-    if (!(input instanceof HTMLInputElement)) {
-      continue;
-    }
-    input.addEventListener("input", onInput, true);
-    if (Number(input.value) > 0) {
-      window.addEventListener(eventName, block, true);
-    }
-  }
-}
-
 export function resetBlockingTimes() {
-  for (const input of document.querySelectorAll("label>input")) {
-    if (input instanceof HTMLInputElement) {
-      input.value = "0";
-    }
+  for (const eventName of EVENT_NAMES) {
+    setBlockingTime(eventName, 0);
   }
 }

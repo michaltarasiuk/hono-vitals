@@ -1,29 +1,46 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import type { InpFlags } from "@/lib/metric/flags/inp";
 
+import { Button } from "@/app/components/ui/button/button";
+import { Field } from "@/app/components/ui/field/field";
+import { NumberField } from "@/app/components/ui/number-field/number-field";
 import { reportMetric } from "@/lib/collect/report";
 import { createBatchReporter } from "@/lib/metric/batch-reporting";
 import {
-  addBlockingListeners,
   EVENT_NAMES,
   resetBlockingTimes,
+  setBlockingTime,
+  type EventName,
 } from "@/lib/metric/inp-blocking";
 import { loadWebVitals } from "@/lib/metric/load-web-vitals";
 import { buildInpOptions } from "@/lib/metric/observer-options";
 import { isDefined } from "@/lib/shared/is-defined";
 
+function initialBlockingTimes(flags: InpFlags) {
+  return Object.fromEntries(
+    EVENT_NAMES.map((eventName) => {
+      const key = `${eventName}BlockingTime` as keyof InpFlags;
+      const value = flags[key];
+      return [eventName, typeof value === "number" ? value : 0] as const;
+    }),
+  ) as Record<EventName, number>;
+}
+
 export function InpObserver({ flags }: { flags: InpFlags }) {
+  const [blockingTimes, setBlockingTimes] = useState(() =>
+    initialBlockingTimes(flags),
+  );
+
   useEffect(() => {
-    addBlockingListeners();
-    const resetElement = document.getElementById("reset");
-    if (isDefined(resetElement)) {
-      resetElement.addEventListener("click", resetBlockingTimes);
-      return () => {
-        resetElement.removeEventListener("click", resetBlockingTimes);
-      };
+    for (const eventName of EVENT_NAMES) {
+      setBlockingTime(eventName, blockingTimes[eventName]);
     }
-  }, []);
+
+    return () => {
+      resetBlockingTimes();
+    };
+  }, [blockingTimes]);
 
   useEffect(() => {
     let ignore = false;
@@ -70,25 +87,45 @@ export function InpObserver({ flags }: { flags: InpFlags }) {
     };
   }, [flags]);
 
+  function handleReset() {
+    setBlockingTimes(
+      Object.fromEntries(
+        EVENT_NAMES.map((eventName) => [eventName, 0]),
+      ) as Record<EventName, number>,
+    );
+  }
+
   return (
-    <form>
-      {EVENT_NAMES.map((eventName) => {
-        const key = `${eventName}BlockingTime` as keyof InpFlags;
-        const value = flags[key];
-        return (
-          <label key={eventName}>
-            {eventName} blocking time
-            <input
-              id={`${eventName}-blocking-time`}
-              type="number"
-              defaultValue={typeof value === "number" ? value : 0}
-            />
-          </label>
-        );
-      })}
-      <button id="reset" type="button">
+    <form
+      onSubmit={(event) => {
+        event.preventDefault();
+      }}
+    >
+      {EVENT_NAMES.map((eventName) => (
+        <Field.Root key={eventName} name={`${eventName}-blocking-time`}>
+          <Field.Label>{eventName} blocking time</Field.Label>
+          <NumberField.Root
+            value={blockingTimes[eventName]}
+            min={0}
+            step={1}
+            onValueChange={(next) => {
+              setBlockingTimes((curr) => ({
+                ...curr,
+                [eventName]: next ?? 0,
+              }));
+            }}
+          >
+            <NumberField.Group>
+              <NumberField.Decrement />
+              <NumberField.Input id={`${eventName}-blocking-time`} />
+              <NumberField.Increment />
+            </NumberField.Group>
+          </NumberField.Root>
+        </Field.Root>
+      ))}
+      <Button type="button" onClick={handleReset}>
         Reset blocking time to zero
-      </button>
+      </Button>
     </form>
   );
 }

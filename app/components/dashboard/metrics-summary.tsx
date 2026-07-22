@@ -1,5 +1,7 @@
 import type { MetricSummary } from "@/lib/analytics/summary-schema";
 
+import { Heading } from "@/app/components/ui/heading/heading";
+import { Text } from "@/app/components/ui/text/text";
 import { formatMetricValue } from "@/lib/analytics/format-value";
 
 export function MetricsSummary({ summaries }: { summaries: MetricSummary[] }) {
@@ -7,10 +9,10 @@ export function MetricsSummary({ summaries }: { summaries: MetricSummary[] }) {
 
   return (
     <div className="MetricsSummary">
-      <h1>Metrics</h1>
-      <p className="MetricsSummaryLead">
+      <Heading>Metrics</Heading>
+      <Text>
         Summary across {totalSamples.toLocaleString()} collected samples.
-      </p>
+      </Text>
       <div className="MetricsCardGrid">
         {summaries.map((metric) => (
           <MetricCard key={metric.name} summary={metric} />
