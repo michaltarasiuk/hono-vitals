@@ -1,4 +1,4 @@
-import { isDefined } from "@/lib/shared/is-defined";
+import { isDefined } from "@/lib/is-defined";
 
 export function overrideResponseStart(responseStart: number) {
   const navEntry = performance.getEntriesByType("navigation")[0];

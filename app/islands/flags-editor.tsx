@@ -7,10 +7,10 @@ import { Dialog } from "@/app/components/ui/dialog/dialog";
 import { Field } from "@/app/components/ui/field/field";
 import { NumberField } from "@/app/components/ui/number-field/number-field";
 import { Switch } from "@/app/components/ui/switch/switch";
+import { assertNever } from "@/lib/assert-never";
 import { applyFlags } from "@/lib/metric/flags/serialize";
 import { sortFlagEntries } from "@/lib/metric/flags/sort-flag-entries";
 import { formatFlagLabel } from "@/lib/metric/format-flag-label";
-import { assertNever } from "@/lib/shared/assert-never";
 
 // Stable id so island hydration matches full-page SSR (Honox useId path differs).
 const FLAGS_EDITOR_TRIGGER_ID = "metric-flags-trigger";

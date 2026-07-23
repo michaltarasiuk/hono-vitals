@@ -3,8 +3,8 @@ import { Hono } from "hono";
 import { serveStatic } from "hono/bun";
 import * as z from "zod";
 
-import { delay } from "@/lib/shared/delay";
-import { isDefined } from "@/lib/shared/is-defined";
+import { delay } from "@/lib/delay";
+import { isDefined } from "@/lib/is-defined";
 
 const StaticQuerySchema = z.object({
   delay: z.coerce.number().optional(),

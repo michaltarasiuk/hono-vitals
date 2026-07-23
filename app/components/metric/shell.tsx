@@ -5,13 +5,13 @@ import type { Flags } from "@/lib/metric/flags/serialize";
 
 import { Toolbar as LayoutToolbar } from "@/app/components/layout/toolbar";
 import { Text } from "@/app/components/ui/text/text";
+import { isDefined } from "@/lib/is-defined";
 import {
   prerenderHref,
   speculationRulesJson,
 } from "@/lib/metric/prerender-href";
 import { HIDDEN_PAGE_STUB_SCRIPT } from "@/lib/metric/stub-hidden";
 import { WAS_DISCARDED_STUB_SCRIPT } from "@/lib/metric/stub-was-discarded";
-import { isDefined } from "@/lib/shared/is-defined";
 
 interface ContextType {
   flags: Flags;
