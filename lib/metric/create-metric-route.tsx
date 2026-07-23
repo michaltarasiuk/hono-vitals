@@ -4,12 +4,9 @@ import { zValidator } from "@hono/zod-validator";
 import { createRoute } from "honox/factory";
 
 import type { MetricName } from "@/lib/collect/schema";
+import type { Flags } from "@/lib/metric/flags/serialize";
 
-import {
-  schemaDefaults,
-  type Flags,
-  type FlagsSchema,
-} from "@/lib/metric/flags/defaults";
+import { schemaDefaults, type FlagsSchema } from "@/lib/metric/flags/defaults";
 
 interface CreateMetricRouteOptions<T extends Flags> {
   metric: MetricName;

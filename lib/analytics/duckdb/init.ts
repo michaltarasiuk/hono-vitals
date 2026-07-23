@@ -1,12 +1,12 @@
-import { getSQL } from "@/lib/analytics/duckdb/client";
+import { getDB } from "@/lib/analytics/duckdb/client";
 import { METRICS_TABLE } from "@/lib/analytics/duckdb/schema";
 
 if (import.meta.main) {
   try {
-    const sql = getSQL();
-    const table = sql.identifier(METRICS_TABLE);
+    const db = getDB();
+    const table = db.identifier(METRICS_TABLE);
 
-    await sql`
+    await db`
       CREATE TABLE IF NOT EXISTS ${table} (
         metric_id VARCHAR PRIMARY KEY,
         name VARCHAR NOT NULL,
@@ -18,7 +18,7 @@ if (import.meta.main) {
       )
     `;
 
-    await sql`
+    await db`
       CREATE UNIQUE INDEX IF NOT EXISTS metrics_metric_id_uidx
       ON ${table} (metric_id)
     `;

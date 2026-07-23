@@ -1,21 +1,22 @@
 import { isDefined } from "@/lib/is-defined";
 
-export function toSafeObject(oldObj: unknown) {
-  if (!isDefined(oldObj) || typeof oldObj !== "object") {
-    return oldObj;
+export function toSafeObject(value: unknown): unknown {
+  if (!isDefined(value) || typeof value !== "object") {
+    return value;
   }
-  if (oldObj instanceof EventTarget) {
-    return oldObj.toString();
+  if (value instanceof EventTarget) {
+    return value.toString();
   }
-  const newObj: Record<string, unknown> = {};
-  for (const key in oldObj as Record<string, unknown>) {
-    const value = (oldObj as Record<string, unknown>)[key];
-    if (typeof value === "function") {
+  if (Array.isArray(value)) {
+    return value.map((item) => toSafeObject(item));
+  }
+
+  const result: Record<string, unknown> = {};
+  for (const [key, nested] of Object.entries(value)) {
+    if (typeof nested === "function") {
       continue;
     }
-    newObj[key] = Array.isArray(value)
-      ? value.map((item) => toSafeObject(item))
-      : toSafeObject(value);
+    result[key] = toSafeObject(nested);
   }
-  return newObj;
+  return result;
 }
