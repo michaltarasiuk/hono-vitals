@@ -3,10 +3,10 @@ import type * as z from "zod";
 import { getSQL } from "@/lib/analytics/duckdb/client";
 import { METRICS_COLUMNS, METRICS_TABLE } from "@/lib/analytics/duckdb/schema";
 import {
-  emptySummary,
-  MetricSummaryRowSchema,
-  summaryFromRow,
-} from "@/lib/analytics/summary";
+  emptyMetricSummary,
+  MetricSummaryQuerySchema,
+  toMetricSummary,
+} from "@/lib/analytics/metric-summary";
 import { METRIC_NAMES, MetricSchema } from "@/lib/collect/schema";
 
 type Metric = z.infer<typeof MetricSchema>;
@@ -47,10 +47,12 @@ export async function getMetricsSummary() {
     ORDER BY name
   `;
 
-  const rows = MetricSummaryRowSchema.array().parse(rawRows);
+  const rows = MetricSummaryQuerySchema.array().parse(rawRows);
   const byName = new Map(
-    rows.map((row) => [row.name, summaryFromRow(row)] as const),
+    rows.map((row) => [row.name, toMetricSummary(row)] as const),
   );
 
-  return METRIC_NAMES.map((name) => byName.get(name) ?? emptySummary(name));
+  return METRIC_NAMES.map(
+    (name) => byName.get(name) ?? emptyMetricSummary(name),
+  );
 }

@@ -16,7 +16,7 @@ export const MetricSummarySchema = z.object({
 
 export type MetricSummary = z.infer<typeof MetricSummarySchema>;
 
-export const MetricSummaryRowSchema = z.object({
+export const MetricSummaryQuerySchema = z.object({
   name: z.enum(METRIC_NAMES),
   count: z.coerce.number(),
   avg: z.coerce.number(),
@@ -26,9 +26,9 @@ export const MetricSummaryRowSchema = z.object({
   poor: z.coerce.number(),
 });
 
-export type MetricSummaryRow = z.infer<typeof MetricSummaryRowSchema>;
+export type MetricSummaryQuery = z.infer<typeof MetricSummaryQuerySchema>;
 
-export function emptySummary(name: MetricName) {
+export function emptyMetricSummary(name: MetricName) {
   return {
     name,
     count: 0,
@@ -42,7 +42,7 @@ export function emptySummary(name: MetricName) {
   } satisfies MetricSummary;
 }
 
-export function summaryFromRow(row: MetricSummaryRow) {
+export function toMetricSummary(row: MetricSummaryQuery) {
   return {
     name: row.name,
     count: row.count,
