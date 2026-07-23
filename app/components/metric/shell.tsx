@@ -7,9 +7,9 @@ import { Toolbar as LayoutToolbar } from "@/app/components/layout/toolbar";
 import { Text } from "@/app/components/ui/text/text";
 import { isDefined } from "@/lib/is-defined";
 import {
-  prerenderHref,
-  speculationRulesJson,
-} from "@/lib/metric/prerender-href";
+  metricHref,
+  prerenderSpeculationRules,
+} from "@/lib/metric/metric-href";
 import { HIDDEN_PAGE_STUB_SCRIPT } from "@/lib/metric/stub-hidden";
 import { WAS_DISCARDED_STUB_SCRIPT } from "@/lib/metric/stub-was-discarded";
 
@@ -109,7 +109,7 @@ function Assets() {
 
 function Chrome() {
   const { flags, defaults, metric } = useMetric();
-  const href = prerenderHref(metric, flags, defaults);
+  const href = metricHref(metric, flags, defaults);
 
   return (
     <>
@@ -120,7 +120,7 @@ function Chrome() {
       ) : null}
       {flags.prerender ? (
         <script
-          dangerouslySetInnerHTML={{ __html: speculationRulesJson(href) }}
+          dangerouslySetInnerHTML={{ __html: prerenderSpeculationRules(href) }}
           type="speculationrules"
         />
       ) : null}
