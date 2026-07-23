@@ -96,7 +96,7 @@ function Input({
   );
 }
 
-// autocomplete=off so Firefox doesn't restore disabled across reloads (hydration mismatch).
+// Opt out of browser form-state restore of disabled (Firefox soft-reload hydration mismatch).
 const STEPPER_BUTTON_PROPS = { autoComplete: "off" as const };
 
 function Decrement({
