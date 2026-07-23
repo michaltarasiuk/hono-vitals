@@ -1,4 +1,4 @@
-import type { MetricSummary } from "@/lib/analytics/metric-summary";
+import type { MetricSummary } from "@/lib/analytics/metrics";
 
 import { Heading } from "@/app/components/ui/heading/heading";
 import { Text } from "@/app/components/ui/text/text";
@@ -23,7 +23,7 @@ export function MetricsSummary({ summaries }: { summaries: MetricSummary[] }) {
 }
 
 function MetricCard({ summary }: { summary: MetricSummary }) {
-  const { good, needsImprovement, poor } = summary.ratings;
+  const { good, needsImprovement, poor } = summary;
 
   return (
     <article className="MetricsCard">
@@ -73,7 +73,7 @@ function MetricCard({ summary }: { summary: MetricSummary }) {
 }
 
 function RatingBar({ summary }: { summary: MetricSummary }) {
-  const { good, needsImprovement, poor } = summary.ratings;
+  const { good, needsImprovement, poor } = summary;
   const total = good + needsImprovement + poor;
 
   if (total === 0) {
