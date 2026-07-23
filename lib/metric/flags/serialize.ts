@@ -1,4 +1,4 @@
-import { assertNever } from "@/lib/shared/assert-never";
+import { assertNever } from "@/lib/assert-never";
 
 export type FlagValue = boolean | number;
 

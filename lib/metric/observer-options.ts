@@ -8,7 +8,7 @@ import type {
 } from "@/lib/metric/flags/shared";
 import type { TtfbFlags } from "@/lib/metric/flags/ttfb";
 
-import { isDefined } from "@/lib/shared/is-defined";
+import { isDefined } from "@/lib/is-defined";
 
 type Instance = 1 | 2;
 

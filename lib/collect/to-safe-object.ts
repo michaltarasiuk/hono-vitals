@@ -1,4 +1,4 @@
-import { isDefined } from "@/lib/shared/is-defined";
+import { isDefined } from "@/lib/is-defined";
 
 export function toSafeObject(oldObj: unknown) {
   if (!isDefined(oldObj) || typeof oldObj !== "object") {
