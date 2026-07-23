@@ -4,21 +4,19 @@ function applyHiddenPageStub() {
     configurable: true,
   });
 
-  const originalGetEntriesByType = window.performance.getEntriesByType.bind(
+  const nativeGetEntriesByType = window.performance.getEntriesByType.bind(
     window.performance,
   );
 
-  window.performance.getEntriesByType = function (type: string) {
-    const entries = originalGetEntriesByType(type);
+  window.performance.getEntriesByType = (type: string) => {
+    const [...entries] = nativeGetEntriesByType(type);
     if (type === "visibility-state" && entries.length > 0) {
-      const modifiedEntries = [...entries];
-      modifiedEntries[0] = {
+      entries[0] = {
         name: "hidden",
         entryType: "visibility-state",
         startTime: 0,
         duration: 0,
       } as PerformanceEntry;
-      return modifiedEntries;
     }
     return entries;
   };
