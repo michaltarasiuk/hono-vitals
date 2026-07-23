@@ -96,6 +96,9 @@ function Input({
   );
 }
 
+// autocomplete=off so Firefox doesn't restore disabled across reloads (hydration mismatch).
+const STEPPER_BUTTON_PROPS = { autoComplete: "off" as const };
+
 function Decrement({
   className,
   ...props
@@ -105,6 +108,7 @@ function Decrement({
       className={
         className ? `NumberFieldDecrement ${className}` : "NumberFieldDecrement"
       }
+      {...STEPPER_BUTTON_PROPS}
       {...props}
     >
       <MinusIcon />
@@ -121,6 +125,7 @@ function Increment({
       className={
         className ? `NumberFieldIncrement ${className}` : "NumberFieldIncrement"
       }
+      {...STEPPER_BUTTON_PROPS}
       {...props}
     >
       <PlusIcon />
