@@ -1,12 +1,11 @@
+import { yieldToEventLoop } from "@/lib/delay";
 import { isDefined } from "@/lib/is-defined";
 
 import { afterElementsRendered } from "./ready";
 
 export async function removeLcpElement() {
   await afterElementsRendered();
-  await new Promise<void>((resolve) => {
-    setTimeout(resolve, 0);
-  });
+  await yieldToEventLoop();
   const img = document.getElementById("lcp-image");
   if (isDefined(img)) {
     img.remove();
