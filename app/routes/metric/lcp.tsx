@@ -16,8 +16,8 @@ export default createMetricRoute({
           src={`/public/square.png?delay=${flags.imgDelay}`}
           alt="Gray square"
           data-target="main-image"
-          hidden={flags.imgHidden}
           elementtiming="main-image"
+          hidden={flags.imgHidden}
           {...(flags.removeElement ? { id: "lcp-image" } : {})}
         />
       </Text>

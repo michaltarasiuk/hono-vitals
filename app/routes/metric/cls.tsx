@@ -19,8 +19,8 @@ export default createMetricRoute({
             <img
               src="/public/square.png?delay=500"
               alt="Gray square"
-              hidden={flags.imgHidden}
               elementtiming="main-image"
+              hidden={flags.imgHidden}
             />
             [text node contents]
           </Text>
@@ -28,8 +28,8 @@ export default createMetricRoute({
             <img
               src="/public/square.png?delay=1000"
               alt="Gray square"
-              hidden={flags.img2Hidden}
               elementtiming="secondary-image"
+              hidden={flags.img2Hidden}
             />
           </Text>
           <Text>Text below the images that will get pushed down.</Text>
