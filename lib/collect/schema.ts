@@ -60,3 +60,5 @@ export const MetricSchema = z.object({
     "restore",
   ]),
 });
+
+export type Metric = z.infer<typeof MetricSchema>;
