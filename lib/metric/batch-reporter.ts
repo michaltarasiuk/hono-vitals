@@ -1,9 +1,11 @@
+import type { Metric } from "web-vitals";
+
 import { reportMetric } from "@/lib/collect/report-metric";
 
 export function createBatchReporter() {
-  const queue = new Set<object>();
+  const queue = new Set<Metric>();
 
-  function enqueue(metric: object) {
+  function enqueue(metric: Metric) {
     queue.add(metric);
   }
 

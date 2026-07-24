@@ -14,6 +14,7 @@
 @import "../components/ui/number-field/number-field.css";
 @import "../components/ui/switch/switch.css";
 @import "../components/ui/text/text.css";
+@import "../components/ui/toast/toast.css";
 
 *,
 *::before,
