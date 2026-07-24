@@ -1,4 +1,4 @@
-import type { Flags } from "./serialize";
+import type { Flags } from "./schema";
 
 export function sortFlagEntries(flags: Flags) {
   return Object.entries(flags).sort(([keyA, a], [keyB, b]) => {

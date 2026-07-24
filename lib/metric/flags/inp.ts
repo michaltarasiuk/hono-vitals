@@ -1,11 +1,11 @@
-import type { Flags } from "./serialize";
+import type { Flags } from "./schema";
 
 import {
   BASE_FLAGS_DEFAULTS,
   BATCH_REPORTING_FLAGS_DEFAULTS,
   GENERATE_TARGET_FLAGS_DEFAULTS,
 } from "./defaults";
-import { type WidenFlags } from "./schema";
+import { type ParsedFlags } from "./schema";
 
 export const INP_FLAGS_DEFAULTS = {
   ...BASE_FLAGS_DEFAULTS,
@@ -23,4 +23,4 @@ export const INP_FLAGS_DEFAULTS = {
   pointerupBlockingTime: 0,
 } as const satisfies Flags;
 
-export type InpFlags = WidenFlags<typeof INP_FLAGS_DEFAULTS>;
+export type InpFlags = ParsedFlags<typeof INP_FLAGS_DEFAULTS>;

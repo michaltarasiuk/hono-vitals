@@ -1,22 +1,22 @@
 import { reactRenderer } from "@hono/react-renderer";
 
-import { Metric } from "@/app/components/metric/metric";
+import { MetricPage } from "@/app/components/metric/metric-page";
 import { FlagsEditor } from "@/app/islands/metric/flags-editor";
 
 export default reactRenderer(
   ({ children, Layout, metric, flags, defaults }) => {
     return (
       <Layout>
-        <Metric.Provider metric={metric} flags={flags} defaults={defaults}>
-          <Metric.Toolbar>
+        <MetricPage.Provider metric={metric} flags={flags} defaults={defaults}>
+          <MetricPage.Toolbar>
             <FlagsEditor flags={flags} defaults={defaults} />
-          </Metric.Toolbar>
-          <Metric.Main>
-            <Metric.Assets />
-            <Metric.Content>{children}</Metric.Content>
-            <Metric.Prerender />
-          </Metric.Main>
-        </Metric.Provider>
+          </MetricPage.Toolbar>
+          <MetricPage.Main>
+            <MetricPage.DelayedScripts />
+            <MetricPage.Content>{children}</MetricPage.Content>
+            <MetricPage.PrerenderHints />
+          </MetricPage.Main>
+        </MetricPage.Provider>
       </Layout>
     );
   },

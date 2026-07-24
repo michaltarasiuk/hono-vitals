@@ -1,7 +1,7 @@
-import type { Flags } from "./serialize";
+import type { Flags } from "./schema";
 
 import { BASE_FLAGS_DEFAULTS } from "./defaults";
-import { type WidenFlags } from "./schema";
+import { type ParsedFlags } from "./schema";
 
 export const TTFB_FLAGS_DEFAULTS = {
   ...BASE_FLAGS_DEFAULTS,
@@ -10,4 +10,4 @@ export const TTFB_FLAGS_DEFAULTS = {
   responseStart: 0,
 } as const satisfies Flags;
 
-export type TtfbFlags = WidenFlags<typeof TTFB_FLAGS_DEFAULTS>;
+export type TtfbFlags = ParsedFlags<typeof TTFB_FLAGS_DEFAULTS>;

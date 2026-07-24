@@ -1,10 +1,8 @@
 import { assertNever } from "@/lib/assert-never";
 
-export type FlagValue = boolean | number;
+import type { Flags } from "./schema";
 
-export type Flags = Record<string, FlagValue>;
-
-export function applyFlags(flags: Flags, defaults: Flags) {
+export function navigateWithFlags(flags: Flags, defaults: Flags) {
   const url = new URL(window.location.href);
   for (const [key, value] of Object.entries(flags)) {
     const defaultValue = defaults[key];

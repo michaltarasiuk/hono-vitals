@@ -1,27 +1,27 @@
 import { createContext, use, type ReactNode } from "react";
 
 import type { MetricName } from "@/lib/collect/schema";
-import type { Flags } from "@/lib/metric/flags/serialize";
+import type { Flags } from "@/lib/metric/flags/schema";
 
 import { Toolbar as LayoutToolbar } from "@/app/components/layout/toolbar";
 import { Text } from "@/app/components/ui/text/text";
 import { isDefined } from "@/lib/is-defined";
 import { metricHref } from "@/lib/metric/metric-href";
-import { HIDDEN_PAGE_STUB_SCRIPT } from "@/lib/metric/stub-hidden";
+import { HIDDEN_STUB_SCRIPT } from "@/lib/metric/stub-hidden";
 import { WAS_DISCARDED_STUB_SCRIPT } from "@/lib/metric/stub-was-discarded";
 
-interface MetricContextValue {
+interface MetricPageContextValue {
   flags: Flags;
   defaults: Flags;
   metric: MetricName;
 }
 
-const MetricContext = createContext<MetricContextValue | null>(null);
+const MetricPageContext = createContext<MetricPageContextValue | null>(null);
 
-function useMetric() {
-  const value = use(MetricContext);
+function useMetricPage() {
+  const value = use(MetricPageContext);
   if (!isDefined(value)) {
-    throw new Error("useMetric must be used within Metric.Provider");
+    throw new Error("useMetricPage must be used within MetricPage.Provider");
   }
   return value;
 }
@@ -35,14 +35,14 @@ interface ProviderProps {
 
 function Provider({ metric, flags, defaults, children }: ProviderProps) {
   return (
-    <MetricContext value={{ flags, defaults, metric }}>
+    <MetricPageContext value={{ flags, defaults, metric }}>
       {children}
-    </MetricContext>
+    </MetricPageContext>
   );
 }
 
 function Toolbar({ children }: { children?: ReactNode }) {
-  const { metric } = useMetric();
+  const { metric } = useMetricPage();
   const currentPath = `/metric/${metric.toLowerCase()}`;
 
   return (
@@ -56,8 +56,8 @@ function Toolbar({ children }: { children?: ReactNode }) {
 }
 
 function Main({ children }: { children: ReactNode }) {
-  const { flags } = useMetric();
-  const htmlHidden = Boolean(flags.hidden || flags.invisible);
+  const { flags } = useMetricPage();
+  const htmlHidden = Boolean(flags.stubHidden || flags.htmlHidden);
 
   return (
     <main className="MetricMain" {...(htmlHidden ? { hidden: true } : {})}>
@@ -70,11 +70,14 @@ function Content({ children }: { children: ReactNode }) {
   return <div className="MetricContent">{children}</div>;
 }
 
-function Assets() {
-  const { flags } = useMetric();
+function DelayedScripts() {
+  const { flags } = useMetricPage();
   const renderBlocking =
     typeof flags.renderBlocking === "number" ? flags.renderBlocking : 0;
-  const delayDCL = typeof flags.delayDCL === "number" ? flags.delayDCL : 0;
+  const delayDomContentLoaded =
+    typeof flags.delayDomContentLoaded === "number"
+      ? flags.delayDomContentLoaded
+      : 0;
   const delayLoad = typeof flags.delayLoad === "number" ? flags.delayLoad : 0;
 
   return (
@@ -86,26 +89,32 @@ function Assets() {
           precedence="default"
         />
       ) : null}
-      {flags.hidden ? (
-        <script dangerouslySetInnerHTML={{ __html: HIDDEN_PAGE_STUB_SCRIPT }} />
+      {flags.stubHidden ? (
+        <script dangerouslySetInnerHTML={{ __html: HIDDEN_STUB_SCRIPT }} />
       ) : null}
       {flags.wasDiscarded ? (
         <script
           dangerouslySetInnerHTML={{ __html: WAS_DISCARDED_STUB_SCRIPT }}
         />
       ) : null}
-      {delayDCL > 0 ? (
-        <script src={`/public/metric/defer.js?delay=${delayDCL}`} defer />
+      {delayDomContentLoaded > 0 ? (
+        <script
+          src={`/public/metric/delay-dcl.js?delay=${delayDomContentLoaded}`}
+          defer
+        />
       ) : null}
       {delayLoad > 0 ? (
-        <script src={`/public/metric/async.js?delay=${delayLoad}`} async />
+        <script
+          src={`/public/metric/delay-load.js?delay=${delayLoad}`}
+          async
+        />
       ) : null}
     </>
   );
 }
 
-function Prerender() {
-  const { flags, defaults, metric } = useMetric();
+function PrerenderHints() {
+  const { flags, defaults, metric } = useMetricPage();
   const href = metricHref(metric, flags, defaults);
 
   return (
@@ -129,9 +138,9 @@ function Prerender() {
   );
 }
 
-export const Metric = {
-  Assets,
-  Prerender,
+export const MetricPage = {
+  DelayedScripts,
+  PrerenderHints,
   Content,
   Main,
   Provider,

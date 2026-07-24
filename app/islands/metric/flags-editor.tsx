@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import type { Flags } from "@/lib/metric/flags/serialize";
+import type { Flags } from "@/lib/metric/flags/schema";
 
 import { Button } from "@/app/components/ui/button/button";
 import { Dialog } from "@/app/components/ui/dialog/dialog";
@@ -8,7 +8,7 @@ import { Field } from "@/app/components/ui/field/field";
 import { NumberField } from "@/app/components/ui/number-field/number-field";
 import { Switch } from "@/app/components/ui/switch/switch";
 import { assertNever } from "@/lib/assert-never";
-import { applyFlags } from "@/lib/metric/flags/serialize";
+import { navigateWithFlags } from "@/lib/metric/flags/apply-flags";
 import { sortFlagEntries } from "@/lib/metric/flags/sort-flag-entries";
 import { formatFlagLabel } from "@/lib/metric/format-flag-label";
 
@@ -32,7 +32,7 @@ export function FlagsEditor({ flags, defaults }: FlagsEditorProps) {
   }
 
   function handleSave() {
-    applyFlags(draft, defaults);
+    navigateWithFlags(draft, defaults);
   }
 
   return (
@@ -50,10 +50,10 @@ export function FlagsEditor({ flags, defaults }: FlagsEditorProps) {
       <Dialog.Portal>
         <Dialog.Backdrop />
         <Dialog.Popup>
-          <Dialog.Intro>
+          <Dialog.Header>
             <Dialog.Title>Flags</Dialog.Title>
-          </Dialog.Intro>
-          <Dialog.List>
+          </Dialog.Header>
+          <Dialog.Body>
             {sortFlagEntries(draft).map(([key, value]) => {
               switch (typeof value) {
                 case "boolean":
@@ -101,7 +101,7 @@ export function FlagsEditor({ flags, defaults }: FlagsEditorProps) {
                   return assertNever(value);
               }
             })}
-          </Dialog.List>
+          </Dialog.Body>
           <Dialog.Actions>
             <Dialog.Close render={<Button />}>Cancel</Dialog.Close>
             <Button onClick={handleSave}>Save</Button>

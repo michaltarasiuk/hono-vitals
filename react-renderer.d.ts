@@ -1,5 +1,5 @@
 import type { MetricName } from "@/lib/collect/schema";
-import type { Flags } from "@/lib/metric/flags/serialize";
+import type { Flags } from "@/lib/metric/flags/schema";
 
 declare module "@hono/react-renderer" {
   interface Props {

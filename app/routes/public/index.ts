@@ -6,15 +6,15 @@ import * as z from "zod";
 import { delay } from "@/lib/delay";
 import { isDefined } from "@/lib/is-defined";
 
-const StaticQuerySchema = z.object({
+const AssetDelayQuerySchema = z.object({
   delay: z.coerce.number().optional(),
 });
 
 const publicRoutes = new Hono()
-  .use("*", zValidator("query", StaticQuerySchema))
+  .use("*", zValidator("query", AssetDelayQuerySchema))
   .use("*", async (c, next) => {
     const { delay: timeout } = c.req.valid("query") as z.infer<
-      typeof StaticQuerySchema
+      typeof AssetDelayQuerySchema
     >;
 
     if (isDefined(timeout)) {

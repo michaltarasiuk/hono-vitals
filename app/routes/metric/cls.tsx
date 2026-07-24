@@ -1,6 +1,6 @@
 import { Heading } from "@/app/components/ui/heading/heading";
 import { Text } from "@/app/components/ui/text/text";
-import { ClsObserver } from "@/app/islands/metric/cls";
+import { ClsObserver } from "@/app/islands/metric/cls-observer";
 import { createMetricRoute } from "@/lib/metric/create-metric-route";
 import { CLS_FLAGS_DEFAULTS } from "@/lib/metric/flags/cls";
 
@@ -8,7 +8,7 @@ export default createMetricRoute({
   metric: "CLS",
   defaults: CLS_FLAGS_DEFAULTS,
   observer: ClsObserver,
-  children: (flags) => (
+  render: (flags) => (
     <>
       <Heading elementtiming="main-heading">CLS Test</Heading>
       {flags.noLayoutShifts ? (

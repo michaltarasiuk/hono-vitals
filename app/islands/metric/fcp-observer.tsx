@@ -13,7 +13,7 @@ export function FcpObserver({ flags }: { flags: FcpFlags }) {
     void (async () => {
       const { onFCP } = await loadWebVitals({
         attribution: flags.attribution,
-        lazyLoad: flags.lazyLoad,
+        deferLibraryLoad: flags.deferLibraryLoad,
         loadAfterInput: flags.loadAfterInput,
       });
 
@@ -29,7 +29,7 @@ export function FcpObserver({ flags }: { flags: FcpFlags }) {
         buildFcpOptions(flags, 1),
       );
 
-      if (flags.doubleCall) {
+      if (flags.secondObserver) {
         onFCP(
           (fcp) => {
             fcp.instance = 2;

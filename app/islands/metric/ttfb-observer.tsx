@@ -20,7 +20,7 @@ export function TtfbObserver({ flags }: { flags: TtfbFlags }) {
     void (async () => {
       const { onTTFB } = await loadWebVitals({
         attribution: flags.attribution,
-        lazyLoad: flags.lazyLoad,
+        deferLibraryLoad: flags.deferLibraryLoad,
         loadAfterInput: flags.loadAfterInput,
       });
 
@@ -36,7 +36,7 @@ export function TtfbObserver({ flags }: { flags: TtfbFlags }) {
         buildTtfbOptions(flags, 1),
       );
 
-      if (flags.doubleCall) {
+      if (flags.secondObserver) {
         onTTFB(
           (ttfb) => {
             ttfb.instance = 2;

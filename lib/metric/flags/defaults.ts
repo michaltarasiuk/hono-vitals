@@ -1,31 +1,31 @@
-import type { Flags } from "./serialize";
+import type { Flags } from "./schema";
 
-import { type WidenFlags } from "./schema";
+import { type ParsedFlags } from "./schema";
 
 export const BASE_FLAGS_DEFAULTS = {
-  delayDCL: 0,
+  delayDomContentLoaded: 0,
   delayLoad: 0,
   renderBlocking: 0,
   reportAllChanges: false,
-  doubleCall: false,
+  secondObserver: false,
   reportAllChanges2: false,
-  lazyLoad: false,
+  deferLibraryLoad: false,
   loadAfterInput: false,
-  hidden: false,
+  stubHidden: false,
   wasDiscarded: false,
-  invisible: false,
+  htmlHidden: false,
   prerender: false,
   attribution: false,
 } as const satisfies Flags;
 
-export type BaseFlags = WidenFlags<typeof BASE_FLAGS_DEFAULTS>;
+export type BaseFlags = ParsedFlags<typeof BASE_FLAGS_DEFAULTS>;
 
 export const GENERATE_TARGET_FLAGS_DEFAULTS = {
   generateTarget: false,
   generateTarget2: false,
 } as const satisfies Flags;
 
-export type GenerateTargetFlags = WidenFlags<
+export type GenerateTargetFlags = ParsedFlags<
   typeof GENERATE_TARGET_FLAGS_DEFAULTS
 >;
 
