@@ -1,25 +1,26 @@
-import * as z from "zod";
+import type { Flags } from "./serialize";
 
-import { queryBoolean, queryNumberDefault } from "./coerce";
+import { type WidenFlags } from "./coerce";
 import {
-  BaseMetricFlagsSchema,
-  BatchReportingFlagsSchema,
-  GenerateTargetFlagsSchema,
+  BASE_METRIC_FLAGS_DEFAULTS,
+  BATCH_REPORTING_FLAGS_DEFAULTS,
+  GENERATE_TARGET_FLAGS_DEFAULTS,
 } from "./shared";
 
-export const InpFlagsSchema = BaseMetricFlagsSchema.extend({
-  ...GenerateTargetFlagsSchema.shape,
-  ...BatchReportingFlagsSchema.shape,
-  includeProcessedEventEntries: queryBoolean,
-  clickBlockingTime: queryNumberDefault(0),
-  durationThreshold: queryNumberDefault(0),
-  durationThreshold2: queryNumberDefault(0),
-  keydownBlockingTime: queryNumberDefault(0),
-  keyupBlockingTime: queryNumberDefault(0),
-  mousedownBlockingTime: queryNumberDefault(0),
-  mouseupBlockingTime: queryNumberDefault(0),
-  pointerdownBlockingTime: queryNumberDefault(0),
-  pointerupBlockingTime: queryNumberDefault(0),
-});
+export const INP_FLAGS_DEFAULTS = {
+  ...BASE_METRIC_FLAGS_DEFAULTS,
+  ...GENERATE_TARGET_FLAGS_DEFAULTS,
+  ...BATCH_REPORTING_FLAGS_DEFAULTS,
+  includeProcessedEventEntries: false,
+  clickBlockingTime: 0,
+  durationThreshold: 0,
+  durationThreshold2: 0,
+  keydownBlockingTime: 0,
+  keyupBlockingTime: 0,
+  mousedownBlockingTime: 0,
+  mouseupBlockingTime: 0,
+  pointerdownBlockingTime: 0,
+  pointerupBlockingTime: 0,
+} as const satisfies Flags;
 
-export type InpFlags = z.infer<typeof InpFlagsSchema>;
+export type InpFlags = WidenFlags<typeof INP_FLAGS_DEFAULTS>;

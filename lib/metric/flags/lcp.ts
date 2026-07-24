@@ -1,19 +1,20 @@
-import * as z from "zod";
+import type { Flags } from "./serialize";
 
-import { queryBoolean, queryNumberDefault } from "./coerce";
+import { type WidenFlags } from "./coerce";
 import {
-  BaseMetricFlagsSchema,
-  BatchReportingFlagsSchema,
-  GenerateTargetFlagsSchema,
+  BASE_METRIC_FLAGS_DEFAULTS,
+  BATCH_REPORTING_FLAGS_DEFAULTS,
+  GENERATE_TARGET_FLAGS_DEFAULTS,
 } from "./shared";
 
-export const LcpFlagsSchema = BaseMetricFlagsSchema.extend({
-  ...GenerateTargetFlagsSchema.shape,
-  ...BatchReportingFlagsSchema.shape,
-  registerOnVisibilityChange: queryBoolean,
-  removeElement: queryBoolean,
-  imgDelay: queryNumberDefault(500),
-  imgHidden: queryBoolean,
-});
+export const LCP_FLAGS_DEFAULTS = {
+  ...BASE_METRIC_FLAGS_DEFAULTS,
+  ...GENERATE_TARGET_FLAGS_DEFAULTS,
+  ...BATCH_REPORTING_FLAGS_DEFAULTS,
+  registerOnVisibilityChange: false,
+  removeElement: false,
+  imgDelay: 500,
+  imgHidden: false,
+} as const satisfies Flags;
 
-export type LcpFlags = z.infer<typeof LcpFlagsSchema>;
+export type LcpFlags = WidenFlags<typeof LCP_FLAGS_DEFAULTS>;

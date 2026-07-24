@@ -1,11 +1,12 @@
-import * as z from "zod";
+import type { Flags } from "./serialize";
 
-import { queryBoolean, queryNumberDefault } from "./coerce";
-import { BaseMetricFlagsSchema } from "./shared";
+import { type WidenFlags } from "./coerce";
+import { BASE_METRIC_FLAGS_DEFAULTS } from "./shared";
 
-export const FcpFlagsSchema = BaseMetricFlagsSchema.extend({
-  imgDelay: queryNumberDefault(500),
-  imgHidden: queryBoolean,
-});
+export const FCP_FLAGS_DEFAULTS = {
+  ...BASE_METRIC_FLAGS_DEFAULTS,
+  imgDelay: 500,
+  imgHidden: false,
+} as const satisfies Flags;
 
-export type FcpFlags = z.infer<typeof FcpFlagsSchema>;
+export type FcpFlags = WidenFlags<typeof FCP_FLAGS_DEFAULTS>;

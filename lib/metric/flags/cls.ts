@@ -1,18 +1,19 @@
-import * as z from "zod";
+import type { Flags } from "./serialize";
 
-import { queryBoolean } from "./coerce";
+import { type WidenFlags } from "./coerce";
 import {
-  BaseMetricFlagsSchema,
-  BatchReportingFlagsSchema,
-  GenerateTargetFlagsSchema,
+  BASE_METRIC_FLAGS_DEFAULTS,
+  BATCH_REPORTING_FLAGS_DEFAULTS,
+  GENERATE_TARGET_FLAGS_DEFAULTS,
 } from "./shared";
 
-export const ClsFlagsSchema = BaseMetricFlagsSchema.extend({
-  ...GenerateTargetFlagsSchema.shape,
-  ...BatchReportingFlagsSchema.shape,
-  noLayoutShifts: queryBoolean,
-  imgHidden: queryBoolean,
-  img2Hidden: queryBoolean,
-});
+export const CLS_FLAGS_DEFAULTS = {
+  ...BASE_METRIC_FLAGS_DEFAULTS,
+  ...GENERATE_TARGET_FLAGS_DEFAULTS,
+  ...BATCH_REPORTING_FLAGS_DEFAULTS,
+  noLayoutShifts: false,
+  imgHidden: false,
+  img2Hidden: false,
+} as const satisfies Flags;
 
-export type ClsFlags = z.infer<typeof ClsFlagsSchema>;
+export type ClsFlags = WidenFlags<typeof CLS_FLAGS_DEFAULTS>;

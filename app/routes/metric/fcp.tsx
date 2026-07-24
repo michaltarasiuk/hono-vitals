@@ -3,11 +3,11 @@ import { Text } from "@/app/components/ui/text/text";
 import { FcpObserver } from "@/app/islands/metric/fcp";
 import { createMetricRoute } from "@/lib/metric/create-metric-route";
 import { elementTiming } from "@/lib/metric/element-timing";
-import { FcpFlagsSchema } from "@/lib/metric/flags/fcp";
+import { FCP_FLAGS_DEFAULTS } from "@/lib/metric/flags/fcp";
 
 export default createMetricRoute({
   metric: "FCP",
-  schema: FcpFlagsSchema,
+  defaults: FCP_FLAGS_DEFAULTS,
   observer: FcpObserver,
   children: (flags) => (
     <>
