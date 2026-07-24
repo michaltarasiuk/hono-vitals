@@ -15,8 +15,8 @@ export default createMetricRoute({
         <img
           src={`/public/square.png?delay=${flags.imgDelay}`}
           alt="Gray square"
-          hidden={flags.imgHidden}
           elementtiming="main-image"
+          hidden={flags.imgHidden}
         />
       </Text>
       <Text>Text below the image</Text>
