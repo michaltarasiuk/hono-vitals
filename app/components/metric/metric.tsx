@@ -6,10 +6,7 @@ import type { Flags } from "@/lib/metric/flags/serialize";
 import { Toolbar as LayoutToolbar } from "@/app/components/layout/toolbar";
 import { Text } from "@/app/components/ui/text/text";
 import { isDefined } from "@/lib/is-defined";
-import {
-  metricHref,
-  prerenderSpeculationRules,
-} from "@/lib/metric/metric-href";
+import { metricHref } from "@/lib/metric/metric-href";
 import { HIDDEN_PAGE_STUB_SCRIPT } from "@/lib/metric/stub-hidden";
 import { WAS_DISCARDED_STUB_SCRIPT } from "@/lib/metric/stub-was-discarded";
 
@@ -120,7 +117,11 @@ function Prerender() {
       ) : null}
       {flags.prerender ? (
         <script
-          dangerouslySetInnerHTML={{ __html: prerenderSpeculationRules(href) }}
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              prerender: [{ urls: [href] }],
+            }),
+          }}
           type="speculationrules"
         />
       ) : null}

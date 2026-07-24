@@ -38,8 +38,8 @@ export function FlagsEditor({ flags, defaults }: FlagsEditorProps) {
   return (
     <Dialog.Root
       open={open}
-      onOpenChange={handleOpenChange}
       triggerId={FLAGS_EDITOR_TRIGGER_ID}
+      onOpenChange={handleOpenChange}
     >
       <Dialog.Trigger id={FLAGS_EDITOR_TRIGGER_ID} render={<Button />}>
         <span className="FlagsEditorLabel FlagsEditorLabel--full">

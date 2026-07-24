@@ -86,9 +86,9 @@ function RatingBar({ summary }: { summary: MetricSummary }) {
 
   return (
     <div
-      className="MetricsRatingBar"
       role="img"
       aria-label="Rating distribution"
+      className="MetricsRatingBar"
     >
       <div
         className="MetricsRatingBarSegment MetricsRatingBarSegment--good"

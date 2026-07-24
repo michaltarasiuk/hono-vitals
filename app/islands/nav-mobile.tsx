@@ -56,11 +56,11 @@ export function NavMobile({ currentPath }: NavMobileProps) {
 function ChevronIcon() {
   return (
     <svg
-      className="NavMobileChevron"
       width="12"
       height="12"
       viewBox="0 0 12 12"
       focusable="false"
+      className="NavMobileChevron"
     >
       <path
         d="M2.5 4.25 6 7.75l3.5-3.5"
@@ -76,11 +76,11 @@ function ChevronIcon() {
 function CheckIcon() {
   return (
     <svg
-      className="NavMobileLinkCheck"
       width="16"
       height="16"
       viewBox="0 0 16 16"
       focusable="false"
+      className="NavMobileLinkCheck"
     >
       <path
         d="M3.5 8.5 6.5 11.5 12.5 4.5"
