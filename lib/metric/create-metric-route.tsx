@@ -6,22 +6,22 @@ import { createRoute } from "honox/factory";
 import type { MetricName } from "@/lib/collect/schema";
 import type { Flags } from "@/lib/metric/flags/serialize";
 
-import { schemaDefaults, type FlagsSchema } from "@/lib/metric/flags/defaults";
+import { flagsSchema, type WidenFlags } from "@/lib/metric/flags/coerce";
 
 interface CreateMetricRouteOptions<T extends Flags> {
   metric: MetricName;
-  schema: FlagsSchema<T>;
-  observer: ComponentType<{ flags: T }>;
-  children: (flags: T) => ReactNode;
+  defaults: T;
+  observer: ComponentType<{ flags: WidenFlags<T> }>;
+  children: (flags: WidenFlags<T>) => ReactNode;
 }
 
 export function createMetricRoute<T extends Flags>({
   metric,
-  schema,
+  defaults,
   observer: Observer,
   children,
 }: CreateMetricRouteOptions<T>) {
-  const defaults = schemaDefaults(schema);
+  const schema = flagsSchema(defaults);
 
   return createRoute(zValidator("query", schema), (c) => {
     const flags = c.req.valid("query");

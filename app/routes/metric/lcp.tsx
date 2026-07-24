@@ -3,11 +3,11 @@ import { Text } from "@/app/components/ui/text/text";
 import { LcpObserver } from "@/app/islands/metric/lcp";
 import { createMetricRoute } from "@/lib/metric/create-metric-route";
 import { elementTiming } from "@/lib/metric/element-timing";
-import { LcpFlagsSchema } from "@/lib/metric/flags/lcp";
+import { LCP_FLAGS_DEFAULTS } from "@/lib/metric/flags/lcp";
 
 export default createMetricRoute({
   metric: "LCP",
-  schema: LcpFlagsSchema,
+  defaults: LCP_FLAGS_DEFAULTS,
   observer: LcpObserver,
   children: (flags) => (
     <>

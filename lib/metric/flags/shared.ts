@@ -1,32 +1,34 @@
-import * as z from "zod";
+import type { Flags } from "./serialize";
 
-import { queryBoolean, queryNumberDefault } from "./coerce";
+import { type WidenFlags } from "./coerce";
 
-export const BaseMetricFlagsSchema = z.object({
-  delayDCL: queryNumberDefault(0),
-  delayLoad: queryNumberDefault(0),
-  renderBlocking: queryNumberDefault(0),
-  reportAllChanges: queryBoolean,
-  doubleCall: queryBoolean,
-  reportAllChanges2: queryBoolean,
-  lazyLoad: queryBoolean,
-  loadAfterInput: queryBoolean,
-  hidden: queryBoolean,
-  wasDiscarded: queryBoolean,
-  invisible: queryBoolean,
-  prerender: queryBoolean,
-  attribution: queryBoolean,
-});
+export const BASE_METRIC_FLAGS_DEFAULTS = {
+  delayDCL: 0,
+  delayLoad: 0,
+  renderBlocking: 0,
+  reportAllChanges: false,
+  doubleCall: false,
+  reportAllChanges2: false,
+  lazyLoad: false,
+  loadAfterInput: false,
+  hidden: false,
+  wasDiscarded: false,
+  invisible: false,
+  prerender: false,
+  attribution: false,
+} as const satisfies Flags;
 
-export type BaseMetricFlags = z.infer<typeof BaseMetricFlagsSchema>;
+export type BaseMetricFlags = WidenFlags<typeof BASE_METRIC_FLAGS_DEFAULTS>;
 
-export const GenerateTargetFlagsSchema = z.object({
-  generateTarget: queryBoolean,
-  generateTarget2: queryBoolean,
-});
+export const GENERATE_TARGET_FLAGS_DEFAULTS = {
+  generateTarget: false,
+  generateTarget2: false,
+} as const satisfies Flags;
 
-export type GenerateTargetFlags = z.infer<typeof GenerateTargetFlagsSchema>;
+export type GenerateTargetFlags = WidenFlags<
+  typeof GENERATE_TARGET_FLAGS_DEFAULTS
+>;
 
-export const BatchReportingFlagsSchema = z.object({
-  batchReporting: queryBoolean,
-});
+export const BATCH_REPORTING_FLAGS_DEFAULTS = {
+  batchReporting: false,
+} as const satisfies Flags;

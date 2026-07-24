@@ -3,11 +3,11 @@ import { Text } from "@/app/components/ui/text/text";
 import { ClsObserver } from "@/app/islands/metric/cls";
 import { createMetricRoute } from "@/lib/metric/create-metric-route";
 import { elementTiming } from "@/lib/metric/element-timing";
-import { ClsFlagsSchema } from "@/lib/metric/flags/cls";
+import { CLS_FLAGS_DEFAULTS } from "@/lib/metric/flags/cls";
 
 export default createMetricRoute({
   metric: "CLS",
-  schema: ClsFlagsSchema,
+  defaults: CLS_FLAGS_DEFAULTS,
   observer: ClsObserver,
   children: (flags) => (
     <>
