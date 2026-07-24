@@ -1,10 +1,10 @@
 import type { Flags } from "./serialize";
 
-import { type WidenFlags } from "./coerce";
-import { BASE_METRIC_FLAGS_DEFAULTS } from "./shared";
+import { BASE_FLAGS_DEFAULTS } from "./defaults";
+import { type WidenFlags } from "./schema";
 
 export const TTFB_FLAGS_DEFAULTS = {
-  ...BASE_METRIC_FLAGS_DEFAULTS,
+  ...BASE_FLAGS_DEFAULTS,
   imgDelay: 500,
   imgHidden: false,
   responseStart: 0,

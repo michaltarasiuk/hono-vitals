@@ -13,13 +13,13 @@ import {
 import { HIDDEN_PAGE_STUB_SCRIPT } from "@/lib/metric/stub-hidden";
 import { WAS_DISCARDED_STUB_SCRIPT } from "@/lib/metric/stub-was-discarded";
 
-interface ContextType {
+interface MetricContextValue {
   flags: Flags;
   defaults: Flags;
   metric: MetricName;
 }
 
-const MetricContext = createContext<ContextType | null>(null);
+const MetricContext = createContext<MetricContextValue | null>(null);
 
 function useMetric() {
   const value = use(MetricContext);
@@ -63,14 +63,14 @@ function Main({ children }: { children: ReactNode }) {
   const htmlHidden = Boolean(flags.hidden || flags.invisible);
 
   return (
-    <main className="metric-shell" {...(htmlHidden ? { hidden: true } : {})}>
+    <main className="MetricMain" {...(htmlHidden ? { hidden: true } : {})}>
       {children}
     </main>
   );
 }
 
 function Content({ children }: { children: ReactNode }) {
-  return <div className="metric-content">{children}</div>;
+  return <div className="MetricContent">{children}</div>;
 }
 
 function Assets() {
@@ -107,7 +107,7 @@ function Assets() {
   );
 }
 
-function Chrome() {
+function Prerender() {
   const { flags, defaults, metric } = useMetric();
   const href = metricHref(metric, flags, defaults);
 
@@ -130,7 +130,7 @@ function Chrome() {
 
 export const Metric = {
   Assets,
-  Chrome,
+  Prerender,
   Content,
   Main,
   Provider,

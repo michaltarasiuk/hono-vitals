@@ -1,11 +1,11 @@
-.metric-shell {
+.MetricMain {
   flex: 1;
   position: relative;
   width: 100%;
   padding: 1.5rem 0 3rem;
 }
 
-.metric-shell > .Text {
+.MetricMain > .Text {
   width: 100%;
   max-width: var(--page-max-width);
   margin-top: 1rem;
@@ -13,7 +13,7 @@
   padding-inline: var(--page-inline-padding);
 }
 
-.metric-shell > .Text a {
+.MetricMain > .Text a {
   color: var(--foreground);
   text-decoration-line: underline;
   text-decoration-thickness: 1px;
@@ -21,7 +21,7 @@
   text-decoration-color: var(--border-subtle);
 }
 
-.metric-content {
+.MetricContent {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -32,12 +32,12 @@
   padding-inline: var(--page-inline-padding);
 }
 
-.metric-content > .Heading + .Text,
-.metric-content > .Text + .Text {
+.MetricContent > .Heading + .Text,
+.MetricContent > .Text + .Text {
   margin-top: 0;
 }
 
-.metric-content form {
+.MetricContent form {
   display: flex;
   flex-direction: column;
   align-items: flex-start;

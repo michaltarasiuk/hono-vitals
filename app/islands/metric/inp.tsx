@@ -6,7 +6,7 @@ import { Button } from "@/app/components/ui/button/button";
 import { NumberField } from "@/app/components/ui/number-field/number-field";
 import { reportMetric } from "@/lib/collect/report";
 import { isDefined } from "@/lib/is-defined";
-import { createBatchReporter } from "@/lib/metric/batch-reporting";
+import { createBatchReporter } from "@/lib/metric/batch-reporter";
 import {
   EVENT_NAMES,
   resetBlockingTimes,

@@ -1,4 +1,4 @@
-import { afterElementsRendered, afterFirstInput, afterLoad } from "./ready";
+import { afterElementsRendered, afterFirstInput, afterLoad } from "./wait-for";
 
 export async function loadWebVitals(options: {
   attribution?: boolean;

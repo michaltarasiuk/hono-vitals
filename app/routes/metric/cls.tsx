@@ -2,7 +2,6 @@ import { Heading } from "@/app/components/ui/heading/heading";
 import { Text } from "@/app/components/ui/text/text";
 import { ClsObserver } from "@/app/islands/metric/cls";
 import { createMetricRoute } from "@/lib/metric/create-metric-route";
-import { elementTiming } from "@/lib/metric/element-timing";
 import { CLS_FLAGS_DEFAULTS } from "@/lib/metric/flags/cls";
 
 export default createMetricRoute({
@@ -11,7 +10,7 @@ export default createMetricRoute({
   observer: ClsObserver,
   children: (flags) => (
     <>
-      <Heading {...elementTiming("main-heading")}>CLS Test</Heading>
+      <Heading elementtiming="main-heading">CLS Test</Heading>
       {flags.noLayoutShifts ? (
         <Text>This text does not shift.</Text>
       ) : (
@@ -21,7 +20,7 @@ export default createMetricRoute({
               src="/public/square.png?delay=500"
               alt="Gray square"
               hidden={flags.imgHidden}
-              {...elementTiming("main-image")}
+              elementtiming="main-image"
             />
             [text node contents]
           </Text>
@@ -30,7 +29,7 @@ export default createMetricRoute({
               src="/public/square.png?delay=1000"
               alt="Gray square"
               hidden={flags.img2Hidden}
-              {...elementTiming("secondary-image")}
+              elementtiming="secondary-image"
             />
           </Text>
           <Text>Text below the images that will get pushed down.</Text>

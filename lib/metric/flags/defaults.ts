@@ -1,8 +1,8 @@
 import type { Flags } from "./serialize";
 
-import { type WidenFlags } from "./coerce";
+import { type WidenFlags } from "./schema";
 
-export const BASE_METRIC_FLAGS_DEFAULTS = {
+export const BASE_FLAGS_DEFAULTS = {
   delayDCL: 0,
   delayLoad: 0,
   renderBlocking: 0,
@@ -18,7 +18,7 @@ export const BASE_METRIC_FLAGS_DEFAULTS = {
   attribution: false,
 } as const satisfies Flags;
 
-export type BaseMetricFlags = WidenFlags<typeof BASE_METRIC_FLAGS_DEFAULTS>;
+export type BaseFlags = WidenFlags<typeof BASE_FLAGS_DEFAULTS>;
 
 export const GENERATE_TARGET_FLAGS_DEFAULTS = {
   generateTarget: false,

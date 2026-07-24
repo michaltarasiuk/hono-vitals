@@ -12,7 +12,7 @@ export default createRoute(async (c) => {
       <Toolbar.Root>
         <Toolbar.Nav currentPath={c.req.path} />
       </Toolbar.Root>
-      <main className="metric-shell">
+      <main className="MetricMain">
         <MetricsSummary summaries={summaries} />
       </main>
     </>,

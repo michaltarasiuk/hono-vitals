@@ -8,3 +8,9 @@ declare module "@hono/react-renderer" {
     defaults: Flags;
   }
 }
+
+declare module "react" {
+  interface HTMLAttributes {
+    elementtiming?: string;
+  }
+}
