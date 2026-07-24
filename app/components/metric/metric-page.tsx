@@ -1,6 +1,6 @@
 import { createContext, use, type ReactNode } from "react";
 
-import type { MetricName } from "@/lib/collect/schema";
+import type { MetricName } from "@/lib/collect/metric-schema";
 import type { Flags } from "@/lib/metric/flags/schema";
 
 import { Toolbar as LayoutToolbar } from "@/app/components/layout/toolbar";
@@ -84,7 +84,7 @@ function DelayedScripts() {
     <>
       {renderBlocking > 0 ? (
         <link
-          href={`/public/metric/styles.css?delay=${renderBlocking}`}
+          href={`/public/metric/render-blocking.css?delay=${renderBlocking}`}
           rel="stylesheet"
           precedence="default"
         />

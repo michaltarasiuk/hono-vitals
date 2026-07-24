@@ -1,4 +1,4 @@
-import type { MetricName } from "@/lib/collect/schema";
+import type { MetricName } from "@/lib/collect/metric-schema";
 
 export function formatMetricValue(name: MetricName, value: number) {
   if (name === "CLS") {

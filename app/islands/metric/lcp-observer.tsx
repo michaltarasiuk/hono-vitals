@@ -2,7 +2,7 @@ import { useEffect } from "react";
 
 import type { LcpFlags } from "@/lib/metric/flags/lcp";
 
-import { reportMetric } from "@/lib/collect/report";
+import { reportMetric } from "@/lib/collect/report-metric";
 import { isDefined } from "@/lib/is-defined";
 import { createBatchReporter } from "@/lib/metric/batch-reporter";
 import { loadWebVitals } from "@/lib/metric/load-web-vitals";

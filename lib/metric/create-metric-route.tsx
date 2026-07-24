@@ -3,7 +3,7 @@ import type { ComponentType, ReactNode } from "react";
 import { zValidator } from "@hono/zod-validator";
 import { createRoute } from "honox/factory";
 
-import type { MetricName } from "@/lib/collect/schema";
+import type { MetricName } from "@/lib/collect/metric-schema";
 import type { Flags } from "@/lib/metric/flags/schema";
 
 import { flagsSchema, type ParsedFlags } from "@/lib/metric/flags/schema";
