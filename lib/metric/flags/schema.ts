@@ -18,9 +18,7 @@ export type ParsedFlags<T extends Flags> = {
   [K in keyof T]: T[K] extends boolean ? boolean : number;
 };
 
-export function flagsSchema<T extends Flags>(
-  defaults: T,
-): z.ZodType<ParsedFlags<T>> {
+export function flagsSchema<T extends Flags>(defaults: T) {
   const shape: Record<string, z.ZodType<FlagValue>> = {};
 
   for (const [key, value] of Object.entries(defaults)) {
