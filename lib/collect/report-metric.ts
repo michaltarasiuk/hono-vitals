@@ -3,6 +3,8 @@ import type { Metric } from "web-vitals";
 import { toastMetric } from "@/lib/toast/toast-metric";
 
 export function reportMetric(metric: Metric) {
+  logMetric(metric);
+
   const body = JSON.stringify({ metric }, replacer);
 
   navigator.sendBeacon(
@@ -11,6 +13,19 @@ export function reportMetric(metric: Metric) {
   );
 
   toastMetric(metric);
+}
+
+function logMetric(metric: Metric) {
+  console.log(`[web-vitals] ${metric.name}`, {
+    id: metric.id,
+    instance: metric.instance,
+    value: metric.value,
+    delta: metric.delta,
+    rating: metric.rating,
+    navigationType: metric.navigationType,
+    entries: metric.entries,
+    ...("attribution" in metric ? { attribution: metric.attribution } : {}),
+  });
 }
 
 function replacer(_key: string, value: unknown) {
