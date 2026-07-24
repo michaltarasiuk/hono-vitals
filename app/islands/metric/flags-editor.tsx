@@ -8,9 +8,9 @@ import { Field } from "@/app/components/ui/field/field";
 import { NumberField } from "@/app/components/ui/number-field/number-field";
 import { Switch } from "@/app/components/ui/switch/switch";
 import { assertNever } from "@/lib/assert-never";
-import { navigateWithFlags } from "@/lib/metric/flags/apply-flags";
+import { formatFlagLabel } from "@/lib/metric/flags/format-flag-label";
+import { navigateWithFlags } from "@/lib/metric/flags/navigate-with-flags";
 import { sortFlagEntries } from "@/lib/metric/flags/sort-flag-entries";
-import { formatFlagLabel } from "@/lib/metric/format-flag-label";
 
 // Stable id so island hydration matches full-page SSR (Honox useId path differs).
 const FLAGS_EDITOR_TRIGGER_ID = "metric-flags-trigger";

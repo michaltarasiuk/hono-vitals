@@ -10,7 +10,7 @@ import {
   METRIC_NAMES,
   type Metric,
   type MetricName,
-} from "@/lib/collect/schema";
+} from "@/lib/collect/metric-schema";
 
 const MetricSummarySchema = z.object({
   name: z.enum(METRIC_NAMES),

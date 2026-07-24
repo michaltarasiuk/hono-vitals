@@ -1,4 +1,4 @@
-import { METRIC_NAMES } from "@/lib/collect/schema";
+import { METRIC_NAMES } from "@/lib/collect/metric-schema";
 
 export const ROUTES = [
   { label: "Metrics", href: "/" },

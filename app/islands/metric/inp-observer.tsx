@@ -4,7 +4,7 @@ import type { InpFlags } from "@/lib/metric/flags/inp";
 
 import { Button } from "@/app/components/ui/button/button";
 import { NumberField } from "@/app/components/ui/number-field/number-field";
-import { reportMetric } from "@/lib/collect/report";
+import { reportMetric } from "@/lib/collect/report-metric";
 import { isDefined } from "@/lib/is-defined";
 import { createBatchReporter } from "@/lib/metric/batch-reporter";
 import {

@@ -2,7 +2,7 @@ import { useEffect } from "react";
 
 import type { FcpFlags } from "@/lib/metric/flags/fcp";
 
-import { reportMetric } from "@/lib/collect/report";
+import { reportMetric } from "@/lib/collect/report-metric";
 import { loadWebVitals } from "@/lib/metric/load-web-vitals";
 import { buildFcpOptions } from "@/lib/metric/observer-options";
 

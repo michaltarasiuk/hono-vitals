@@ -1,4 +1,4 @@
-import type { MetricName } from "@/lib/collect/schema";
+import type { MetricName } from "@/lib/collect/metric-schema";
 import type { Flags } from "@/lib/metric/flags/schema";
 
 export function metricHref(metric: MetricName, flags: Flags, defaults: Flags) {

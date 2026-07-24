@@ -3,7 +3,7 @@ import { Hono } from "hono";
 import * as z from "zod";
 
 import { insertMetric } from "@/lib/analytics/metrics";
-import { MetricSchema } from "@/lib/collect/schema";
+import { MetricSchema } from "@/lib/collect/metric-schema";
 
 const collectRoutes = new Hono().post(
   "/",

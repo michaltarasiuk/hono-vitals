@@ -2,7 +2,7 @@ import { useEffect } from "react";
 
 import type { TtfbFlags } from "@/lib/metric/flags/ttfb";
 
-import { reportMetric } from "@/lib/collect/report";
+import { reportMetric } from "@/lib/collect/report-metric";
 import { loadWebVitals } from "@/lib/metric/load-web-vitals";
 import { buildTtfbOptions } from "@/lib/metric/observer-options";
 import { overrideResponseStart } from "@/lib/metric/override-response-start";
