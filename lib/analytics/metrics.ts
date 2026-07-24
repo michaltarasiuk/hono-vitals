@@ -31,7 +31,7 @@ export async function insertMetric(metric: Metric) {
   `;
 }
 
-export async function getMetricsSummary(): Promise<MetricSummary[]> {
+export async function getMetricsSummary() {
   const rows = await queryRows(
     MetricSummarySchema,
     sql`
