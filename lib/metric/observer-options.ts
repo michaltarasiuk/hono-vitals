@@ -12,21 +12,22 @@ import { isDefined } from "@/lib/is-defined";
 
 type Instance = 1 | 2;
 
-function pickInstance<T>(instance: Instance, primary: T, secondary: T) {
-  return instance === 1 ? primary : secondary;
+type ReportAllChangesFlags = Pick<
+  BaseMetricFlags,
+  "reportAllChanges" | "reportAllChanges2"
+>;
+
+type TargetMetricFlags = ReportAllChangesFlags & GenerateTargetFlags;
+
+function instanceKey<K extends string>(key: K, instance: Instance) {
+  return (instance === 1 ? key : `${key}2`) as K | `${K}2`;
 }
 
-function reportAllChangesOption(
-  flags: Pick<BaseMetricFlags, "reportAllChanges" | "reportAllChanges2">,
-  instance: Instance,
-) {
-  return {
-    reportAllChanges: pickInstance(
-      instance,
-      flags.reportAllChanges,
-      flags.reportAllChanges2,
-    ),
-  };
+function flagForInstance<
+  K extends string,
+  F extends Record<K | `${K}2`, unknown>,
+>(flags: F, key: K, instance: Instance) {
+  return flags[instanceKey(key, instance)];
 }
 
 function generateTarget(node: Node | null) {
@@ -36,25 +37,28 @@ function generateTarget(node: Node | null) {
   return node.dataset.target;
 }
 
-function generateTargetOption(flags: GenerateTargetFlags, instance: Instance) {
-  if (!pickInstance(instance, flags.generateTarget, flags.generateTarget2)) {
-    return {};
-  }
-  return { generateTarget };
-}
-
 function hasQueryFlag(name: string) {
   return new URLSearchParams(window.location.search).has(name);
 }
 
-function buildTargetMetricOptions(
-  flags: Pick<BaseMetricFlags, "reportAllChanges" | "reportAllChanges2"> &
-    GenerateTargetFlags,
+function buildReportAllChangesOptions(
+  flags: ReportAllChangesFlags,
   instance: Instance,
 ) {
   return {
-    ...reportAllChangesOption(flags, instance),
-    ...generateTargetOption(flags, instance),
+    reportAllChanges: flagForInstance(flags, "reportAllChanges", instance),
+  };
+}
+
+function buildTargetMetricOptions(
+  flags: TargetMetricFlags,
+  instance: Instance,
+) {
+  return {
+    ...buildReportAllChangesOptions(flags, instance),
+    ...(flagForInstance(flags, "generateTarget", instance)
+      ? { generateTarget }
+      : {}),
   };
 }
 
@@ -63,15 +67,11 @@ export function buildClsOptions(flags: ClsFlags, instance: Instance = 1) {
 }
 
 export function buildFcpOptions(flags: FcpFlags, instance: Instance = 1) {
-  return reportAllChangesOption(flags, instance);
+  return buildReportAllChangesOptions(flags, instance);
 }
 
 export function buildInpOptions(flags: InpFlags, instance: Instance = 1) {
-  const durationThresholdKey = pickInstance(
-    instance,
-    "durationThreshold",
-    "durationThreshold2",
-  );
+  const durationThresholdKey = instanceKey("durationThreshold", instance);
   const durationThreshold = flags[durationThresholdKey];
 
   return {
@@ -90,5 +90,5 @@ export function buildLcpOptions(flags: LcpFlags, instance: Instance = 1) {
 }
 
 export function buildTtfbOptions(flags: TtfbFlags, instance: Instance = 1) {
-  return reportAllChangesOption(flags, instance);
+  return buildReportAllChangesOptions(flags, instance);
 }
