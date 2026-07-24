@@ -2,6 +2,7 @@ import { reactRenderer } from "@hono/react-renderer";
 
 import { MetricPage } from "@/app/components/metric/metric-page";
 import { FlagsEditor } from "@/app/islands/metric/flags-editor";
+import { MetricToasts } from "@/app/islands/metric/metric-toasts";
 
 export default reactRenderer(
   ({ children, Layout, metric, flags, defaults }) => {
@@ -16,6 +17,7 @@ export default reactRenderer(
             <MetricPage.Content>{children}</MetricPage.Content>
             <MetricPage.PrerenderHints />
           </MetricPage.Main>
+          <MetricToasts />
         </MetricPage.Provider>
       </Layout>
     );
