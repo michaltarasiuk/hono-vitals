@@ -104,7 +104,7 @@ export function InpObserver({ flags }: { flags: InpFlags }) {
 
         return (
           <div key={eventName} className="Field">
-            <label className="Label" htmlFor={id}>
+            <label htmlFor={id} className="Label">
               {eventName} blocking time
             </label>
             <NumberField.Root

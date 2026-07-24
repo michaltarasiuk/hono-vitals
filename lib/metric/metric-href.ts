@@ -10,12 +10,6 @@ export function metricHref(metric: MetricName, flags: Flags, defaults: Flags) {
   return href;
 }
 
-export function prerenderSpeculationRules(href: string) {
-  return JSON.stringify({
-    prerender: [{ urls: [href] }],
-  });
-}
-
 function flagsToQueryString(flags: Flags, defaults: Flags) {
   const params = new URLSearchParams();
   for (const [key, value] of Object.entries(flags)) {
