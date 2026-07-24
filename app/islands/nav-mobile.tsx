@@ -1,5 +1,5 @@
 import { Drawer } from "@/app/components/ui/drawer/drawer";
-import { ROUTES } from "@/lib/routes";
+import { getActiveRoute, isActiveHref, ROUTES } from "@/lib/routes";
 
 // Stable id so island hydration matches full-page SSR (Honox useId path differs).
 const NAV_MOBILE_TRIGGER_ID = "nav-mobile-trigger";
@@ -9,13 +9,13 @@ interface NavMobileProps {
 }
 
 export function NavMobile({ currentPath }: NavMobileProps) {
-  const current = ROUTES.find(({ href }) => href === currentPath) ?? ROUTES[0];
+  const activeRoute = getActiveRoute(currentPath);
 
   return (
     <div className="NavMobile">
       <Drawer.Root triggerId={NAV_MOBILE_TRIGGER_ID}>
         <Drawer.Trigger id={NAV_MOBILE_TRIGGER_ID} className="NavMobileTrigger">
-          <span className="NavMobileLabel">{current.label}</span>
+          <span className="NavMobileLabel">{activeRoute.label}</span>
           <ChevronIcon />
         </Drawer.Trigger>
         <Drawer.Portal>
@@ -27,7 +27,7 @@ export function NavMobile({ currentPath }: NavMobileProps) {
                 <Drawer.Title>Go to</Drawer.Title>
                 <nav className="NavMobileList">
                   {ROUTES.map(({ href, label }) => {
-                    const active = currentPath === href;
+                    const active = isActiveHref(href, currentPath);
                     return (
                       <a
                         key={href}
