@@ -1,5 +1,5 @@
 import { NavMobile } from "@/app/islands/nav-mobile";
-import { ROUTES } from "@/lib/routes";
+import { isActiveHref, ROUTES } from "@/lib/routes";
 
 interface NavProps {
   currentPath: string;
@@ -10,7 +10,7 @@ export function Nav({ currentPath }: NavProps) {
     <>
       <nav className="NavDesktop">
         {ROUTES.map(({ href, label }) => {
-          const active = currentPath === href;
+          const active = isActiveHref(href, currentPath);
           return (
             <a
               key={href}
