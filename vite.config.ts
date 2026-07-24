@@ -38,6 +38,8 @@ export default defineConfig(({ command, mode }) => {
         "react",
         "react-dom",
         "use-sync-external-store",
+        "waddler",
+        "waddler/duckdb-neo",
         "@duckdb/node-api",
         "@duckdb/node-bindings",
       ],
