@@ -1,5 +1,5 @@
 import type { MetricName } from "@/lib/collect/schema";
-import type { Flags } from "@/lib/metric/flags/serialize";
+import type { Flags } from "@/lib/metric/flags/schema";
 
 export function metricHref(metric: MetricName, flags: Flags, defaults: Flags) {
   const queryString = flagsToQueryString(flags, defaults);

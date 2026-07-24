@@ -5,7 +5,7 @@ import * as z from "zod";
 import { insertMetric } from "@/lib/analytics/metrics";
 import { MetricSchema } from "@/lib/collect/schema";
 
-const collect = new Hono().post(
+const collectRoutes = new Hono().post(
   "/",
   zValidator(
     "json",
@@ -27,4 +27,4 @@ const collect = new Hono().post(
   },
 );
 
-export default collect;
+export default collectRoutes;

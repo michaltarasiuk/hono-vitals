@@ -1,14 +1,14 @@
 import { Heading } from "@/app/components/ui/heading/heading";
 import { Text } from "@/app/components/ui/text/text";
-import { InpObserver } from "@/app/islands/metric/inp";
+import { InpBlockingControls } from "@/app/islands/metric/inp-observer";
 import { createMetricRoute } from "@/lib/metric/create-metric-route";
 import { INP_FLAGS_DEFAULTS } from "@/lib/metric/flags/inp";
 
 export default createMetricRoute({
   metric: "INP",
   defaults: INP_FLAGS_DEFAULTS,
-  observer: InpObserver,
-  children: () => (
+  observer: InpBlockingControls,
+  render: () => (
     <>
       <Heading elementtiming="main-heading">INP Test</Heading>
       <Text>

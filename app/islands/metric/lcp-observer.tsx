@@ -24,7 +24,7 @@ export function LcpObserver({ flags }: { flags: LcpFlags }) {
 
       const { onLCP } = await loadWebVitals({
         attribution: flags.attribution,
-        lazyLoad: flags.lazyLoad,
+        deferLibraryLoad: flags.deferLibraryLoad,
         loadAfterInput: flags.loadAfterInput,
       });
 
@@ -59,7 +59,7 @@ export function LcpObserver({ flags }: { flags: LcpFlags }) {
         registerLCP();
       }
 
-      if (flags.doubleCall) {
+      if (flags.secondObserver) {
         onLCP(
           (lcp) => {
             lcp.instance = 2;

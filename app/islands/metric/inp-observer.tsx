@@ -8,29 +8,29 @@ import { reportMetric } from "@/lib/collect/report";
 import { isDefined } from "@/lib/is-defined";
 import { createBatchReporter } from "@/lib/metric/batch-reporter";
 import {
-  EVENT_NAMES,
+  INP_BLOCKING_EVENT_NAMES,
   resetBlockingTimes,
   setBlockingTime,
-  type EventName,
+  type InpBlockingEventName,
 } from "@/lib/metric/inp-blocking";
 import { loadWebVitals } from "@/lib/metric/load-web-vitals";
 import { buildInpOptions } from "@/lib/metric/observer-options";
 
 function initialBlockingTimes(flags: InpFlags) {
-  const blockingTimes = {} as Record<EventName, number>;
-  for (const eventName of EVENT_NAMES) {
+  const blockingTimes = {} as Record<InpBlockingEventName, number>;
+  for (const eventName of INP_BLOCKING_EVENT_NAMES) {
     blockingTimes[eventName] = flags[`${eventName}BlockingTime`];
   }
   return blockingTimes;
 }
 
-export function InpObserver({ flags }: { flags: InpFlags }) {
+export function InpBlockingControls({ flags }: { flags: InpFlags }) {
   const [blockingTimes, setBlockingTimes] = useState(() =>
     initialBlockingTimes(flags),
   );
 
   useEffect(() => {
-    for (const eventName of EVENT_NAMES) {
+    for (const eventName of INP_BLOCKING_EVENT_NAMES) {
       setBlockingTime(eventName, blockingTimes[eventName]);
     }
 
@@ -45,7 +45,7 @@ export function InpObserver({ flags }: { flags: InpFlags }) {
     void (async () => {
       const { onINP } = await loadWebVitals({
         attribution: flags.attribution,
-        lazyLoad: flags.lazyLoad,
+        deferLibraryLoad: flags.deferLibraryLoad,
         loadAfterInput: flags.loadAfterInput,
       });
 
@@ -68,7 +68,7 @@ export function InpObserver({ flags }: { flags: InpFlags }) {
         buildInpOptions(flags, 1),
       );
 
-      if (flags.doubleCall) {
+      if (flags.secondObserver) {
         onINP(
           (inp) => {
             inp.instance = 2;
@@ -87,8 +87,8 @@ export function InpObserver({ flags }: { flags: InpFlags }) {
   function handleReset() {
     setBlockingTimes(
       Object.fromEntries(
-        EVENT_NAMES.map((eventName) => [eventName, 0]),
-      ) as Record<EventName, number>,
+        INP_BLOCKING_EVENT_NAMES.map((eventName) => [eventName, 0]),
+      ) as Record<InpBlockingEventName, number>,
     );
   }
 
@@ -98,7 +98,7 @@ export function InpObserver({ flags }: { flags: InpFlags }) {
         event.preventDefault();
       }}
     >
-      {EVENT_NAMES.map((eventName) => {
+      {INP_BLOCKING_EVENT_NAMES.map((eventName) => {
         // Stable id so island hydration matches full-page SSR (Honox useId path differs).
         const id = `${eventName}-blocking-time`;
 

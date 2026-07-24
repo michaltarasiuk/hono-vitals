@@ -15,7 +15,7 @@ export function ClsObserver({ flags }: { flags: ClsFlags }) {
     void (async () => {
       const { onCLS } = await loadWebVitals({
         attribution: flags.attribution,
-        lazyLoad: flags.lazyLoad,
+        deferLibraryLoad: flags.deferLibraryLoad,
         loadAfterInput: flags.loadAfterInput,
       });
 
@@ -38,7 +38,7 @@ export function ClsObserver({ flags }: { flags: ClsFlags }) {
         buildClsOptions(flags, 1),
       );
 
-      if (flags.doubleCall) {
+      if (flags.secondObserver) {
         onCLS(
           (cls) => {
             cls.instance = 2;

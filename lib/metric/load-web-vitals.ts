@@ -2,12 +2,12 @@ import { afterElementsRendered, afterFirstInput, afterLoad } from "./wait-for";
 
 export async function loadWebVitals(options: {
   attribution?: boolean;
-  lazyLoad?: boolean;
+  deferLibraryLoad?: boolean;
   loadAfterInput?: boolean;
 }) {
   const readyPromises: Promise<void>[] = [];
 
-  if (options.lazyLoad) {
+  if (options.deferLibraryLoad) {
     readyPromises.push(afterLoad(), afterElementsRendered());
   }
   if (options.loadAfterInput) {

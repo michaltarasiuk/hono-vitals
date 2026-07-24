@@ -2,7 +2,9 @@ import * as z from "zod";
 
 import { assertNever } from "@/lib/assert-never";
 
-import type { FlagValue, Flags } from "./serialize";
+export type FlagValue = boolean | number;
+
+export type Flags = Record<string, FlagValue>;
 
 export function queryBooleanDefault(defaultValue: boolean) {
   return z.coerce.boolean().prefault(defaultValue);
@@ -12,13 +14,13 @@ export function queryNumberDefault(defaultValue: number) {
   return z.coerce.number().prefault(defaultValue);
 }
 
-export type WidenFlags<T extends Flags> = {
+export type ParsedFlags<T extends Flags> = {
   [K in keyof T]: T[K] extends boolean ? boolean : number;
 };
 
 export function flagsSchema<T extends Flags>(
   defaults: T,
-): z.ZodType<WidenFlags<T>> {
+): z.ZodType<ParsedFlags<T>> {
   const shape: Record<string, z.ZodType<FlagValue>> = {};
 
   for (const [key, value] of Object.entries(defaults)) {
@@ -34,5 +36,5 @@ export function flagsSchema<T extends Flags>(
     }
   }
 
-  return z.object(shape) as z.ZodType<WidenFlags<T>>;
+  return z.object(shape) as z.ZodType<ParsedFlags<T>>;
 }

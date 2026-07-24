@@ -32,4 +32,4 @@ function applyHiddenPageStub() {
   );
 }
 
-export const HIDDEN_PAGE_STUB_SCRIPT = `(${applyHiddenPageStub.toString()})();`;
+export const HIDDEN_STUB_SCRIPT = `(${applyHiddenPageStub.toString()})();`;

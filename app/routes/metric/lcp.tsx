@@ -1,6 +1,6 @@
 import { Heading } from "@/app/components/ui/heading/heading";
 import { Text } from "@/app/components/ui/text/text";
-import { LcpObserver } from "@/app/islands/metric/lcp";
+import { LcpObserver } from "@/app/islands/metric/lcp-observer";
 import { createMetricRoute } from "@/lib/metric/create-metric-route";
 import { LCP_FLAGS_DEFAULTS } from "@/lib/metric/flags/lcp";
 
@@ -8,7 +8,7 @@ export default createMetricRoute({
   metric: "LCP",
   defaults: LCP_FLAGS_DEFAULTS,
   observer: LcpObserver,
-  children: (flags) => (
+  render: (flags) => (
     <>
       <Heading elementtiming="main-heading">LCP Test</Heading>
       <Text>

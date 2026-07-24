@@ -1,6 +1,6 @@
 import { Heading } from "@/app/components/ui/heading/heading";
 import { Text } from "@/app/components/ui/text/text";
-import { FcpObserver } from "@/app/islands/metric/fcp";
+import { FcpObserver } from "@/app/islands/metric/fcp-observer";
 import { createMetricRoute } from "@/lib/metric/create-metric-route";
 import { FCP_FLAGS_DEFAULTS } from "@/lib/metric/flags/fcp";
 
@@ -8,7 +8,7 @@ export default createMetricRoute({
   metric: "FCP",
   defaults: FCP_FLAGS_DEFAULTS,
   observer: FcpObserver,
-  children: (flags) => (
+  render: (flags) => (
     <>
       <Heading elementtiming="main-heading">FCP Test</Heading>
       <Text>

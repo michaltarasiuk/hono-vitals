@@ -10,7 +10,7 @@ import type { TtfbFlags } from "@/lib/metric/flags/ttfb";
 
 import { isDefined } from "@/lib/is-defined";
 
-type Instance = 1 | 2;
+type ObserverInstance = 1 | 2;
 
 type ReportAllChangesFlags = Pick<
   BaseFlags,
@@ -19,18 +19,18 @@ type ReportAllChangesFlags = Pick<
 
 type TargetMetricFlags = ReportAllChangesFlags & GenerateTargetFlags;
 
-function instanceKey<K extends string>(key: K, instance: Instance) {
+function instanceKey<K extends string>(key: K, instance: ObserverInstance) {
   return (instance === 1 ? key : `${key}2`) as K | `${K}2`;
 }
 
 function flagForInstance<
   K extends string,
   F extends Record<K | `${K}2`, unknown>,
->(flags: F, key: K, instance: Instance) {
+>(flags: F, key: K, instance: ObserverInstance) {
   return flags[instanceKey(key, instance)];
 }
 
-function generateTarget(node: Node | null) {
+function readDatasetTarget(node: Node | null) {
   if (!(node instanceof HTMLElement)) {
     return;
   }
@@ -43,7 +43,7 @@ function hasQueryFlag(name: string) {
 
 function buildReportAllChangesOptions(
   flags: ReportAllChangesFlags,
-  instance: Instance,
+  instance: ObserverInstance,
 ) {
   return {
     reportAllChanges: flagForInstance(flags, "reportAllChanges", instance),
@@ -52,25 +52,34 @@ function buildReportAllChangesOptions(
 
 function buildTargetMetricOptions(
   flags: TargetMetricFlags,
-  instance: Instance,
+  instance: ObserverInstance,
 ) {
   return {
     ...buildReportAllChangesOptions(flags, instance),
     ...(flagForInstance(flags, "generateTarget", instance)
-      ? { generateTarget }
+      ? { generateTarget: readDatasetTarget }
       : {}),
   };
 }
 
-export function buildClsOptions(flags: ClsFlags, instance: Instance = 1) {
+export function buildClsOptions(
+  flags: ClsFlags,
+  instance: ObserverInstance = 1,
+) {
   return buildTargetMetricOptions(flags, instance);
 }
 
-export function buildFcpOptions(flags: FcpFlags, instance: Instance = 1) {
+export function buildFcpOptions(
+  flags: FcpFlags,
+  instance: ObserverInstance = 1,
+) {
   return buildReportAllChangesOptions(flags, instance);
 }
 
-export function buildInpOptions(flags: InpFlags, instance: Instance = 1) {
+export function buildInpOptions(
+  flags: InpFlags,
+  instance: ObserverInstance = 1,
+) {
   const durationThresholdKey = instanceKey("durationThreshold", instance);
   const durationThreshold = flags[durationThresholdKey];
 
@@ -85,10 +94,16 @@ export function buildInpOptions(flags: InpFlags, instance: Instance = 1) {
   };
 }
 
-export function buildLcpOptions(flags: LcpFlags, instance: Instance = 1) {
+export function buildLcpOptions(
+  flags: LcpFlags,
+  instance: ObserverInstance = 1,
+) {
   return buildTargetMetricOptions(flags, instance);
 }
 
-export function buildTtfbOptions(flags: TtfbFlags, instance: Instance = 1) {
+export function buildTtfbOptions(
+  flags: TtfbFlags,
+  instance: ObserverInstance = 1,
+) {
   return buildReportAllChangesOptions(flags, instance);
 }

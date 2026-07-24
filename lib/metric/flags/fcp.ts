@@ -1,7 +1,7 @@
-import type { Flags } from "./serialize";
+import type { Flags } from "./schema";
 
 import { BASE_FLAGS_DEFAULTS } from "./defaults";
-import { type WidenFlags } from "./schema";
+import { type ParsedFlags } from "./schema";
 
 export const FCP_FLAGS_DEFAULTS = {
   ...BASE_FLAGS_DEFAULTS,
@@ -9,4 +9,4 @@ export const FCP_FLAGS_DEFAULTS = {
   imgHidden: false,
 } as const satisfies Flags;
 
-export type FcpFlags = WidenFlags<typeof FCP_FLAGS_DEFAULTS>;
+export type FcpFlags = ParsedFlags<typeof FCP_FLAGS_DEFAULTS>;

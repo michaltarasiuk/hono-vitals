@@ -1,4 +1,4 @@
-export const EVENT_NAMES = [
+export const INP_BLOCKING_EVENT_NAMES = [
   "mousedown",
   "mouseup",
   "pointerdown",
@@ -8,12 +8,13 @@ export const EVENT_NAMES = [
   "click",
 ] as const;
 
-export type EventName = (typeof EVENT_NAMES)[number];
+export type InpBlockingEventName = (typeof INP_BLOCKING_EVENT_NAMES)[number];
 
-const blockingTimes = new Map<EventName, number>();
+const blockingTimes = new Map<InpBlockingEventName, number>();
 
 function block(event: Event) {
-  const blockingTime = blockingTimes.get(event.type as EventName) ?? 0;
+  const blockingTime =
+    blockingTimes.get(event.type as InpBlockingEventName) ?? 0;
   if (blockingTime <= 0) {
     return;
   }
@@ -23,7 +24,10 @@ function block(event: Event) {
   }
 }
 
-export function setBlockingTime(eventName: EventName, value: number) {
+export function setBlockingTime(
+  eventName: InpBlockingEventName,
+  value: number,
+) {
   const previous = blockingTimes.get(eventName) ?? 0;
   blockingTimes.set(eventName, value);
 
@@ -35,7 +39,7 @@ export function setBlockingTime(eventName: EventName, value: number) {
 }
 
 export function resetBlockingTimes() {
-  for (const eventName of EVENT_NAMES) {
+  for (const eventName of INP_BLOCKING_EVENT_NAMES) {
     setBlockingTime(eventName, 0);
   }
 }

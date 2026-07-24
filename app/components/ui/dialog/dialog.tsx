@@ -48,9 +48,9 @@ function Popup({
   );
 }
 
-function Intro({ className, children, ...props }: React.ComponentProps<"div">) {
+function Header({ className, children, ...props }: React.ComponentProps<"div">) {
   return (
-    <div className={className ? `Intro ${className}` : "Intro"} {...props}>
+    <div className={className ? `Header ${className}` : "Header"} {...props}>
       {children}
     </div>
   );
@@ -71,9 +71,9 @@ function Title({
   );
 }
 
-function List({ className, children, ...props }: React.ComponentProps<"div">) {
+function Body({ className, children, ...props }: React.ComponentProps<"div">) {
   return (
-    <div className={className ? `List ${className}` : "List"} {...props}>
+    <div className={className ? `Body ${className}` : "Body"} {...props}>
       {children}
     </div>
   );
@@ -101,9 +101,9 @@ function Close({
 export const Dialog = {
   Actions,
   Backdrop,
+  Body,
   Close,
-  Intro,
-  List,
+  Header,
   Popup,
   Portal,
   Root,

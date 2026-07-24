@@ -4,22 +4,22 @@ import { zValidator } from "@hono/zod-validator";
 import { createRoute } from "honox/factory";
 
 import type { MetricName } from "@/lib/collect/schema";
-import type { Flags } from "@/lib/metric/flags/serialize";
+import type { Flags } from "@/lib/metric/flags/schema";
 
-import { flagsSchema, type WidenFlags } from "@/lib/metric/flags/schema";
+import { flagsSchema, type ParsedFlags } from "@/lib/metric/flags/schema";
 
 interface CreateMetricRouteOptions<T extends Flags> {
   metric: MetricName;
   defaults: T;
-  observer: ComponentType<{ flags: WidenFlags<T> }>;
-  children: (flags: WidenFlags<T>) => ReactNode;
+  observer: ComponentType<{ flags: ParsedFlags<T> }>;
+  render: (flags: ParsedFlags<T>) => ReactNode;
 }
 
 export function createMetricRoute<T extends Flags>({
   metric,
   defaults,
   observer: Observer,
-  children,
+  render,
 }: CreateMetricRouteOptions<T>) {
   const schema = flagsSchema(defaults);
 
@@ -28,7 +28,7 @@ export function createMetricRoute<T extends Flags>({
 
     return c.render(
       <>
-        {children(flags)}
+        {render(flags)}
         <Observer flags={flags} />
       </>,
       {
