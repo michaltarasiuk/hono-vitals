@@ -1,7 +1,7 @@
 import { reactRenderer } from "@hono/react-renderer";
 
-import { Metric } from "@/app/components/metric/shell";
-import { FlagsEditor } from "@/app/islands/flags-editor";
+import { Metric } from "@/app/components/metric/metric";
+import { FlagsEditor } from "@/app/islands/metric/flags-editor";
 
 export default reactRenderer(
   ({ children, Layout, metric, flags, defaults }) => {
@@ -14,7 +14,7 @@ export default reactRenderer(
           <Metric.Main>
             <Metric.Assets />
             <Metric.Content>{children}</Metric.Content>
-            <Metric.Chrome />
+            <Metric.Prerender />
           </Metric.Main>
         </Metric.Provider>
       </Layout>

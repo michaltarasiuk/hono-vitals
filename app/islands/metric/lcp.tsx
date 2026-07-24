@@ -4,7 +4,7 @@ import type { LcpFlags } from "@/lib/metric/flags/lcp";
 
 import { reportMetric } from "@/lib/collect/report";
 import { isDefined } from "@/lib/is-defined";
-import { createBatchReporter } from "@/lib/metric/batch-reporting";
+import { createBatchReporter } from "@/lib/metric/batch-reporter";
 import { loadWebVitals } from "@/lib/metric/load-web-vitals";
 import { buildLcpOptions } from "@/lib/metric/observer-options";
 import { removeLcpElement } from "@/lib/metric/remove-lcp-element";

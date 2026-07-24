@@ -1,7 +1,7 @@
 import { yieldToEventLoop } from "@/lib/delay";
 import { isDefined } from "@/lib/is-defined";
 
-import { afterElementsRendered } from "./ready";
+import { afterElementsRendered } from "./wait-for";
 
 export async function removeLcpElement() {
   await afterElementsRendered();

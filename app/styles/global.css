@@ -5,7 +5,7 @@
 @import "../components/dashboard/metrics-summary.css";
 @import "../components/layout/nav.css";
 @import "../components/layout/toolbar.css";
-@import "../components/metric/shell.css";
+@import "../components/metric/metric.css";
 @import "../components/ui/button/button.css";
 @import "../components/ui/dialog/dialog.css";
 @import "../components/ui/drawer/drawer.css";

@@ -2,7 +2,6 @@ import { Heading } from "@/app/components/ui/heading/heading";
 import { Text } from "@/app/components/ui/text/text";
 import { InpObserver } from "@/app/islands/metric/inp";
 import { createMetricRoute } from "@/lib/metric/create-metric-route";
-import { elementTiming } from "@/lib/metric/element-timing";
 import { INP_FLAGS_DEFAULTS } from "@/lib/metric/flags/inp";
 
 export default createMetricRoute({
@@ -11,7 +10,7 @@ export default createMetricRoute({
   observer: InpObserver,
   children: () => (
     <>
-      <Heading {...elementTiming("main-heading")}>INP Test</Heading>
+      <Heading elementtiming="main-heading">INP Test</Heading>
       <Text>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin nec porta
         orci, ac sagittis augue. Nullam orci tellus, suscipit sed magna id,

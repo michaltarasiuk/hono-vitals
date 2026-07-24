@@ -4,7 +4,7 @@ import type { ClsFlags } from "@/lib/metric/flags/cls";
 
 import { reportMetric } from "@/lib/collect/report";
 import { isDefined } from "@/lib/is-defined";
-import { createBatchReporter } from "@/lib/metric/batch-reporting";
+import { createBatchReporter } from "@/lib/metric/batch-reporter";
 import { loadWebVitals } from "@/lib/metric/load-web-vitals";
 import { buildClsOptions } from "@/lib/metric/observer-options";
 

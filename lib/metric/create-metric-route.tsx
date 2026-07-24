@@ -6,7 +6,7 @@ import { createRoute } from "honox/factory";
 import type { MetricName } from "@/lib/collect/schema";
 import type { Flags } from "@/lib/metric/flags/serialize";
 
-import { flagsSchema, type WidenFlags } from "@/lib/metric/flags/coerce";
+import { flagsSchema, type WidenFlags } from "@/lib/metric/flags/schema";
 
 interface CreateMetricRouteOptions<T extends Flags> {
   metric: MetricName;

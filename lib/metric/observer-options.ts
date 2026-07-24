@@ -1,11 +1,11 @@
 import type { ClsFlags } from "@/lib/metric/flags/cls";
+import type {
+  BaseFlags,
+  GenerateTargetFlags,
+} from "@/lib/metric/flags/defaults";
 import type { FcpFlags } from "@/lib/metric/flags/fcp";
 import type { InpFlags } from "@/lib/metric/flags/inp";
 import type { LcpFlags } from "@/lib/metric/flags/lcp";
-import type {
-  BaseMetricFlags,
-  GenerateTargetFlags,
-} from "@/lib/metric/flags/shared";
 import type { TtfbFlags } from "@/lib/metric/flags/ttfb";
 
 import { isDefined } from "@/lib/is-defined";
@@ -13,7 +13,7 @@ import { isDefined } from "@/lib/is-defined";
 type Instance = 1 | 2;
 
 type ReportAllChangesFlags = Pick<
-  BaseMetricFlags,
+  BaseFlags,
   "reportAllChanges" | "reportAllChanges2"
 >;
 
