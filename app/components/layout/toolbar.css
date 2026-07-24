@@ -33,20 +33,28 @@
   min-height: 2.5rem;
 }
 
-.FlagsEditorLabel--short {
+.ToolbarActions .Button {
+  min-height: 2.5rem;
+}
+
+.FlagsEditorLabel--full {
   display: none;
 }
 
-@media (max-width: 39.99rem) {
+.FlagsEditorLabel--short {
+  display: inline;
+}
+
+@media (width >= 40rem) {
   .ToolbarActions .Button {
-    min-height: 2.5rem;
+    min-height: unset;
   }
 
   .FlagsEditorLabel--full {
-    display: none;
+    display: inline;
   }
 
   .FlagsEditorLabel--short {
-    display: inline;
+    display: none;
   }
 }
