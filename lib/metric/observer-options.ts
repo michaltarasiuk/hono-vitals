@@ -30,13 +30,6 @@ function flagForInstance<
   return flags[instanceKey(key, instance)];
 }
 
-function readDatasetTarget(node: Node | null) {
-  if (!(node instanceof HTMLElement)) {
-    return;
-  }
-  return node.dataset.target;
-}
-
 function hasQueryFlag(name: string) {
   return new URLSearchParams(window.location.search).has(name);
 }
@@ -57,7 +50,14 @@ function buildTargetMetricOptions(
   return {
     ...buildReportAllChangesOptions(flags, instance),
     ...(flagForInstance(flags, "generateTarget", instance)
-      ? { generateTarget: readDatasetTarget }
+      ? {
+          generateTarget(node: Node | null) {
+            if (!(node instanceof HTMLElement)) {
+              return;
+            }
+            return node.dataset.target;
+          },
+        }
       : {}),
   };
 }
