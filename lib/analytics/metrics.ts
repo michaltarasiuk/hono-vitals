@@ -1,7 +1,7 @@
 import * as z from "zod";
 
 import { sql } from "@/lib/analytics/duckdb/client";
-import { dbNumber, queryRows } from "@/lib/analytics/duckdb/query";
+import { dbNumber } from "@/lib/analytics/duckdb/query";
 import {
   metricsInsertColumns,
   metricsTable,
@@ -32,28 +32,40 @@ export async function insertMetric(metric: Metric) {
 }
 
 export async function getMetricsSummary() {
-  const rows = await queryRows(
-    MetricSummarySchema,
-    sql`
-      SELECT
-        name,
-        count(*) AS count,
-        avg(value) AS avg,
-        quantile_cont(value, 0.75) AS p75,
-        count(*) FILTER (WHERE rating = 'good') AS good,
-        count(*) FILTER (WHERE rating = 'needs-improvement') AS "needsImprovement",
-        count(*) FILTER (WHERE rating = 'poor') AS poor
-      FROM ${metricsTable}
-      GROUP BY name
-      ORDER BY name
-    `,
-  );
+  const rows = await sql`
+    SELECT
+      name,
+      count(*) AS count,
+      avg(value) AS avg,
+      quantile_cont(value, 0.75) AS p75,
+      count(*) FILTER (WHERE rating = 'good') AS good,
+      count(*) FILTER (WHERE rating = 'needs-improvement') AS "needsImprovement",
+      count(*) FILTER (WHERE rating = 'poor') AS poor
+    FROM ${metricsTable}
+    GROUP BY name
+    ORDER BY name
+  `;
 
-  const byName = new Map(rows.map((row) => [row.name, row]));
+  const byName = new Map(
+    rows
+      .map((row) => MetricSummarySchema.parse(row))
+      .map((row) => [row.name, row]),
+  );
 
   return METRIC_NAMES.map(
     (name) => byName.get(name) ?? emptyMetricSummary(name),
   );
+}
+
+function toInsertRow(metric: Metric) {
+  return [
+    metric.id,
+    metric.name,
+    metric.value,
+    metric.delta,
+    metric.rating,
+    metric.navigationType,
+  ];
 }
 
 function emptyMetricSummary(name: MetricName): MetricSummary {
@@ -66,15 +78,4 @@ function emptyMetricSummary(name: MetricName): MetricSummary {
     needsImprovement: 0,
     poor: 0,
   };
-}
-
-function toInsertRow(metric: Metric) {
-  return [
-    metric.id,
-    metric.name,
-    metric.value,
-    metric.delta,
-    metric.rating,
-    metric.navigationType,
-  ];
 }
