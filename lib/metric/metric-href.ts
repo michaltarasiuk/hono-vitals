@@ -1,8 +1,11 @@
 import type { MetricName } from "@/lib/collect/metric-schema";
 import type { Flags } from "@/lib/metric/flags/schema";
 
-export function metricHref(metric: MetricName, flags: Flags, defaults: Flags) {
-  const queryString = flagsToQueryString(flags, defaults);
+export function metricHref(
+  metric: MetricName,
+  ...rest: Parameters<typeof flagsToQueryString>
+) {
+  const queryString = flagsToQueryString(...rest);
   let href = `/metric/${metric.toLowerCase()}`;
   if (queryString) {
     href += `?${queryString}`;
