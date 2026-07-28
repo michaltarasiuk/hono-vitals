@@ -9,6 +9,13 @@ export default reactRenderer(({ children }) => {
       <head>
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link
+          rel="preload"
+          href="/public/fonts/inter-latin.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
         <Link href="/public/favicon.svg" rel="icon" type="image/svg+xml" />
         {import.meta.env.DEV ? (
           <style dangerouslySetInnerHTML={{ __html: devStyles }} />
