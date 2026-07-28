@@ -1,5 +1,3 @@
-@import "@fontsource/inter/latin.css";
-
 @import "./tokens.css";
 
 @import "../components/dashboard/metrics-summary.css";
@@ -16,6 +14,15 @@
 @import "../components/ui/text/text.css";
 @import "../components/ui/toast/toast.css";
 
+@font-face {
+  font-family: Inter;
+  font-style: normal;
+  font-display: optional;
+  font-weight: 100 900;
+  src: url(@fontsource-variable/inter/files/inter-latin-wght-normal.woff2)
+    format("woff2-variations");
+}
+
 *,
 *::before,
 *::after {
@@ -27,7 +34,7 @@
 }
 
 html {
-  font-family: Inter, system-ui;
+  font-family: Inter, system-ui, sans-serif;
 }
 
 body {
