@@ -12,6 +12,7 @@ export function subscribeMetricToasts(onMetric: (metric: Metric) => void) {
   function handleMetricToast(event: Event) {
     onMetric((event as CustomEvent<Metric>).detail);
   }
+
   window.addEventListener(METRIC_TOAST_EVENT, handleMetricToast);
   return () =>
     window.removeEventListener(METRIC_TOAST_EVENT, handleMetricToast);
