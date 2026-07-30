@@ -14,7 +14,7 @@ import {
   type InpBlockingEventName,
 } from "@/lib/metric/inp-blocking";
 import { loadWebVitals } from "@/lib/metric/load-web-vitals";
-import { buildInpOptions } from "@/lib/metric/observer-options";
+import { buildObserverOptions, OBSERVER_RECIPES } from "@/lib/metric/observer-options";
 
 function initialBlockingTimes(flags: InpFlags) {
   const blockingTimes = {} as Record<InpBlockingEventName, number>;
@@ -65,7 +65,7 @@ export function InpBlockingControls({ flags }: { flags: InpFlags }) {
             reportMetric(inp);
           }
         },
-        buildInpOptions(flags, 1),
+        buildObserverOptions(OBSERVER_RECIPES.inp, flags, 1),
       );
 
       if (flags.secondObserver) {
@@ -74,7 +74,7 @@ export function InpBlockingControls({ flags }: { flags: InpFlags }) {
             inp.instance = 2;
             reportMetric(inp);
           },
-          buildInpOptions(flags, 2),
+          buildObserverOptions(OBSERVER_RECIPES.inp, flags, 2),
         );
       }
     })();

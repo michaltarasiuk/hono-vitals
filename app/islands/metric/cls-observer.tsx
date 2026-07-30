@@ -6,7 +6,7 @@ import { reportMetric } from "@/lib/collect/report-metric";
 import { isDefined } from "@/lib/is-defined";
 import { createBatchReporter } from "@/lib/metric/batch-reporter";
 import { loadWebVitals } from "@/lib/metric/load-web-vitals";
-import { buildClsOptions } from "@/lib/metric/observer-options";
+import { buildObserverOptions, OBSERVER_RECIPES } from "@/lib/metric/observer-options";
 
 export function ClsObserver({ flags }: { flags: ClsFlags }) {
   useEffect(() => {
@@ -35,7 +35,7 @@ export function ClsObserver({ flags }: { flags: ClsFlags }) {
             reportMetric(cls);
           }
         },
-        buildClsOptions(flags, 1),
+        buildObserverOptions(OBSERVER_RECIPES.cls, flags, 1),
       );
 
       if (flags.secondObserver) {
@@ -44,7 +44,7 @@ export function ClsObserver({ flags }: { flags: ClsFlags }) {
             cls.instance = 2;
             reportMetric(cls);
           },
-          buildClsOptions(flags, 2),
+          buildObserverOptions(OBSERVER_RECIPES.cls, flags, 2),
         );
       }
     })();

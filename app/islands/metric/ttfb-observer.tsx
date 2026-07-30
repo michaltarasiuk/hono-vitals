@@ -4,7 +4,7 @@ import type { TtfbFlags } from "@/lib/metric/flags/ttfb";
 
 import { reportMetric } from "@/lib/collect/report-metric";
 import { loadWebVitals } from "@/lib/metric/load-web-vitals";
-import { buildTtfbOptions } from "@/lib/metric/observer-options";
+import { buildObserverOptions, OBSERVER_RECIPES } from "@/lib/metric/observer-options";
 import { overrideResponseStart } from "@/lib/metric/override-response-start";
 
 export function TtfbObserver({ flags }: { flags: TtfbFlags }) {
@@ -33,7 +33,7 @@ export function TtfbObserver({ flags }: { flags: TtfbFlags }) {
           ttfb.instance = 1;
           reportMetric(ttfb);
         },
-        buildTtfbOptions(flags, 1),
+        buildObserverOptions(OBSERVER_RECIPES.ttfb, flags, 1),
       );
 
       if (flags.secondObserver) {
@@ -42,7 +42,7 @@ export function TtfbObserver({ flags }: { flags: TtfbFlags }) {
             ttfb.instance = 2;
             reportMetric(ttfb);
           },
-          buildTtfbOptions(flags, 2),
+          buildObserverOptions(OBSERVER_RECIPES.ttfb, flags, 2),
         );
       }
     })();
