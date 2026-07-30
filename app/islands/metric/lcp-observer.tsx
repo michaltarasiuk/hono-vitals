@@ -6,7 +6,7 @@ import { reportMetric } from "@/lib/collect/report-metric";
 import { isDefined } from "@/lib/is-defined";
 import { createBatchReporter } from "@/lib/metric/batch-reporter";
 import { loadWebVitals } from "@/lib/metric/load-web-vitals";
-import { buildLcpOptions } from "@/lib/metric/observer-options";
+import { buildObserverOptions, OBSERVER_RECIPES } from "@/lib/metric/observer-options";
 import { removeLcpElement } from "@/lib/metric/remove-lcp-element";
 
 export function LcpObserver({ flags }: { flags: LcpFlags }) {
@@ -45,7 +45,7 @@ export function LcpObserver({ flags }: { flags: LcpFlags }) {
               reportMetric(lcp);
             }
           },
-          buildLcpOptions(flags, 1),
+          buildObserverOptions(OBSERVER_RECIPES.lcp, flags, 1),
         );
       }
 
@@ -65,7 +65,7 @@ export function LcpObserver({ flags }: { flags: LcpFlags }) {
             lcp.instance = 2;
             reportMetric(lcp);
           },
-          buildLcpOptions(flags, 2),
+          buildObserverOptions(OBSERVER_RECIPES.lcp, flags, 2),
         );
       }
     })();

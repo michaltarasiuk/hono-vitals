@@ -4,7 +4,7 @@ import type { FcpFlags } from "@/lib/metric/flags/fcp";
 
 import { reportMetric } from "@/lib/collect/report-metric";
 import { loadWebVitals } from "@/lib/metric/load-web-vitals";
-import { buildFcpOptions } from "@/lib/metric/observer-options";
+import { buildObserverOptions, OBSERVER_RECIPES } from "@/lib/metric/observer-options";
 
 export function FcpObserver({ flags }: { flags: FcpFlags }) {
   useEffect(() => {
@@ -26,7 +26,7 @@ export function FcpObserver({ flags }: { flags: FcpFlags }) {
           fcp.instance = 1;
           reportMetric(fcp);
         },
-        buildFcpOptions(flags, 1),
+        buildObserverOptions(OBSERVER_RECIPES.fcp, flags, 1),
       );
 
       if (flags.secondObserver) {
@@ -35,7 +35,7 @@ export function FcpObserver({ flags }: { flags: FcpFlags }) {
             fcp.instance = 2;
             reportMetric(fcp);
           },
-          buildFcpOptions(flags, 2),
+          buildObserverOptions(OBSERVER_RECIPES.fcp, flags, 2),
         );
       }
     })();

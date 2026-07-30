@@ -1,65 +1,58 @@
-import type { ClsFlags } from "@/lib/metric/flags/cls";
-import type {
-  BaseFlags,
-  GenerateTargetFlags,
-} from "@/lib/metric/flags/defaults";
-import type { FcpFlags } from "@/lib/metric/flags/fcp";
-import type { InpFlags } from "@/lib/metric/flags/inp";
-import type { LcpFlags } from "@/lib/metric/flags/lcp";
-import type { TtfbFlags } from "@/lib/metric/flags/ttfb";
+export type ObserverInstance = 1 | 2;
 
-type ObserverInstance = 1 | 2;
+type ObserverOption =
+  "durationThreshold" | "generateTarget" | "includeProcessedEventEntries";
 
-type ReportAllChangesFlags = Pick<
-  BaseFlags,
-  "reportAllChanges" | "reportAllChanges2"
->;
+export const OBSERVER_RECIPES = {
+  cls: ["generateTarget"],
+  fcp: [],
+  inp: ["generateTarget", "durationThreshold", "includeProcessedEventEntries"],
+  lcp: ["generateTarget"],
+  ttfb: [],
+} as const satisfies Record<string, readonly ObserverOption[]>;
 
-type TargetMetricFlags = ReportAllChangesFlags & GenerateTargetFlags;
-
-export function buildClsOptions(
-  flags: ClsFlags,
-  instance: ObserverInstance = 1,
-) {
-  return buildTargetMetricOptions(flags, instance);
+interface ObserverFlagsInput {
+  reportAllChanges: boolean;
+  reportAllChanges2: boolean;
+  generateTarget?: boolean;
+  generateTarget2?: boolean;
+  durationThreshold?: number;
+  durationThreshold2?: number;
+  includeProcessedEventEntries?: boolean;
 }
 
-export function buildFcpOptions(
-  flags: FcpFlags,
+export function buildObserverOptions(
+  recipe: readonly ObserverOption[],
+  flags: ObserverFlagsInput,
   instance: ObserverInstance = 1,
 ) {
-  return buildReportAllChangesOptions(flags, instance);
-}
-
-export function buildInpOptions(
-  flags: InpFlags,
-  instance: ObserverInstance = 1,
-) {
-  const durationThresholdKey = instanceKey("durationThreshold", instance);
-
-  return {
-    ...buildTargetMetricOptions(flags, instance),
-    ...(hasQueryFlag(durationThresholdKey)
-      ? { durationThreshold: flags[durationThresholdKey] }
-      : {}),
-    ...(flags.includeProcessedEventEntries
-      ? { includeProcessedEventEntries: true }
-      : {}),
+  const options: Record<string, unknown> = {
+    reportAllChanges: flags[instanceKey("reportAllChanges", instance)],
   };
-}
 
-export function buildLcpOptions(
-  flags: LcpFlags,
-  instance: ObserverInstance = 1,
-) {
-  return buildTargetMetricOptions(flags, instance);
-}
+  if (
+    recipe.includes("generateTarget") &&
+    flags[instanceKey("generateTarget", instance)]
+  ) {
+    options.generateTarget = generateTarget;
+  }
 
-export function buildTtfbOptions(
-  flags: TtfbFlags,
-  instance: ObserverInstance = 1,
-) {
-  return buildReportAllChangesOptions(flags, instance);
+  if (recipe.includes("durationThreshold")) {
+    const durationThresholdKey = instanceKey("durationThreshold", instance);
+
+    if (hasQueryFlag(durationThresholdKey)) {
+      options.durationThreshold = flags[durationThresholdKey];
+    }
+  }
+
+  if (
+    recipe.includes("includeProcessedEventEntries") &&
+    flags.includeProcessedEventEntries
+  ) {
+    options.includeProcessedEventEntries = true;
+  }
+
+  return options;
 }
 
 function instanceKey<K extends string>(key: K, instance: ObserverInstance) {
@@ -70,30 +63,9 @@ function hasQueryFlag(name: string) {
   return new URLSearchParams(window.location.search).has(name);
 }
 
-function buildReportAllChangesOptions(
-  flags: ReportAllChangesFlags,
-  instance: ObserverInstance,
-) {
-  return {
-    reportAllChanges: flags[instanceKey("reportAllChanges", instance)],
-  };
-}
-
 function generateTarget(node: Node | null) {
   if (!(node instanceof HTMLElement)) {
     return;
   }
   return node.dataset.target;
-}
-
-function buildTargetMetricOptions(
-  flags: TargetMetricFlags,
-  instance: ObserverInstance,
-) {
-  return {
-    ...buildReportAllChangesOptions(flags, instance),
-    ...(flags[instanceKey("generateTarget", instance)]
-      ? { generateTarget }
-      : {}),
-  };
 }
