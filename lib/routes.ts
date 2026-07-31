@@ -1,11 +1,10 @@
-import { METRIC_NAMES } from "@/lib/collect/metric-schema";
-
 export const ROUTES = [
   { label: "Metrics", href: "/" },
-  ...METRIC_NAMES.map((name) => ({
-    label: name,
-    href: `/metric/${name.toLowerCase()}`,
-  })),
+  { label: "CLS", href: "/metric/cls" },
+  { label: "FCP", href: "/metric/fcp" },
+  { label: "INP", href: "/metric/inp" },
+  { label: "LCP", href: "/metric/lcp" },
+  { label: "TTFB", href: "/metric/ttfb" },
 ] as const;
 
 export type Route = (typeof ROUTES)[number];
