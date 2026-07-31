@@ -1,4 +1,4 @@
-import { MetricSquare } from "@/app/components/metric/metric-square";
+import { SquareImage } from "@/app/components/metric/square-image";
 import { Heading } from "@/app/components/ui/heading/heading";
 import { Text } from "@/app/components/ui/text/text";
 import { FcpObserver } from "@/app/islands/metric/fcp-observer";
@@ -13,7 +13,7 @@ function FcpContent({ flags }: { flags: FcpFlags }) {
     <>
       <Heading elementtiming="main-heading">FCP Test</Heading>
       <Text>
-        <MetricSquare
+        <SquareImage
           elementtiming="main-image"
           delay={flags.imgDelay}
           hidden={flags.imgHidden}

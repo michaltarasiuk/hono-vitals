@@ -1,4 +1,5 @@
-import { MetricSquare } from "@/app/components/metric/metric-square";
+import { FullHeight } from "@/app/components/metric/full-height";
+import { SquareImage } from "@/app/components/metric/square-image";
 import { Heading } from "@/app/components/ui/heading/heading";
 import { Text } from "@/app/components/ui/text/text";
 import { LcpObserver } from "@/app/islands/metric/lcp-observer";
@@ -13,7 +14,7 @@ function LcpContent({ flags }: { flags: LcpFlags }) {
     <>
       <Heading elementtiming="main-heading">LCP Test</Heading>
       <Text>
-        <MetricSquare
+        <SquareImage
           id={flags.removeElement ? "lcp-image" : undefined}
           data-target="main-image"
           elementtiming="main-image"
@@ -22,7 +23,7 @@ function LcpContent({ flags }: { flags: LcpFlags }) {
         />
       </Text>
       <Text>Text below the image</Text>
-      <div style={{ height: "100vh" }} />
+      <FullHeight />
       <Text>Text below the full-height element.</Text>
     </>
   );

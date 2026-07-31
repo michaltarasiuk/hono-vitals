@@ -1,14 +1,14 @@
 import { isDefined } from "@/lib/is-defined";
 
-interface MetricSquareProps extends Omit<React.ComponentProps<"img">, "src"> {
+interface SquareImageProps extends Omit<React.ComponentProps<"img">, "src"> {
   delay?: number;
 }
 
-export function MetricSquare({
+export function SquareImage({
   delay,
   alt = "Gray square",
   ...props
-}: MetricSquareProps) {
+}: SquareImageProps) {
   let src = "/public/square.png";
   if (isDefined(delay)) {
     src += `?delay=${delay}`;
