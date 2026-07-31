@@ -1,3 +1,4 @@
+import { MetricSquare } from "@/app/components/metric/metric-square";
 import { Heading } from "@/app/components/ui/heading/heading";
 import { Text } from "@/app/components/ui/text/text";
 import { LcpObserver } from "@/app/islands/metric/lcp-observer";
@@ -9,13 +10,12 @@ function LcpContent({ flags }: { flags: LcpFlags }) {
     <>
       <Heading elementtiming="main-heading">LCP Test</Heading>
       <Text>
-        <img
-          src={`/public/square.png?delay=${flags.imgDelay}`}
-          alt="Gray square"
+        <MetricSquare
+          delay={flags.imgDelay}
+          id={flags.removeElement ? "lcp-image" : undefined}
           data-target="main-image"
           elementtiming="main-image"
           hidden={flags.imgHidden}
-          {...(flags.removeElement ? { id: "lcp-image" } : {})}
         />
       </Text>
       <Text>Text below the image</Text>
