@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-import type { ClsFlags } from "@/lib/metric/flags/cls";
+import type { ClsFlags } from "@/lib/metric/flags/defaults/cls";
 
 import { reportMetric } from "@/lib/collect/report-metric";
 import { isDefined } from "@/lib/is-defined";

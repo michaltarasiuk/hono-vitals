@@ -2,7 +2,7 @@ import { Heading } from "@/app/components/ui/heading/heading";
 import { Text } from "@/app/components/ui/text/text";
 import { InpBlockingControls } from "@/app/islands/metric/inp-observer";
 import { defineMetric } from "@/lib/metric/define-metric";
-import { INP_FLAGS_DEFAULTS } from "@/lib/metric/flags/inp";
+import { INP_FLAGS_DEFAULTS } from "@/lib/metric/flags/defaults/inp";
 
 function InpContent() {
   return (

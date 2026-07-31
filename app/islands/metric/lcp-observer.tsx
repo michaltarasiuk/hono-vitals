@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-import type { LcpFlags } from "@/lib/metric/flags/lcp";
+import type { LcpFlags } from "@/lib/metric/flags/defaults/lcp";
 
 import { reportMetric } from "@/lib/collect/report-metric";
 import { isDefined } from "@/lib/is-defined";

@@ -3,7 +3,10 @@ import { Heading } from "@/app/components/ui/heading/heading";
 import { Text } from "@/app/components/ui/text/text";
 import { FcpObserver } from "@/app/islands/metric/fcp-observer";
 import { defineMetric } from "@/lib/metric/define-metric";
-import { FCP_FLAGS_DEFAULTS, type FcpFlags } from "@/lib/metric/flags/fcp";
+import {
+  FCP_FLAGS_DEFAULTS,
+  type FcpFlags,
+} from "@/lib/metric/flags/defaults/fcp";
 
 function FcpContent({ flags }: { flags: FcpFlags }) {
   return (

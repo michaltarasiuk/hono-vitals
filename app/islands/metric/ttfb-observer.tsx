@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-import type { TtfbFlags } from "@/lib/metric/flags/ttfb";
+import type { TtfbFlags } from "@/lib/metric/flags/defaults/ttfb";
 
 import { reportMetric } from "@/lib/collect/report-metric";
 import { loadWebVitals } from "@/lib/metric/load-web-vitals";

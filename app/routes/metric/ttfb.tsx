@@ -3,7 +3,10 @@ import { Heading } from "@/app/components/ui/heading/heading";
 import { Text } from "@/app/components/ui/text/text";
 import { TtfbObserver } from "@/app/islands/metric/ttfb-observer";
 import { defineMetric } from "@/lib/metric/define-metric";
-import { TTFB_FLAGS_DEFAULTS, type TtfbFlags } from "@/lib/metric/flags/ttfb";
+import {
+  TTFB_FLAGS_DEFAULTS,
+  type TtfbFlags,
+} from "@/lib/metric/flags/defaults/ttfb";
 
 function TtfbContent({ flags }: { flags: TtfbFlags }) {
   return (
