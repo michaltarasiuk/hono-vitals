@@ -21,7 +21,7 @@ function ClsContent({ flags }: { flags: ClsFlags }) {
               elementtiming="main-image"
               delay={500}
               hidden={flags.imgHidden}
-            />
+            />{" "}
             [text node contents]
           </Text>
           <Text data-target="secondary-image-wrapper">
