@@ -1,7 +1,7 @@
 import build from "@hono/vite-build/bun";
 import adapter from "@hono/vite-dev-server/bun";
 import honox from "honox/vite";
-import { CSSOptions, defineConfig } from "vite";
+import { defineConfig, type CSSOptions } from "vite";
 
 export default defineConfig(({ command, mode }) => {
   const css: CSSOptions = {
@@ -16,23 +16,27 @@ export default defineConfig(({ command, mode }) => {
   if (mode === "client") {
     return {
       css,
+      publicDir: false,
       resolve: {
         alias: {
           "@": import.meta.dirname,
         },
       },
       build: {
+        emptyOutDir: true,
         rollupOptions: {
           input: ["./app/client.ts", "./app/styles/global.css"],
         },
         manifest: true,
-        emptyOutDir: false,
       },
     };
   }
   return {
     css,
-    publicDir: false,
+    // Avoid `publicDir: false`: Vite resolves that to "" and @hono/vite-build
+    // would scan the repo root for serveStatic paths. Copy is handled by
+    // `cp -r public dist/public` after build.
+    publicDir: "public",
     // Keep real process.env only in the production SSR bundle (honox#307).
     // Do not apply in dev: @vite/client loads env.mjs in the browser and would
     // evaluate `process.env` from this define, causing ReferenceError.
@@ -55,16 +59,18 @@ export default defineConfig(({ command, mode }) => {
         "@duckdb/node-bindings",
       ],
     },
+    build: {
+      copyPublicDir: false,
+    },
     plugins: [
       honox({
-        client: {
-          input: ["/app/client.ts", "/app/styles/global.css"],
-        },
         devServer: {
           adapter,
         },
       }),
-      build(),
+      build({
+        staticRoot: "./dist",
+      }),
     ],
   };
 });
