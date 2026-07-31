@@ -38,11 +38,8 @@ export function buildObserverOptions(
   }
 
   if (recipe.includes("durationThreshold")) {
-    const durationThresholdKey = instanceKey("durationThreshold", instance);
-
-    if (hasQueryFlag(durationThresholdKey)) {
-      options.durationThreshold = flags[durationThresholdKey];
-    }
+    options.durationThreshold =
+      flags[instanceKey("durationThreshold", instance)];
   }
 
   if (
@@ -57,10 +54,6 @@ export function buildObserverOptions(
 
 function instanceKey<K extends string>(key: K, instance: ObserverInstance) {
   return (instance === 1 ? key : `${key}2`) as K | `${K}2`;
-}
-
-function hasQueryFlag(name: string) {
-  return new URLSearchParams(window.location.search).has(name);
 }
 
 function generateTarget(node: Node | null) {
