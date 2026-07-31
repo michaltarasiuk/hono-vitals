@@ -14,7 +14,15 @@
 
   --page-max-width: 64rem;
   --page-inline-padding: clamp(1.25rem, 4vw, 2rem);
+
+  --breakpoint-sm: 36rem;
+  --breakpoint-md: 40rem;
+  --breakpoint-lg: 56rem;
 }
+
+@custom-media --breakpoint-sm (width >= 36rem);
+@custom-media --breakpoint-md (width >= 40rem);
+@custom-media --breakpoint-lg (width >= 56rem);
 
 @media (prefers-color-scheme: dark) {
   :root {

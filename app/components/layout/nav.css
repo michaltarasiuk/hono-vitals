@@ -136,7 +136,7 @@
   flex-shrink: 0;
 }
 
-@media (width >= 40rem) {
+@media (--breakpoint-md) {
   .NavDesktop {
     display: flex;
   }
