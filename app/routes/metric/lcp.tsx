@@ -11,10 +11,10 @@ function LcpContent({ flags }: { flags: LcpFlags }) {
       <Heading elementtiming="main-heading">LCP Test</Heading>
       <Text>
         <MetricSquare
-          delay={flags.imgDelay}
           id={flags.removeElement ? "lcp-image" : undefined}
           data-target="main-image"
           elementtiming="main-image"
+          delay={flags.imgDelay}
           hidden={flags.imgHidden}
         />
       </Text>

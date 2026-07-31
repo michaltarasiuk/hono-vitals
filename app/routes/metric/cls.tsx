@@ -15,16 +15,16 @@ function ClsContent({ flags }: { flags: ClsFlags }) {
         <>
           <Text>
             <MetricSquare
-              delay={500}
               elementtiming="main-image"
+              delay={500}
               hidden={flags.imgHidden}
             />
             [text node contents]
           </Text>
           <Text data-target="secondary-image-wrapper">
             <MetricSquare
-              delay={1000}
               elementtiming="secondary-image"
+              delay={1000}
               hidden={flags.img2Hidden}
             />
           </Text>

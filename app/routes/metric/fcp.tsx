@@ -11,8 +11,8 @@ function FcpContent({ flags }: { flags: FcpFlags }) {
       <Heading elementtiming="main-heading">FCP Test</Heading>
       <Text>
         <MetricSquare
-          delay={flags.imgDelay}
           elementtiming="main-image"
+          delay={flags.imgDelay}
           hidden={flags.imgHidden}
         />
       </Text>
