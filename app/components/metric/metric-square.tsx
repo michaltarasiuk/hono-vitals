@@ -1,3 +1,5 @@
+import { isDefined } from "@/lib/is-defined";
+
 interface MetricSquareProps extends Omit<React.ComponentProps<"img">, "src"> {
   delay?: number;
 }
@@ -7,8 +9,10 @@ export function MetricSquare({
   alt = "Gray square",
   ...props
 }: MetricSquareProps) {
-  const src =
-    delay == null ? "/public/square.png" : `/public/square.png?delay=${delay}`;
+  let src = "/public/square.png";
+  if (isDefined(delay)) {
+    src += `?delay=${delay}`;
+  }
 
   return <img src={src} alt={alt} {...props} />;
 }
