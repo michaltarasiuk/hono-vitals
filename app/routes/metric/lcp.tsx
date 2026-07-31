@@ -3,7 +3,10 @@ import { Heading } from "@/app/components/ui/heading/heading";
 import { Text } from "@/app/components/ui/text/text";
 import { LcpObserver } from "@/app/islands/metric/lcp-observer";
 import { defineMetric } from "@/lib/metric/define-metric";
-import { LCP_FLAGS_DEFAULTS, type LcpFlags } from "@/lib/metric/flags/lcp";
+import {
+  LCP_FLAGS_DEFAULTS,
+  type LcpFlags,
+} from "@/lib/metric/flags/defaults/lcp";
 
 function LcpContent({ flags }: { flags: LcpFlags }) {
   return (

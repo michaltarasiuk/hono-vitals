@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import type { InpFlags } from "@/lib/metric/flags/inp";
+import type { InpFlags } from "@/lib/metric/flags/defaults/inp";
 
 import { Button } from "@/app/components/ui/button/button";
 import { NumberField } from "@/app/components/ui/number-field/number-field";

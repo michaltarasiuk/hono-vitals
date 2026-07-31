@@ -1,7 +1,6 @@
-import type { Flags } from "./schema";
+import type { Flags, ParsedFlags } from "../schema";
 
-import { BASE_FLAGS_DEFAULTS } from "./defaults";
-import { type ParsedFlags } from "./schema";
+import { BASE_FLAGS_DEFAULTS } from "./base";
 
 export const TTFB_FLAGS_DEFAULTS = {
   ...BASE_FLAGS_DEFAULTS,

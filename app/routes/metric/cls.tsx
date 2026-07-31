@@ -3,7 +3,10 @@ import { Heading } from "@/app/components/ui/heading/heading";
 import { Text } from "@/app/components/ui/text/text";
 import { ClsObserver } from "@/app/islands/metric/cls-observer";
 import { defineMetric } from "@/lib/metric/define-metric";
-import { CLS_FLAGS_DEFAULTS, type ClsFlags } from "@/lib/metric/flags/cls";
+import {
+  CLS_FLAGS_DEFAULTS,
+  type ClsFlags,
+} from "@/lib/metric/flags/defaults/cls";
 
 function ClsContent({ flags }: { flags: ClsFlags }) {
   return (

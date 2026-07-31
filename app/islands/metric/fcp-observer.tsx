@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-import type { FcpFlags } from "@/lib/metric/flags/fcp";
+import type { FcpFlags } from "@/lib/metric/flags/defaults/fcp";
 
 import { reportMetric } from "@/lib/collect/report-metric";
 import { loadWebVitals } from "@/lib/metric/load-web-vitals";
