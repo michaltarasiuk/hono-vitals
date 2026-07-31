@@ -45,7 +45,7 @@
   display: inline;
 }
 
-@media (width >= 40rem) {
+@media (--breakpoint-md) {
   .ToolbarActions .Button {
     min-height: unset;
   }

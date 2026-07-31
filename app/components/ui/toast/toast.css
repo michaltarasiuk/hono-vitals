@@ -8,7 +8,7 @@
   left: auto;
   top: auto;
 
-  @media (min-width: 500px) {
+  @media (--breakpoint-sm) {
     bottom: 2rem;
     right: 2rem;
     width: 22.5rem;

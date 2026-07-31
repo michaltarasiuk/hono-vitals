@@ -1,11 +1,21 @@
 import build from "@hono/vite-build/bun";
 import adapter from "@hono/vite-dev-server/bun";
 import honox from "honox/vite";
-import { defineConfig } from "vite";
+import { CSSOptions, defineConfig } from "vite";
 
 export default defineConfig(({ command, mode }) => {
+  const css: CSSOptions = {
+    transformer: "lightningcss",
+    lightningcss: {
+      drafts: {
+        customMedia: true,
+      },
+    },
+  };
+
   if (mode === "client") {
     return {
+      css,
       resolve: {
         alias: {
           "@": import.meta.dirname,
@@ -21,6 +31,7 @@ export default defineConfig(({ command, mode }) => {
     };
   }
   return {
+    css,
     publicDir: false,
     // Keep real process.env only in the production SSR bundle (honox#307).
     // Do not apply in dev: @vite/client loads env.mjs in the browser and would
