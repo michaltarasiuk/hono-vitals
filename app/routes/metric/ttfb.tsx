@@ -11,8 +11,8 @@ function TtfbContent({ flags }: { flags: TtfbFlags }) {
       <Heading elementtiming="main-heading">TTFB Test</Heading>
       <Text>
         <MetricSquare
-          delay={flags.imgDelay}
           elementtiming="main-image"
+          delay={flags.imgDelay}
           hidden={flags.imgHidden}
         />
       </Text>
