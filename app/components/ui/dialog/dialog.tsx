@@ -48,7 +48,11 @@ function Popup({
   );
 }
 
-function Header({ className, children, ...props }: React.ComponentProps<"div">) {
+function Header({
+  className,
+  children,
+  ...props
+}: React.ComponentProps<"div">) {
   return (
     <div className={className ? `Header ${className}` : "Header"} {...props}>
       {children}

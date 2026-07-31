@@ -4,7 +4,10 @@ import type { FcpFlags } from "@/lib/metric/flags/defaults/fcp";
 
 import { reportMetric } from "@/lib/collect/report-metric";
 import { loadWebVitals } from "@/lib/metric/load-web-vitals";
-import { buildObserverOptions, OBSERVER_RECIPES } from "@/lib/metric/observer-options";
+import {
+  buildObserverOptions,
+  OBSERVER_RECIPES,
+} from "@/lib/metric/observer-options";
 
 export function FcpObserver({ flags }: { flags: FcpFlags }) {
   useEffect(() => {
