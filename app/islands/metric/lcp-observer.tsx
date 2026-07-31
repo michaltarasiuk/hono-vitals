@@ -6,7 +6,10 @@ import { reportMetric } from "@/lib/collect/report-metric";
 import { isDefined } from "@/lib/is-defined";
 import { createBatchReporter } from "@/lib/metric/batch-reporter";
 import { loadWebVitals } from "@/lib/metric/load-web-vitals";
-import { buildObserverOptions, OBSERVER_RECIPES } from "@/lib/metric/observer-options";
+import {
+  buildObserverOptions,
+  OBSERVER_RECIPES,
+} from "@/lib/metric/observer-options";
 import { removeLcpElement } from "@/lib/metric/remove-lcp-element";
 
 export function LcpObserver({ flags }: { flags: LcpFlags }) {
