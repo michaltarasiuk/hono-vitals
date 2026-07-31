@@ -104,10 +104,7 @@ function DelayedScripts() {
         />
       ) : null}
       {delayLoad > 0 ? (
-        <script
-          src={`/public/metric/delay-load.js?delay=${delayLoad}`}
-          async
-        />
+        <script src={`/public/metric/delay-load.js?delay=${delayLoad}`} async />
       ) : null}
     </>
   );

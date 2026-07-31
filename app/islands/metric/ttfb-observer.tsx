@@ -4,7 +4,10 @@ import type { TtfbFlags } from "@/lib/metric/flags/defaults/ttfb";
 
 import { reportMetric } from "@/lib/collect/report-metric";
 import { loadWebVitals } from "@/lib/metric/load-web-vitals";
-import { buildObserverOptions, OBSERVER_RECIPES } from "@/lib/metric/observer-options";
+import {
+  buildObserverOptions,
+  OBSERVER_RECIPES,
+} from "@/lib/metric/observer-options";
 import { overrideResponseStart } from "@/lib/metric/override-response-start";
 
 export function TtfbObserver({ flags }: { flags: TtfbFlags }) {

@@ -14,7 +14,10 @@ import {
   type InpBlockingEventName,
 } from "@/lib/metric/inp-blocking";
 import { loadWebVitals } from "@/lib/metric/load-web-vitals";
-import { buildObserverOptions, OBSERVER_RECIPES } from "@/lib/metric/observer-options";
+import {
+  buildObserverOptions,
+  OBSERVER_RECIPES,
+} from "@/lib/metric/observer-options";
 
 function initialBlockingTimes(flags: InpFlags) {
   const blockingTimes = {} as Record<InpBlockingEventName, number>;
