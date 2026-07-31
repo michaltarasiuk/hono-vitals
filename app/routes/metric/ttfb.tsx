@@ -1,3 +1,4 @@
+import { MetricSquare } from "@/app/components/metric/metric-square";
 import { Heading } from "@/app/components/ui/heading/heading";
 import { Text } from "@/app/components/ui/text/text";
 import { TtfbObserver } from "@/app/islands/metric/ttfb-observer";
@@ -9,9 +10,8 @@ function TtfbContent({ flags }: { flags: TtfbFlags }) {
     <>
       <Heading elementtiming="main-heading">TTFB Test</Heading>
       <Text>
-        <img
-          src={`/public/square.png?delay=${flags.imgDelay}`}
-          alt="Gray square"
+        <MetricSquare
+          delay={flags.imgDelay}
           elementtiming="main-image"
           hidden={flags.imgHidden}
         />

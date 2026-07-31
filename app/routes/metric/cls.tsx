@@ -1,3 +1,4 @@
+import { MetricSquare } from "@/app/components/metric/metric-square";
 import { Heading } from "@/app/components/ui/heading/heading";
 import { Text } from "@/app/components/ui/text/text";
 import { ClsObserver } from "@/app/islands/metric/cls-observer";
@@ -13,18 +14,16 @@ function ClsContent({ flags }: { flags: ClsFlags }) {
       ) : (
         <>
           <Text>
-            <img
-              src="/public/square.png?delay=500"
-              alt="Gray square"
+            <MetricSquare
+              delay={500}
               elementtiming="main-image"
               hidden={flags.imgHidden}
             />
             [text node contents]
           </Text>
           <Text data-target="secondary-image-wrapper">
-            <img
-              src="/public/square.png?delay=1000"
-              alt="Gray square"
+            <MetricSquare
+              delay={1000}
               elementtiming="secondary-image"
               hidden={flags.img2Hidden}
             />
