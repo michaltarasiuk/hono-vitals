@@ -16,7 +16,7 @@ export default reactRenderer(({ children }) => {
           type="font/woff2"
           crossOrigin="anonymous"
         />
-        <Link href="/public/favicon.svg" rel="icon" type="image/svg+xml" />
+        <link rel="icon" href="/public/favicon.svg" type="image/svg+xml" />
         {import.meta.env.DEV ? (
           <style dangerouslySetInnerHTML={{ __html: devStyles }} />
         ) : (
