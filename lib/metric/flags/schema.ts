@@ -7,7 +7,9 @@ export type FlagValue = boolean | number;
 export type Flags = Record<string, FlagValue>;
 
 export function queryBooleanDefault(defaultValue: boolean) {
-  return z.coerce.boolean().prefault(defaultValue);
+  return z
+    .stringbool({ truthy: ["true"], falsy: ["false"] })
+    .prefault(String(defaultValue));
 }
 
 export function queryNumberDefault(defaultValue: number) {
