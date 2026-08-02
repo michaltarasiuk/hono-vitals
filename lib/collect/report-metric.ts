@@ -28,10 +28,23 @@ export function reportMetrics(reported: ReportedMetric[]) {
     replacer,
   );
 
-  navigator.sendBeacon(
-    "/collect",
-    new Blob([body], { type: "application/json" }),
-  );
+  sendCollect(body);
+}
+
+function sendCollect(body: string) {
+  const payload = new Blob([body], { type: "application/json" });
+
+  if (navigator.sendBeacon("/collect", payload)) {
+    return;
+  }
+
+  void fetch("/collect", {
+    method: "POST",
+    body: payload,
+    keepalive: true,
+  }).catch(() => {
+    // Ignore reject when the document is unloading.
+  });
 }
 
 function logMetric({ metric, instance }: ReportedMetric) {
