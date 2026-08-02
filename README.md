@@ -4,11 +4,12 @@ A local playground for exercising [web-vitals](https://github.com/GoogleChrome/w
 
 ## Prerequisites
 
-- [Bun](https://bun.sh) (runtime + package manager)
+- [mise](https://mise.jdx.dev) (pins Bun via `mise.toml`)
 
 ## Setup
 
 ```bash
+mise install
 bun install
 cp .env.example .env
 bun run duckdb:init
