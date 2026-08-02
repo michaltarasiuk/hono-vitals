@@ -28,19 +28,23 @@ const EMPTY_METRIC_SUMMARY = {
   poor: 0,
 } as const satisfies Omit<MetricSummary, "name">;
 
-export async function insertMetric(metric: Metric) {
+export async function insertMetrics(metrics: Metric[]) {
+  if (metrics.length === 0) {
+    return;
+  }
+
   await sql`
     INSERT OR IGNORE INTO ${metricsTable} (${metricsInsertColumns})
-    VALUES ${sql.values([
-      [
+    VALUES ${sql.values(
+      metrics.map((metric) => [
         metric.id,
         metric.name,
         metric.value,
         metric.delta,
         metric.rating,
         metric.navigationType,
-      ],
-    ])}
+      ]),
+    )}
   `;
 }
 

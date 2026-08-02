@@ -9,17 +9,29 @@ export interface ReportedMetric {
   instance: ObserverInstance;
 }
 
-export function reportMetric({ metric, instance }: ReportedMetric) {
-  logMetric({ metric, instance });
+export function reportMetric(reported: ReportedMetric) {
+  reportMetrics([reported]);
+}
 
-  const body = JSON.stringify({ metric }, replacer);
+export function reportMetrics(reported: ReportedMetric[]) {
+  if (reported.length === 0) {
+    return;
+  }
+
+  for (const item of reported) {
+    logMetric(item);
+    toastMetric(item.metric);
+  }
+
+  const body = JSON.stringify(
+    { metrics: reported.map(({ metric }) => metric) },
+    replacer,
+  );
 
   navigator.sendBeacon(
     "/collect",
     new Blob([body], { type: "application/json" }),
   );
-
-  toastMetric(metric);
 }
 
 function logMetric({ metric, instance }: ReportedMetric) {
