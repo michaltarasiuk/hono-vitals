@@ -2,7 +2,12 @@ import { useEffect } from "react";
 
 import type { FcpFlags } from "@/lib/metric/flags/defaults/fcp";
 
-import { reportMetric } from "@/lib/collect/report-metric";
+import { type ReportedMetric, reportMetric } from "@/lib/collect/report-metric";
+import { isDefined } from "@/lib/is-defined";
+import {
+  createBatchReporter,
+  type BatchReporter,
+} from "@/lib/metric/batch-reporter";
 import { loadWebVitals } from "@/lib/metric/load-web-vitals";
 import {
   buildObserverOptions,
@@ -12,6 +17,7 @@ import {
 export function FcpObserver({ flags }: { flags: FcpFlags }) {
   useEffect(() => {
     let ignore = false;
+    let dispose: (() => void) | null = null;
 
     void (async () => {
       const { onFCP } = await loadWebVitals({
@@ -24,9 +30,21 @@ export function FcpObserver({ flags }: { flags: FcpFlags }) {
         return;
       }
 
+      let batch: BatchReporter | null = null;
+      if (flags.batchReporting) {
+        batch = createBatchReporter();
+        dispose = batch.dispose;
+      }
+
       onFCP(
         (metric) => {
-          reportMetric({ metric, instance: 1 });
+          const reported: ReportedMetric = { metric, instance: 1 };
+
+          if (isDefined(batch)) {
+            batch.enqueue(reported);
+          } else {
+            reportMetric(reported);
+          }
         },
         buildObserverOptions(OBSERVER_RECIPES.fcp, flags, 1),
       );
@@ -39,10 +57,15 @@ export function FcpObserver({ flags }: { flags: FcpFlags }) {
           buildObserverOptions(OBSERVER_RECIPES.fcp, flags, 2),
         );
       }
+
+      if (ignore) {
+        dispose?.();
+      }
     })();
 
     return () => {
       ignore = true;
+      dispose?.();
     };
   }, [flags]);
 
