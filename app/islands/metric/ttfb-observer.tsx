@@ -32,18 +32,16 @@ export function TtfbObserver({ flags }: { flags: TtfbFlags }) {
       }
 
       onTTFB(
-        (ttfb) => {
-          ttfb.instance = 1;
-          reportMetric(ttfb);
+        (metric) => {
+          reportMetric({ metric, instance: 1 });
         },
         buildObserverOptions(OBSERVER_RECIPES.ttfb, flags, 1),
       );
 
       if (flags.secondObserver) {
         onTTFB(
-          (ttfb) => {
-            ttfb.instance = 2;
-            reportMetric(ttfb);
+          (metric) => {
+            reportMetric({ metric, instance: 2 });
           },
           buildObserverOptions(OBSERVER_RECIPES.ttfb, flags, 2),
         );

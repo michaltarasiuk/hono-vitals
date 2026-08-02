@@ -25,18 +25,16 @@ export function FcpObserver({ flags }: { flags: FcpFlags }) {
       }
 
       onFCP(
-        (fcp) => {
-          fcp.instance = 1;
-          reportMetric(fcp);
+        (metric) => {
+          reportMetric({ metric, instance: 1 });
         },
         buildObserverOptions(OBSERVER_RECIPES.fcp, flags, 1),
       );
 
       if (flags.secondObserver) {
         onFCP(
-          (fcp) => {
-            fcp.instance = 2;
-            reportMetric(fcp);
+          (metric) => {
+            reportMetric({ metric, instance: 2 });
           },
           buildObserverOptions(OBSERVER_RECIPES.fcp, flags, 2),
         );

@@ -2,7 +2,10 @@ import { useEffect } from "react";
 
 import type { LcpFlags } from "@/lib/metric/flags/defaults/lcp";
 
-import { reportMetric } from "@/lib/collect/report-metric";
+import {
+  type ReportedMetric,
+  reportMetric,
+} from "@/lib/collect/report-metric";
 import { isDefined } from "@/lib/is-defined";
 import { createBatchReporter } from "@/lib/metric/batch-reporter";
 import { loadWebVitals } from "@/lib/metric/load-web-vitals";
@@ -39,13 +42,13 @@ export function LcpObserver({ flags }: { flags: LcpFlags }) {
 
       function registerLCP() {
         onLCP(
-          (lcp) => {
-            lcp.instance = 1;
+          (metric) => {
+            const reported: ReportedMetric = { metric, instance: 1 };
 
             if (isDefined(batch)) {
-              batch.enqueue(lcp);
+              batch.enqueue(reported);
             } else {
-              reportMetric(lcp);
+              reportMetric(reported);
             }
           },
           buildObserverOptions(OBSERVER_RECIPES.lcp, flags, 1),
@@ -64,9 +67,8 @@ export function LcpObserver({ flags }: { flags: LcpFlags }) {
 
       if (flags.secondObserver) {
         onLCP(
-          (lcp) => {
-            lcp.instance = 2;
-            reportMetric(lcp);
+          (metric) => {
+            reportMetric({ metric, instance: 2 });
           },
           buildObserverOptions(OBSERVER_RECIPES.lcp, flags, 2),
         );
