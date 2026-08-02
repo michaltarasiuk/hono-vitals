@@ -7,7 +7,7 @@ import {
   reportMetric,
 } from "@/lib/collect/report-metric";
 import { isDefined } from "@/lib/is-defined";
-import { createBatchReporter } from "@/lib/metric/batch-reporter";
+import { createBatchReporter, type BatchReporter } from "@/lib/metric/batch-reporter";
 import { loadWebVitals } from "@/lib/metric/load-web-vitals";
 import {
   buildObserverOptions,
@@ -18,6 +18,7 @@ import { removeLcpElement } from "@/lib/metric/remove-lcp-element";
 export function LcpObserver({ flags }: { flags: LcpFlags }) {
   useEffect(() => {
     let ignore = false;
+    let dispose: (() => void) | null = null;
 
     void (async () => {
       if (flags.removeElement) {
@@ -38,7 +39,13 @@ export function LcpObserver({ flags }: { flags: LcpFlags }) {
         return;
       }
 
-      const batch = flags.batchReporting ? createBatchReporter() : null;
+      let batch: BatchReporter | null = null;
+      const disposers: Array<() => void> = [];
+
+      if (flags.batchReporting) {
+        batch = createBatchReporter();
+        disposers.push(batch.dispose);
+      }
 
       function registerLCP() {
         onLCP(
@@ -56,10 +63,15 @@ export function LcpObserver({ flags }: { flags: LcpFlags }) {
       }
 
       if (flags.registerOnVisibilityChange) {
-        document.addEventListener("visibilitychange", () => {
+        function onVisibilityChange() {
           if (document.visibilityState === "visible") {
             registerLCP();
           }
+        }
+
+        document.addEventListener("visibilitychange", onVisibilityChange);
+        disposers.push(() => {
+          document.removeEventListener("visibilitychange", onVisibilityChange);
         });
       } else {
         registerLCP();
@@ -73,10 +85,21 @@ export function LcpObserver({ flags }: { flags: LcpFlags }) {
           buildObserverOptions(OBSERVER_RECIPES.lcp, flags, 2),
         );
       }
+
+      dispose = () => {
+        for (const disposeOne of disposers) {
+          disposeOne();
+        }
+      };
+
+      if (ignore) {
+        dispose();
+      }
     })();
 
     return () => {
       ignore = true;
+      dispose?.();
     };
   }, [flags]);
 
