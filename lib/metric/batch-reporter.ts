@@ -1,17 +1,15 @@
-import type { Metric } from "web-vitals";
-
-import { reportMetric } from "@/lib/collect/report-metric";
+import { type ReportedMetric, reportMetric } from "@/lib/collect/report-metric";
 
 export function createBatchReporter() {
-  const queue = new Set<Metric>();
+  const queue = new Set<ReportedMetric>();
 
-  function enqueue(metric: Metric) {
-    queue.add(metric);
+  function enqueue(reported: ReportedMetric) {
+    queue.add(reported);
   }
 
   function flush() {
-    for (const metric of queue) {
-      reportMetric(metric);
+    for (const reported of queue) {
+      reportMetric(reported);
     }
     queue.clear();
   }

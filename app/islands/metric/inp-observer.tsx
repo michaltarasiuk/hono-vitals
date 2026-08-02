@@ -4,7 +4,10 @@ import type { InpFlags } from "@/lib/metric/flags/defaults/inp";
 
 import { Button } from "@/app/components/ui/button/button";
 import { NumberField } from "@/app/components/ui/number-field/number-field";
-import { reportMetric } from "@/lib/collect/report-metric";
+import {
+  type ReportedMetric,
+  reportMetric,
+} from "@/lib/collect/report-metric";
 import { isDefined } from "@/lib/is-defined";
 import { createBatchReporter } from "@/lib/metric/batch-reporter";
 import {
@@ -59,13 +62,13 @@ export function InpBlockingControls({ flags }: { flags: InpFlags }) {
       const batch = flags.batchReporting ? createBatchReporter() : null;
 
       onINP(
-        (inp) => {
-          inp.instance = 1;
+        (metric) => {
+          const reported: ReportedMetric = { metric, instance: 1 };
 
           if (isDefined(batch)) {
-            batch.enqueue(inp);
+            batch.enqueue(reported);
           } else {
-            reportMetric(inp);
+            reportMetric(reported);
           }
         },
         buildObserverOptions(OBSERVER_RECIPES.inp, flags, 1),
@@ -73,9 +76,8 @@ export function InpBlockingControls({ flags }: { flags: InpFlags }) {
 
       if (flags.secondObserver) {
         onINP(
-          (inp) => {
-            inp.instance = 2;
-            reportMetric(inp);
+          (metric) => {
+            reportMetric({ metric, instance: 2 });
           },
           buildObserverOptions(OBSERVER_RECIPES.inp, flags, 2),
         );

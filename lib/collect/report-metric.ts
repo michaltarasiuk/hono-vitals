@@ -1,9 +1,16 @@
 import type { Metric } from "web-vitals";
 
+import type { ObserverInstance } from "@/lib/metric/observer-options";
+
 import { toastMetric } from "@/lib/toast/toast-metric";
 
-export function reportMetric(metric: Metric) {
-  logMetric(metric);
+export interface ReportedMetric {
+  metric: Metric;
+  instance: ObserverInstance;
+}
+
+export function reportMetric({ metric, instance }: ReportedMetric) {
+  logMetric({ metric, instance });
 
   const body = JSON.stringify({ metric }, replacer);
 
@@ -15,10 +22,10 @@ export function reportMetric(metric: Metric) {
   toastMetric(metric);
 }
 
-function logMetric(metric: Metric) {
+function logMetric({ metric, instance }: ReportedMetric) {
   console.log(`[web-vitals] ${metric.name}`, {
     id: metric.id,
-    instance: metric.instance,
+    instance,
     value: metric.value,
     delta: metric.delta,
     rating: metric.rating,

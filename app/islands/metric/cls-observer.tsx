@@ -2,7 +2,10 @@ import { useEffect } from "react";
 
 import type { ClsFlags } from "@/lib/metric/flags/defaults/cls";
 
-import { reportMetric } from "@/lib/collect/report-metric";
+import {
+  type ReportedMetric,
+  reportMetric,
+} from "@/lib/collect/report-metric";
 import { isDefined } from "@/lib/is-defined";
 import { createBatchReporter } from "@/lib/metric/batch-reporter";
 import { loadWebVitals } from "@/lib/metric/load-web-vitals";
@@ -29,13 +32,13 @@ export function ClsObserver({ flags }: { flags: ClsFlags }) {
       const batch = flags.batchReporting ? createBatchReporter() : null;
 
       onCLS(
-        (cls) => {
-          cls.instance = 1;
+        (metric) => {
+          const reported: ReportedMetric = { metric, instance: 1 };
 
           if (isDefined(batch)) {
-            batch.enqueue(cls);
+            batch.enqueue(reported);
           } else {
-            reportMetric(cls);
+            reportMetric(reported);
           }
         },
         buildObserverOptions(OBSERVER_RECIPES.cls, flags, 1),
@@ -43,9 +46,8 @@ export function ClsObserver({ flags }: { flags: ClsFlags }) {
 
       if (flags.secondObserver) {
         onCLS(
-          (cls) => {
-            cls.instance = 2;
-            reportMetric(cls);
+          (metric) => {
+            reportMetric({ metric, instance: 2 });
           },
           buildObserverOptions(OBSERVER_RECIPES.cls, flags, 2),
         );
