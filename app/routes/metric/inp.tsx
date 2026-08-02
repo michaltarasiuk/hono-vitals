@@ -1,9 +1,7 @@
 import { Heading } from "@/app/components/ui/heading/heading";
 import { Text } from "@/app/components/ui/text/text";
-import {
-  InpBlockingControls,
-  InpObserver,
-} from "@/app/islands/metric/inp-observer";
+import { InpBlockingControls } from "@/app/islands/metric/inp-blocking-controls";
+import { InpObserver } from "@/app/islands/metric/inp-observer";
 import { LOREM_IPSUM } from "@/lib/lorem-ipsum";
 import { defineMetric } from "@/lib/metric/define-metric";
 import {
