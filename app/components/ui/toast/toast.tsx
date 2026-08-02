@@ -97,7 +97,7 @@ function Action({
   ...props
 }: React.ComponentProps<typeof BaseToast.Action>) {
   return (
-    <BaseToast.Action className={cx("ToastClose", className)} {...props}>
+    <BaseToast.Action className={cx("ToastAction", className)} {...props}>
       {children}
     </BaseToast.Action>
   );

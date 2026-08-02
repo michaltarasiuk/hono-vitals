@@ -22,29 +22,7 @@ import {
   OBSERVER_RECIPES,
 } from "@/lib/metric/observer-options";
 
-function initialBlockingTimes(flags: InpFlags) {
-  const blockingTimes = {} as Record<InpBlockingEventName, number>;
-  for (const eventName of INP_BLOCKING_EVENT_NAMES) {
-    blockingTimes[eventName] = flags[`${eventName}BlockingTime`];
-  }
-  return blockingTimes;
-}
-
-export function InpBlockingControls({ flags }: { flags: InpFlags }) {
-  const [blockingTimes, setBlockingTimes] = useState(() =>
-    initialBlockingTimes(flags),
-  );
-
-  useEffect(() => {
-    for (const eventName of INP_BLOCKING_EVENT_NAMES) {
-      setBlockingTime(eventName, blockingTimes[eventName]);
-    }
-
-    return () => {
-      resetBlockingTimes();
-    };
-  }, [blockingTimes]);
-
+export function InpObserver({ flags }: { flags: InpFlags }) {
   useEffect(() => {
     let ignore = false;
     let dispose: (() => void) | null = null;
@@ -98,6 +76,32 @@ export function InpBlockingControls({ flags }: { flags: InpFlags }) {
       dispose?.();
     };
   }, [flags]);
+
+  return null;
+}
+
+function initialBlockingTimes(flags: InpFlags) {
+  const blockingTimes = {} as Record<InpBlockingEventName, number>;
+  for (const eventName of INP_BLOCKING_EVENT_NAMES) {
+    blockingTimes[eventName] = flags[`${eventName}BlockingTime`];
+  }
+  return blockingTimes;
+}
+
+export function InpBlockingControls({ flags }: { flags: InpFlags }) {
+  const [blockingTimes, setBlockingTimes] = useState(() =>
+    initialBlockingTimes(flags),
+  );
+
+  useEffect(() => {
+    for (const eventName of INP_BLOCKING_EVENT_NAMES) {
+      setBlockingTime(eventName, blockingTimes[eventName]);
+    }
+
+    return () => {
+      resetBlockingTimes();
+    };
+  }, [blockingTimes]);
 
   function handleReset() {
     setBlockingTimes(

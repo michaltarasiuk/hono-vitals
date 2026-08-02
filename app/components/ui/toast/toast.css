@@ -155,7 +155,8 @@
   margin: 0;
 }
 
-.ToastClose {
+.ToastClose,
+.ToastAction {
   display: flex;
   flex-shrink: 0;
   align-items: center;
