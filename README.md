@@ -12,10 +12,9 @@ A local playground for exercising [web-vitals](https://github.com/GoogleChrome/w
 mise install
 bun install
 cp .env.example .env
-bun run duckdb:init
 ```
 
-`DUCKDB_PATH` defaults to `data/vitals.duckdb`. Run `duckdb:init` once (or after wiping `data/`) to create the metrics table.
+`DUCKDB_PATH` defaults to `data/vitals.duckdb`. The metrics table is created automatically on server boot (`CREATE TABLE IF NOT EXISTS`). Use `bun run duckdb:init` only if you want to migrate without starting the app.
 
 ## Scripts
 
@@ -24,7 +23,7 @@ bun run duckdb:init
 | `bun run dev`                     | Start the Honox/Vite dev server                 |
 | `bun run build`                   | Client + server production build into `dist/`   |
 | `bun run start`                   | Run the production server (`bun dist/index.js`) |
-| `bun run duckdb:init`             | Create/migrate the DuckDB schema                |
+| `bun run duckdb:init`             | Migrate DuckDB without starting the server      |
 | `bun run type:check`              | TypeScript (`tsc --noEmit`)                     |
 | `bun run lint` / `lint:fix`       | ESLint                                          |
 | `bun run format` / `format:check` | Prettier                                        |
