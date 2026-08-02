@@ -4,6 +4,10 @@ import type {
   INPReportOpts,
 } from "web-vitals";
 
+import type { BaseFlags } from "@/lib/metric/flags/defaults/base";
+import type { GenerateTargetFlags } from "@/lib/metric/flags/defaults/generate-target";
+import type { InpReportFlags } from "@/lib/metric/flags/defaults/inp-report";
+
 export type ObserverInstance = 1 | 2;
 
 type ObserverOption =
@@ -17,15 +21,11 @@ export const OBSERVER_RECIPES = {
   ttfb: [],
 } as const satisfies Record<string, readonly ObserverOption[]>;
 
-interface ObserverFlagsInput {
-  reportAllChanges: boolean;
-  reportAllChanges2: boolean;
-  generateTarget?: boolean;
-  generateTarget2?: boolean;
-  durationThreshold?: number;
-  durationThreshold2?: number;
-  includeProcessedEventEntries?: boolean;
-}
+interface ObserverFlagsInput
+  extends
+    Pick<BaseFlags, "reportAllChanges" | "reportAllChanges2">,
+    Partial<GenerateTargetFlags>,
+    Partial<InpReportFlags> {}
 
 export interface ObserverOptions
   extends
