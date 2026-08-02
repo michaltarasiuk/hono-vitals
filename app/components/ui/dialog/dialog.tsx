@@ -1,5 +1,7 @@
 import { Dialog as BaseDialog } from "@base-ui/react/dialog";
 
+import { cx } from "@/lib/cx";
+
 function Root({
   children,
   ...props
@@ -26,10 +28,7 @@ function Backdrop({
   ...props
 }: React.ComponentProps<typeof BaseDialog.Backdrop>) {
   return (
-    <BaseDialog.Backdrop
-      className={className ? `Backdrop ${className}` : "Backdrop"}
-      {...props}
-    />
+    <BaseDialog.Backdrop className={cx("Backdrop", className)} {...props} />
   );
 }
 
@@ -39,10 +38,7 @@ function Popup({
   ...props
 }: React.ComponentProps<typeof BaseDialog.Popup>) {
   return (
-    <BaseDialog.Popup
-      className={className ? `Popup ${className}` : "Popup"}
-      {...props}
-    >
+    <BaseDialog.Popup className={cx("Popup", className)} {...props}>
       {children}
     </BaseDialog.Popup>
   );
@@ -54,7 +50,7 @@ function Header({
   ...props
 }: React.ComponentProps<"div">) {
   return (
-    <div className={className ? `Header ${className}` : "Header"} {...props}>
+    <div className={cx("Header", className)} {...props}>
       {children}
     </div>
   );
@@ -66,10 +62,7 @@ function Title({
   ...props
 }: React.ComponentProps<typeof BaseDialog.Title>) {
   return (
-    <BaseDialog.Title
-      className={className ? `Title ${className}` : "Title"}
-      {...props}
-    >
+    <BaseDialog.Title className={cx("Title", className)} {...props}>
       {children}
     </BaseDialog.Title>
   );
@@ -77,7 +70,7 @@ function Title({
 
 function Body({ className, children, ...props }: React.ComponentProps<"div">) {
   return (
-    <div className={className ? `Body ${className}` : "Body"} {...props}>
+    <div className={cx("Body", className)} {...props}>
       {children}
     </div>
   );
@@ -89,7 +82,7 @@ function Actions({
   ...props
 }: React.ComponentProps<"div">) {
   return (
-    <div className={className ? `Actions ${className}` : "Actions"} {...props}>
+    <div className={cx("Actions", className)} {...props}>
       {children}
     </div>
   );

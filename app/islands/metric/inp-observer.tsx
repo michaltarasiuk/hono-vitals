@@ -4,12 +4,12 @@ import type { InpFlags } from "@/lib/metric/flags/defaults/inp";
 
 import { Button } from "@/app/components/ui/button/button";
 import { NumberField } from "@/app/components/ui/number-field/number-field";
-import {
-  type ReportedMetric,
-  reportMetric,
-} from "@/lib/collect/report-metric";
+import { type ReportedMetric, reportMetric } from "@/lib/collect/report-metric";
 import { isDefined } from "@/lib/is-defined";
-import { createBatchReporter, type BatchReporter } from "@/lib/metric/batch-reporter";
+import {
+  createBatchReporter,
+  type BatchReporter,
+} from "@/lib/metric/batch-reporter";
 import {
   INP_BLOCKING_EVENT_NAMES,
   resetBlockingTimes,

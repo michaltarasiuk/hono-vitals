@@ -1,3 +1,5 @@
+import { cx } from "@/lib/cx";
+
 export function Text({ className, ...props }: React.ComponentProps<"p">) {
-  return <p className={className ? `Text ${className}` : "Text"} {...props} />;
+  return <p className={cx("Text", className)} {...props} />;
 }
