@@ -14,11 +14,20 @@ export function createBatchReporter() {
     queue.clear();
   }
 
-  document.addEventListener("visibilitychange", () => {
+  function onVisibilityChange() {
     if (document.visibilityState === "hidden") {
       flush();
     }
-  });
+  }
 
-  return { enqueue };
+  document.addEventListener("visibilitychange", onVisibilityChange);
+
+  function dispose() {
+    document.removeEventListener("visibilitychange", onVisibilityChange);
+    queue.clear();
+  }
+
+  return { enqueue, dispose };
 }
+
+export type BatchReporter = ReturnType<typeof createBatchReporter>;

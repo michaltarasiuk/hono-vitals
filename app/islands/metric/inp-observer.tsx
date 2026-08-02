@@ -9,7 +9,7 @@ import {
   reportMetric,
 } from "@/lib/collect/report-metric";
 import { isDefined } from "@/lib/is-defined";
-import { createBatchReporter } from "@/lib/metric/batch-reporter";
+import { createBatchReporter, type BatchReporter } from "@/lib/metric/batch-reporter";
 import {
   INP_BLOCKING_EVENT_NAMES,
   resetBlockingTimes,
@@ -47,6 +47,7 @@ export function InpBlockingControls({ flags }: { flags: InpFlags }) {
 
   useEffect(() => {
     let ignore = false;
+    let dispose: (() => void) | null = null;
 
     void (async () => {
       const { onINP } = await loadWebVitals({
@@ -59,7 +60,11 @@ export function InpBlockingControls({ flags }: { flags: InpFlags }) {
         return;
       }
 
-      const batch = flags.batchReporting ? createBatchReporter() : null;
+      let batch: BatchReporter | null = null;
+      if (flags.batchReporting) {
+        batch = createBatchReporter();
+        dispose = batch.dispose;
+      }
 
       onINP(
         (metric) => {
@@ -82,10 +87,15 @@ export function InpBlockingControls({ flags }: { flags: InpFlags }) {
           buildObserverOptions(OBSERVER_RECIPES.inp, flags, 2),
         );
       }
+
+      if (ignore) {
+        dispose?.();
+      }
     })();
 
     return () => {
       ignore = true;
+      dispose?.();
     };
   }, [flags]);
 

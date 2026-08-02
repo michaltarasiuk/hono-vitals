@@ -7,7 +7,7 @@ import {
   reportMetric,
 } from "@/lib/collect/report-metric";
 import { isDefined } from "@/lib/is-defined";
-import { createBatchReporter } from "@/lib/metric/batch-reporter";
+import { createBatchReporter, type BatchReporter } from "@/lib/metric/batch-reporter";
 import { loadWebVitals } from "@/lib/metric/load-web-vitals";
 import {
   buildObserverOptions,
@@ -17,6 +17,7 @@ import {
 export function ClsObserver({ flags }: { flags: ClsFlags }) {
   useEffect(() => {
     let ignore = false;
+    let dispose: (() => void) | null = null;
 
     void (async () => {
       const { onCLS } = await loadWebVitals({
@@ -29,7 +30,11 @@ export function ClsObserver({ flags }: { flags: ClsFlags }) {
         return;
       }
 
-      const batch = flags.batchReporting ? createBatchReporter() : null;
+      let batch: BatchReporter | null = null;
+      if (flags.batchReporting) {
+        batch = createBatchReporter();
+        dispose = batch.dispose;
+      }
 
       onCLS(
         (metric) => {
@@ -52,10 +57,15 @@ export function ClsObserver({ flags }: { flags: ClsFlags }) {
           buildObserverOptions(OBSERVER_RECIPES.cls, flags, 2),
         );
       }
+
+      if (ignore) {
+        dispose?.();
+      }
     })();
 
     return () => {
       ignore = true;
+      dispose?.();
     };
   }, [flags]);
 
