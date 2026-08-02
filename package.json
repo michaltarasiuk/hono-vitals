@@ -4,12 +4,12 @@
     "dev": "bunx --bun vite",
     "build": "vite build --mode client && vite build && cp -r public dist/public",
     "start": "bun dist/index.js",
-    "type:check": "tsc --noEmit",
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix",
+    "duckdb:init": "bun lib/analytics/duckdb/init.ts",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "duckdb:init": "bun lib/analytics/duckdb/init.ts"
+    "type:check": "tsc --noEmit",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
   },
   "dependencies": {
     "@base-ui/react": "^1.6.0",
