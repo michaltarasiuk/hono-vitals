@@ -1,10 +1,16 @@
 import { Heading } from "@/app/components/ui/heading/heading";
 import { Text } from "@/app/components/ui/text/text";
-import { InpBlockingControls } from "@/app/islands/metric/inp-observer";
+import {
+  InpBlockingControls,
+  InpObserver,
+} from "@/app/islands/metric/inp-observer";
 import { defineMetric } from "@/lib/metric/define-metric";
-import { INP_FLAGS_DEFAULTS } from "@/lib/metric/flags/defaults/inp";
+import {
+  INP_FLAGS_DEFAULTS,
+  type InpFlags,
+} from "@/lib/metric/flags/defaults/inp";
 
-function InpContent() {
+function InpContent({ flags }: { flags: InpFlags }) {
   return (
     <>
       <Heading elementtiming="main-heading">INP Test</Heading>
@@ -21,6 +27,7 @@ function InpContent() {
         massa, rutrum ut leo quis, tempor dapibus dui. Proin in mauris non risus
         maximus tincidunt quis a mauris.
       </Text>
+      <InpBlockingControls flags={flags} />
     </>
   );
 }
@@ -28,6 +35,6 @@ function InpContent() {
 export default defineMetric({
   name: "INP",
   defaults: INP_FLAGS_DEFAULTS,
-  Observer: InpBlockingControls,
+  Observer: InpObserver,
   Content: InpContent,
 });

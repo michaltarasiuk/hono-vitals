@@ -21,21 +21,21 @@ interface ObserverFlagsInput {
   includeProcessedEventEntries?: boolean;
 }
 
+export interface ObserverOptions {
+  durationThreshold?: number;
+  reportAllChanges: boolean;
+  includeProcessedEventEntries?: boolean;
+  generateTarget?: (node: Node | null) => string | undefined;
+}
+
 export function buildObserverOptions(
   recipe: readonly ObserverOption[],
   flags: ObserverFlagsInput,
   instance: ObserverInstance = 1,
-) {
-  const options: Record<string, unknown> = {
+): ObserverOptions {
+  const options: ObserverOptions = {
     reportAllChanges: flags[instanceKey("reportAllChanges", instance)],
   };
-
-  if (
-    recipe.includes("generateTarget") &&
-    flags[instanceKey("generateTarget", instance)]
-  ) {
-    options.generateTarget = generateTarget;
-  }
 
   if (recipe.includes("durationThreshold")) {
     options.durationThreshold =
@@ -47,6 +47,13 @@ export function buildObserverOptions(
     flags.includeProcessedEventEntries
   ) {
     options.includeProcessedEventEntries = true;
+  }
+
+  if (
+    recipe.includes("generateTarget") &&
+    flags[instanceKey("generateTarget", instance)]
+  ) {
+    options.generateTarget = generateTarget;
   }
 
   return options;
