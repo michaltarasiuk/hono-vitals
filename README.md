@@ -45,7 +45,7 @@ bun run duckdb:init
 
 Flags are booleans/numbers validated from the query string (for example `/metric/lcp?attribution=true&imgDelay=500`). Shared flags include delayed DCL/load, render-blocking CSS, `reportAllChanges`, a second observer, deferred library load, attribution, and metric-specific options (INP duration threshold, LCP image delay, batch reporting, and so on).
 
-Observers toast and `console.log` each report, then `sendBeacon` to `POST /collect`. The collect handler validates the payload and inserts into DuckDB (`INSERT OR IGNORE` on metric id).
+Observers toast and `console.log` each report, then `sendBeacon` to `POST /collect` with `{ metrics: [...] }` (one metric immediately, or many on batch flush). The collect handler validates the payload and inserts into DuckDB (`INSERT OR IGNORE` on metric id).
 
 Delayed static assets used by scenarios are served under `/public` (for example `?delay=` on asset URLs).
 

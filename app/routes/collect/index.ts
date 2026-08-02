@@ -1,27 +1,21 @@
 import { zValidator } from "@hono/zod-validator";
 import { Hono } from "hono";
-import * as z from "zod";
 
-import { insertMetric } from "@/lib/analytics/metrics";
-import { MetricSchema } from "@/lib/collect/metric-schema";
+import { insertMetrics } from "@/lib/analytics/metrics";
+import { CollectBodySchema } from "@/lib/collect/collect-body";
 
 const collectRoutes = new Hono().post(
   "/",
-  zValidator(
-    "json",
-    z.object({
-      metric: MetricSchema,
-    }),
-  ),
+  zValidator("json", CollectBodySchema),
   async (c) => {
-    const { metric } = c.req.valid("json");
+    const { metrics } = c.req.valid("json");
 
     try {
-      await insertMetric(metric);
+      await insertMetrics(metrics);
 
       return c.body(null, 204);
     } catch (error) {
-      console.error("Failed to collect metric", error);
+      console.error("Failed to collect metrics", error);
       return c.body(null, 500);
     }
   },

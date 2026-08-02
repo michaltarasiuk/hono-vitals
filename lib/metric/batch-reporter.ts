@@ -1,4 +1,7 @@
-import { type ReportedMetric, reportMetric } from "@/lib/collect/report-metric";
+import {
+  type ReportedMetric,
+  reportMetrics,
+} from "@/lib/collect/report-metric";
 
 export function createBatchReporter() {
   const queue = new Set<ReportedMetric>();
@@ -8,9 +11,11 @@ export function createBatchReporter() {
   }
 
   function flush() {
-    for (const reported of queue) {
-      reportMetric(reported);
+    if (queue.size === 0) {
+      return;
     }
+
+    reportMetrics([...queue]);
     queue.clear();
   }
 
