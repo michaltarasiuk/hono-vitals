@@ -31,7 +31,7 @@ export function createBatchReporter() {
   function dispose() {
     document.removeEventListener("visibilitychange", onVisibilityChange);
     document.removeEventListener("pagehide", flush);
-    queue.clear();
+    flush();
   }
 
   return { enqueue, dispose };
