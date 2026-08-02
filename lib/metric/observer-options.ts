@@ -1,3 +1,9 @@
+import type {
+  AttributionReportOpts,
+  INPAttributionReportOpts,
+  INPReportOpts,
+} from "web-vitals";
+
 export type ObserverInstance = 1 | 2;
 
 type ObserverOption =
@@ -21,12 +27,11 @@ interface ObserverFlagsInput {
   includeProcessedEventEntries?: boolean;
 }
 
-export interface ObserverOptions {
-  durationThreshold?: number;
-  reportAllChanges: boolean;
-  includeProcessedEventEntries?: boolean;
-  generateTarget?: (node: Node | null) => string | undefined;
-}
+export interface ObserverOptions
+  extends
+    AttributionReportOpts,
+    Pick<INPReportOpts, "durationThreshold">,
+    Pick<INPAttributionReportOpts, "includeProcessedEventEntries"> {}
 
 export function buildObserverOptions(
   recipe: readonly ObserverOption[],

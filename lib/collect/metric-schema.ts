@@ -38,7 +38,7 @@ export const MetricSchema = z.object({
    * The array may also be empty if the metric value was not based on any
    * entries (e.g. a CLS value of 0 given no layout shifts).
    */
-  entries: z.array(z.any()),
+  entries: z.array(z.unknown()),
   /**
    * The type of navigation.
    *
