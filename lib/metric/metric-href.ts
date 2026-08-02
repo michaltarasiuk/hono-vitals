@@ -7,7 +7,7 @@ export function metricHref(
 ) {
   const queryString = flagsToQueryString(...flags);
   let href = `/metric/${metric.toLowerCase()}`;
-  if (queryString) {
+  if (queryString.length > 0) {
     href += `?${queryString}`;
   }
   return href;
