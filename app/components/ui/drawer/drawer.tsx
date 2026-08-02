@@ -1,5 +1,7 @@
 import { Drawer as BaseDrawer } from "@base-ui/react/drawer";
 
+import { cx } from "@/lib/cx";
+
 function Root({
   children,
   ...props
@@ -27,7 +29,7 @@ function Backdrop({
 }: React.ComponentProps<typeof BaseDrawer.Backdrop>) {
   return (
     <BaseDrawer.Backdrop
-      className={className ? `DrawerBackdrop ${className}` : "DrawerBackdrop"}
+      className={cx("DrawerBackdrop", className)}
       {...props}
     />
   );
@@ -39,10 +41,7 @@ function Viewport({
   ...props
 }: React.ComponentProps<typeof BaseDrawer.Viewport>) {
   return (
-    <BaseDrawer.Viewport
-      className={className ? `DrawerViewport ${className}` : "DrawerViewport"}
-      {...props}
-    >
+    <BaseDrawer.Viewport className={cx("DrawerViewport", className)} {...props}>
       {children}
     </BaseDrawer.Viewport>
   );
@@ -54,10 +53,7 @@ function Popup({
   ...props
 }: React.ComponentProps<typeof BaseDrawer.Popup>) {
   return (
-    <BaseDrawer.Popup
-      className={className ? `DrawerPopup ${className}` : "DrawerPopup"}
-      {...props}
-    >
+    <BaseDrawer.Popup className={cx("DrawerPopup", className)} {...props}>
       {children}
     </BaseDrawer.Popup>
   );
@@ -69,10 +65,7 @@ function Content({
   ...props
 }: React.ComponentProps<typeof BaseDrawer.Content>) {
   return (
-    <BaseDrawer.Content
-      className={className ? `DrawerContent ${className}` : "DrawerContent"}
-      {...props}
-    >
+    <BaseDrawer.Content className={cx("DrawerContent", className)} {...props}>
       {children}
     </BaseDrawer.Content>
   );
@@ -84,10 +77,7 @@ function Title({
   ...props
 }: React.ComponentProps<typeof BaseDrawer.Title>) {
   return (
-    <BaseDrawer.Title
-      className={className ? `DrawerTitle ${className}` : "DrawerTitle"}
-      {...props}
-    >
+    <BaseDrawer.Title className={cx("DrawerTitle", className)} {...props}>
       {children}
     </BaseDrawer.Title>
   );
@@ -101,12 +91,7 @@ function Close({
 }
 
 function Handle({ className, ...props }: React.ComponentProps<"div">) {
-  return (
-    <div
-      className={className ? `DrawerHandle ${className}` : "DrawerHandle"}
-      {...props}
-    />
-  );
+  return <div className={cx("DrawerHandle", className)} {...props} />;
 }
 
 export const Drawer = {
