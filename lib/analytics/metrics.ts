@@ -34,7 +34,7 @@ export async function insertMetrics(metrics: Metric[]) {
   }
 
   await sql`
-    INSERT OR IGNORE INTO ${metricsTable} (${metricsInsertColumns})
+    INSERT OR REPLACE INTO ${metricsTable} (${metricsInsertColumns})
     VALUES ${sql.values(
       metrics.map((metric) => [
         metric.id,
