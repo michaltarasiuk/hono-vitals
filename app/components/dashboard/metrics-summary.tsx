@@ -85,11 +85,7 @@ function RatingBar({ summary }: { summary: MetricSummary }) {
   const poorPct = (poor / total) * 100;
 
   return (
-    <div
-      role="img"
-      aria-label="Rating distribution"
-      className="MetricsRatingBar"
-    >
+    <div className="MetricsRatingBar">
       <div
         className="MetricsRatingBarSegment MetricsRatingBarSegment--good"
         style={{ width: `${goodPct}%` }}
