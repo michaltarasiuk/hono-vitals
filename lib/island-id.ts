@@ -5,6 +5,6 @@
  * values do not match. Use this for `id`, `htmlFor`, and `triggerId`
  * instead of `useId()`.
  */
-export function islandId(id: string): string {
-  return id;
+export function islandId(id: string) {
+  return `island-${id}`;
 }
