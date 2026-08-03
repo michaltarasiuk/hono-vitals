@@ -57,7 +57,7 @@ function Toolbar({ children }: { children?: ReactNode }) {
 
 function Main({ children }: { children: ReactNode }) {
   const { flags } = useMetricPage();
-  const htmlHidden = Boolean(flags.stubHidden || flags.htmlHidden);
+  const htmlHidden = Boolean(flags.stubHidden ?? flags.htmlHidden);
 
   return (
     <main className="MetricMain" {...(htmlHidden ? { hidden: true } : {})}>
