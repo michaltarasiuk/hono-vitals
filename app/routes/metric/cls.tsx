@@ -1,12 +1,12 @@
+import { SquareImage } from "@/app/components/metric/square-image";
+import { Heading } from "@/app/components/ui/heading/heading";
+import { Text } from "@/app/components/ui/text/text";
+import { ClsObserver } from "@/app/islands/metric/cls-observer";
+import { defineMetric } from "@/lib/metric/define-metric";
 import {
   CLS_FLAGS_DEFAULTS,
   type ClsFlags,
 } from "@/lib/metric/flags/defaults/cls";
-import { ClsObserver } from "@/app/islands/metric/cls-observer";
-import { defineMetric } from "@/lib/metric/define-metric";
-import { Heading } from "@/app/components/ui/heading/heading";
-import { SquareImage } from "@/app/components/metric/square-image";
-import { Text } from "@/app/components/ui/text/text";
 
 function ClsContent({ flags }: { flags: ClsFlags }) {
   return (

@@ -2,15 +2,15 @@ import { useEffect, useState } from "react";
 
 import type { InpFlags } from "@/lib/metric/flags/defaults/inp";
 
+import { Button } from "@/app/components/ui/button/button";
+import { NumberField } from "@/app/components/ui/number-field/number-field";
+import { islandId } from "@/lib/island-id";
 import {
   INP_BLOCKING_EVENT_NAMES,
   type InpBlockingEventName,
   resetBlockingTimes,
   setBlockingTime,
 } from "@/lib/metric/inp-blocking";
-import { Button } from "@/app/components/ui/button/button";
-import { islandId } from "@/lib/island-id";
-import { NumberField } from "@/app/components/ui/number-field/number-field";
 
 function initialBlockingTimes(flags: InpFlags) {
   const blockingTimes = {} as Record<InpBlockingEventName, number>;

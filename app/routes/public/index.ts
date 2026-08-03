@@ -1,7 +1,7 @@
-import * as z from "zod";
+import { zValidator } from "@hono/zod-validator";
 import { Hono } from "hono";
 import { serveStatic } from "hono/bun";
-import { zValidator } from "@hono/zod-validator";
+import * as z from "zod";
 
 import { delay } from "@/lib/delay";
 import { isDefined } from "@/lib/is-defined";

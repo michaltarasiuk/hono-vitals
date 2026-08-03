@@ -1,7 +1,7 @@
-import { type CSSOptions, defineConfig } from "vite";
-import adapter from "@hono/vite-dev-server/bun";
 import build from "@hono/vite-build/bun";
+import adapter from "@hono/vite-dev-server/bun";
 import honox from "honox/vite";
+import { type CSSOptions, defineConfig } from "vite";
 
 export default defineConfig(({ command, mode }) => {
   const css: CSSOptions = {

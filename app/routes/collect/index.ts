@@ -1,8 +1,8 @@
-import { Hono } from "hono";
 import { zValidator } from "@hono/zod-validator";
+import { Hono } from "hono";
 
-import { CollectBodySchema } from "@/lib/collect/collect-body";
 import { insertMetrics } from "@/lib/analytics/metrics";
+import { CollectBodySchema } from "@/lib/collect/collect-body";
 
 const collectRoutes = new Hono().post(
   "/",

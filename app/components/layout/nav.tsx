@@ -1,5 +1,5 @@
-import { isActiveHref, ROUTES } from "@/lib/routes";
 import { NavMobile } from "@/app/islands/nav-mobile";
+import { isActiveHref, ROUTES } from "@/lib/routes";
 
 interface NavProps {
   currentPath: string;

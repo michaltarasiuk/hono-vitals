@@ -1,12 +1,12 @@
+import { SquareImage } from "@/app/components/metric/square-image";
+import { Heading } from "@/app/components/ui/heading/heading";
+import { Text } from "@/app/components/ui/text/text";
+import { FcpObserver } from "@/app/islands/metric/fcp-observer";
+import { defineMetric } from "@/lib/metric/define-metric";
 import {
   FCP_FLAGS_DEFAULTS,
   type FcpFlags,
 } from "@/lib/metric/flags/defaults/fcp";
-import { defineMetric } from "@/lib/metric/define-metric";
-import { FcpObserver } from "@/app/islands/metric/fcp-observer";
-import { Heading } from "@/app/components/ui/heading/heading";
-import { SquareImage } from "@/app/components/metric/square-image";
-import { Text } from "@/app/components/ui/text/text";
 
 function FcpContent({ flags }: { flags: FcpFlags }) {
   return (

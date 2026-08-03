@@ -1,6 +1,7 @@
-import { defineConfig } from "eslint/config";
 import js from "@eslint/js";
+import { defineConfig } from "eslint/config";
 import reactHooks from "eslint-plugin-react-hooks";
+import simpleImportSort from "eslint-plugin-simple-import-sort";
 import tseslint from "typescript-eslint";
 
 export default defineConfig(
@@ -16,10 +17,7 @@ export default defineConfig(
   js.configs.recommended,
   {
     files: ["**/*.{ts,tsx}"],
-    extends: [
-      ...tseslint.configs.recommendedTypeChecked,
-      reactHooks.configs.flat.recommended,
-    ],
+    extends: [...tseslint.configs.recommendedTypeChecked],
     languageOptions: {
       parserOptions: {
         projectService: true,
@@ -39,15 +37,30 @@ export default defineConfig(
     },
   },
   {
+    files: ["**/*.{ts,tsx}"],
+    extends: [reactHooks.configs.flat.recommended],
+  },
+  {
     files: ["**/*.{js,mjs,cjs,ts,tsx}"],
+    plugins: {
+      "simple-import-sort": simpleImportSort,
+    },
     rules: {
-      "sort-imports": [
+      "simple-import-sort/exports": "error",
+      "simple-import-sort/imports": [
         "error",
         {
-          ignoreCase: true,
-          ignoreDeclarationSort: true,
-          ignoreMemberSort: false,
-          allowSeparatedGroups: true,
+          groups: [
+            ["^\\u0000"],
+            ["^node:"],
+            ["^@?\\w.*\\u0000$"],
+            ["^@?\\w"],
+            ["^@/.*\\u0000$"],
+            ["^@/"],
+            ["^\\..*\\u0000$"],
+            ["^\\."],
+            ["^"],
+          ],
         },
       ],
     },
