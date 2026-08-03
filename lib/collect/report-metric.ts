@@ -64,7 +64,7 @@ function replacer(_key: string, value: unknown) {
   if (typeof value === "function") {
     return;
   } else if (value instanceof EventTarget) {
-    return value.constructor.name || "EventTarget";
+    return value.constructor.name;
   }
   return value;
 }
