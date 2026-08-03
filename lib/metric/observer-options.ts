@@ -37,7 +37,7 @@ export function buildObserverOptions(
   recipe: readonly ObserverOption[],
   flags: ObserverFlagsInput,
   instance: ObserverInstance = 1,
-): ObserverOptions {
+) {
   const options: ObserverOptions = {
     reportAllChanges: flags[instanceKey("reportAllChanges", instance)],
   };
