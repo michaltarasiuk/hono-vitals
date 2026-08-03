@@ -1,6 +1,7 @@
 {
   "type": "module",
   "scripts": {
+    "prepare": "lefthook install",
     "dev": "bunx --bun vite",
     "build": "vite build --mode client && vite build && cp -r public dist/public",
     "start": "bun dist/index.js",
@@ -9,8 +10,7 @@
     "format:check": "prettier --check .",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "type:check": "tsc --noEmit",
-    "prepare": "lefthook install"
+    "type:check": "tsc --noEmit"
   },
   "dependencies": {
     "@base-ui/react": "^1.6.0",
