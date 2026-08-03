@@ -2,17 +2,17 @@ import { useEffect } from "react";
 
 import type { FcpFlags } from "@/lib/metric/flags/defaults/fcp";
 
-import { type ReportedMetric, reportMetric } from "@/lib/collect/report-metric";
-import { isDefined } from "@/lib/is-defined";
 import {
-  createBatchReporter,
   type BatchReporter,
+  createBatchReporter,
 } from "@/lib/metric/batch-reporter";
-import { loadWebVitals } from "@/lib/metric/load-web-vitals";
 import {
   buildObserverOptions,
   OBSERVER_RECIPES,
 } from "@/lib/metric/observer-options";
+import { type ReportedMetric, reportMetric } from "@/lib/collect/report-metric";
+import { isDefined } from "@/lib/is-defined";
+import { loadWebVitals } from "@/lib/metric/load-web-vitals";
 
 export function FcpObserver({ flags }: { flags: FcpFlags }) {
   useEffect(() => {

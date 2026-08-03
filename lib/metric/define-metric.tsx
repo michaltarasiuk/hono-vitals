@@ -1,10 +1,10 @@
 import type { ComponentType } from "react";
 
-import { zValidator } from "@hono/zod-validator";
 import { createRoute } from "honox/factory";
+import { zValidator } from "@hono/zod-validator";
 
-import type { MetricName } from "@/lib/collect/metric-schema";
 import type { Flags, ParsedFlags } from "@/lib/metric/flags/schema";
+import type { MetricName } from "@/lib/collect/metric-schema";
 
 import { flagsSchema } from "@/lib/metric/flags/schema";
 

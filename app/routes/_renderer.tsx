@@ -1,5 +1,5 @@
-import { reactRenderer } from "@hono/react-renderer";
 import { Link, Script } from "honox/server";
+import { reactRenderer } from "@hono/react-renderer";
 
 import devStyles from "../styles/global.css?inline";
 
