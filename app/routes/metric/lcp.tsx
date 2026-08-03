@@ -1,13 +1,13 @@
+import { FullHeight } from "@/app/components/metric/full-height";
+import { SquareImage } from "@/app/components/metric/square-image";
+import { Heading } from "@/app/components/ui/heading/heading";
+import { Text } from "@/app/components/ui/text/text";
+import { LcpObserver } from "@/app/islands/metric/lcp-observer";
+import { defineMetric } from "@/lib/metric/define-metric";
 import {
   LCP_FLAGS_DEFAULTS,
   type LcpFlags,
 } from "@/lib/metric/flags/defaults/lcp";
-import { defineMetric } from "@/lib/metric/define-metric";
-import { FullHeight } from "@/app/components/metric/full-height";
-import { Heading } from "@/app/components/ui/heading/heading";
-import { LcpObserver } from "@/app/islands/metric/lcp-observer";
-import { SquareImage } from "@/app/components/metric/square-image";
-import { Text } from "@/app/components/ui/text/text";
 
 function LcpContent({ flags }: { flags: LcpFlags }) {
   return (

@@ -1,7 +1,7 @@
 import { reactRenderer } from "@hono/react-renderer";
 
-import { FlagsEditor } from "@/app/islands/metric/flags-editor";
 import { MetricPage } from "@/app/components/metric/metric-page";
+import { FlagsEditor } from "@/app/islands/metric/flags-editor";
 import { MetricToasts } from "@/app/islands/metric/metric-toasts";
 
 export default reactRenderer(

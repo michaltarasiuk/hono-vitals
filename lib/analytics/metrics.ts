@@ -1,13 +1,13 @@
+import { sql } from "@/lib/analytics/duckdb/client";
+import {
+  metricsInsertColumns,
+  metricsTable,
+} from "@/lib/analytics/duckdb/schema";
 import {
   type Metric,
   METRIC_NAMES,
   type MetricName,
 } from "@/lib/collect/metric-schema";
-import {
-  metricsInsertColumns,
-  metricsTable,
-} from "@/lib/analytics/duckdb/schema";
-import { sql } from "@/lib/analytics/duckdb/client";
 
 export interface MetricSummary {
   name: MetricName;
