@@ -6,14 +6,14 @@ import { assertNever } from "@/lib/assert-never";
 import { Button } from "@/app/components/ui/button/button";
 import { Dialog } from "@/app/components/ui/dialog/dialog";
 import { Field } from "@/app/components/ui/field/field";
+import { islandId } from "@/lib/island-id";
 import { formatFlagLabel } from "@/lib/metric/flags/format-flag-label";
 import { navigateWithFlags } from "@/lib/metric/flags/navigate-with-flags";
 import { NumberField } from "@/app/components/ui/number-field/number-field";
 import { sortFlagEntries } from "@/lib/metric/flags/sort-flag-entries";
 import { Switch } from "@/app/components/ui/switch/switch";
 
-// Stable id so island hydration matches full-page SSR (Honox useId path differs).
-const FLAGS_EDITOR_TRIGGER_ID = "metric-flags-trigger";
+const FLAGS_EDITOR_TRIGGER_ID = islandId("metric-flags-trigger");
 
 interface FlagsEditorProps {
   flags: Flags;
