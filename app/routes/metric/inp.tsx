@@ -1,13 +1,13 @@
-import { Heading } from "@/app/components/ui/heading/heading";
-import { Text } from "@/app/components/ui/text/text";
-import { InpBlockingControls } from "@/app/islands/metric/inp-blocking-controls";
-import { InpObserver } from "@/app/islands/metric/inp-observer";
-import { LOREM_IPSUM } from "@/lib/lorem-ipsum";
-import { defineMetric } from "@/lib/metric/define-metric";
 import {
   INP_FLAGS_DEFAULTS,
   type InpFlags,
 } from "@/lib/metric/flags/defaults/inp";
+import { defineMetric } from "@/lib/metric/define-metric";
+import { Heading } from "@/app/components/ui/heading/heading";
+import { InpBlockingControls } from "@/app/islands/metric/inp-blocking-controls";
+import { InpObserver } from "@/app/islands/metric/inp-observer";
+import { LOREM_IPSUM } from "@/lib/lorem-ipsum";
+import { Text } from "@/app/components/ui/text/text";
 
 function InpContent({ flags }: { flags: InpFlags }) {
   return (

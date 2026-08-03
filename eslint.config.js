@@ -1,22 +1,55 @@
-import js from "@eslint/js";
-import perfectionist from "eslint-plugin-perfectionist";
 import { defineConfig } from "eslint/config";
+import js from "@eslint/js";
+import reactHooks from "eslint-plugin-react-hooks";
 import tseslint from "typescript-eslint";
 
 export default defineConfig(
   {
-    ignores: ["dist/**", "node_modules/**", "public/**"],
+    ignores: [
+      "dist/**",
+      "node_modules/**",
+      "public/**",
+      "data/**",
+      ".agents/**",
+    ],
   },
   js.configs.recommended,
-  ...tseslint.configs.recommended,
   {
-    files: ["**/*.{js,ts,tsx}"],
-    plugins: {
-      perfectionist,
+    files: ["**/*.{ts,tsx}"],
+    extends: [
+      ...tseslint.configs.recommendedTypeChecked,
+      reactHooks.configs.flat.recommended,
+    ],
+    languageOptions: {
+      parserOptions: {
+        projectService: true,
+        tsconfigRootDir: import.meta.dirname,
+      },
     },
     rules: {
       "@typescript-eslint/consistent-type-definitions": ["error", "interface"],
-      "perfectionist/sort-imports": ["error"],
+      "@typescript-eslint/consistent-type-imports": [
+        "error",
+        {
+          prefer: "type-imports",
+          fixStyle: "separate-type-imports",
+        },
+      ],
+      "@typescript-eslint/no-import-type-side-effects": "error",
+    },
+  },
+  {
+    files: ["**/*.{js,mjs,cjs,ts,tsx}"],
+    rules: {
+      "sort-imports": [
+        "error",
+        {
+          ignoreCase: true,
+          ignoreDeclarationSort: true,
+          ignoreMemberSort: false,
+          allowSeparatedGroups: true,
+        },
+      ],
     },
   },
 );

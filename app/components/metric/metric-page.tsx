@@ -1,13 +1,13 @@
-import { createContext, use, type ReactNode } from "react";
+import { createContext, type ReactNode, use } from "react";
 
-import type { MetricName } from "@/lib/collect/metric-schema";
 import type { Flags } from "@/lib/metric/flags/schema";
+import type { MetricName } from "@/lib/collect/metric-schema";
 
-import { Toolbar as LayoutToolbar } from "@/app/components/layout/toolbar";
-import { Text } from "@/app/components/ui/text/text";
-import { isDefined } from "@/lib/is-defined";
-import { metricHref } from "@/lib/metric/metric-href";
 import { HIDDEN_STUB_SCRIPT } from "@/lib/metric/stub-hidden";
+import { isDefined } from "@/lib/is-defined";
+import { Toolbar as LayoutToolbar } from "@/app/components/layout/toolbar";
+import { metricHref } from "@/lib/metric/metric-href";
+import { Text } from "@/app/components/ui/text/text";
 import { WAS_DISCARDED_STUB_SCRIPT } from "@/lib/metric/stub-was-discarded";
 
 interface MetricPageContextValue {

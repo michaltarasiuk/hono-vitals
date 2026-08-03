@@ -1,5 +1,5 @@
-import { yieldToEventLoop } from "@/lib/delay";
 import { isDefined } from "@/lib/is-defined";
+import { yieldToEventLoop } from "@/lib/delay";
 
 import { afterElementsRendered } from "./wait-for";
 

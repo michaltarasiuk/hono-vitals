@@ -1,5 +1,5 @@
-import { Drawer } from "@/app/components/ui/drawer/drawer";
 import { getActiveRoute, isActiveHref, ROUTES } from "@/lib/routes";
+import { Drawer } from "@/app/components/ui/drawer/drawer";
 
 // Stable id so island hydration matches full-page SSR (Honox useId path differs).
 const NAV_MOBILE_TRIGGER_ID = "nav-mobile-trigger";

@@ -64,8 +64,14 @@ export function buildObserverOptions(
   return options;
 }
 
-function instanceKey<K extends string>(key: K, instance: ObserverInstance) {
-  return (instance === 1 ? key : `${key}2`) as K | `${K}2`;
+function instanceKey<K extends string>(
+  key: K,
+  instance: ObserverInstance,
+): K | `${K}2` {
+  if (instance === 1) {
+    return key;
+  }
+  return `${key}2`;
 }
 
 function generateTarget(node: Node | null) {
