@@ -52,4 +52,33 @@ export default defineConfig(
       ],
     },
   },
+  {
+    files: ["app/islands/**/*.{ts,tsx}"],
+    rules: {
+      "no-restricted-imports": [
+        "error",
+        {
+          paths: [
+            {
+              name: "react",
+              importNames: ["useId"],
+              message:
+                "Honox SSR and island hydration disagree on useId(). " +
+                "Use islandId() from @/lib/island-id instead.",
+            },
+          ],
+        },
+      ],
+      "no-restricted-syntax": [
+        "error",
+        {
+          selector:
+            "CallExpression[callee.name='useId'], CallExpression[callee.property.name='useId']",
+          message:
+            "Honox SSR and island hydration disagree on useId(). " +
+            "Use islandId() from @/lib/island-id instead.",
+        },
+      ],
+    },
+  },
 );

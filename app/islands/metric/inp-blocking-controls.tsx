@@ -9,6 +9,7 @@ import {
   setBlockingTime,
 } from "@/lib/metric/inp-blocking";
 import { Button } from "@/app/components/ui/button/button";
+import { islandId } from "@/lib/island-id";
 import { NumberField } from "@/app/components/ui/number-field/number-field";
 
 function initialBlockingTimes(flags: InpFlags) {
@@ -49,8 +50,7 @@ export function InpBlockingControls({ flags }: { flags: InpFlags }) {
       }}
     >
       {INP_BLOCKING_EVENT_NAMES.map((eventName) => {
-        // Stable id so island hydration matches full-page SSR (Honox useId path differs).
-        const id = `${eventName}-blocking-time`;
+        const id = islandId(`${eventName}-blocking-time`);
 
         return (
           <div key={eventName} className="Field">
