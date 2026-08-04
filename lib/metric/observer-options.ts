@@ -30,23 +30,23 @@ export function buildObserverOptions(
 ) {
   const options: ObserverOptions = {
     reportAllChanges: dual(
+      instance,
       flags.reportAllChanges,
       flags.reportAllChanges2,
-      instance,
     ),
   };
 
   if (metric === "INP") {
     options.durationThreshold = dual(
+      instance,
       flags.durationThreshold,
       flags.durationThreshold2,
-      instance,
     );
     options.includeProcessedEventEntries = flags.includeProcessedEventEntries;
   }
 
   if (metric === "CLS" || metric === "INP" || metric === "LCP") {
-    if (dual(flags.generateTarget, flags.generateTarget2, instance)) {
+    if (dual(instance, flags.generateTarget, flags.generateTarget2)) {
       options.generateTarget = generateTarget;
     }
   }
@@ -54,7 +54,7 @@ export function buildObserverOptions(
   return options;
 }
 
-function dual<T>(primary: T, secondary: T, instance: ObserverInstance) {
+function dual<T>(instance: ObserverInstance, primary: T, secondary: T) {
   return instance === 1 ? primary : secondary;
 }
 
