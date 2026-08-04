@@ -48,6 +48,8 @@ Observers toast and `console.log` each report, then `sendBeacon` to `POST /colle
 
 Delayed static assets used by scenarios are served under `/public` (for example `?delay=` on asset URLs).
 
+For debugging, enable **Preserve log** in the browser DevTools (Console and Network panels). Reports are sent via `sendBeacon` on lifecycle events like `pagehide`/`visibilitychange`, and pages can reload as part of a scenario (for example prerender), so without **Preserve log** those console logs and network requests are wiped before you can inspect them.
+
 ## Flag catalog
 
 Shared and metric-specific query flags. Defaults apply when the flag is omitted. Boolean flags are only written to the URL when `true`.
