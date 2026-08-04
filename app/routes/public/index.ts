@@ -1,21 +1,26 @@
-import { zValidator } from "@hono/zod-validator";
 import { Hono } from "hono";
 import { serveStatic } from "hono/bun";
+import { HTTPException } from "hono/http-exception";
 import * as z from "zod";
 
 import { delay } from "@/lib/delay";
 import { isDefined } from "@/lib/is-defined";
 
-const AssetDelayQuerySchema = z.object({
+const DelayQuerySchema = z.object({
   delay: z.coerce.number().optional(),
 });
 
 const publicRoutes = new Hono()
-  .use("*", zValidator("query", AssetDelayQuerySchema))
   .use("*", async (c, next) => {
-    const { delay: timeout } = c.req.valid("query") as z.infer<
-      typeof AssetDelayQuerySchema
-    >;
+    const parsed = DelayQuerySchema.safeParse({
+      delay: c.req.query("delay"),
+    });
+
+    if (!parsed.success) {
+      throw new HTTPException(400, { message: "Invalid delay query" });
+    }
+
+    const { delay: timeout } = parsed.data;
 
     if (isDefined(timeout)) {
       await delay(timeout);
