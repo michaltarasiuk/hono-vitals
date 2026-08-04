@@ -9,10 +9,7 @@ import {
   createBatchReporter,
 } from "@/lib/metric/batch-reporter";
 import { loadWebVitals } from "@/lib/metric/load-web-vitals";
-import {
-  buildObserverOptions,
-  OBSERVER_RECIPES,
-} from "@/lib/metric/observer-options";
+import { buildObserverOptions } from "@/lib/metric/observer-options";
 
 export function FcpObserver({ flags }: { flags: FcpFlags }) {
   useEffect(() => {
@@ -46,7 +43,7 @@ export function FcpObserver({ flags }: { flags: FcpFlags }) {
             reportMetric(reported);
           }
         },
-        buildObserverOptions(OBSERVER_RECIPES.fcp, flags, 1),
+        buildObserverOptions("FCP", flags, 1),
       );
 
       if (flags.secondObserver) {
@@ -54,7 +51,7 @@ export function FcpObserver({ flags }: { flags: FcpFlags }) {
           (metric) => {
             reportMetric({ metric, instance: 2 });
           },
-          buildObserverOptions(OBSERVER_RECIPES.fcp, flags, 2),
+          buildObserverOptions("FCP", flags, 2),
         );
       }
 
