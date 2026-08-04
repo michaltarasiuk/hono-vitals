@@ -4,6 +4,9 @@ import { useState } from "react";
 import { AlertDialog } from "@/app/components/ui/alert-dialog/alert-dialog";
 import { Button } from "@/app/components/ui/button/button";
 import { collectClient } from "@/lib/collect/client";
+import { islandId } from "@/lib/island-id";
+
+const CLEAR_METRICS_TRIGGER_ID = islandId("clear-metrics-trigger");
 
 export function ClearMetrics() {
   const [pending, setPending] = useState(false);
@@ -27,7 +30,7 @@ export function ClearMetrics() {
 
   return (
     <AlertDialog.Root>
-      <AlertDialog.Trigger render={<Button />}>
+      <AlertDialog.Trigger id={CLEAR_METRICS_TRIGGER_ID} render={<Button />}>
         <span className="ClearMetricsLabel ClearMetricsLabel--full">
           Clear samples
         </span>

@@ -8,9 +8,12 @@ import { Field } from "@/app/components/ui/field/field";
 import { NumberField } from "@/app/components/ui/number-field/number-field";
 import { Switch } from "@/app/components/ui/switch/switch";
 import { assertNever } from "@/lib/assert-never";
+import { islandId } from "@/lib/island-id";
 import { formatFlagLabel } from "@/lib/metric/flags/format-flag-label";
 import { navigateWithFlags } from "@/lib/metric/flags/navigate-with-flags";
 import { sortFlagEntries } from "@/lib/metric/flags/sort-flag-entries";
+
+const FLAGS_EDITOR_TRIGGER_ID = islandId("metric-flags-trigger");
 
 interface FlagsEditorProps {
   flags: Flags;
@@ -34,7 +37,7 @@ export function FlagsEditor({ flags, defaults }: FlagsEditorProps) {
 
   return (
     <Dialog.Root open={open} onOpenChange={handleOpenChange}>
-      <Dialog.Trigger render={<Button />}>
+      <Dialog.Trigger id={FLAGS_EDITOR_TRIGGER_ID} render={<Button />}>
         <span className="FlagsEditorLabel FlagsEditorLabel--full">
           Edit flags
         </span>
