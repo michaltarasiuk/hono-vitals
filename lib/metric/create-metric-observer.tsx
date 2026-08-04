@@ -94,7 +94,7 @@ export function createMetricObserver<T extends MetricObserverFlags>(
         function report(metric: Metric, instance: ObserverInstance) {
           const reported: ReportedMetric = { metric, instance };
 
-          if (instance === 1 && isDefined(batch)) {
+          if (isDefined(batch)) {
             batch.enqueue(reported);
           } else {
             reportMetric(reported);
@@ -111,7 +111,7 @@ export function createMetricObserver<T extends MetricObserverFlags>(
         }
 
         const waitUntil = resolveWaitUntil(config.waitUntil, flags);
-        const primaryDispose = schedulePrimary(waitUntil, () => {
+        const primaryDispose = scheduleRegister(waitUntil, () => {
           register(1);
         });
         if (isDefined(primaryDispose)) {
@@ -173,7 +173,7 @@ function resolveWaitUntil<T>(
   return typeof waitUntil === "function" ? waitUntil(flags) : waitUntil;
 }
 
-function schedulePrimary(waitUntil: WaitUntil, register: () => void) {
+function scheduleRegister(waitUntil: WaitUntil, register: () => void) {
   switch (waitUntil) {
     case "immediate":
       register();
