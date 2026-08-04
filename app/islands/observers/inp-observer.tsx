@@ -9,7 +9,7 @@ import {
   createBatchReporter,
 } from "@/lib/metric/batch-reporter";
 import { loadWebVitals } from "@/lib/metric/load-web-vitals";
-import { buildObserverOptions } from "@/lib/metric/observer-options";
+import { observerOptions } from "@/lib/metric/observer-options";
 
 export function InpObserver({ flags }: { flags: InpFlags }) {
   useEffect(() => {
@@ -43,7 +43,7 @@ export function InpObserver({ flags }: { flags: InpFlags }) {
             reportMetric(reported);
           }
         },
-        buildObserverOptions("INP", flags, 1),
+        observerOptions("inp", flags, 1),
       );
 
       if (flags.secondObserver) {
@@ -51,7 +51,7 @@ export function InpObserver({ flags }: { flags: InpFlags }) {
           (metric) => {
             reportMetric({ metric, instance: 2 });
           },
-          buildObserverOptions("INP", flags, 2),
+          observerOptions("inp", flags, 2),
         );
       }
 
