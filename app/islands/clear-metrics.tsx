@@ -44,8 +44,8 @@ export function ClearMetrics() {
           <AlertDialog.Header>
             <AlertDialog.Title>Clear samples?</AlertDialog.Title>
             <AlertDialog.Description>
-              This removes all collected web-vitals samples. You can’t undo this
-              action.
+              Deletes all stored samples from the database. This can’t be
+              undone.
             </AlertDialog.Description>
           </AlertDialog.Header>
           <AlertDialog.Actions>
