@@ -31,7 +31,7 @@ cp .env.example .env
 ## Usage
 
 1. Start the app with `bun run dev`.
-2. Open `/` for the metrics summary dashboard.
+2. Open `/` for the metrics summary dashboard (cards link to each metric page; **Clear samples** wipes DuckDB).
 3. Open a metric page and toggle flags in the UI (or via the query string):
 
 | Route          | Metric                    |
@@ -42,11 +42,88 @@ cp .env.example .env
 | `/metric/lcp`  | Largest Contentful Paint  |
 | `/metric/ttfb` | Time to First Byte        |
 
-Flags are booleans/numbers validated from the query string (for example `/metric/lcp?attribution=true&imgDelay=500`). Shared flags include delayed DCL/load, render-blocking CSS, `reportAllChanges`, a second observer, deferred library load, attribution, and metric-specific options (INP duration threshold, LCP image delay, batch reporting, and so on).
+Flags are booleans/numbers validated from the query string (for example `/metric/lcp?attribution=true&imgDelay=500`).
 
-Observers toast and `console.log` each report, then `sendBeacon` to `POST /collect` with `{ metrics: [...] }` (one metric immediately, or many on batch flush), falling back to `fetch` with `keepalive` if the beacon is refused. The collect handler validates the payload and inserts into DuckDB (`INSERT OR REPLACE` on metric id).
+Observers toast and `console.log` each report, then `sendBeacon` to `POST /collect` with `{ metrics: [...] }` (one metric immediately, or many on batch flush), falling back to the typed Hono client (`collectClient`) with `keepalive` if the beacon is refused. The collect handler validates the payload and inserts into DuckDB (`INSERT OR REPLACE` on metric id). `DELETE /collect` (also via `collectClient`) clears all rows.
 
 Delayed static assets used by scenarios are served under `/public` (for example `?delay=` on asset URLs).
+
+## Flag catalog
+
+Shared and metric-specific query flags. Defaults apply when the flag is omitted. Boolean flags are only written to the URL when `true`.
+
+### Shared (all metrics)
+
+| Flag                    | Type    | Default | Description                                                            |
+| ----------------------- | ------- | ------- | ---------------------------------------------------------------------- |
+| `delayDomContentLoaded` | number  | `0`     | Delay (ms) before a deferred script that holds DCL fires               |
+| `delayLoad`             | number  | `0`     | Delay (ms) before an async script that holds `load` fires              |
+| `renderBlocking`        | number  | `0`     | Delay (ms) for a render-blocking stylesheet                            |
+| `reportAllChanges`      | boolean | `false` | Pass `reportAllChanges` to the primary observer                        |
+| `secondObserver`        | boolean | `false` | Register a second observer (instance `2`)                              |
+| `reportAllChanges2`     | boolean | `false` | `reportAllChanges` for the second observer                             |
+| `deferLibraryLoad`      | boolean | `false` | Defer importing `web-vitals` until after first paint                   |
+| `loadAfterInput`        | boolean | `false` | Wait for first input before loading `web-vitals`                       |
+| `stubHidden`            | boolean | `false` | Stub `document.visibilityState` / visibility entries as `hidden`       |
+| `wasDiscarded`          | boolean | `false` | Stub `document.wasDiscarded` as `true`                                 |
+| `htmlHidden`            | boolean | `false` | Set the `hidden` attribute on the main content                         |
+| `prerender`             | boolean | `false` | Inject Speculation Rules and a prerender link for the current flag URL |
+| `attribution`           | boolean | `false` | Load the attribution build of `web-vitals`                             |
+| `batchReporting`        | boolean | `false` | Queue reports and flush on `visibilitychange` / `pagehide` / dispose   |
+
+### Shared (CLS, INP, LCP)
+
+| Flag              | Type    | Default | Description                                             |
+| ----------------- | ------- | ------- | ------------------------------------------------------- |
+| `generateTarget`  | boolean | `false` | Pass a `generateTarget` helper that reads `data-target` |
+| `generateTarget2` | boolean | `false` | Same for the second observer                            |
+
+### CLS
+
+| Flag             | Type    | Default | Description                                 |
+| ---------------- | ------- | ------- | ------------------------------------------- |
+| `noLayoutShifts` | boolean | `false` | Skip shifting images; page stays shift-free |
+| `imgHidden`      | boolean | `false` | Hide the primary delayed image              |
+| `img2Hidden`     | boolean | `false` | Hide the secondary delayed image            |
+
+### FCP
+
+| Flag        | Type    | Default | Description                      |
+| ----------- | ------- | ------- | -------------------------------- |
+| `imgDelay`  | number  | `500`   | Delay (ms) for the content image |
+| `imgHidden` | boolean | `false` | Hide the content image           |
+
+### INP
+
+| Flag                           | Type    | Default | Description                                                |
+| ------------------------------ | ------- | ------- | ---------------------------------------------------------- |
+| `durationThreshold`            | number  | `40`    | `durationThreshold` (ms) for the primary observer          |
+| `durationThreshold2`           | number  | `40`    | Same for the second observer                               |
+| `includeProcessedEventEntries` | boolean | `false` | Pass `includeProcessedEventEntries` when attribution is on |
+| `clickBlockingTime`            | number  | `0`     | Main-thread block (ms) on `click`                          |
+| `keydownBlockingTime`          | number  | `0`     | Main-thread block (ms) on `keydown`                        |
+| `keyupBlockingTime`            | number  | `0`     | Main-thread block (ms) on `keyup`                          |
+| `mousedownBlockingTime`        | number  | `0`     | Main-thread block (ms) on `mousedown`                      |
+| `mouseupBlockingTime`          | number  | `0`     | Main-thread block (ms) on `mouseup`                        |
+| `pointerdownBlockingTime`      | number  | `0`     | Main-thread block (ms) on `pointerdown`                    |
+| `pointerupBlockingTime`        | number  | `0`     | Main-thread block (ms) on `pointerup`                      |
+
+### LCP
+
+| Flag                         | Type    | Default | Description                                                 |
+| ---------------------------- | ------- | ------- | ----------------------------------------------------------- |
+| `registerOnVisibilityChange` | boolean | `false` | Register `onLCP` only after `visibilitychange` to `visible` |
+| `removeElement`              | boolean | `false` | Remove the LCP image element before observing               |
+| `imgDelay`                   | number  | `500`   | Delay (ms) for the LCP image                                |
+| `imgHidden`                  | boolean | `false` | Hide the LCP image                                          |
+
+### TTFB
+
+| Flag            | Type    | Default | Description                                              |
+| --------------- | ------- | ------- | -------------------------------------------------------- |
+| `imgDelay`      | number  | `500`   | Delay (ms) for the page image                            |
+| `imgHidden`     | boolean | `false` | Hide the page image                                      |
+| `responseStart` | number  | `0`     | Override navigation timing `responseStart` (ms) when > 0 |
 
 ## Stack
 
