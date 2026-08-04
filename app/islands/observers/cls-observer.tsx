@@ -1,8 +1,73 @@
+import { useEffect } from "react";
+
 import type { ClsFlags } from "@/lib/metric/flags/defaults/cls";
 
-import { createMetricObserver } from "@/lib/metric/create-metric-observer";
+import { type ReportedMetric, reportMetric } from "@/lib/collect/report-metric";
+import { isDefined } from "@/lib/is-defined";
+import {
+  type BatchReporter,
+  createBatchReporter,
+} from "@/lib/metric/batch-reporter";
+import { loadWebVitals } from "@/lib/metric/load-web-vitals";
+import {
+  buildObserverOptions,
+  OBSERVER_RECIPES,
+} from "@/lib/metric/observer-options";
 
-export const ClsObserver = createMetricObserver<ClsFlags>({
-  name: "CLS",
-  observe: (webVitals) => webVitals.onCLS,
-});
+export function ClsObserver({ flags }: { flags: ClsFlags }) {
+  useEffect(() => {
+    let ignore = false;
+    let dispose: (() => void) | null = null;
+
+    void (async () => {
+      const { onCLS } = await loadWebVitals({
+        attribution: flags.attribution,
+        deferLibraryLoad: flags.deferLibraryLoad,
+        loadAfterInput: flags.loadAfterInput,
+      });
+
+      if (ignore) {
+        return;
+      }
+
+      let batch: BatchReporter | null = null;
+      if (flags.batchReporting) {
+        batch = createBatchReporter();
+        dispose = batch.dispose;
+      }
+
+      onCLS(
+        (metric) => {
+          const reported: ReportedMetric = { metric, instance: 1 };
+
+          if (isDefined(batch)) {
+            batch.enqueue(reported);
+          } else {
+            reportMetric(reported);
+          }
+        },
+        buildObserverOptions(OBSERVER_RECIPES.cls, flags, 1),
+      );
+
+      if (flags.secondObserver) {
+        onCLS(
+          (metric) => {
+            reportMetric({ metric, instance: 2 });
+          },
+          buildObserverOptions(OBSERVER_RECIPES.cls, flags, 2),
+        );
+      }
+
+      if (ignore) {
+        dispose?.();
+      }
+    })();
+
+    return () => {
+      ignore = true;
+      dispose?.();
+    };
+  }, [flags]);
+
+  return null;
+}
