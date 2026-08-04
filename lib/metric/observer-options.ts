@@ -4,22 +4,12 @@ import type {
   INPReportOpts,
 } from "web-vitals";
 
+import type { MetricName } from "@/lib/collect/metric-schema";
 import type { BaseFlags } from "@/lib/metric/flags/defaults/base";
 import type { GenerateTargetFlags } from "@/lib/metric/flags/defaults/generate-target";
 import type { InpReportFlags } from "@/lib/metric/flags/defaults/inp-report";
 
 export type ObserverInstance = 1 | 2;
-
-type ObserverOption =
-  "durationThreshold" | "generateTarget" | "includeProcessedEventEntries";
-
-export const OBSERVER_RECIPES = {
-  cls: ["generateTarget"],
-  fcp: [],
-  inp: ["generateTarget", "durationThreshold", "includeProcessedEventEntries"],
-  lcp: ["generateTarget"],
-  ttfb: [],
-} as const satisfies Record<string, readonly ObserverOption[]>;
 
 interface ObserverFlagsInput
   extends
@@ -34,46 +24,42 @@ export interface ObserverOptions
     Pick<INPAttributionReportOpts, "includeProcessedEventEntries"> {}
 
 export function buildObserverOptions(
-  recipe: readonly ObserverOption[],
+  metric: MetricName,
   flags: ObserverFlagsInput,
   instance: ObserverInstance = 1,
 ) {
   const options: ObserverOptions = {
-    reportAllChanges: flags[instanceKey("reportAllChanges", instance)],
+    reportAllChanges: dual(
+      flags.reportAllChanges,
+      flags.reportAllChanges2,
+      instance,
+    ),
   };
 
-  if (recipe.includes("durationThreshold")) {
-    options.durationThreshold =
-      flags[instanceKey("durationThreshold", instance)];
+  if (metric === "INP") {
+    options.durationThreshold = dual(
+      flags.durationThreshold,
+      flags.durationThreshold2,
+      instance,
+    );
+    options.includeProcessedEventEntries = flags.includeProcessedEventEntries;
   }
 
-  if (
-    recipe.includes("includeProcessedEventEntries") &&
-    flags.includeProcessedEventEntries
-  ) {
-    options.includeProcessedEventEntries = true;
-  }
-
-  if (
-    recipe.includes("generateTarget") &&
-    flags[instanceKey("generateTarget", instance)]
-  ) {
-    options.generateTarget = generateTarget;
+  if (metric === "CLS" || metric === "INP" || metric === "LCP") {
+    if (dual(flags.generateTarget, flags.generateTarget2, instance)) {
+      options.generateTarget = generateTarget;
+    }
   }
 
   return options;
 }
 
-function instanceKey<K extends string>(key: K, instance: ObserverInstance) {
-  if (instance === 1) {
-    return key;
-  }
-  return `${key}2` as const;
+function dual<T>(primary: T, secondary: T, instance: ObserverInstance) {
+  return instance === 1 ? primary : secondary;
 }
 
 function generateTarget(node: Node | null) {
-  if (!(node instanceof HTMLElement)) {
-    return;
+  if (node instanceof HTMLElement) {
+    return node.dataset.target;
   }
-  return node.dataset.target;
 }

@@ -9,10 +9,7 @@ import {
   createBatchReporter,
 } from "@/lib/metric/batch-reporter";
 import { loadWebVitals } from "@/lib/metric/load-web-vitals";
-import {
-  buildObserverOptions,
-  OBSERVER_RECIPES,
-} from "@/lib/metric/observer-options";
+import { buildObserverOptions } from "@/lib/metric/observer-options";
 
 export function ClsObserver({ flags }: { flags: ClsFlags }) {
   useEffect(() => {
@@ -46,7 +43,7 @@ export function ClsObserver({ flags }: { flags: ClsFlags }) {
             reportMetric(reported);
           }
         },
-        buildObserverOptions(OBSERVER_RECIPES.cls, flags, 1),
+        buildObserverOptions("CLS", flags, 1),
       );
 
       if (flags.secondObserver) {
@@ -54,7 +51,7 @@ export function ClsObserver({ flags }: { flags: ClsFlags }) {
           (metric) => {
             reportMetric({ metric, instance: 2 });
           },
-          buildObserverOptions(OBSERVER_RECIPES.cls, flags, 2),
+          buildObserverOptions("CLS", flags, 2),
         );
       }
 

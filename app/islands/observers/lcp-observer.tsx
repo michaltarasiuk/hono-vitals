@@ -9,10 +9,7 @@ import {
   createBatchReporter,
 } from "@/lib/metric/batch-reporter";
 import { loadWebVitals } from "@/lib/metric/load-web-vitals";
-import {
-  buildObserverOptions,
-  OBSERVER_RECIPES,
-} from "@/lib/metric/observer-options";
+import { buildObserverOptions } from "@/lib/metric/observer-options";
 import { removeLcpElement } from "@/lib/metric/remove-lcp-element";
 
 export function LcpObserver({ flags }: { flags: LcpFlags }) {
@@ -58,7 +55,7 @@ export function LcpObserver({ flags }: { flags: LcpFlags }) {
               reportMetric(reported);
             }
           },
-          buildObserverOptions(OBSERVER_RECIPES.lcp, flags, 1),
+          buildObserverOptions("LCP", flags, 1),
         );
       }
 
@@ -82,7 +79,7 @@ export function LcpObserver({ flags }: { flags: LcpFlags }) {
           (metric) => {
             reportMetric({ metric, instance: 2 });
           },
-          buildObserverOptions(OBSERVER_RECIPES.lcp, flags, 2),
+          buildObserverOptions("LCP", flags, 2),
         );
       }
 
