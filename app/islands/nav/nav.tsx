@@ -1,8 +1,5 @@
 import { Drawer } from "@/app/components/ui/drawer/drawer";
-import { islandId } from "@/lib/island-id";
 import { getActiveRoute, isActiveHref, ROUTES } from "@/lib/routes";
-
-const NAV_MOBILE_TRIGGER_ID = islandId("nav-mobile-trigger");
 
 interface NavProps {
   currentPath: string;
@@ -28,11 +25,8 @@ export function Nav({ currentPath }: NavProps) {
         })}
       </nav>
       <div className="NavMobile">
-        <Drawer.Root triggerId={NAV_MOBILE_TRIGGER_ID}>
-          <Drawer.Trigger
-            id={NAV_MOBILE_TRIGGER_ID}
-            className="NavMobileTrigger"
-          >
+        <Drawer.Root>
+          <Drawer.Trigger className="NavMobileTrigger">
             <span className="NavMobileLabel">{activeRoute.label}</span>
             <ChevronIcon />
           </Drawer.Trigger>
