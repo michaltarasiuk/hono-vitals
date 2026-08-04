@@ -68,6 +68,18 @@ function Title({
   );
 }
 
+function Description({
+  className,
+  children,
+  ...props
+}: React.ComponentProps<typeof BaseDialog.Description>) {
+  return (
+    <BaseDialog.Description className={cx("Description", className)} {...props}>
+      {children}
+    </BaseDialog.Description>
+  );
+}
+
 function Body({ className, children, ...props }: React.ComponentProps<"div">) {
   return (
     <div className={cx("Body", className)} {...props}>
@@ -100,6 +112,7 @@ export const Dialog = {
   Backdrop,
   Body,
   Close,
+  Description,
   Header,
   Popup,
   Portal,
