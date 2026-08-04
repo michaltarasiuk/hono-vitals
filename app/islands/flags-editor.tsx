@@ -52,6 +52,9 @@ export function FlagsEditor({ flags, defaults }: FlagsEditorProps) {
         <Dialog.Popup>
           <Dialog.Header>
             <Dialog.Title>Flags</Dialog.Title>
+            <Dialog.Description>
+              Toggle query-string flags for this metric page.
+            </Dialog.Description>
           </Dialog.Header>
           <Dialog.Body>
             {sortFlagEntries(draft).map(([key, value]) => {
