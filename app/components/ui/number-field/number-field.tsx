@@ -41,18 +41,6 @@ function ScrubAreaCursor({
   );
 }
 
-function Label({
-  children,
-  className,
-  ...props
-}: React.ComponentProps<"label">) {
-  return (
-    <label className={cx("NumberFieldLabel", className)} {...props}>
-      {children}
-    </label>
-  );
-}
-
 function Group({
   children,
   className,
@@ -154,7 +142,6 @@ export const NumberField = {
   Group,
   Increment,
   Input,
-  Label,
   Root,
   ScrubArea,
   ScrubAreaCursor,

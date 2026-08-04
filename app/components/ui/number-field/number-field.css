@@ -15,14 +15,6 @@
   filter: drop-shadow(0 1px 1px oklch(0% 0 0deg / 50%));
 }
 
-.NumberFieldLabel {
-  cursor: ew-resize;
-  font-size: 0.875rem;
-  line-height: 1.25rem;
-  font-weight: 700;
-  color: var(--foreground);
-}
-
 .NumberFieldGroup {
   display: flex;
   height: 2rem;

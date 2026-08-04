@@ -3,8 +3,8 @@ import { useEffect, useState } from "react";
 import type { InpFlags } from "@/lib/metric/flags/defaults/inp";
 
 import { Button } from "@/app/components/ui/button/button";
+import { Field } from "@/app/components/ui/field/field";
 import { NumberField } from "@/app/components/ui/number-field/number-field";
-import { islandId } from "@/lib/island-id";
 import {
   INP_BLOCKING_EVENT_NAMES,
   type InpBlockingEventName,
@@ -49,36 +49,28 @@ export function InpBlockingControls({ flags }: { flags: InpFlags }) {
         event.preventDefault();
       }}
     >
-      {INP_BLOCKING_EVENT_NAMES.map((eventName) => {
-        const id = islandId(`${eventName}-blocking-time`);
-
-        return (
-          <div key={eventName} className="Field">
-            <label htmlFor={id} className="Label">
-              {eventName} blocking time
-            </label>
-            <NumberField.Root
-              id={id}
-              name={id}
-              value={blockingTimes[eventName]}
-              min={0}
-              step={1}
-              onValueChange={(next) => {
-                setBlockingTimes((bt) => ({
-                  ...bt,
-                  [eventName]: next ?? 0,
-                }));
-              }}
-            >
-              <NumberField.Group>
-                <NumberField.Decrement />
-                <NumberField.Input />
-                <NumberField.Increment />
-              </NumberField.Group>
-            </NumberField.Root>
-          </div>
-        );
-      })}
+      {INP_BLOCKING_EVENT_NAMES.map((eventName) => (
+        <Field.Root key={eventName} name={`${eventName}-blocking-time`}>
+          <Field.Label>{eventName} blocking time</Field.Label>
+          <NumberField.Root
+            value={blockingTimes[eventName]}
+            min={0}
+            step={1}
+            onValueChange={(next) => {
+              setBlockingTimes((bt) => ({
+                ...bt,
+                [eventName]: next ?? 0,
+              }));
+            }}
+          >
+            <NumberField.Group>
+              <NumberField.Decrement />
+              <NumberField.Input />
+              <NumberField.Increment />
+            </NumberField.Group>
+          </NumberField.Root>
+        </Field.Root>
+      ))}
       <Button type="button" onClick={handleReset}>
         Reset blocking time to zero
       </Button>
