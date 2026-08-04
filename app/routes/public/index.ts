@@ -17,7 +17,9 @@ const publicRoutes = new Hono()
     });
 
     if (!parsed.success) {
-      throw new HTTPException(400, { message: "Invalid delay query" });
+      throw new HTTPException(400, {
+        message: "Invalid delay query",
+      });
     }
 
     const { delay: timeout } = parsed.data;
