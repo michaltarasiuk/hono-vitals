@@ -90,15 +90,15 @@ function Close({
   return <BaseDrawer.Close {...props}>{children}</BaseDrawer.Close>;
 }
 
-function Handle({ className, ...props }: React.ComponentProps<"div">) {
-  return <div className={cx("DrawerHandle", className)} {...props} />;
+function Grip({ className, ...props }: React.ComponentProps<"div">) {
+  return <div className={cx("DrawerGrip", className)} {...props} />;
 }
 
 export const Drawer = {
   Backdrop,
   Close,
   Content,
-  Handle,
+  Grip,
   Popup,
   Portal,
   Root,

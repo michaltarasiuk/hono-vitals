@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 
-import { Nav } from "@/app/components/layout/nav";
+import { Nav } from "@/app/islands/nav/nav";
 
 function Root({ children }: { children: ReactNode }) {
   return (
