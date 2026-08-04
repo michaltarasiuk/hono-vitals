@@ -12,7 +12,7 @@
 }
 
 .NumberFieldScrubAreaCursor {
-  filter: drop-shadow(0 1px 1px rgb(0 0 0 / 50%));
+  filter: drop-shadow(0 1px 1px oklch(0% 0 0deg / 50%));
 }
 
 .NumberFieldLabel {

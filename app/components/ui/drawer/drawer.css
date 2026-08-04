@@ -4,7 +4,7 @@
   position: fixed;
   min-height: 100dvh;
   inset: 0;
-  background-color: black;
+  background-color: var(--backdrop);
   opacity: calc(
     var(--drawer-backdrop-opacity) * (1 - var(--drawer-swipe-progress))
   );
