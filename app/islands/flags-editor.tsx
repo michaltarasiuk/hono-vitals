@@ -53,7 +53,7 @@ export function FlagsEditor({ flags, defaults }: FlagsEditorProps) {
           <Dialog.Header>
             <Dialog.Title>Flags</Dialog.Title>
             <Dialog.Description>
-              Toggle query-string flags for this metric page.
+              Change the flags and save to reload the page with the new URL.
             </Dialog.Description>
           </Dialog.Header>
           <Dialog.Body>
