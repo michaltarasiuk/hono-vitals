@@ -1,7 +1,9 @@
 import type { Metric } from "web-vitals";
 
+import type { CollectBody } from "@/lib/collect/collect-body";
 import type { ObserverInstance } from "@/lib/metric/observer-options";
 
+import { COLLECT_PATH, collectClient } from "@/lib/collect/client";
 import { toastMetric } from "@/lib/toast/toast-metric";
 
 export interface ReportedMetric {
@@ -23,28 +25,43 @@ export function reportMetrics(reported: ReportedMetric[]) {
     toastMetric(item.metric);
   }
 
-  const body = JSON.stringify(
-    { metrics: reported.map(({ metric }) => metric) },
-    replacer,
-  );
-
-  sendCollect(body);
+  const metrics = toCollectMetrics(reported);
+  sendCollect(metrics);
 }
 
-function sendCollect(body: string) {
+function sendCollect(metrics: CollectBody["metrics"]) {
+  const body = JSON.stringify({ metrics });
   const payload = new Blob([body], { type: "application/json" });
 
-  if (navigator.sendBeacon("/collect", payload)) {
+  if (navigator.sendBeacon(COLLECT_PATH, payload)) {
     return;
   }
 
-  void fetch("/collect", {
-    method: "POST",
-    body: payload,
-    keepalive: true,
-  }).catch(() => {
-    // Ignore reject when the document is unloading.
-  });
+  void collectClient.index
+    .$post(
+      { json: { metrics } },
+      {
+        init: {
+          keepalive: true,
+        },
+      },
+    )
+    .catch(() => {
+      // Ignore reject when the document is unloading.
+    });
+}
+
+function toCollectMetrics(reported: ReportedMetric[]): CollectBody["metrics"] {
+  return reported.map(({ metric }) => ({
+    id: metric.id,
+    name: metric.name,
+    value: metric.value,
+    delta: metric.delta,
+    rating: metric.rating,
+    navigationType: metric.navigationType,
+    // PerformanceEntry / attribution aren't needed for analytics storage.
+    entries: [],
+  }));
 }
 
 function logMetric({ metric, instance }: ReportedMetric) {
@@ -58,13 +75,4 @@ function logMetric({ metric, instance }: ReportedMetric) {
     entries: metric.entries,
     ...("attribution" in metric ? { attribution: metric.attribution } : {}),
   });
-}
-
-function replacer(_key: string, value: unknown) {
-  if (typeof value === "function") {
-    return;
-  } else if (value instanceof EventTarget) {
-    return value.constructor.name;
-  }
-  return value;
 }

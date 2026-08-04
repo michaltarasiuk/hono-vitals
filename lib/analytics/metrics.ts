@@ -28,26 +28,6 @@ const EMPTY_METRIC_SUMMARY = {
   poor: 0,
 } as const satisfies Omit<MetricSummary, "name">;
 
-export async function insertMetrics(metrics: Metric[]) {
-  if (metrics.length === 0) {
-    return;
-  }
-
-  await sql`
-    INSERT OR REPLACE INTO ${metricsTable} (${metricsInsertColumns})
-    VALUES ${sql.values(
-      metrics.map((metric) => [
-        metric.id,
-        metric.name,
-        metric.value,
-        metric.delta,
-        metric.rating,
-        metric.navigationType,
-      ]),
-    )}
-  `;
-}
-
 export async function getMetricsSummary() {
   const rows = await sql<MetricSummary>`
     SELECT
@@ -70,4 +50,28 @@ export async function getMetricsSummary() {
     ...EMPTY_METRIC_SUMMARY,
     ...byName.get(name),
   }));
+}
+
+export async function insertMetrics(metrics: Metric[]) {
+  if (metrics.length === 0) {
+    return;
+  }
+
+  await sql`
+    INSERT OR REPLACE INTO ${metricsTable} (${metricsInsertColumns})
+    VALUES ${sql.values(
+      metrics.map((metric) => [
+        metric.id,
+        metric.name,
+        metric.value,
+        metric.delta,
+        metric.rating,
+        metric.navigationType,
+      ]),
+    )}
+  `;
+}
+
+export async function clearMetrics() {
+  await sql`TRUNCATE TABLE ${metricsTable}`;
 }
