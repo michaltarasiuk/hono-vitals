@@ -2,7 +2,7 @@
   position: fixed;
   min-height: 100dvh;
   inset: 0;
-  background-color: black;
+  background-color: var(--backdrop);
   opacity: 0.2;
   transition: opacity 150ms;
 

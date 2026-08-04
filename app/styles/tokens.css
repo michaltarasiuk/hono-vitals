@@ -1,16 +1,20 @@
 :root {
   color-scheme: light;
-  color: oklch(14.5% 0 0deg);
 
   --foreground: oklch(14.5% 0 0deg);
   --muted-foreground: oklch(43.9% 0 0deg);
   --border: oklch(14.5% 0 0deg);
   --border-subtle: oklch(87% 0 0deg);
-  --background: white;
+  --background: oklch(100% 0 0deg);
   --surface-hover: oklch(97% 0 0deg);
   --surface-active: oklch(92.2% 0 0deg);
   --disabled: oklch(55.6% 0 0deg);
-  --shadow-offset: 0.25rem 0.25rem 0 rgb(0 0 0 / 12%);
+  --backdrop: oklch(0% 0 0deg);
+  --shadow-offset: 0.25rem 0.25rem 0 oklch(0% 0 0deg / 12%);
+
+  --rating-good: oklch(73% 0.194 147.4deg);
+  --rating-needs-improvement: oklch(86.5% 0.177 90.4deg);
+  --rating-poor: oklch(65.3% 0.233 25.7deg);
 
   --page-max-width: 64rem;
   --page-inline-padding: clamp(1.25rem, 4vw, 2rem);
@@ -18,6 +22,8 @@
   --breakpoint-sm: 36rem;
   --breakpoint-md: 40rem;
   --breakpoint-lg: 56rem;
+
+  color: var(--foreground);
 }
 
 @custom-media --breakpoint-sm (width >= 36rem);
@@ -27,16 +33,19 @@
 @media (prefers-color-scheme: dark) {
   :root {
     color-scheme: dark;
-    color: white;
 
-    --foreground: white;
+    --foreground: oklch(100% 0 0deg);
     --muted-foreground: oklch(70.8% 0 0deg);
-    --border: white;
+    --border: oklch(100% 0 0deg);
     --border-subtle: oklch(37.1% 0 0deg);
     --background: oklch(14.5% 0 0deg);
     --surface-hover: oklch(26.9% 0 0deg);
     --surface-active: oklch(37.1% 0 0deg);
     --disabled: oklch(70.8% 0 0deg);
     --shadow-offset: none;
+
+    --rating-good: oklch(75.6% 0.208 147deg);
+    --rating-needs-improvement: oklch(88.5% 0.181 94.8deg);
+    --rating-poor: oklch(66.3% 0.224 28.3deg);
   }
 }
