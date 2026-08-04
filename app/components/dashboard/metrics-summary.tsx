@@ -12,7 +12,7 @@ export function MetricsSummary({ summaries }: { summaries: MetricSummary[] }) {
     <div className="MetricsSummary">
       <Heading>Metrics</Heading>
       <Text>
-        Summary across {totalSamples.toLocaleString()} collected samples.
+        {totalSamples.toLocaleString()} lab reports across all metrics.
       </Text>
       <div className="MetricsCardGrid">
         {summaries.map((metric) => (
