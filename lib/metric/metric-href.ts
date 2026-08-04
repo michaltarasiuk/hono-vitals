@@ -3,9 +3,10 @@ import type { Flags } from "@/lib/metric/flags/schema";
 
 export function metricHref(
   metric: MetricName,
-  ...flags: Parameters<typeof flagsToQueryString>
+  flags: Flags = {},
+  defaults: Flags = {},
 ) {
-  const queryString = flagsToQueryString(...flags);
+  const queryString = flagsToQueryString(flags, defaults);
   let href = `/metric/${metric.toLowerCase()}`;
   if (queryString.length > 0) {
     href += `?${queryString}`;

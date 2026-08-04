@@ -3,6 +3,7 @@ import type { MetricSummary } from "@/lib/analytics/metrics";
 import { Heading } from "@/app/components/ui/heading/heading";
 import { Text } from "@/app/components/ui/text/text";
 import { formatMetricValue } from "@/lib/analytics/format-metric-value";
+import { metricHref } from "@/lib/metric/metric-href";
 
 export function MetricsSummary({ summaries }: { summaries: MetricSummary[] }) {
   const totalSamples = summaries.reduce((acc, metric) => acc + metric.count, 0);
@@ -26,7 +27,7 @@ function MetricCard({ summary }: { summary: MetricSummary }) {
   const { good, needsImprovement, poor } = summary;
 
   return (
-    <article className="MetricsCard">
+    <a className="MetricsCard" href={metricHref(summary.name)}>
       <h2 className="MetricsCardTitle">{summary.name}</h2>
       <dl className="MetricsCardStats">
         <div>
@@ -68,7 +69,7 @@ function MetricCard({ summary }: { summary: MetricSummary }) {
           </li>
         </ul>
       </div>
-    </article>
+    </a>
   );
 }
 
