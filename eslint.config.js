@@ -7,11 +7,11 @@ import tseslint from "typescript-eslint";
 export default defineConfig(
   {
     ignores: [
+      ".agents/**",
+      "data/**",
       "dist/**",
       "node_modules/**",
       "public/**",
-      "data/**",
-      ".agents/**",
     ],
   },
   js.configs.recommended,
