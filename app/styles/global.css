@@ -1,7 +1,6 @@
 @import "./tokens.css";
 
 @import "../components/dashboard/metrics-summary.css";
-@import "../components/layout/nav.css";
 @import "../components/layout/toolbar.css";
 @import "../components/metric/metric-page.css";
 @import "../components/ui/button/button.css";
@@ -13,6 +12,8 @@
 @import "../components/ui/switch/switch.css";
 @import "../components/ui/text/text.css";
 @import "../components/ui/toast/toast.css";
+
+@import "../islands/nav/nav.css";
 
 @font-face {
   font-family: Inter;

@@ -19,8 +19,7 @@
   padding: 0.75rem var(--page-inline-padding);
 }
 
-.Toolbar .NavDesktop,
-.Toolbar honox-island:has(.NavMobile) {
+.Toolbar honox-island:has(.NavDesktop) {
   flex: 1;
   min-width: 0;
 }
@@ -37,11 +36,13 @@
   min-height: 2.5rem;
 }
 
-.FlagsEditorLabel--full {
+.FlagsEditorLabel--full,
+.ClearMetricsLabel--full {
   display: none;
 }
 
-.FlagsEditorLabel--short {
+.FlagsEditorLabel--short,
+.ClearMetricsLabel--short {
   display: inline;
 }
 
@@ -50,11 +51,13 @@
     min-height: unset;
   }
 
-  .FlagsEditorLabel--full {
+  .FlagsEditorLabel--full,
+  .ClearMetricsLabel--full {
     display: inline;
   }
 
-  .FlagsEditorLabel--short {
+  .FlagsEditorLabel--short,
+  .ClearMetricsLabel--short {
     display: none;
   }
 }
