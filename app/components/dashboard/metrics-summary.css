@@ -41,6 +41,19 @@
   border: 1px solid var(--border);
   background-color: var(--background);
   box-shadow: var(--shadow-offset);
+  color: inherit;
+  text-decoration: none;
+
+  @media (hover: hover) {
+    &:hover {
+      background-color: var(--surface-hover);
+    }
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--foreground);
+    outline-offset: -1px;
+  }
 }
 
 .MetricsCardTitle {
