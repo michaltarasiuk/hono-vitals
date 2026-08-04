@@ -64,14 +64,11 @@ export function buildObserverOptions(
   return options;
 }
 
-function instanceKey<K extends string>(
-  key: K,
-  instance: ObserverInstance,
-): K | `${K}2` {
+function instanceKey<K extends string>(key: K, instance: ObserverInstance) {
   if (instance === 1) {
     return key;
   }
-  return `${key}2`;
+  return `${key}2` as const;
 }
 
 function generateTarget(node: Node | null) {
