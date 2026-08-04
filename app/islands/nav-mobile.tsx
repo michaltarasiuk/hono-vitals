@@ -28,6 +28,7 @@ export function NavMobile({ currentPath }: NavMobileProps) {
                 <nav className="NavMobileList">
                   {ROUTES.map(({ href, label }) => {
                     const active = isActiveHref(href, currentPath);
+
                     return (
                       <a
                         key={href}
