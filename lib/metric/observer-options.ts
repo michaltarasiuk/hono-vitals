@@ -23,8 +23,8 @@ export interface ObserverOptions
     Pick<INPReportOpts, "durationThreshold">,
     Pick<INPAttributionReportOpts, "includeProcessedEventEntries"> {}
 
-export function buildObserverOptions(
-  metric: MetricName,
+export function observerOptions(
+  metric: Lowercase<MetricName>,
   flags: ObserverFlagsInput,
   instance: ObserverInstance = 1,
 ) {
@@ -36,7 +36,7 @@ export function buildObserverOptions(
     ),
   };
 
-  if (metric === "INP") {
+  if (metric === "inp") {
     options.durationThreshold = dual(
       instance,
       flags.durationThreshold,
@@ -45,7 +45,7 @@ export function buildObserverOptions(
     options.includeProcessedEventEntries = flags.includeProcessedEventEntries;
   }
 
-  if (metric === "CLS" || metric === "INP" || metric === "LCP") {
+  if (metric === "cls" || metric === "inp" || metric === "lcp") {
     if (dual(instance, flags.generateTarget, flags.generateTarget2)) {
       options.generateTarget = generateTarget;
     }

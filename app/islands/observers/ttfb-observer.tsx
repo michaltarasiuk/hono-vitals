@@ -9,7 +9,7 @@ import {
   createBatchReporter,
 } from "@/lib/metric/batch-reporter";
 import { loadWebVitals } from "@/lib/metric/load-web-vitals";
-import { buildObserverOptions } from "@/lib/metric/observer-options";
+import { observerOptions } from "@/lib/metric/observer-options";
 import { overrideResponseStart } from "@/lib/metric/override-response-start";
 
 export function TtfbObserver({ flags }: { flags: TtfbFlags }) {
@@ -50,7 +50,7 @@ export function TtfbObserver({ flags }: { flags: TtfbFlags }) {
             reportMetric(reported);
           }
         },
-        buildObserverOptions("TTFB", flags, 1),
+        observerOptions("ttfb", flags, 1),
       );
 
       if (flags.secondObserver) {
@@ -58,7 +58,7 @@ export function TtfbObserver({ flags }: { flags: TtfbFlags }) {
           (metric) => {
             reportMetric({ metric, instance: 2 });
           },
-          buildObserverOptions("TTFB", flags, 2),
+          observerOptions("ttfb", flags, 2),
         );
       }
 
