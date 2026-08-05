@@ -86,7 +86,7 @@ Shared and metric-specific query flags. Defaults apply when the flag is omitted.
 | ---------------- | ------- | ------- | ------------------------------------------- |
 | `noLayoutShifts` | boolean | `false` | Skip shifting images; page stays shift-free |
 | `imgHidden`      | boolean | `false` | Hide the primary delayed image              |
-| `img2Hidden`     | boolean | `false` | Hide the secondary delayed image            |
+| `imgHidden2`     | boolean | `false` | Hide the secondary delayed image            |
 
 ### FCP
 

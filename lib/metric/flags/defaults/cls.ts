@@ -10,7 +10,7 @@ export const CLS_FLAGS_DEFAULTS = {
   ...BATCH_REPORTING_FLAGS_DEFAULTS,
   noLayoutShifts: false,
   imgHidden: false,
-  img2Hidden: false,
+  imgHidden2: false,
 } as const satisfies Flags;
 
 export type ClsFlags = ParsedFlags<typeof CLS_FLAGS_DEFAULTS>;

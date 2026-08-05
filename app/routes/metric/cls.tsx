@@ -28,7 +28,7 @@ function ClsContent({ flags }: { flags: ClsFlags }) {
             <SquareImage
               elementtiming="secondary-image"
               delay={1000}
-              hidden={flags.img2Hidden}
+              hidden={flags.imgHidden2}
             />
           </Text>
           <Text>Text below the images that will get pushed down.</Text>
