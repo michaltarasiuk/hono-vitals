@@ -1,4 +1,4 @@
-# Web Vitals Lab
+# Hono Vitals
 
 A local playground for exercising [web-vitals](https://github.com/GoogleChrome/web-vitals) (CLS, FCP, INP, LCP, TTFB). Each metric has a dedicated page with query-string flags that recreate edge cases; reports are collected into DuckDB and summarized on the home dashboard.
 
