@@ -6,25 +6,17 @@ export function metricHref(
   flags: Flags = {},
   defaults: Flags = {},
 ) {
-  const queryString = flagsToQueryString(flags, defaults);
-  let href = `/metric/${metric.toLowerCase()}`;
-  if (queryString.length > 0) {
-    href += `?${queryString}`;
-  }
-  return href;
+  const params = buildNonDefaultParams(flags, defaults);
+  const path = `/metric/${metric.toLowerCase()}`;
+  return params.size > 0 ? `${path}?${params}` : path;
 }
 
-function flagsToQueryString(flags: Flags, defaults: Flags) {
+function buildNonDefaultParams(flags: Flags, defaults: Flags) {
   const params = new URLSearchParams();
   for (const [key, value] of Object.entries(flags)) {
-    const defaultValue = defaults[key];
-    if (typeof value === "boolean") {
-      if (value) {
-        params.set(key, "true");
-      }
-    } else if (typeof value === "number" && value !== defaultValue) {
-      params.set(key, String(value));
-    }
+    if (value === defaults[key]) continue;
+    if (value === false) continue;
+    params.set(key, String(value));
   }
-  return params.toString();
+  return params;
 }
