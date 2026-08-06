@@ -1,16 +1,15 @@
-function applyHiddenPageStub() {
+function stubHiddenVisibility() {
   Object.defineProperty(document, "visibilityState", {
     value: "hidden",
     configurable: true,
   });
 
-  const nativeGetEntriesByType = window.performance.getEntriesByType.bind(
-    window.performance,
-  );
+  const originalGetEntriesByType =
+    window.performance.getEntriesByType.bind(performance);
 
   window.performance.getEntriesByType = (type: string) => {
-    const [...entries] = nativeGetEntriesByType(type);
-    if (type === "visibility-state" && entries.length > 0) {
+    const entries = [...originalGetEntriesByType(type)];
+    if (type === "visibility-state" && entries[0]) {
       entries[0] = {
         name: "hidden",
         entryType: "visibility-state",
@@ -32,4 +31,4 @@ function applyHiddenPageStub() {
   );
 }
 
-export const HIDDEN_STUB_SCRIPT = `(${applyHiddenPageStub.toString()})();`;
+export const HIDDEN_STUB_SCRIPT = `(${stubHiddenVisibility.toString()})();`;

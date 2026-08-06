@@ -1,6 +1,6 @@
 import { Drawer } from "@/app/components/ui/drawer/drawer";
 import { islandId } from "@/lib/island-id";
-import { getActiveRoute, isActiveHref, ROUTES } from "@/lib/routes";
+import { getActiveRoute, ROUTES } from "@/lib/routes";
 
 const NAV_MOBILE_TRIGGER_ID = islandId("nav-mobile-trigger");
 
@@ -15,7 +15,7 @@ export function Nav({ currentPath }: NavProps) {
     <>
       <nav className="NavDesktop">
         {ROUTES.map(({ href, label }) => {
-          const active = isActiveHref(href, currentPath);
+          const active = href === currentPath;
           return (
             <a
               key={href}
@@ -45,7 +45,7 @@ export function Nav({ currentPath }: NavProps) {
                   <Drawer.Title>Go to</Drawer.Title>
                   <nav className="NavMobileList">
                     {ROUTES.map(({ href, label }) => {
-                      const active = isActiveHref(href, currentPath);
+                      const active = href === currentPath;
 
                       return (
                         <a
