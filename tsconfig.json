@@ -14,8 +14,8 @@
     "jsxImportSource": "react",
     "types": ["vite/client", "bun"],
     "skipLibCheck": true,
-    "esModuleInterop": true,
-    "isolatedModules": true,
+    "verbatimModuleSyntax": true,
+    "moduleDetection": "force",
     "noEmit": true
   },
   "include": ["**/*.ts", "**/*.tsx", "dom.d.ts", "react-renderer.d.ts"],
