@@ -2,7 +2,7 @@ import { useEffect } from "react";
 
 import type { ClsFlags } from "@/lib/metric/flags/defaults/cls";
 
-import { type ReportedMetric, reportMetric } from "@/lib/collect/report-metric";
+import { type ReportedMetric, reportMetric } from "@/lib/collect/report";
 import { isDefined } from "@/lib/is-defined";
 import {
   type BatchReporter,

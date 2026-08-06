@@ -3,7 +3,7 @@ import { Hono } from "hono";
 import { HTTPException } from "hono/http-exception";
 
 import { clearMetrics, insertMetrics } from "@/lib/analytics/metrics";
-import { CollectBodySchema } from "@/lib/collect/collect-body";
+import { CollectBodySchema } from "@/lib/collect/body";
 
 async function runOrFail(message: string, run: () => Promise<void>) {
   try {

@@ -2,8 +2,8 @@ import type { MetricSummary } from "@/lib/analytics/metrics";
 
 import { Heading } from "@/app/components/ui/heading/heading";
 import { Text } from "@/app/components/ui/text/text";
-import { formatMetricValue } from "@/lib/analytics/format-metric-value";
-import { metricHref } from "@/lib/metric/metric-href";
+import { formatMetricValue } from "@/lib/analytics/format-value";
+import { metricHref } from "@/lib/metric/href";
 
 export function MetricsSummary({ summaries }: { summaries: MetricSummary[] }) {
   const totalSamples = summaries.reduce((acc, metric) => acc + metric.count, 0);
