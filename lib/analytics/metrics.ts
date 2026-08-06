@@ -1,6 +1,7 @@
 import { sql } from "@/lib/analytics/duckdb/client";
 import {
   metricsInsertColumns,
+  metricsInsertValues,
   metricsTable,
 } from "@/lib/analytics/duckdb/schema";
 import {
@@ -59,16 +60,7 @@ export async function insertMetrics(metrics: Metric[]) {
 
   await sql`
     INSERT OR REPLACE INTO ${metricsTable} (${metricsInsertColumns})
-    VALUES ${sql.values(
-      metrics.map((metric) => [
-        metric.id,
-        metric.name,
-        metric.value,
-        metric.delta,
-        metric.rating,
-        metric.navigationType,
-      ]),
-    )}
+    VALUES ${sql.values(metrics.map(metricsInsertValues))}
   `;
 }
 

@@ -8,9 +8,9 @@ import { CollectBodySchema } from "@/lib/collect/collect-body";
 async function runOrFail(message: string, run: () => Promise<void>) {
   try {
     await run();
-  } catch (error) {
-    console.error(message, error);
-    throw new HTTPException(500, { message });
+  } catch (cause) {
+    console.error(message, cause);
+    throw new HTTPException(500, { message, cause: cause as Error });
   }
 }
 
