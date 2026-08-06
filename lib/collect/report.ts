@@ -1,10 +1,10 @@
 import type { Metric } from "web-vitals";
 
-import type { CollectBody } from "@/lib/collect/collect-body";
+import type { CollectBody } from "@/lib/collect/body";
 import type { ObserverInstance } from "@/lib/metric/observer-options";
 
 import { COLLECT_PATH, collectClient } from "@/lib/collect/client";
-import { toastMetric } from "@/lib/toast/toast-metric";
+import { toastMetric } from "@/lib/toast/metric";
 
 export interface ReportedMetric {
   metric: Metric;

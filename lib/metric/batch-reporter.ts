@@ -1,7 +1,4 @@
-import {
-  type ReportedMetric,
-  reportMetrics,
-} from "@/lib/collect/report-metric";
+import { type ReportedMetric, reportMetrics } from "@/lib/collect/report";
 
 export function createBatchReporter() {
   const queue = new Set<ReportedMetric>();

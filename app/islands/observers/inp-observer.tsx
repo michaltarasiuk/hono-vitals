@@ -2,7 +2,7 @@ import { useEffect } from "react";
 
 import type { InpFlags } from "@/lib/metric/flags/defaults/inp";
 
-import { type ReportedMetric, reportMetric } from "@/lib/collect/report-metric";
+import { type ReportedMetric, reportMetric } from "@/lib/collect/report";
 import { isDefined } from "@/lib/is-defined";
 import {
   type BatchReporter,

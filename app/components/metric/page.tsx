@@ -6,7 +6,7 @@ import type { Flags } from "@/lib/metric/flags/schema";
 import { Toolbar as LayoutToolbar } from "@/app/components/layout/toolbar";
 import { Text } from "@/app/components/ui/text/text";
 import { isDefined } from "@/lib/is-defined";
-import { metricHref } from "@/lib/metric/metric-href";
+import { metricHref } from "@/lib/metric/href";
 import { HIDDEN_STUB_SCRIPT } from "@/lib/metric/stub-hidden";
 import { WAS_DISCARDED_STUB_SCRIPT } from "@/lib/metric/stub-was-discarded";
 
