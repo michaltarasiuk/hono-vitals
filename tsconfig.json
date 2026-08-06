@@ -17,5 +17,7 @@
     "esModuleInterop": true,
     "isolatedModules": true,
     "noEmit": true
-  }
+  },
+  "include": ["**/*.ts", "**/*.tsx", "dom.d.ts", "react-renderer.d.ts"],
+  "exclude": ["dist", "data", "node_modules"]
 }
