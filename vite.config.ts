@@ -23,7 +23,6 @@ export default defineConfig(({ command, mode }) => {
         },
       },
       build: {
-        emptyOutDir: true,
         rollupOptions: {
           input: ["./app/client.ts", "./app/styles/global.css"],
         },
