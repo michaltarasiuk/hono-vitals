@@ -3,7 +3,7 @@ import { Text } from "@/app/components/ui/text/text";
 import { InpBlockingControls } from "@/app/islands/inp-blocking-controls";
 import { InpObserver } from "@/app/islands/observers/inp-observer";
 import { LOREM_IPSUM } from "@/lib/lorem-ipsum";
-import { defineMetric } from "@/lib/metric/define-metric";
+import { defineMetric } from "@/lib/metric/define-route";
 import {
   INP_FLAGS_DEFAULTS,
   type InpFlags,

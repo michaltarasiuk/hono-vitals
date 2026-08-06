@@ -2,7 +2,7 @@ import { SquareImage } from "@/app/components/metric/square-image";
 import { Heading } from "@/app/components/ui/heading/heading";
 import { Text } from "@/app/components/ui/text/text";
 import { ClsObserver } from "@/app/islands/observers/cls-observer";
-import { defineMetric } from "@/lib/metric/define-metric";
+import { defineMetric } from "@/lib/metric/define-route";
 import {
   CLS_FLAGS_DEFAULTS,
   type ClsFlags,

@@ -2,7 +2,7 @@ import { useEffect } from "react";
 
 import type { FcpFlags } from "@/lib/metric/flags/defaults/fcp";
 
-import { type ReportedMetric, reportMetric } from "@/lib/collect/report-metric";
+import { type ReportedMetric, reportMetric } from "@/lib/collect/report";
 import { isDefined } from "@/lib/is-defined";
 import {
   type BatchReporter,
