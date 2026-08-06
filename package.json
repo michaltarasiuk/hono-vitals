@@ -5,7 +5,7 @@
     "dev": "bunx --bun vite",
     "build": "vite build --mode client && vite build && cp -r public dist/public",
     "start": "bun dist/index.js",
-    "duckdb:init": "bun lib/analytics/duckdb/init.ts",
+    "check": "bun run format:check && bun run type:check && bun run lint",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "lint": "eslint .",
