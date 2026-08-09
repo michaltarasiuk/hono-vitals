@@ -20,37 +20,36 @@ export interface MetricSummary {
   poor: number
 }
 
-const EMPTY_METRIC_SUMMARY = {
-  count: 0,
-  avg: 0,
-  p75: 0,
-  good: 0,
-  needsImprovement: 0,
-  poor: 0,
-} as const satisfies Omit<MetricSummary, 'name'>
+const SUMMARY_QUERY = sql<MetricSummary>`
+  SELECT
+    name,
+    count(*)::DOUBLE AS count,
+    avg(value)::DOUBLE AS avg,
+    quantile_cont(value, 0.75)::DOUBLE AS p75,
+    count(*) FILTER (WHERE rating = 'good')::DOUBLE AS good,
+    count(*) FILTER (WHERE rating = 'needs-improvement')::DOUBLE AS "needsImprovement",
+    count(*) FILTER (WHERE rating = 'poor')::DOUBLE AS poor
+  FROM ${metricsTable}
+  GROUP BY name
+  ORDER BY name
+`
 
 export async function getMetricsSummary() {
-  const rows = await sql<MetricSummary>`
-    SELECT
-      name,
-      count(*)::DOUBLE AS count,
-      avg(value)::DOUBLE AS avg,
-      quantile_cont(value, 0.75)::DOUBLE AS p75,
-      count(*) FILTER (WHERE rating = 'good')::DOUBLE AS good,
-      count(*) FILTER (WHERE rating = 'needs-improvement')::DOUBLE AS "needsImprovement",
-      count(*) FILTER (WHERE rating = 'poor')::DOUBLE AS poor
-    FROM ${metricsTable}
-    GROUP BY name
-    ORDER BY name
-  `
-
+  const rows = await SUMMARY_QUERY
   const byName = new Map(rows.map((row) => [row.name, row]))
 
-  return METRIC_NAMES.map((name) => ({
-    name,
-    ...EMPTY_METRIC_SUMMARY,
-    ...byName.get(name),
-  }))
+  return METRIC_NAMES.map(
+    (name): MetricSummary =>
+      byName.get(name) ?? {
+        name,
+        count: 0,
+        avg: 0,
+        p75: 0,
+        good: 0,
+        needsImprovement: 0,
+        poor: 0,
+      },
+  )
 }
 
 export async function insertMetrics(metrics: Metric[]) {
