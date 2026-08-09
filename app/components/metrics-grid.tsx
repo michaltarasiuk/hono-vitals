@@ -73,11 +73,8 @@ function MetricCard({summary}: {summary: MetricSummary}) {
   )
 }
 
-const RATING_SEGMENTS = ['good', 'needs-improvement', 'poor'] as const
-
 function RatingBar({summary}: {summary: MetricSummary}) {
-  const counts = [summary.good, summary.needsImprovement, summary.poor]
-  const total = counts.reduce((a, b) => a + b, 0)
+  const total = summary.good + summary.needsImprovement + summary.poor
 
   if (total === 0) {
     return <div className="MetricsRatingBar MetricsRatingBar--empty" />
@@ -85,13 +82,18 @@ function RatingBar({summary}: {summary: MetricSummary}) {
 
   return (
     <div className="MetricsRatingBar">
-      {RATING_SEGMENTS.map((segment, i) => (
-        <div
-          key={segment}
-          className={`MetricsRatingBarSegment MetricsRatingBarSegment--${segment}`}
-          style={{width: `${(counts[i]! / total) * 100}%`}}
-        />
-      ))}
+      <div
+        className="MetricsRatingBarSegment MetricsRatingBarSegment--good"
+        style={{width: `${(summary.good / total) * 100}%`}}
+      />
+      <div
+        className="MetricsRatingBarSegment MetricsRatingBarSegment--needs-improvement"
+        style={{width: `${(summary.needsImprovement / total) * 100}%`}}
+      />
+      <div
+        className="MetricsRatingBarSegment MetricsRatingBarSegment--poor"
+        style={{width: `${(summary.poor / total) * 100}%`}}
+      />
     </div>
   )
 }
