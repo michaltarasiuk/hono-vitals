@@ -59,7 +59,10 @@ export function TtfbObserver({flags}: {flags: TtfbFlags}) {
       if (flags.secondObserver) {
         onTTFB(
           (metric) => {
-            reportMetric({metric, instance: 2})
+            reportMetric({
+              metric,
+              instance: 2,
+            })
           },
           observerOptions('ttfb', flags, 2),
         )

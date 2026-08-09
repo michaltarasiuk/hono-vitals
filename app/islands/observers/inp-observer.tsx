@@ -52,7 +52,10 @@ export function InpObserver({flags}: {flags: InpFlags}) {
       if (flags.secondObserver) {
         onINP(
           (metric) => {
-            reportMetric({metric, instance: 2})
+            reportMetric({
+              metric,
+              instance: 2,
+            })
           },
           observerOptions('inp', flags, 2),
         )

@@ -80,7 +80,10 @@ export function LcpObserver({flags}: {flags: LcpFlags}) {
       if (flags.secondObserver) {
         onLCP(
           (metric) => {
-            reportMetric({metric, instance: 2})
+            reportMetric({
+              metric,
+              instance: 2,
+            })
           },
           observerOptions('lcp', flags, 2),
         )
