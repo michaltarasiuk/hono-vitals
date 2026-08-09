@@ -52,7 +52,10 @@ export function FcpObserver({flags}: {flags: FcpFlags}) {
       if (flags.secondObserver) {
         onFCP(
           (metric) => {
-            reportMetric({metric, instance: 2})
+            reportMetric({
+              metric,
+              instance: 2,
+            })
           },
           observerOptions('fcp', flags, 2),
         )

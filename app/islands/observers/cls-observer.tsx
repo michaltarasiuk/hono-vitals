@@ -52,7 +52,10 @@ export function ClsObserver({flags}: {flags: ClsFlags}) {
       if (flags.secondObserver) {
         onCLS(
           (metric) => {
-            reportMetric({metric, instance: 2})
+            reportMetric({
+              metric,
+              instance: 2,
+            })
           },
           observerOptions('cls', flags, 2),
         )
