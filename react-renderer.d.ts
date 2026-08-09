@@ -3,7 +3,7 @@ import type {Flags} from '@/lib/metric/flags/schema'
 
 declare module '@hono/react-renderer' {
   interface Props {
-    metric: MetricName
+    metricName: MetricName
     flags: Flags
     defaults: Flags
   }
