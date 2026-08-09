@@ -1,40 +1,32 @@
-import * as z from "zod";
+import * as z from 'zod'
 
-import { assertNever } from "@/lib/assert-never";
+export type FlagValue = boolean | number
 
-export type FlagValue = boolean | number;
-
-export type Flags = Record<string, FlagValue>;
+export type Flags = Record<string, FlagValue>
 
 export function queryBooleanDefault(defaultValue: boolean) {
   return z
-    .stringbool({ truthy: ["true"], falsy: ["false"] })
-    .prefault(String(defaultValue));
+    .stringbool({truthy: ['true'], falsy: ['false']})
+    .prefault(String(defaultValue))
 }
 
 export function queryNumberDefault(defaultValue: number) {
-  return z.coerce.number().prefault(defaultValue);
+  return z.coerce.number().prefault(defaultValue)
 }
 
 export type ParsedFlags<T extends Flags> = {
-  [K in keyof T]: T[K] extends boolean ? boolean : number;
-};
+  [K in keyof T]: T[K] extends boolean ? boolean : number
+}
 
 export function flagsSchema<T extends Flags>(defaults: T) {
-  const shape: Record<string, z.ZodType<FlagValue>> = {};
+  const shape = Object.fromEntries(
+    Object.entries(defaults).map(([key, value]) => [
+      key,
+      typeof value === 'boolean'
+        ? queryBooleanDefault(value)
+        : queryNumberDefault(value),
+    ]),
+  )
 
-  for (const [key, value] of Object.entries(defaults)) {
-    switch (typeof value) {
-      case "boolean":
-        shape[key] = queryBooleanDefault(value);
-        break;
-      case "number":
-        shape[key] = queryNumberDefault(value);
-        break;
-      default:
-        assertNever(value);
-    }
-  }
-
-  return z.object(shape) as z.ZodType<ParsedFlags<T>>;
+  return z.object(shape) as z.ZodType<ParsedFlags<T>>
 }

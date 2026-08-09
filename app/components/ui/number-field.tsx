@@ -1,6 +1,6 @@
-import { NumberField as BaseNumberField } from "@base-ui/react/number-field";
+import {NumberField as BaseNumberField} from '@base-ui/react/number-field'
 
-import { cx } from "@/lib/cx";
+import {cx} from '@/lib/cx'
 
 function Root({
   children,
@@ -8,10 +8,10 @@ function Root({
   ...props
 }: React.ComponentProps<typeof BaseNumberField.Root>) {
   return (
-    <BaseNumberField.Root className={cx("NumberField", className)} {...props}>
+    <BaseNumberField.Root className={cx('NumberField', className)} {...props}>
       {children}
     </BaseNumberField.Root>
-  );
+  )
 }
 
 function ScrubArea({
@@ -21,12 +21,12 @@ function ScrubArea({
 }: React.ComponentProps<typeof BaseNumberField.ScrubArea>) {
   return (
     <BaseNumberField.ScrubArea
-      className={cx("NumberFieldScrubArea", className)}
+      className={cx('NumberFieldScrubArea', className)}
       {...props}
     >
       {children}
     </BaseNumberField.ScrubArea>
-  );
+  )
 }
 
 function ScrubAreaCursor({
@@ -35,10 +35,10 @@ function ScrubAreaCursor({
 }: React.ComponentProps<typeof BaseNumberField.ScrubAreaCursor>) {
   return (
     <BaseNumberField.ScrubAreaCursor
-      className={cx("NumberFieldScrubAreaCursor", className)}
+      className={cx('NumberFieldScrubAreaCursor', className)}
       {...props}
     />
-  );
+  )
 }
 
 function Group({
@@ -48,12 +48,12 @@ function Group({
 }: React.ComponentProps<typeof BaseNumberField.Group>) {
   return (
     <BaseNumberField.Group
-      className={cx("NumberFieldGroup", className)}
+      className={cx('NumberFieldGroup', className)}
       {...props}
     >
       {children}
     </BaseNumberField.Group>
-  );
+  )
 }
 
 function Input({
@@ -62,14 +62,14 @@ function Input({
 }: React.ComponentProps<typeof BaseNumberField.Input>) {
   return (
     <BaseNumberField.Input
-      className={cx("NumberFieldInput", className)}
+      className={cx('NumberFieldInput', className)}
       {...props}
     />
-  );
+  )
 }
 
 // Opt out of browser form-state restore of disabled (Firefox soft-reload hydration mismatch).
-const STEPPER_BUTTON_PROPS = { autoComplete: "off" as const };
+const STEPPER_BUTTON_PROPS = {autoComplete: 'off' as const}
 
 function Decrement({
   className,
@@ -77,13 +77,13 @@ function Decrement({
 }: React.ComponentProps<typeof BaseNumberField.Decrement>) {
   return (
     <BaseNumberField.Decrement
-      className={cx("NumberFieldDecrement", className)}
+      className={cx('NumberFieldDecrement', className)}
       {...STEPPER_BUTTON_PROPS}
       {...props}
     >
       <MinusIcon />
     </BaseNumberField.Decrement>
-  );
+  )
 }
 
 function Increment({
@@ -92,16 +92,16 @@ function Increment({
 }: React.ComponentProps<typeof BaseNumberField.Increment>) {
   return (
     <BaseNumberField.Increment
-      className={cx("NumberFieldIncrement", className)}
+      className={cx('NumberFieldIncrement', className)}
       {...STEPPER_BUTTON_PROPS}
       {...props}
     >
       <PlusIcon />
     </BaseNumberField.Increment>
-  );
+  )
 }
 
-function MinusIcon({ style, ...props }: React.ComponentProps<"svg">) {
+function MinusIcon({style, ...props}: React.ComponentProps<'svg'>) {
   return (
     <svg
       width="16"
@@ -111,15 +111,15 @@ function MinusIcon({ style, ...props }: React.ComponentProps<"svg">) {
       stroke="currentColor"
       strokeLinecap="square"
       strokeLinejoin="round"
-      style={{ display: "block", ...style }}
+      style={{display: 'block', ...style}}
       {...props}
     >
       <path d="M1.5 8h13" />
     </svg>
-  );
+  )
 }
 
-function PlusIcon({ style, ...props }: React.ComponentProps<"svg">) {
+function PlusIcon({style, ...props}: React.ComponentProps<'svg'>) {
   return (
     <svg
       width="16"
@@ -129,12 +129,12 @@ function PlusIcon({ style, ...props }: React.ComponentProps<"svg">) {
       stroke="currentColor"
       strokeLinecap="square"
       strokeLinejoin="round"
-      style={{ display: "block", ...style }}
+      style={{display: 'block', ...style}}
       {...props}
     >
       <path d="M1.5 8h13M8 14.5v-13" />
     </svg>
-  );
+  )
 }
 
 export const NumberField = {
@@ -145,4 +145,4 @@ export const NumberField = {
   Root,
   ScrubArea,
   ScrubAreaCursor,
-};
+}

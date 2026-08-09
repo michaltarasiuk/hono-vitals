@@ -1,26 +1,26 @@
-@import "./tokens.css";
+@import './tokens.css';
 
-@import "../components/dashboard/metrics-summary.css";
-@import "../components/layout/toolbar.css";
-@import "../components/metric/metric-page.css";
-@import "../components/ui/button/button.css";
-@import "../components/ui/dialog/dialog.css";
-@import "../components/ui/drawer/drawer.css";
-@import "../components/ui/field/field.css";
-@import "../components/ui/heading/heading.css";
-@import "../components/ui/number-field/number-field.css";
-@import "../components/ui/switch/switch.css";
-@import "../components/ui/text/text.css";
-@import "../components/ui/toast/toast.css";
+@import '../components/metrics-grid.css';
+@import '../components/header.css';
+@import '../components/metric/layout.css';
+@import '../components/ui/button.css';
+@import '../components/ui/dialog.css';
+@import '../components/ui/drawer.css';
+@import '../components/ui/field.css';
+@import '../components/ui/heading.css';
+@import '../components/ui/number-field.css';
+@import '../components/ui/switch.css';
+@import '../components/ui/text.css';
+@import '../components/ui/toast.css';
 
-@import "../islands/nav/nav.css";
+@import '../islands/nav/nav.css';
 
 @font-face {
   font-family: Inter;
   font-style: normal;
   font-display: optional;
   font-weight: 100 900;
-  src: url(/public/fonts/inter-latin.woff2) format("woff2-variations");
+  src: url(/public/fonts/inter-latin.woff2) format('woff2-variations');
 }
 
 *,

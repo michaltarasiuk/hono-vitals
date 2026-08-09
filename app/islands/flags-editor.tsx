@@ -1,38 +1,37 @@
-import { useState } from "react";
+import {useState} from 'react'
 
-import type { Flags } from "@/lib/metric/flags/schema";
+import type {Flags} from '@/lib/metric/flags/schema'
 
-import { Button } from "@/app/components/ui/button/button";
-import { Dialog } from "@/app/components/ui/dialog/dialog";
-import { Field } from "@/app/components/ui/field/field";
-import { NumberField } from "@/app/components/ui/number-field/number-field";
-import { Switch } from "@/app/components/ui/switch/switch";
-import { assertNever } from "@/lib/assert-never";
-import { islandId } from "@/lib/island-id";
-import { formatFlagLabel } from "@/lib/metric/flags/format-flag-label";
-import { navigateWithFlags } from "@/lib/metric/flags/navigate-with-flags";
-import { sortFlagEntries } from "@/lib/metric/flags/sort-flag-entries";
+import {Button} from '@/app/components/ui/button'
+import {Dialog} from '@/app/components/ui/dialog'
+import {Field} from '@/app/components/ui/field'
+import {NumberField} from '@/app/components/ui/number-field'
+import {Switch} from '@/app/components/ui/switch'
+import {islandId} from '@/lib/island-id'
+import {formatFlagLabel} from '@/lib/metric/flags/format-flag-label'
+import {navigateWithFlags} from '@/lib/metric/flags/navigate-with-flags'
+import {sortFlagEntries} from '@/lib/metric/flags/sort-flag-entries'
 
-const FLAGS_EDITOR_TRIGGER_ID = islandId("metric-flags-trigger");
+const FLAGS_EDITOR_TRIGGER_ID = islandId('metric-flags-trigger')
 
 interface FlagsEditorProps {
-  flags: Flags;
-  defaults: Flags;
+  flags: Flags
+  defaults: Flags
 }
 
-export function FlagsEditor({ flags, defaults }: FlagsEditorProps) {
-  const [open, setOpen] = useState(false);
-  const [draft, setDraft] = useState(flags);
+export function FlagsEditor({flags, defaults}: FlagsEditorProps) {
+  const [open, setOpen] = useState(false)
+  const [draft, setDraft] = useState(flags)
 
   function handleOpenChange(nextOpen: boolean) {
-    setOpen(nextOpen);
+    setOpen(nextOpen)
     if (nextOpen) {
-      setDraft(flags);
+      setDraft(flags)
     }
   }
 
   function handleSave() {
-    navigateWithFlags(draft, defaults);
+    navigateWithFlags(draft, defaults)
   }
 
   return (
@@ -55,7 +54,7 @@ export function FlagsEditor({ flags, defaults }: FlagsEditorProps) {
           <Dialog.Body>
             {sortFlagEntries(draft).map(([key, value]) => {
               switch (typeof value) {
-                case "boolean":
+                case 'boolean':
                   return (
                     <Field.Root key={key} name={key}>
                       <Field.Label>
@@ -65,14 +64,14 @@ export function FlagsEditor({ flags, defaults }: FlagsEditorProps) {
                             setDraft((d) => ({
                               ...d,
                               [key]: checked,
-                            }));
+                            }))
                           }}
                         />
                         {formatFlagLabel(key)}
                       </Field.Label>
                     </Field.Root>
-                  );
-                case "number":
+                  )
+                case 'number':
                   return (
                     <Field.Root key={key} name={key}>
                       <Field.Label>{formatFlagLabel(key)}</Field.Label>
@@ -85,7 +84,7 @@ export function FlagsEditor({ flags, defaults }: FlagsEditorProps) {
                           setDraft((d) => ({
                             ...d,
                             [key]: next ?? 0,
-                          }));
+                          }))
                         }}
                       >
                         <NumberField.Group>
@@ -95,9 +94,9 @@ export function FlagsEditor({ flags, defaults }: FlagsEditorProps) {
                         </NumberField.Group>
                       </NumberField.Root>
                     </Field.Root>
-                  );
+                  )
                 default:
-                  return assertNever(value);
+                  return value satisfies never
               }
             })}
           </Dialog.Body>
@@ -108,5 +107,5 @@ export function FlagsEditor({ flags, defaults }: FlagsEditorProps) {
         </Dialog.Popup>
       </Dialog.Portal>
     </Dialog.Root>
-  );
+  )
 }

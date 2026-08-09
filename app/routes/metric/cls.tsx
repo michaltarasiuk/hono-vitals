@@ -1,14 +1,14 @@
-import { SquareImage } from "@/app/components/metric/square-image";
-import { Heading } from "@/app/components/ui/heading/heading";
-import { Text } from "@/app/components/ui/text/text";
-import { ClsObserver } from "@/app/islands/observers/cls-observer";
-import { defineMetric } from "@/lib/metric/define-route";
+import {SquareImage} from '@/app/components/metric/square-image'
+import {Heading} from '@/app/components/ui/heading'
+import {Text} from '@/app/components/ui/text'
+import {ClsObserver} from '@/app/islands/observers/cls-observer'
+import {defineMetric} from '@/lib/metric/define-route'
 import {
   CLS_FLAGS_DEFAULTS,
   type ClsFlags,
-} from "@/lib/metric/flags/defaults/cls";
+} from '@/lib/metric/flags/defaults/cls'
 
-function ClsContent({ flags }: { flags: ClsFlags }) {
+function ClsContent({flags}: {flags: ClsFlags}) {
   return (
     <>
       <Heading elementtiming="main-heading">CLS Test</Heading>
@@ -21,7 +21,7 @@ function ClsContent({ flags }: { flags: ClsFlags }) {
               elementtiming="main-image"
               delay={500}
               hidden={flags.imgHidden}
-            />{" "}
+            />{' '}
             [text node contents]
           </Text>
           <Text data-target="secondary-image-wrapper">
@@ -35,12 +35,12 @@ function ClsContent({ flags }: { flags: ClsFlags }) {
         </>
       )}
     </>
-  );
+  )
 }
 
 export default defineMetric({
-  name: "CLS",
+  name: 'CLS',
   defaults: CLS_FLAGS_DEFAULTS,
   Observer: ClsObserver,
   Content: ClsContent,
-});
+})
