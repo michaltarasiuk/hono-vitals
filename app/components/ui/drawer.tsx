@@ -36,8 +36,8 @@ function Backdrop({
 }
 
 function Viewport({
-  className,
   children,
+  className,
   ...props
 }: React.ComponentProps<typeof BaseDrawer.Viewport>) {
   return (
@@ -48,8 +48,8 @@ function Viewport({
 }
 
 function Popup({
-  className,
   children,
+  className,
   ...props
 }: React.ComponentProps<typeof BaseDrawer.Popup>) {
   return (
@@ -60,8 +60,8 @@ function Popup({
 }
 
 function Content({
-  className,
   children,
+  className,
   ...props
 }: React.ComponentProps<typeof BaseDrawer.Content>) {
   return (
@@ -72,8 +72,8 @@ function Content({
 }
 
 function Title({
-  className,
   children,
+  className,
   ...props
 }: React.ComponentProps<typeof BaseDrawer.Title>) {
   return (

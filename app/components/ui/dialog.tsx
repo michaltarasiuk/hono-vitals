@@ -33,8 +33,8 @@ function Backdrop({
 }
 
 function Popup({
-  className,
   children,
+  className,
   ...props
 }: React.ComponentProps<typeof BaseDialog.Popup>) {
   return (
@@ -44,7 +44,7 @@ function Popup({
   )
 }
 
-function Header({className, children, ...props}: React.ComponentProps<'div'>) {
+function Header({children, className, ...props}: React.ComponentProps<'div'>) {
   return (
     <div className={cx('Header', className)} {...props}>
       {children}
@@ -53,8 +53,8 @@ function Header({className, children, ...props}: React.ComponentProps<'div'>) {
 }
 
 function Title({
-  className,
   children,
+  className,
   ...props
 }: React.ComponentProps<typeof BaseDialog.Title>) {
   return (
@@ -65,8 +65,8 @@ function Title({
 }
 
 function Description({
-  className,
   children,
+  className,
   ...props
 }: React.ComponentProps<typeof BaseDialog.Description>) {
   return (
@@ -76,7 +76,7 @@ function Description({
   )
 }
 
-function Body({className, children, ...props}: React.ComponentProps<'div'>) {
+function Body({children, className, ...props}: React.ComponentProps<'div'>) {
   return (
     <div className={cx('Body', className)} {...props}>
       {children}
@@ -84,7 +84,7 @@ function Body({className, children, ...props}: React.ComponentProps<'div'>) {
   )
 }
 
-function Actions({className, children, ...props}: React.ComponentProps<'div'>) {
+function Actions({children, className, ...props}: React.ComponentProps<'div'>) {
   return (
     <div className={cx('Actions', className)} {...props}>
       {children}

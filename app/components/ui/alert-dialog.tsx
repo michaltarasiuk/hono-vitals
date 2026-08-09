@@ -38,8 +38,8 @@ function Backdrop({
 }
 
 function Popup({
-  className,
   children,
+  className,
   ...props
 }: React.ComponentProps<typeof BaseAlertDialog.Popup>) {
   return (
@@ -49,7 +49,7 @@ function Popup({
   )
 }
 
-function Header({className, children, ...props}: React.ComponentProps<'div'>) {
+function Header({children, className, ...props}: React.ComponentProps<'div'>) {
   return (
     <div className={cx('Header', className)} {...props}>
       {children}
@@ -58,8 +58,8 @@ function Header({className, children, ...props}: React.ComponentProps<'div'>) {
 }
 
 function Title({
-  className,
   children,
+  className,
   ...props
 }: React.ComponentProps<typeof BaseAlertDialog.Title>) {
   return (
@@ -70,8 +70,8 @@ function Title({
 }
 
 function Description({
-  className,
   children,
+  className,
   ...props
 }: React.ComponentProps<typeof BaseAlertDialog.Description>) {
   return (
@@ -84,7 +84,7 @@ function Description({
   )
 }
 
-function Actions({className, children, ...props}: React.ComponentProps<'div'>) {
+function Actions({children, className, ...props}: React.ComponentProps<'div'>) {
   return (
     <div className={cx('Actions', className)} {...props}>
       {children}
