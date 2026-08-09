@@ -17,8 +17,8 @@ function Portal({
 }
 
 function Viewport({
-  className,
   children,
+  className,
   ...props
 }: React.ComponentProps<typeof BaseToast.Viewport>) {
   return (
@@ -29,8 +29,8 @@ function Viewport({
 }
 
 function Root({
-  className,
   children,
+  className,
   ...props
 }: React.ComponentProps<typeof BaseToast.Root>) {
   return (
@@ -41,8 +41,8 @@ function Root({
 }
 
 function Content({
-  className,
   children,
+  className,
   ...props
 }: React.ComponentProps<typeof BaseToast.Content>) {
   return (
@@ -53,8 +53,8 @@ function Content({
 }
 
 function Title({
-  className,
   children,
+  className,
   ...props
 }: React.ComponentProps<typeof BaseToast.Title>) {
   return (
@@ -65,8 +65,8 @@ function Title({
 }
 
 function Description({
-  className,
   children,
+  className,
   ...props
 }: React.ComponentProps<typeof BaseToast.Description>) {
   return (
@@ -80,8 +80,8 @@ function Description({
 }
 
 function Close({
-  className,
   children,
+  className,
   ...props
 }: React.ComponentProps<typeof BaseToast.Close>) {
   return (
@@ -92,8 +92,8 @@ function Close({
 }
 
 function Action({
-  className,
   children,
+  className,
   ...props
 }: React.ComponentProps<typeof BaseToast.Action>) {
   return (

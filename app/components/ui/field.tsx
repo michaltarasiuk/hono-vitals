@@ -3,8 +3,8 @@ import {Field as BaseField} from '@base-ui/react/field'
 import {cx} from '@/lib/cx'
 
 function Root({
-  className,
   children,
+  className,
   ...props
 }: React.ComponentProps<typeof BaseField.Root>) {
   return (
@@ -15,8 +15,8 @@ function Root({
 }
 
 function Label({
-  className,
   children,
+  className,
   ...props
 }: React.ComponentProps<typeof BaseField.Label>) {
   return (
