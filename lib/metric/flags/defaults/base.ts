@@ -1,19 +1,20 @@
 import type {Flags, ParsedFlags} from '../schema'
 
 export const BASE_FLAGS_DEFAULTS = {
+  attribution: false,
+  batchReporting: false,
+  deferLibraryLoad: false,
   delayDomContentLoaded: 0,
   delayLoad: 0,
+  htmlHidden: false,
+  loadAfterInput: false,
+  prerender: false,
   renderBlocking: 0,
   reportAllChanges: false,
-  secondObserver: false,
   reportAllChanges2: false,
-  deferLibraryLoad: false,
-  loadAfterInput: false,
+  secondObserver: false,
   stubHidden: false,
   wasDiscarded: false,
-  htmlHidden: false,
-  prerender: false,
-  attribution: false,
 } as const satisfies Flags
 
 export type BaseFlags = ParsedFlags<typeof BASE_FLAGS_DEFAULTS>
