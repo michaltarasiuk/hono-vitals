@@ -6,15 +6,16 @@ import type {Flags} from '@/lib/metric/flags/schema'
 import {Header} from '@/app/components/header'
 import {Text} from '@/app/components/ui/text'
 import {isDefined} from '@/lib/is-defined'
+import {joinPath} from '@/lib/join-path'
 import {metricHref} from '@/lib/metric/href'
 import {metricSlug} from '@/lib/metric/slug'
 import {HIDDEN_STUB_SCRIPT} from '@/lib/metric/stub-hidden'
 import {WAS_DISCARDED_STUB_SCRIPT} from '@/lib/metric/stub-was-discarded'
 
 interface MetricLayoutContextValue {
+  metricName: MetricName
   flags: Flags
   defaults: Flags
-  metric: MetricName
 }
 
 const MetricLayoutContext = createContext<MetricLayoutContextValue | null>(null)
@@ -28,23 +29,23 @@ function useMetricLayout() {
 }
 
 interface ProviderProps {
-  metric: MetricName
+  metricName: MetricName
   flags: Flags
   defaults: Flags
   children: React.ReactNode
 }
 
-function Provider({metric, flags, defaults, children}: ProviderProps) {
+function Provider({metricName, flags, defaults, children}: ProviderProps) {
   return (
-    <MetricLayoutContext value={{flags, defaults, metric}}>
+    <MetricLayoutContext value={{flags, defaults, metricName}}>
       {children}
     </MetricLayoutContext>
   )
 }
 
-function Toolbar({children}: {children?: React.ReactNode}) {
-  const {metric} = useMetricLayout()
-  const currentPath = `/metric/${metricSlug(metric)}`
+function Toolbar({children}: {children: React.ReactNode}) {
+  const {metricName} = useMetricLayout()
+  const currentPath = joinPath('metric', metricSlug(metricName))
 
   return (
     <Header.Root>
@@ -108,12 +109,12 @@ function DelayedScripts() {
 }
 
 function PrerenderHints() {
-  const {flags, defaults, metric} = useMetricLayout()
+  const {metricName, flags, defaults} = useMetricLayout()
   if (!flags.prerender) {
     return null
   }
 
-  const href = metricHref(metric, flags, defaults)
+  const href = metricHref(metricName, flags, defaults)
 
   return (
     <>
