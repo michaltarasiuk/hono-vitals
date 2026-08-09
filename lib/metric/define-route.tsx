@@ -28,7 +28,7 @@ export function defineMetric<T extends Flags>({
         <Observer flags={flags} />
       </>,
       {
-        metric: name,
+        metricName: name,
         flags,
         defaults,
       },
