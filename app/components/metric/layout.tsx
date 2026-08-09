@@ -7,6 +7,7 @@ import {Header} from '@/app/components/header'
 import {Text} from '@/app/components/ui/text'
 import {isDefined} from '@/lib/is-defined'
 import {metricHref} from '@/lib/metric/href'
+import {metricSlug} from '@/lib/metric/slug'
 import {HIDDEN_STUB_SCRIPT} from '@/lib/metric/stub-hidden'
 import {WAS_DISCARDED_STUB_SCRIPT} from '@/lib/metric/stub-was-discarded'
 
@@ -43,7 +44,7 @@ function Provider({metric, flags, defaults, children}: ProviderProps) {
 
 function Toolbar({children}: {children?: React.ReactNode}) {
   const {metric} = useMetricLayout()
-  const currentPath = `/metric/${metric.toLowerCase()}`
+  const currentPath = `/metric/${metricSlug(metric)}`
 
   return (
     <Header.Root>
