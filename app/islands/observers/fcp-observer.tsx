@@ -35,7 +35,10 @@ export function FcpObserver({ flags }: { flags: FcpFlags }) {
 
       onFCP(
         (metric) => {
-          const reported: ReportedMetric = { metric, instance: 1 };
+          const reported: ReportedMetric = {
+            metric,
+            instance: 1,
+          };
 
           if (isDefined(batch)) {
             batch.enqueue(reported);
