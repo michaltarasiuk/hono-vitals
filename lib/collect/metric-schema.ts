@@ -1,8 +1,8 @@
-import * as z from "zod";
+import * as z from 'zod'
 
-export const METRIC_NAMES = ["CLS", "FCP", "INP", "LCP", "TTFB"] as const;
+export const METRIC_NAMES = ['CLS', 'FCP', 'INP', 'LCP', 'TTFB'] as const
 
-export type MetricName = (typeof METRIC_NAMES)[number];
+export type MetricName = (typeof METRIC_NAMES)[number]
 
 export const MetricSchema = z.object({
   /**
@@ -17,7 +17,7 @@ export const MetricSchema = z.object({
    * The rating as to whether the metric value is within the "good",
    * "needs improvement", or "poor" thresholds of the metric.
    */
-  rating: z.enum(["good", "needs-improvement", "poor"]),
+  rating: z.enum(['good', 'needs-improvement', 'poor']),
   /**
    * The delta between the current value and the last-reported value.
    * On the first report, `delta` and `value` will always be the same.
@@ -52,13 +52,13 @@ export const MetricSchema = z.object({
    * restored by the user.
    */
   navigationType: z.enum([
-    "navigate",
-    "reload",
-    "back-forward",
-    "back-forward-cache",
-    "prerender",
-    "restore",
+    'navigate',
+    'reload',
+    'back-forward',
+    'back-forward-cache',
+    'prerender',
+    'restore',
   ]),
-});
+})
 
-export type Metric = z.infer<typeof MetricSchema>;
+export type Metric = z.infer<typeof MetricSchema>

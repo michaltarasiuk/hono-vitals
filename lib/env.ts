@@ -1,7 +1,7 @@
-import * as z from "zod";
+import * as z from 'zod'
 
 const EnvSchema = z.object({
   DUCKDB_PATH: z.string(),
-});
+})
 
-export const env = EnvSchema.parse(process.env);
+export const env = EnvSchema.parse(process.env)

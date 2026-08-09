@@ -1,12 +1,12 @@
-import { showRoutes } from "hono/dev";
-import { createApp } from "honox/server";
+import {showRoutes} from 'hono/dev'
+import {createApp} from 'honox/server'
 
-import { migrate } from "@/lib/analytics/duckdb/schema";
+import {migrate} from '@/lib/analytics/duckdb/schema'
 
-await migrate();
+await migrate()
 
-const app = createApp();
+const app = createApp()
 
-showRoutes(app);
+showRoutes(app)
 
-export default app;
+export default app

@@ -1,1 +1,1 @@
-console.log("delay-load script executed!", performance.now());
+console.log('delay-load script executed!', performance.now())

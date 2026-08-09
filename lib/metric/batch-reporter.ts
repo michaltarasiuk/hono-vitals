@@ -1,37 +1,37 @@
-import { type ReportedMetric, reportMetrics } from "@/lib/collect/report";
+import {type ReportedMetric, reportMetrics} from '@/lib/collect/report'
 
 export function createBatchReporter() {
-  const queue = new Set<ReportedMetric>();
+  const queue = new Set<ReportedMetric>()
 
   function enqueue(reported: ReportedMetric) {
-    queue.add(reported);
+    queue.add(reported)
   }
 
   function flush() {
     if (queue.size === 0) {
-      return;
+      return
     }
 
-    reportMetrics([...queue]);
-    queue.clear();
+    reportMetrics([...queue])
+    queue.clear()
   }
 
   function onVisibilityChange() {
-    if (document.visibilityState === "hidden") {
-      flush();
+    if (document.visibilityState === 'hidden') {
+      flush()
     }
   }
 
-  document.addEventListener("visibilitychange", onVisibilityChange);
-  document.addEventListener("pagehide", flush);
+  document.addEventListener('visibilitychange', onVisibilityChange)
+  document.addEventListener('pagehide', flush)
 
   function dispose() {
-    document.removeEventListener("visibilitychange", onVisibilityChange);
-    document.removeEventListener("pagehide", flush);
-    flush();
+    document.removeEventListener('visibilitychange', onVisibilityChange)
+    document.removeEventListener('pagehide', flush)
+    flush()
   }
 
-  return { enqueue, dispose };
+  return {enqueue, dispose}
 }
 
-export type BatchReporter = ReturnType<typeof createBatchReporter>;
+export type BatchReporter = ReturnType<typeof createBatchReporter>

@@ -1,4 +1,4 @@
-import type { Flags, ParsedFlags } from "../schema";
+import type {Flags, ParsedFlags} from '../schema'
 
 export const BASE_FLAGS_DEFAULTS = {
   delayDomContentLoaded: 0,
@@ -14,6 +14,6 @@ export const BASE_FLAGS_DEFAULTS = {
   htmlHidden: false,
   prerender: false,
   attribution: false,
-} as const satisfies Flags;
+} as const satisfies Flags
 
-export type BaseFlags = ParsedFlags<typeof BASE_FLAGS_DEFAULTS>;
+export type BaseFlags = ParsedFlags<typeof BASE_FLAGS_DEFAULTS>

@@ -1,23 +1,23 @@
-import { sql } from "@/lib/analytics/duckdb/client";
+import {sql} from '@/lib/analytics/duckdb/client'
 import {
   metricsInsertColumns,
   metricsInsertValues,
   metricsTable,
-} from "@/lib/analytics/duckdb/schema";
+} from '@/lib/analytics/duckdb/schema'
 import {
   type Metric,
   METRIC_NAMES,
   type MetricName,
-} from "@/lib/collect/metric-schema";
+} from '@/lib/collect/metric-schema'
 
 export interface MetricSummary {
-  name: MetricName;
-  count: number;
-  avg: number;
-  p75: number;
-  good: number;
-  needsImprovement: number;
-  poor: number;
+  name: MetricName
+  count: number
+  avg: number
+  p75: number
+  good: number
+  needsImprovement: number
+  poor: number
 }
 
 const EMPTY_METRIC_SUMMARY = {
@@ -27,7 +27,7 @@ const EMPTY_METRIC_SUMMARY = {
   good: 0,
   needsImprovement: 0,
   poor: 0,
-} as const satisfies Omit<MetricSummary, "name">;
+} as const satisfies Omit<MetricSummary, 'name'>
 
 export async function getMetricsSummary() {
   const rows = await sql<MetricSummary>`
@@ -42,28 +42,28 @@ export async function getMetricsSummary() {
     FROM ${metricsTable}
     GROUP BY name
     ORDER BY name
-  `;
+  `
 
-  const byName = new Map(rows.map((row) => [row.name, row]));
+  const byName = new Map(rows.map((row) => [row.name, row]))
 
   return METRIC_NAMES.map((name) => ({
     name,
     ...EMPTY_METRIC_SUMMARY,
     ...byName.get(name),
-  }));
+  }))
 }
 
 export async function insertMetrics(metrics: Metric[]) {
   if (metrics.length === 0) {
-    return;
+    return
   }
 
   await sql`
     INSERT OR REPLACE INTO ${metricsTable} (${metricsInsertColumns})
     VALUES ${sql.values(metrics.map(metricsInsertValues))}
-  `;
+  `
 }
 
 export async function clearMetrics() {
-  await sql`TRUNCATE TABLE ${metricsTable}`;
+  await sql`TRUNCATE TABLE ${metricsTable}`
 }

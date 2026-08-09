@@ -1,7 +1,7 @@
 export function delay(timeout: number) {
-  return new Promise((resolve) => setTimeout(resolve, timeout));
+  return new Promise((resolve) => setTimeout(resolve, timeout))
 }
 
 export function yieldToEventLoop() {
-  return delay(0);
+  return delay(0)
 }
