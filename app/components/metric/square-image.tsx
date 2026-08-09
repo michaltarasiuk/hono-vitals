@@ -1,18 +1,6 @@
-import { isDefined } from "@/lib/is-defined";
-
-interface SquareImageProps extends Omit<React.ComponentProps<"img">, "src"> {
-  delay?: number;
-}
-
 export function SquareImage({
-  delay,
-  alt = "Gray square",
+  delay = 0,
   ...props
-}: SquareImageProps) {
-  let src = "/public/square.png";
-  if (isDefined(delay)) {
-    src += `?delay=${delay}`;
-  }
-
-  return <img src={src} alt={alt} {...props} />;
+}: {delay?: number} & React.ComponentProps<'img'>) {
+  return <img src={`/public/square.png?delay=${delay}`} {...props} />
 }

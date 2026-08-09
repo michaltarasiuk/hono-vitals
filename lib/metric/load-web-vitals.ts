@@ -1,23 +1,16 @@
-import { afterElementsRendered, afterFirstInput, afterLoad } from "./wait-for";
+import {afterElementsRendered, afterFirstInput, afterLoad} from './ready'
 
 export async function loadWebVitals(options: {
-  attribution?: boolean;
-  deferLibraryLoad?: boolean;
-  loadAfterInput?: boolean;
+  attribution?: boolean
+  deferLibraryLoad?: boolean
+  loadAfterInput?: boolean
 }) {
-  const readyPromises: Promise<void>[] = [];
+  await Promise.all([
+    ...(options.deferLibraryLoad ? [afterLoad(), afterElementsRendered()] : []),
+    ...(options.loadAfterInput ? [afterFirstInput()] : []),
+  ])
 
-  if (options.deferLibraryLoad) {
-    readyPromises.push(afterLoad(), afterElementsRendered());
-  }
-  if (options.loadAfterInput) {
-    readyPromises.push(afterFirstInput());
-  }
-
-  await Promise.all(readyPromises);
-
-  if (options.attribution) {
-    return import("web-vitals/attribution");
-  }
-  return import("web-vitals");
+  return options.attribution
+    ? import('web-vitals/attribution')
+    : import('web-vitals')
 }

@@ -1,15 +1,14 @@
-const METRICS = ["cls", "fcp", "inp", "lcp", "ttfb"] as const;
-
 export const ROUTES = [
-  { label: "Metrics", href: "/" },
-  ...METRICS.map((metric) => ({
-    label: metric.toUpperCase(),
-    href: `/metric/${metric}`,
-  })),
-];
+  {label: 'Metrics', href: '/'},
+  {label: 'CLS', href: '/metric/cls'},
+  {label: 'FCP', href: '/metric/fcp'},
+  {label: 'INP', href: '/metric/inp'},
+  {label: 'LCP', href: '/metric/lcp'},
+  {label: 'TTFB', href: '/metric/ttfb'},
+] as const
 
-export type Route = (typeof ROUTES)[number];
+export type Route = (typeof ROUTES)[number]
 
 export function getActiveRoute(path: string) {
-  return ROUTES.find(({ href }) => href === path) ?? ROUTES[0]!;
+  return ROUTES.find(({href}) => href === path) ?? ROUTES[0]
 }

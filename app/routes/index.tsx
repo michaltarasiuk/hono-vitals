@@ -1,24 +1,24 @@
-import { createRoute } from "honox/factory";
+import {createRoute} from 'honox/factory'
 
-import { MetricsSummary } from "@/app/components/dashboard/metrics-summary";
-import { Toolbar } from "@/app/components/layout/toolbar";
-import { ClearMetrics } from "@/app/islands/clear-metrics";
-import { getMetricsSummary } from "@/lib/analytics/metrics";
+import {Header} from '@/app/components/header'
+import {MetricsGrid} from '@/app/components/metrics-grid'
+import {ClearMetrics} from '@/app/islands/clear-metrics'
+import {getMetricsSummary} from '@/lib/analytics/metrics'
 
 export default createRoute(async (c) => {
-  const summaries = await getMetricsSummary();
+  const summaries = await getMetricsSummary()
 
   return c.render(
     <>
-      <Toolbar.Root>
-        <Toolbar.Nav currentPath={c.req.path} />
-        <Toolbar.Actions>
+      <Header.Root>
+        <Header.Nav currentPath={c.req.path} />
+        <Header.Actions>
           <ClearMetrics />
-        </Toolbar.Actions>
-      </Toolbar.Root>
+        </Header.Actions>
+      </Header.Root>
       <main className="MetricMain">
-        <MetricsSummary summaries={summaries} />
+        <MetricsGrid summaries={summaries} />
       </main>
     </>,
-  );
-});
+  )
+})

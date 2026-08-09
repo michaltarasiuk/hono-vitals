@@ -1,60 +1,61 @@
-import { useEffect, useState } from "react";
+import {useEffect, useState} from 'react'
 
-import type { InpFlags } from "@/lib/metric/flags/defaults/inp";
+import type {InpFlags} from '@/lib/metric/flags/defaults/inp'
 
-import { Button } from "@/app/components/ui/button/button";
-import { NumberField } from "@/app/components/ui/number-field/number-field";
-import { islandId } from "@/lib/island-id";
+import {Button} from '@/app/components/ui/button'
+import {NumberField} from '@/app/components/ui/number-field'
+import {islandId} from '@/lib/island-id'
 import {
   INP_BLOCKING_EVENT_NAMES,
   type InpBlockingEventName,
   resetBlockingTimes,
   setBlockingTime,
-} from "@/lib/metric/inp-blocking";
+} from '@/lib/metric/inp-blocking'
 
 function initialBlockingTimes(flags: InpFlags) {
-  const blockingTimes = {} as Record<InpBlockingEventName, number>;
-  for (const eventName of INP_BLOCKING_EVENT_NAMES) {
-    blockingTimes[eventName] = flags[`${eventName}BlockingTime`];
-  }
-  return blockingTimes;
+  return Object.fromEntries(
+    INP_BLOCKING_EVENT_NAMES.map((name) => [
+      name,
+      flags[`${name}BlockingTime`],
+    ]),
+  ) as Record<InpBlockingEventName, number>
 }
 
 function blockingTimeFieldId(eventName: InpBlockingEventName) {
-  return islandId(`inp-${eventName}-blocking-time`);
+  return islandId(`inp-${eventName}-blocking-time`)
 }
 
-export function InpBlockingControls({ flags }: { flags: InpFlags }) {
+export function InpBlockingControls({flags}: {flags: InpFlags}) {
   const [blockingTimes, setBlockingTimes] = useState(() =>
     initialBlockingTimes(flags),
-  );
+  )
 
   useEffect(() => {
     for (const eventName of INP_BLOCKING_EVENT_NAMES) {
-      setBlockingTime(eventName, blockingTimes[eventName]);
+      setBlockingTime(eventName, blockingTimes[eventName])
     }
 
     return () => {
-      resetBlockingTimes();
-    };
-  }, [blockingTimes]);
+      resetBlockingTimes()
+    }
+  }, [blockingTimes])
 
   function handleReset() {
     setBlockingTimes(
       Object.fromEntries(
         INP_BLOCKING_EVENT_NAMES.map((eventName) => [eventName, 0]),
       ) as Record<InpBlockingEventName, number>,
-    );
+    )
   }
 
   return (
     <form
       onSubmit={(event) => {
-        event.preventDefault();
+        event.preventDefault()
       }}
     >
       {INP_BLOCKING_EVENT_NAMES.map((eventName) => {
-        const inputId = blockingTimeFieldId(eventName);
+        const inputId = blockingTimeFieldId(eventName)
 
         // Avoid Field.Root/Label: Base UI's LabelableProvider uses useId() for
         // control ids, which mismatch across Honox SSR vs island hydration.
@@ -74,7 +75,7 @@ export function InpBlockingControls({ flags }: { flags: InpFlags }) {
                 setBlockingTimes((bt) => ({
                   ...bt,
                   [eventName]: next ?? 0,
-                }));
+                }))
               }}
             >
               <NumberField.Group>
@@ -84,11 +85,11 @@ export function InpBlockingControls({ flags }: { flags: InpFlags }) {
               </NumberField.Group>
             </NumberField.Root>
           </div>
-        );
+        )
       })}
       <Button type="button" onClick={handleReset}>
         Reset blocking time to zero
       </Button>
     </form>
-  );
+  )
 }

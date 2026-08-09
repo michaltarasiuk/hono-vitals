@@ -1,12 +1,12 @@
-import type { MetricSummary } from "@/lib/analytics/metrics";
+import type {MetricSummary} from '@/lib/analytics/metrics'
 
-import { Heading } from "@/app/components/ui/heading/heading";
-import { Text } from "@/app/components/ui/text/text";
-import { formatMetricValue } from "@/lib/analytics/format-value";
-import { metricHref } from "@/lib/metric/href";
+import {Heading} from '@/app/components/ui/heading'
+import {Text} from '@/app/components/ui/text'
+import {formatMetricValue} from '@/lib/analytics/format-value'
+import {metricHref} from '@/lib/metric/href'
 
-export function MetricsSummary({ summaries }: { summaries: MetricSummary[] }) {
-  const totalSamples = summaries.reduce((acc, metric) => acc + metric.count, 0);
+export function MetricsGrid({summaries}: {summaries: MetricSummary[]}) {
+  const totalSamples = summaries.reduce((acc, metric) => acc + metric.count, 0)
 
   return (
     <div className="MetricsSummary">
@@ -20,11 +20,11 @@ export function MetricsSummary({ summaries }: { summaries: MetricSummary[] }) {
         ))}
       </div>
     </div>
-  );
+  )
 }
 
-function MetricCard({ summary }: { summary: MetricSummary }) {
-  const { good, needsImprovement, poor } = summary;
+function MetricCard({summary}: {summary: MetricSummary}) {
+  const {good, needsImprovement, poor} = summary
 
   return (
     <a className="MetricsCard" href={metricHref(summary.name)}>
@@ -70,35 +70,28 @@ function MetricCard({ summary }: { summary: MetricSummary }) {
         </ul>
       </div>
     </a>
-  );
+  )
 }
 
-function RatingBar({ summary }: { summary: MetricSummary }) {
-  const { good, needsImprovement, poor } = summary;
-  const total = good + needsImprovement + poor;
+const RATING_SEGMENTS = ['good', 'needs-improvement', 'poor'] as const
+
+function RatingBar({summary}: {summary: MetricSummary}) {
+  const counts = [summary.good, summary.needsImprovement, summary.poor]
+  const total = counts.reduce((a, b) => a + b, 0)
 
   if (total === 0) {
-    return <div className="MetricsRatingBar MetricsRatingBar--empty" />;
+    return <div className="MetricsRatingBar MetricsRatingBar--empty" />
   }
-
-  const goodPct = (good / total) * 100;
-  const needsPct = (needsImprovement / total) * 100;
-  const poorPct = (poor / total) * 100;
 
   return (
     <div className="MetricsRatingBar">
-      <div
-        className="MetricsRatingBarSegment MetricsRatingBarSegment--good"
-        style={{ width: `${goodPct}%` }}
-      />
-      <div
-        className="MetricsRatingBarSegment MetricsRatingBarSegment--needs-improvement"
-        style={{ width: `${needsPct}%` }}
-      />
-      <div
-        className="MetricsRatingBarSegment MetricsRatingBarSegment--poor"
-        style={{ width: `${poorPct}%` }}
-      />
+      {RATING_SEGMENTS.map((segment, i) => (
+        <div
+          key={segment}
+          className={`MetricsRatingBarSegment MetricsRatingBarSegment--${segment}`}
+          style={{width: `${(counts[i]! / total) * 100}%`}}
+        />
+      ))}
     </div>
-  );
+  )
 }
