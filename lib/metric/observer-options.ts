@@ -7,7 +7,7 @@ import type {
 import type {MetricName} from '@/lib/collect/metric-schema'
 import type {BaseFlags} from '@/lib/metric/flags/defaults/base'
 import type {GenerateTargetFlags} from '@/lib/metric/flags/defaults/generate-target'
-import type {InpReportFlags} from '@/lib/metric/flags/defaults/inp-report'
+import type {InpReportFlags} from '@/lib/metric/flags/defaults/inp'
 
 export type ObserverInstance = 1 | 2
 

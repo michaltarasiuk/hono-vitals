@@ -1,14 +1,19 @@
 import type {Flags, ParsedFlags} from '../schema'
 
 import {BASE_FLAGS_DEFAULTS} from './base'
-import {BATCH_REPORTING_FLAGS_DEFAULTS} from './batch-reporting'
 import {GENERATE_TARGET_FLAGS_DEFAULTS} from './generate-target'
-import {INP_REPORT_FLAGS_DEFAULTS} from './inp-report'
+
+const INP_REPORT_FLAGS_DEFAULTS = {
+  durationThreshold: 40,
+  durationThreshold2: 40,
+  includeProcessedEventEntries: false,
+} as const satisfies Flags
+
+export type InpReportFlags = ParsedFlags<typeof INP_REPORT_FLAGS_DEFAULTS>
 
 export const INP_FLAGS_DEFAULTS = {
   ...BASE_FLAGS_DEFAULTS,
   ...GENERATE_TARGET_FLAGS_DEFAULTS,
-  ...BATCH_REPORTING_FLAGS_DEFAULTS,
   ...INP_REPORT_FLAGS_DEFAULTS,
   clickBlockingTime: 0,
   keydownBlockingTime: 0,
