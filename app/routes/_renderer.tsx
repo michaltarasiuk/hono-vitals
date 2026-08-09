@@ -1,9 +1,9 @@
-import { reactRenderer } from "@hono/react-renderer";
-import { Link, Script } from "honox/server";
+import {reactRenderer} from '@hono/react-renderer'
+import {Link, Script} from 'honox/server'
 
-import devStyles from "../styles/global.css?inline";
+import devStyles from '../styles/global.css?inline'
 
-export default reactRenderer(({ children }) => {
+export default reactRenderer(({children}) => {
   return (
     <html lang="en">
       <head>
@@ -18,7 +18,7 @@ export default reactRenderer(({ children }) => {
         />
         <link rel="icon" href="/public/favicon.svg" type="image/svg+xml" />
         {import.meta.env.DEV ? (
-          <style dangerouslySetInnerHTML={{ __html: devStyles }} />
+          <style dangerouslySetInnerHTML={{__html: devStyles}} />
         ) : (
           <Link href="/app/styles/global.css" rel="stylesheet" />
         )}
@@ -28,5 +28,5 @@ export default reactRenderer(({ children }) => {
         <div className="AppRoot">{children}</div>
       </body>
     </html>
-  );
-});
+  )
+})

@@ -1,5 +1,5 @@
-import type { Flags } from "../schema";
+import type {Flags} from '../schema'
 
 export const BATCH_REPORTING_FLAGS_DEFAULTS = {
   batchReporting: false,
-} as const satisfies Flags;
+} as const satisfies Flags

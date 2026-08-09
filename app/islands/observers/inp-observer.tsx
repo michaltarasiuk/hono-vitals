@@ -1,36 +1,36 @@
-import { useEffect } from "react";
+import {useEffect} from 'react'
 
-import type { InpFlags } from "@/lib/metric/flags/defaults/inp";
+import type {InpFlags} from '@/lib/metric/flags/defaults/inp'
 
-import { type ReportedMetric, reportMetric } from "@/lib/collect/report";
-import { isDefined } from "@/lib/is-defined";
+import {type ReportedMetric, reportMetric} from '@/lib/collect/report'
+import {isDefined} from '@/lib/is-defined'
 import {
   type BatchReporter,
   createBatchReporter,
-} from "@/lib/metric/batch-reporter";
-import { loadWebVitals } from "@/lib/metric/load-web-vitals";
-import { observerOptions } from "@/lib/metric/observer-options";
+} from '@/lib/metric/batch-reporter'
+import {loadWebVitals} from '@/lib/metric/load-web-vitals'
+import {observerOptions} from '@/lib/metric/observer-options'
 
-export function InpObserver({ flags }: { flags: InpFlags }) {
+export function InpObserver({flags}: {flags: InpFlags}) {
   useEffect(() => {
-    let ignore = false;
-    let dispose: (() => void) | null = null;
+    let ignore = false
+    let dispose: (() => void) | null = null
 
     void (async () => {
-      const { onINP } = await loadWebVitals({
+      const {onINP} = await loadWebVitals({
         attribution: flags.attribution,
         deferLibraryLoad: flags.deferLibraryLoad,
         loadAfterInput: flags.loadAfterInput,
-      });
+      })
 
       if (ignore) {
-        return;
+        return
       }
 
-      let batch: BatchReporter | null = null;
+      let batch: BatchReporter | null = null
       if (flags.batchReporting) {
-        batch = createBatchReporter();
-        dispose = batch.dispose;
+        batch = createBatchReporter()
+        dispose = batch.dispose
       }
 
       onINP(
@@ -38,36 +38,36 @@ export function InpObserver({ flags }: { flags: InpFlags }) {
           const reported: ReportedMetric = {
             metric,
             instance: 1,
-          };
+          }
 
           if (isDefined(batch)) {
-            batch.enqueue(reported);
+            batch.enqueue(reported)
           } else {
-            reportMetric(reported);
+            reportMetric(reported)
           }
         },
-        observerOptions("inp", flags, 1),
-      );
+        observerOptions('inp', flags, 1),
+      )
 
       if (flags.secondObserver) {
         onINP(
           (metric) => {
-            reportMetric({ metric, instance: 2 });
+            reportMetric({metric, instance: 2})
           },
-          observerOptions("inp", flags, 2),
-        );
+          observerOptions('inp', flags, 2),
+        )
       }
 
       if (ignore) {
-        dispose?.();
+        dispose?.()
       }
-    })();
+    })()
 
     return () => {
-      ignore = true;
-      dispose?.();
-    };
-  }, [flags]);
+      ignore = true
+      dispose?.()
+    }
+  }, [flags])
 
-  return null;
+  return null
 }

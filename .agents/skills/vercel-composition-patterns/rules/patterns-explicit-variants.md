@@ -43,7 +43,7 @@ use shared parts.
 **Implementation:**
 
 ```tsx
-function ThreadComposer({ channelId }: { channelId: string }) {
+function ThreadComposer({channelId}: {channelId: string}) {
   return (
     <ThreadProvider channelId={channelId}>
       <Composer.Frame>
@@ -56,10 +56,10 @@ function ThreadComposer({ channelId }: { channelId: string }) {
         </Composer.Footer>
       </Composer.Frame>
     </ThreadProvider>
-  );
+  )
 }
 
-function EditMessageComposer({ messageId }: { messageId: string }) {
+function EditMessageComposer({messageId}: {messageId: string}) {
   return (
     <EditMessageProvider messageId={messageId}>
       <Composer.Frame>
@@ -72,10 +72,10 @@ function EditMessageComposer({ messageId }: { messageId: string }) {
         </Composer.Footer>
       </Composer.Frame>
     </EditMessageProvider>
-  );
+  )
 }
 
-function ForwardMessageComposer({ messageId }: { messageId: string }) {
+function ForwardMessageComposer({messageId}: {messageId: string}) {
   return (
     <ForwardMessageProvider messageId={messageId}>
       <Composer.Frame>
@@ -87,7 +87,7 @@ function ForwardMessageComposer({ messageId }: { messageId: string }) {
         </Composer.Footer>
       </Composer.Frame>
     </ForwardMessageProvider>
-  );
+  )
 }
 ```
 

@@ -6,5 +6,5 @@
  * instead of `useId()`.
  */
 export function islandId(id: string) {
-  return `island-${id}`;
+  return `island-${id}`
 }

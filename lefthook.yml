@@ -6,15 +6,15 @@ pre-commit:
         piped: true
         jobs:
           - name: eslint
-            glob: "*.{js,jsx,ts,tsx}"
+            glob: '*.{js,jsx,ts,tsx}'
             run: bunx eslint --fix {staged_files}
             stage_fixed: true
 
           - name: prettier
-            glob: "*.{js,jsx,ts,tsx,json,md,css,html,yml,yaml}"
+            glob: '*.{js,jsx,ts,tsx,json,md,css,html,yml,yaml}'
             run: bunx prettier --write {staged_files}
             stage_fixed: true
 
     - name: typecheck
-      glob: "*.{ts,tsx}"
+      glob: '*.{ts,tsx}'
       run: bun run type:check

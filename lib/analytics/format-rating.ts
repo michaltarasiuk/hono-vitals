@@ -1,5 +1,5 @@
-import { uppercaseFirst } from "@/lib/uppercase-first";
+import {uppercaseFirst} from '@/lib/uppercase-first'
 
 export function formatMetricRating(rating: string) {
-  return uppercaseFirst(rating.replaceAll("-", " "));
+  return uppercaseFirst(rating.replaceAll('-', ' '))
 }

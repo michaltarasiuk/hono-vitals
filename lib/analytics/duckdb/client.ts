@@ -1,7 +1,7 @@
-import { waddler } from "waddler/duckdb-neo";
+import {waddler} from 'waddler/duckdb-neo'
 
-import { env } from "@/lib/env";
+import {env} from '@/lib/env'
 
 export const sql = waddler({
   url: env.DUCKDB_PATH,
-});
+})
