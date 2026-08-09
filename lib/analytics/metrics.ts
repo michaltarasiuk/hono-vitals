@@ -20,7 +20,7 @@ export interface MetricSummary {
   poor: number
 }
 
-const SUMMARY_QUERY = sql<MetricSummary>`
+const metricsSummaryQuery = sql<MetricSummary>`
   SELECT
     name,
     count(*)::DOUBLE AS count,
@@ -35,11 +35,11 @@ const SUMMARY_QUERY = sql<MetricSummary>`
 `
 
 export async function getMetricsSummary() {
-  const rows = await SUMMARY_QUERY
+  const rows = await metricsSummaryQuery
   const byName = new Map(rows.map((row) => [row.name, row]))
 
   return METRIC_NAMES.map(
-    (name): MetricSummary =>
+    (name) =>
       byName.get(name) ?? {
         name,
         count: 0,
