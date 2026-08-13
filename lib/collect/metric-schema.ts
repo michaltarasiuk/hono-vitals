@@ -4,6 +4,10 @@ export const METRIC_NAMES = ['CLS', 'FCP', 'INP', 'LCP', 'TTFB'] as const
 
 export type MetricName = (typeof METRIC_NAMES)[number]
 
+export const METRIC_RATINGS = ['good', 'needs-improvement', 'poor'] as const
+
+export type MetricRating = (typeof METRIC_RATINGS)[number]
+
 export const MetricSchema = z.object({
   /**
    * The name of the metric (in acronym form).
@@ -17,7 +21,7 @@ export const MetricSchema = z.object({
    * The rating as to whether the metric value is within the "good",
    * "needs improvement", or "poor" thresholds of the metric.
    */
-  rating: z.enum(['good', 'needs-improvement', 'poor']),
+  rating: z.enum(METRIC_RATINGS),
   /**
    * The delta between the current value and the last-reported value.
    * On the first report, `delta` and `value` will always be the same.

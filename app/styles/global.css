@@ -1,6 +1,7 @@
 @import './tokens.css';
 
-@import '../components/metrics-grid.css';
+@import '../components/metrics.css';
+@import '../components/metric-card.css';
 @import '../components/header.css';
 @import '../components/metric/layout.css';
 @import '../components/ui/button.css';

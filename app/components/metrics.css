@@ -1,0 +1,35 @@
+.MetricsSummary {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+  width: 100%;
+  max-width: var(--page-max-width);
+  margin: 0 auto;
+  padding: 0 var(--page-inline-padding);
+}
+
+.MetricsSummary > .Heading + .Text {
+  margin-top: 0;
+}
+
+.MetricsSummary > .MetricsCardGrid {
+  margin-top: 1.25rem;
+}
+
+.MetricsCardGrid {
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: 1fr;
+}
+
+@media (--breakpoint-sm) {
+  .MetricsCardGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (--breakpoint-lg) {
+  .MetricsCardGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
