@@ -1,9 +1,11 @@
 import {createRoute} from 'honox/factory'
 
 import {Header} from '@/app/components/header'
-import {MetricsGrid} from '@/app/components/metrics-grid'
+import {MetricSummaryCard} from '@/app/components/metric-card'
+import {Metrics} from '@/app/components/metrics'
+import {Heading} from '@/app/components/ui/heading'
 import {ClearMetrics} from '@/app/islands/clear-metrics'
-import {getMetricsSummary} from '@/lib/analytics/metrics'
+import {getMetricsSummary} from '@/lib/analytics/metric-summary'
 
 export default createRoute(async (c) => {
   const summaries = await getMetricsSummary()
@@ -17,7 +19,15 @@ export default createRoute(async (c) => {
         </Header.Actions>
       </Header.Root>
       <main className="MetricMain">
-        <MetricsGrid summaries={summaries} />
+        <Metrics.Section>
+          <Heading>Metrics</Heading>
+          <Metrics.Total summaries={summaries} />
+          <Metrics.Grid>
+            {summaries.map((summary) => (
+              <MetricSummaryCard key={summary.name} summary={summary} />
+            ))}
+          </Metrics.Grid>
+        </Metrics.Section>
       </main>
     </>,
   )
