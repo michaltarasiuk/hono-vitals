@@ -14,7 +14,7 @@ bun install
 cp .env.example .env
 ```
 
-`DUCKDB_PATH` defaults to `data/vitals.duckdb`. The metrics table is created automatically on server boot (`CREATE TABLE IF NOT EXISTS`). Use `bun run duckdb:init` only if you want to migrate without starting the app.
+`DUCKDB_PATH` defaults to `data/vitals.duckdb` in `.env.example`. The metrics table is created automatically on server boot (`CREATE TABLE IF NOT EXISTS`), so there is no separate migration step.
 
 ## Scripts
 
@@ -23,7 +23,7 @@ cp .env.example .env
 | `bun run dev`                     | Start the Honox/Vite dev server                 |
 | `bun run build`                   | Client + server production build into `dist/`   |
 | `bun run start`                   | Run the production server (`bun dist/index.js`) |
-| `bun run duckdb:init`             | Migrate DuckDB without starting the server      |
+| `bun run check`                   | Format check, type check, and lint              |
 | `bun run type:check`              | TypeScript (`tsc --noEmit`)                     |
 | `bun run lint` / `lint:fix`       | ESLint                                          |
 | `bun run format` / `format:check` | Prettier                                        |
@@ -44,7 +44,7 @@ cp .env.example .env
 
 Flags are booleans/numbers validated from the query string (for example `/metric/lcp?attribution=true&imgDelay=500`).
 
-Observers toast and `console.log` each report, then `sendBeacon` to `POST /collect` with `{ metrics: [...] }` (one metric immediately, or many on batch flush), falling back to the typed Hono client (`collectClient`) with `keepalive` if the beacon is refused. The collect handler validates the payload and inserts into DuckDB (`INSERT OR REPLACE` on metric id). `DELETE /collect` (also via `collectClient`) clears all rows.
+Observers toast and `console.log` each report, then `sendBeacon` to `POST /collect` with `{ metrics: [...] }` (one metric immediately, or many on batch flush), falling back to the typed Hono client (`collectClient`) with `keepalive` if the beacon is refused. The collect handler validates the payload and inserts into DuckDB (`INSERT OR REPLACE` on metric id, keeping the last report per id within a batch). `DELETE /collect` (also via `collectClient`) clears all rows.
 
 Delayed static assets used by scenarios are served under `/public` (for example `?delay=` on asset URLs).
 
