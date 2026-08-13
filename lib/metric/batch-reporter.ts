@@ -23,11 +23,12 @@ export function createBatchReporter() {
   }
 
   document.addEventListener('visibilitychange', onVisibilityChange)
-  document.addEventListener('pagehide', flush)
+  // `pagehide` is dispatched at the window and never reaches the document.
+  addEventListener('pagehide', flush)
 
   function dispose() {
     document.removeEventListener('visibilitychange', onVisibilityChange)
-    document.removeEventListener('pagehide', flush)
+    removeEventListener('pagehide', flush)
     flush()
   }
 

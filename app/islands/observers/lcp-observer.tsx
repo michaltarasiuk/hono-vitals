@@ -64,9 +64,12 @@ export function LcpObserver({flags}: {flags: LcpFlags}) {
 
       if (flags.registerOnVisibilityChange) {
         function onVisibilityChange() {
-          if (document.visibilityState === 'visible') {
-            registerLCP()
+          if (document.visibilityState !== 'visible') {
+            return
           }
+
+          document.removeEventListener('visibilitychange', onVisibilityChange)
+          registerLCP()
         }
 
         document.addEventListener('visibilitychange', onVisibilityChange)
