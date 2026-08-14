@@ -1,8 +1,10 @@
-export function formatFlagLabel(key: string) {
-  const [first = '', ...rest] = key
-    .replace(/([a-z])([A-Z])/g, '$1 $2')
-    .replace(/([A-Za-z])(\d)/g, '$1 $2')
-    .toLowerCase()
+import {uppercaseFirst} from '@/lib/uppercase-first'
 
-  return first.toUpperCase() + rest.join('')
+export function formatFlagLabel(key: string) {
+  return uppercaseFirst(
+    key
+      .replace(/([a-z])([A-Z])/g, '$1 $2')
+      .replace(/([A-Za-z])(\d)/g, '$1 $2')
+      .toLowerCase(),
+  )
 }
