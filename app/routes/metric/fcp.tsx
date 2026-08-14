@@ -1,10 +1,10 @@
 import {zValidator} from '@hono/zod-validator'
 import {createRoute} from 'honox/factory'
+import {Script} from 'honox/server'
 
 import {SquareImage} from '@/app/components/metric/square-image'
 import {Heading} from '@/app/components/ui/heading'
 import {Text} from '@/app/components/ui/text'
-import {FcpObserver} from '@/app/routes/metric/$fcp-observer'
 import {
   FCP_FLAGS_DEFAULTS,
   type FcpFlags,
@@ -35,7 +35,7 @@ export default createRoute(
     return c.render(
       <>
         <FcpContent flags={flags} />
-        <FcpObserver flags={flags} />
+        <Script src="/app/scripts/metric/fcp-observer.ts" />
       </>,
       {
         metricName: 'FCP',

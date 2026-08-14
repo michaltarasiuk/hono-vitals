@@ -1,10 +1,13 @@
 import type {Flags} from './schema'
 
-export function isNonDefaultFlag(
-  value: Flags[string],
-  defaultValue: Flags[string] | undefined,
+import {flagsSchema} from './schema'
+
+export function parseFlagsFromSearch<T extends Flags>(
+  defaults: T,
+  search = location.search,
 ) {
-  return value !== false && value !== defaultValue
+  const searchParams = new URLSearchParams(search)
+  return flagsSchema(defaults).parse(Object.fromEntries(searchParams))
 }
 
 export function flagsToSearchParams(flags: Flags, defaults: Flags = {}) {
@@ -13,4 +16,11 @@ export function flagsToSearchParams(flags: Flags, defaults: Flags = {}) {
       .filter(([key, value]) => isNonDefaultFlag(value, defaults[key]))
       .map(([key, value]) => [key, String(value)]),
   )
+}
+
+export function isNonDefaultFlag(
+  value: Flags[string],
+  defaultValue: Flags[string] | undefined,
+) {
+  return value !== false && value !== defaultValue
 }

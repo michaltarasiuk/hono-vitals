@@ -24,7 +24,15 @@ export default defineConfig(({command, mode}) => {
       },
       build: {
         rollupOptions: {
-          input: ['./app/client.ts', './app/styles/global.css'],
+          input: [
+            './app/client.ts',
+            './app/styles/global.css',
+            './app/scripts/metric/cls-observer.ts',
+            './app/scripts/metric/fcp-observer.ts',
+            './app/scripts/metric/inp-observer.ts',
+            './app/scripts/metric/lcp-observer.ts',
+            './app/scripts/metric/ttfb-observer.ts',
+          ],
         },
         manifest: true,
       },

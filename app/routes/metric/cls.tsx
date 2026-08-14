@@ -1,10 +1,10 @@
 import {zValidator} from '@hono/zod-validator'
 import {createRoute} from 'honox/factory'
+import {Script} from 'honox/server'
 
 import {SquareImage} from '@/app/components/metric/square-image'
 import {Heading} from '@/app/components/ui/heading'
 import {Text} from '@/app/components/ui/text'
-import {ClsObserver} from '@/app/routes/metric/$cls-observer'
 import {
   CLS_FLAGS_DEFAULTS,
   type ClsFlags,
@@ -49,7 +49,7 @@ export default createRoute(
     return c.render(
       <>
         <ClsContent flags={flags} />
-        <ClsObserver flags={flags} />
+        <Script src="/app/scripts/metric/cls-observer.ts" />
       </>,
       {
         metricName: 'CLS',

@@ -1,11 +1,11 @@
 import {zValidator} from '@hono/zod-validator'
 import {createRoute} from 'honox/factory'
+import {Script} from 'honox/server'
 
 import {Spacer} from '@/app/components/metric/spacer'
 import {SquareImage} from '@/app/components/metric/square-image'
 import {Heading} from '@/app/components/ui/heading'
 import {Text} from '@/app/components/ui/text'
-import {LcpObserver} from '@/app/routes/metric/$lcp-observer'
 import {
   LCP_FLAGS_DEFAULTS,
   type LcpFlags,
@@ -40,7 +40,7 @@ export default createRoute(
     return c.render(
       <>
         <LcpContent flags={flags} />
-        <LcpObserver flags={flags} />
+        <Script src="/app/scripts/metric/lcp-observer.ts" />
       </>,
       {
         metricName: 'LCP',
