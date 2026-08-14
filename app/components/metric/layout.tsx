@@ -70,7 +70,7 @@ function Content({children}: {children: React.ReactNode}) {
   return <div className="MetricContent">{children}</div>
 }
 
-function numericFlag(value: unknown): number {
+function numericFlag(value: unknown) {
   return typeof value === 'number' ? value : 0
 }
 
