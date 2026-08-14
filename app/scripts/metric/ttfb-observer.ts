@@ -1,8 +1,8 @@
 import {reportMetric} from '@/lib/collect/report'
-import {createMetricReporter} from '@/lib/metric/create-metric-reporter'
 import {TTFB_FLAGS_DEFAULTS} from '@/lib/metric/flags/defaults/ttfb'
 import {parseFlagsFromSearch} from '@/lib/metric/flags/search-params'
 import {loadWebVitals} from '@/lib/metric/load-web-vitals'
+import {createMetricReporter} from '@/lib/metric/metric-reporter'
 import {ttfbObserverOptions} from '@/lib/metric/observer-options'
 import {overrideResponseStart} from '@/lib/metric/override-response-start'
 

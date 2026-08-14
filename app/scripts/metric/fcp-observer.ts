@@ -1,8 +1,8 @@
 import {reportMetric} from '@/lib/collect/report'
-import {createMetricReporter} from '@/lib/metric/create-metric-reporter'
 import {FCP_FLAGS_DEFAULTS} from '@/lib/metric/flags/defaults/fcp'
 import {parseFlagsFromSearch} from '@/lib/metric/flags/search-params'
 import {loadWebVitals} from '@/lib/metric/load-web-vitals'
+import {createMetricReporter} from '@/lib/metric/metric-reporter'
 import {fcpObserverOptions} from '@/lib/metric/observer-options'
 
 const flags = parseFlagsFromSearch(FCP_FLAGS_DEFAULTS)

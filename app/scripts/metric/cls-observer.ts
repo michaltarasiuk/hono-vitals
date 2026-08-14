@@ -1,8 +1,8 @@
 import {reportMetric} from '@/lib/collect/report'
-import {createMetricReporter} from '@/lib/metric/create-metric-reporter'
 import {CLS_FLAGS_DEFAULTS} from '@/lib/metric/flags/defaults/cls'
 import {parseFlagsFromSearch} from '@/lib/metric/flags/search-params'
 import {loadWebVitals} from '@/lib/metric/load-web-vitals'
+import {createMetricReporter} from '@/lib/metric/metric-reporter'
 import {clsObserverOptions} from '@/lib/metric/observer-options'
 
 const flags = parseFlagsFromSearch(CLS_FLAGS_DEFAULTS)
