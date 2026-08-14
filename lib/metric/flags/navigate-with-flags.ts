@@ -1,16 +1,16 @@
 import type {Flags} from './schema'
 
-import {isNonDefaultFlag} from './search-params'
+import {flagsToSearchParams} from './search-params'
 
 export function navigateWithFlags(flags: Flags, defaults: Flags) {
   const url = new URL(location.href)
+  const nonDefault = flagsToSearchParams(flags, defaults)
 
-  for (const [key, value] of Object.entries(flags)) {
-    if (isNonDefaultFlag(value, defaults[key])) {
-      url.searchParams.set(key, String(value))
-    } else {
-      url.searchParams.delete(key)
-    }
+  for (const key of Object.keys(flags)) {
+    url.searchParams.delete(key)
+  }
+  for (const [key, value] of nonDefault) {
+    url.searchParams.set(key, value)
   }
 
   location.assign(url)
