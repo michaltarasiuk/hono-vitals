@@ -4,14 +4,15 @@ export type FlagValue = boolean | number
 
 export type Flags = Record<string, FlagValue>
 
+const queryBoolean = z.stringbool({truthy: ['true'], falsy: ['false']})
+const queryNumber = z.coerce.number()
+
 export function queryBooleanDefault(defaultValue: boolean) {
-  return z
-    .stringbool({truthy: ['true'], falsy: ['false']})
-    .prefault(String(defaultValue))
+  return queryBoolean.prefault(String(defaultValue))
 }
 
 export function queryNumberDefault(defaultValue: number) {
-  return z.coerce.number().prefault(defaultValue)
+  return queryNumber.prefault(defaultValue)
 }
 
 export type ParsedFlags<T extends Flags> = {
