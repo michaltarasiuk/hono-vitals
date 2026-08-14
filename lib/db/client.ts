@@ -8,21 +8,26 @@ import {isDefined} from '@/lib/is-defined'
 
 type Sql = ReturnType<typeof waddler>
 
-let sql: Sql | null = null
-let connectPromise: Promise<Sql> | null = null
-
-export async function getSql() {
-  if (isDefined(sql)) {
-    return sql
-  }
-
-  if (!isDefined(connectPromise)) {
-    connectPromise = (async () => {
-      await mkdir(dirname(env.DUCKDB_PATH), {recursive: true})
-      sql = waddler({url: env.DUCKDB_PATH})
-      return sql
-    })()
-  }
-
-  return connectPromise
+export function getSql() {
+  return client.getSql()
 }
+
+function createDbClient() {
+  let connectPromise: Promise<Sql> | null = null
+
+  async function openConnection() {
+    await mkdir(dirname(env.DUCKDB_PATH), {recursive: true})
+    return waddler({url: env.DUCKDB_PATH})
+  }
+
+  function getSql() {
+    if (!isDefined(connectPromise)) {
+      connectPromise = openConnection()
+    }
+    return connectPromise
+  }
+
+  return {getSql}
+}
+
+const client = createDbClient()
