@@ -2,8 +2,7 @@ import {zValidator} from '@hono/zod-validator'
 import {Hono} from 'hono'
 import {HTTPException} from 'hono/http-exception'
 
-import {clearMetrics} from '@/lib/analytics/clear-metrics'
-import {insertMetrics} from '@/lib/analytics/insert-metrics'
+import {clearMetrics, insertMetrics} from '@/lib/analytics/metrics'
 import {CollectBodySchema} from '@/lib/collect/body'
 
 async function runOrFail(message: string, run: () => Promise<void>) {
