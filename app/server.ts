@@ -1,7 +1,7 @@
 import {showRoutes} from 'hono/dev'
 import {createApp} from 'honox/server'
 
-import {migrate} from '@/lib/analytics/db'
+import {migrate} from '@/lib/db/migrate'
 
 await migrate()
 
