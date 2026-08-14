@@ -2,9 +2,9 @@ import {zValidator} from '@hono/zod-validator'
 import {createRoute} from 'honox/factory'
 import {Script} from 'honox/server'
 
+import {InpBlockingControls} from '@/app/components/metric/$inp-blocking-controls'
 import {Heading} from '@/app/components/ui/heading'
 import {Text} from '@/app/components/ui/text'
-import {InpBlockingControls} from '@/app/routes/metric/$inp-blocking-controls'
 import {LOREM_IPSUM} from '@/lib/lorem-ipsum'
 import {
   INP_FLAGS_DEFAULTS,
