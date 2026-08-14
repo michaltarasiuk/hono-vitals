@@ -5,10 +5,16 @@ export async function loadWebVitals(options: {
   deferLibraryLoad?: boolean
   loadAfterInput?: boolean
 }) {
-  await Promise.all([
-    ...(options.deferLibraryLoad ? [afterLoad(), afterElementsRendered()] : []),
-    ...(options.loadAfterInput ? [afterFirstInput()] : []),
-  ])
+  const readyPromises: Promise<void>[] = []
+
+  if (options.deferLibraryLoad) {
+    readyPromises.push(afterLoad(), afterElementsRendered())
+  }
+  if (options.loadAfterInput) {
+    readyPromises.push(afterFirstInput())
+  }
+
+  await Promise.all(readyPromises)
 
   return options.attribution
     ? import('web-vitals/attribution')
