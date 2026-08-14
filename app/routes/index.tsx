@@ -4,7 +4,7 @@ import {Header} from '@/app/components/header'
 import {MetricSummaryCard} from '@/app/components/metric-card'
 import {Metrics} from '@/app/components/metrics'
 import {Heading} from '@/app/components/ui/heading'
-import {ClearMetrics} from '@/app/islands/clear-metrics'
+import {ClearMetrics} from '@/app/routes/$clear-metrics'
 import {getMetricsSummary} from '@/lib/analytics/metrics'
 
 export default createRoute(async (c) => {

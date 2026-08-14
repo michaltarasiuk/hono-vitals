@@ -1,12 +1,15 @@
+import {zValidator} from '@hono/zod-validator'
+import {createRoute} from 'honox/factory'
+
 import {SquareImage} from '@/app/components/metric/square-image'
 import {Heading} from '@/app/components/ui/heading'
 import {Text} from '@/app/components/ui/text'
-import {ClsObserver} from '@/app/islands/observers/cls-observer'
-import {createMetricRoute} from '@/lib/metric/create-route'
+import {ClsObserver} from '@/app/routes/metric/$cls-observer'
 import {
   CLS_FLAGS_DEFAULTS,
   type ClsFlags,
 } from '@/lib/metric/flags/defaults/cls'
+import {flagsSchema} from '@/lib/metric/flags/schema'
 
 function ClsContent({flags}: {flags: ClsFlags}) {
   return (
@@ -38,9 +41,21 @@ function ClsContent({flags}: {flags: ClsFlags}) {
   )
 }
 
-export default createMetricRoute({
-  name: 'CLS',
-  defaults: CLS_FLAGS_DEFAULTS,
-  Observer: ClsObserver,
-  Content: ClsContent,
-})
+export default createRoute(
+  zValidator('query', flagsSchema(CLS_FLAGS_DEFAULTS)),
+  (c) => {
+    const flags = c.req.valid('query')
+
+    return c.render(
+      <>
+        <ClsContent flags={flags} />
+        <ClsObserver flags={flags} />
+      </>,
+      {
+        metricName: 'CLS',
+        flags,
+        defaults: CLS_FLAGS_DEFAULTS,
+      },
+    )
+  },
+)

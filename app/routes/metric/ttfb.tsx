@@ -1,12 +1,15 @@
+import {zValidator} from '@hono/zod-validator'
+import {createRoute} from 'honox/factory'
+
 import {SquareImage} from '@/app/components/metric/square-image'
 import {Heading} from '@/app/components/ui/heading'
 import {Text} from '@/app/components/ui/text'
-import {TtfbObserver} from '@/app/islands/observers/ttfb-observer'
-import {createMetricRoute} from '@/lib/metric/create-route'
+import {TtfbObserver} from '@/app/routes/metric/$ttfb-observer'
 import {
   TTFB_FLAGS_DEFAULTS,
   type TtfbFlags,
 } from '@/lib/metric/flags/defaults/ttfb'
+import {flagsSchema} from '@/lib/metric/flags/schema'
 
 function TtfbContent({flags}: {flags: TtfbFlags}) {
   return (
@@ -24,9 +27,21 @@ function TtfbContent({flags}: {flags: TtfbFlags}) {
   )
 }
 
-export default createMetricRoute({
-  name: 'TTFB',
-  defaults: TTFB_FLAGS_DEFAULTS,
-  Observer: TtfbObserver,
-  Content: TtfbContent,
-})
+export default createRoute(
+  zValidator('query', flagsSchema(TTFB_FLAGS_DEFAULTS)),
+  (c) => {
+    const flags = c.req.valid('query')
+
+    return c.render(
+      <>
+        <TtfbContent flags={flags} />
+        <TtfbObserver flags={flags} />
+      </>,
+      {
+        metricName: 'TTFB',
+        flags,
+        defaults: TTFB_FLAGS_DEFAULTS,
+      },
+    )
+  },
+)

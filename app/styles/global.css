@@ -4,6 +4,7 @@
 @import '../components/metric-card.css';
 @import '../components/header.css';
 @import '../components/metric/layout.css';
+@import '../components/nav.css';
 @import '../components/ui/button.css';
 @import '../components/ui/dialog.css';
 @import '../components/ui/drawer.css';
@@ -13,8 +14,6 @@
 @import '../components/ui/switch.css';
 @import '../components/ui/text.css';
 @import '../components/ui/toast.css';
-
-@import '../islands/nav/nav.css';
 
 @font-face {
   font-family: Inter;
