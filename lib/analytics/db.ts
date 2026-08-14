@@ -20,6 +20,7 @@ export async function migrate() {
       collected_at TIMESTAMPTZ DEFAULT current_timestamp
     )
   `
+
   await sql`
     CREATE INDEX IF NOT EXISTS idx_metrics_name_rating_value
     ON ${metricsTable} (name, rating, value)
