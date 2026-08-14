@@ -1,14 +1,15 @@
 import type {Flags} from './schema'
 
+import {isNonDefaultFlag} from './search-params'
+
 export function navigateWithFlags(flags: Flags, defaults: Flags) {
   const url = new URL(location.href)
 
   for (const [key, value] of Object.entries(flags)) {
-    const isDefault = value === false || value === defaults[key]
-    if (isDefault) {
-      url.searchParams.delete(key)
-    } else {
+    if (isNonDefaultFlag(value, defaults[key])) {
       url.searchParams.set(key, String(value))
+    } else {
+      url.searchParams.delete(key)
     }
   }
 

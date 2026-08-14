@@ -1,57 +1,57 @@
-import type {
-  AttributionReportOpts,
-  INPAttributionReportOpts,
-  INPReportOpts,
-} from 'web-vitals'
-
-import type {MetricName} from '@/lib/collect/metric-schema'
 import type {BaseFlags} from '@/lib/metric/flags/defaults/base'
 import type {GenerateTargetFlags} from '@/lib/metric/flags/defaults/generate-target'
 import type {InpReportFlags} from '@/lib/metric/flags/defaults/inp'
 
 export type ObserverInstance = 1 | 2
 
-interface ObserverFlagsInput
-  extends
-    Pick<BaseFlags, 'reportAllChanges' | 'reportAllChanges2'>,
-    Partial<GenerateTargetFlags>,
-    Partial<InpReportFlags> {}
+type ReportAllChangesFlags = Pick<
+  BaseFlags,
+  'reportAllChanges' | 'reportAllChanges2'
+>
 
-export interface ObserverOptions
-  extends
-    AttributionReportOpts,
-    Pick<INPReportOpts, 'durationThreshold'>,
-    Pick<INPAttributionReportOpts, 'includeProcessedEventEntries'> {}
+type AttributionFlags = ReportAllChangesFlags & GenerateTargetFlags
 
-export function observerOptions(
-  metric: Lowercase<MetricName>,
-  flags: ObserverFlagsInput,
+export function fcpObserverOptions(
+  flags: ReportAllChangesFlags,
   instance: ObserverInstance = 1,
 ) {
-  const options: ObserverOptions = {
-    reportAllChanges: dual(
-      instance,
-      flags.reportAllChanges,
-      flags.reportAllChanges2,
-    ),
-  }
+  return {reportAllChanges: reportAllChanges(flags, instance)}
+}
 
-  if (metric === 'inp') {
-    options.durationThreshold = dual(
+export function ttfbObserverOptions(
+  flags: ReportAllChangesFlags,
+  instance: ObserverInstance = 1,
+) {
+  return {reportAllChanges: reportAllChanges(flags, instance)}
+}
+
+export function clsObserverOptions(
+  flags: AttributionFlags,
+  instance: ObserverInstance = 1,
+) {
+  return attributionOptions(flags, instance)
+}
+
+export function lcpObserverOptions(
+  flags: AttributionFlags,
+  instance: ObserverInstance = 1,
+) {
+  return attributionOptions(flags, instance)
+}
+
+export function inpObserverOptions(
+  flags: AttributionFlags & InpReportFlags,
+  instance: ObserverInstance = 1,
+) {
+  return {
+    ...attributionOptions(flags, instance),
+    durationThreshold: dual(
       instance,
       flags.durationThreshold,
       flags.durationThreshold2,
-    )
-    options.includeProcessedEventEntries = flags.includeProcessedEventEntries
+    ),
+    includeProcessedEventEntries: flags.includeProcessedEventEntries,
   }
-
-  if (metric === 'cls' || metric === 'inp' || metric === 'lcp') {
-    if (dual(instance, flags.generateTarget, flags.generateTarget2)) {
-      options.generateTarget = generateTarget
-    }
-  }
-
-  return options
 }
 
 function dual<T>(instance: ObserverInstance, primary: T, secondary: T) {
@@ -61,5 +61,24 @@ function dual<T>(instance: ObserverInstance, primary: T, secondary: T) {
 function generateTarget(node: Node | null) {
   if (node instanceof HTMLElement) {
     return node.dataset.target
+  }
+}
+
+function reportAllChanges(
+  flags: ReportAllChangesFlags,
+  instance: ObserverInstance,
+) {
+  return dual(instance, flags.reportAllChanges, flags.reportAllChanges2)
+}
+
+function attributionOptions(
+  flags: AttributionFlags,
+  instance: ObserverInstance,
+) {
+  return {
+    reportAllChanges: reportAllChanges(flags, instance),
+    ...(dual(instance, flags.generateTarget, flags.generateTarget2)
+      ? {generateTarget}
+      : {}),
   }
 }

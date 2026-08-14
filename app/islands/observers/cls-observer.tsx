@@ -9,7 +9,7 @@ import {
   createBatchReporter,
 } from '@/lib/metric/batch-reporter'
 import {loadWebVitals} from '@/lib/metric/load-web-vitals'
-import {observerOptions} from '@/lib/metric/observer-options'
+import {clsObserverOptions} from '@/lib/metric/observer-options'
 
 export function ClsObserver({flags}: {flags: ClsFlags}) {
   useEffect(() => {
@@ -46,7 +46,7 @@ export function ClsObserver({flags}: {flags: ClsFlags}) {
             reportMetric(reported)
           }
         },
-        observerOptions('cls', flags, 1),
+        clsObserverOptions(flags, 1),
       )
 
       if (flags.secondObserver) {
@@ -57,7 +57,7 @@ export function ClsObserver({flags}: {flags: ClsFlags}) {
               instance: 2,
             })
           },
-          observerOptions('cls', flags, 2),
+          clsObserverOptions(flags, 2),
         )
       }
 

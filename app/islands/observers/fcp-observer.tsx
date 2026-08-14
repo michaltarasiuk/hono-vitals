@@ -9,7 +9,7 @@ import {
   createBatchReporter,
 } from '@/lib/metric/batch-reporter'
 import {loadWebVitals} from '@/lib/metric/load-web-vitals'
-import {observerOptions} from '@/lib/metric/observer-options'
+import {fcpObserverOptions} from '@/lib/metric/observer-options'
 
 export function FcpObserver({flags}: {flags: FcpFlags}) {
   useEffect(() => {
@@ -46,7 +46,7 @@ export function FcpObserver({flags}: {flags: FcpFlags}) {
             reportMetric(reported)
           }
         },
-        observerOptions('fcp', flags, 1),
+        fcpObserverOptions(flags, 1),
       )
 
       if (flags.secondObserver) {
@@ -57,7 +57,7 @@ export function FcpObserver({flags}: {flags: FcpFlags}) {
               instance: 2,
             })
           },
-          observerOptions('fcp', flags, 2),
+          fcpObserverOptions(flags, 2),
         )
       }
 

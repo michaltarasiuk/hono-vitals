@@ -1,3 +1,5 @@
+import {toInlineScript} from '@/lib/to-inline-script'
+
 function stubHiddenVisibility() {
   Object.defineProperty(document, 'visibilityState', {
     value: 'hidden',
@@ -30,4 +32,4 @@ function stubHiddenVisibility() {
   )
 }
 
-export const HIDDEN_STUB_SCRIPT = `(${stubHiddenVisibility.toString()})();`
+export const HIDDEN_STUB_SCRIPT = toInlineScript(stubHiddenVisibility)
