@@ -2,7 +2,6 @@ import {createContext, use} from 'react'
 
 import type {MetricSummary} from '@/lib/analytics/metrics'
 
-import {METRIC_RATINGS} from '@/lib/collect/metric-schema'
 import {isDefined} from '@/lib/is-defined'
 import {formatMetricRating} from '@/lib/metric/format-rating'
 import {formatMetricValue} from '@/lib/metric/format-value'
@@ -78,6 +77,14 @@ function Ratings({children}: {children: React.ReactNode}) {
   return <div className="MetricsCardRatings">{children}</div>
 }
 
+function ratingCounts(summary: MetricSummary) {
+  return [
+    {rating: 'good', count: summary.good},
+    {rating: 'needs-improvement', count: summary.needsImprovement},
+    {rating: 'poor', count: summary.poor},
+  ] as const
+}
+
 function RatingBar() {
   const summary = useMetricCard()
 
@@ -87,11 +94,11 @@ function RatingBar() {
 
   return (
     <div className="MetricsRatingBar">
-      {METRIC_RATINGS.map((rating) => (
+      {ratingCounts(summary).map(({rating, count}) => (
         <div
           key={rating}
           className={`MetricsRatingBarSegment MetricsRatingBarSegment--${rating}`}
-          style={{width: `${(summary[rating] / summary.count) * 100}%`}}
+          style={{width: `${(count / summary.count) * 100}%`}}
         />
       ))}
     </div>
@@ -103,13 +110,13 @@ function RatingLegend() {
 
   return (
     <ul className="MetricsRatingLegend">
-      {METRIC_RATINGS.map((rating) => (
+      {ratingCounts(summary).map(({rating, count}) => (
         <li key={rating}>
           <span className="MetricsRatingLegendLabel">
             <span className={`MetricsRatingDot MetricsRatingDot--${rating}`} />
             {formatMetricRating(rating)}
           </span>
-          <span className="MetricsRatingLegendValue">{summary[rating]}</span>
+          <span className="MetricsRatingLegendValue">{count}</span>
         </li>
       ))}
     </ul>
