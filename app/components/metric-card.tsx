@@ -1,8 +1,7 @@
 import {createContext, use} from 'react'
 
-import type {MetricSummary} from '@/lib/analytics/metric-summary'
+import type {MetricSummary} from '@/lib/analytics/metrics'
 
-import {ratedCount} from '@/lib/analytics/metric-summary'
 import {METRIC_RATINGS} from '@/lib/collect/metric-schema'
 import {isDefined} from '@/lib/is-defined'
 import {formatMetricRating} from '@/lib/metric/format-rating'
@@ -81,9 +80,8 @@ function Ratings({children}: {children: React.ReactNode}) {
 
 function RatingBar() {
   const summary = useMetricCard()
-  const total = ratedCount(summary)
 
-  if (total === 0) {
+  if (summary.count === 0) {
     return <div className="MetricsRatingBar MetricsRatingBar--empty" />
   }
 
@@ -93,7 +91,7 @@ function RatingBar() {
         <div
           key={rating}
           className={`MetricsRatingBarSegment MetricsRatingBarSegment--${rating}`}
-          style={{width: `${(summary[rating] / total) * 100}%`}}
+          style={{width: `${(summary[rating] / summary.count) * 100}%`}}
         />
       ))}
     </div>

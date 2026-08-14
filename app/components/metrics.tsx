@@ -1,4 +1,4 @@
-import type {MetricSummary} from '@/lib/analytics/metric-summary'
+import type {MetricSummary} from '@/lib/analytics/metrics'
 
 import {Text} from '@/app/components/ui/text'
 

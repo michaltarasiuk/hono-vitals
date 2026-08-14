@@ -5,7 +5,7 @@ import {MetricSummaryCard} from '@/app/components/metric-card'
 import {Metrics} from '@/app/components/metrics'
 import {Heading} from '@/app/components/ui/heading'
 import {ClearMetrics} from '@/app/islands/clear-metrics'
-import {getMetricsSummary} from '@/lib/analytics/metric-summary'
+import {getMetricsSummary} from '@/lib/analytics/metrics'
 
 export default createRoute(async (c) => {
   const summaries = await getMetricsSummary()
