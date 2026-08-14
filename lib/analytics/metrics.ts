@@ -1,7 +1,6 @@
 import {
   type Metric,
   METRIC_NAMES,
-  METRIC_RATINGS,
   type MetricName,
 } from '@/lib/collect/metric-schema'
 import {getSql} from '@/lib/db/client'
@@ -13,7 +12,7 @@ export interface MetricSummary {
   avg: number
   p75: number
   good: number
-  'needs-improvement': number
+  needsImprovement: number
   poor: number
 }
 
@@ -27,7 +26,7 @@ export async function getMetricsSummary() {
       avg(value)::DOUBLE AS avg,
       quantile_cont(value, 0.75)::DOUBLE AS p75,
       count(*) FILTER (WHERE rating = 'good')::DOUBLE AS good,
-      count(*) FILTER (WHERE rating = 'needs-improvement')::DOUBLE AS "needs-improvement",
+      count(*) FILTER (WHERE rating = 'needs-improvement')::DOUBLE AS needsImprovement,
       count(*) FILTER (WHERE rating = 'poor')::DOUBLE AS poor
     FROM ${table}
     GROUP BY name
@@ -69,12 +68,14 @@ export async function clearMetrics() {
   await sql`DELETE FROM ${table}`
 }
 
-const EMPTY_SUMMARY = {
+const EMPTY_SUMMARY: Omit<MetricSummary, 'name'> = {
   count: 0,
   avg: 0,
   p75: 0,
-  ...Object.fromEntries(METRIC_RATINGS.map((rating) => [rating, 0])),
-} as Omit<MetricSummary, 'name'>
+  good: 0,
+  needsImprovement: 0,
+  poor: 0,
+}
 
 async function getMetricsTable() {
   const sql = await getSql()
