@@ -4,9 +4,10 @@ import {dirname} from 'node:path'
 import {waddler} from 'waddler/duckdb-neo'
 
 import {env} from '@/lib/env'
-import {isDefined} from '@/lib/is-defined'
 
 type Sql = ReturnType<typeof waddler>
+
+const client = createDbClient()
 
 export function getSql() {
   return client.getSql()
@@ -21,13 +22,9 @@ function createDbClient() {
   }
 
   function getSql() {
-    if (!isDefined(connectPromise)) {
-      connectPromise = openConnection()
-    }
+    connectPromise ??= openConnection()
     return connectPromise
   }
 
   return {getSql}
 }
-
-const client = createDbClient()
