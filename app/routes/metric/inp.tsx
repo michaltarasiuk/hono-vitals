@@ -1,10 +1,10 @@
 import {zValidator} from '@hono/zod-validator'
 import {createRoute} from 'honox/factory'
+import {Script} from 'honox/server'
 
 import {Heading} from '@/app/components/ui/heading'
 import {Text} from '@/app/components/ui/text'
 import {InpBlockingControls} from '@/app/routes/metric/$inp-blocking-controls'
-import {InpObserver} from '@/app/routes/metric/$inp-observer'
 import {LOREM_IPSUM} from '@/lib/lorem-ipsum'
 import {
   INP_FLAGS_DEFAULTS,
@@ -30,7 +30,7 @@ export default createRoute(
     return c.render(
       <>
         <InpContent flags={flags} />
-        <InpObserver flags={flags} />
+        <Script src="/app/scripts/metric/inp-observer.ts" />
       </>,
       {
         metricName: 'INP',

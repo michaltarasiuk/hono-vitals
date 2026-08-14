@@ -1,10 +1,10 @@
 import {zValidator} from '@hono/zod-validator'
 import {createRoute} from 'honox/factory'
+import {Script} from 'honox/server'
 
 import {SquareImage} from '@/app/components/metric/square-image'
 import {Heading} from '@/app/components/ui/heading'
 import {Text} from '@/app/components/ui/text'
-import {TtfbObserver} from '@/app/routes/metric/$ttfb-observer'
 import {
   TTFB_FLAGS_DEFAULTS,
   type TtfbFlags,
@@ -35,7 +35,7 @@ export default createRoute(
     return c.render(
       <>
         <TtfbContent flags={flags} />
-        <TtfbObserver flags={flags} />
+        <Script src="/app/scripts/metric/ttfb-observer.ts" />
       </>,
       {
         metricName: 'TTFB',
