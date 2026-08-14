@@ -1,13 +1,16 @@
+import {zValidator} from '@hono/zod-validator'
+import {createRoute} from 'honox/factory'
+
 import {Spacer} from '@/app/components/metric/spacer'
 import {SquareImage} from '@/app/components/metric/square-image'
 import {Heading} from '@/app/components/ui/heading'
 import {Text} from '@/app/components/ui/text'
-import {LcpObserver} from '@/app/islands/observers/lcp-observer'
-import {createMetricRoute} from '@/lib/metric/create-route'
+import {LcpObserver} from '@/app/routes/metric/$lcp-observer'
 import {
   LCP_FLAGS_DEFAULTS,
   type LcpFlags,
 } from '@/lib/metric/flags/defaults/lcp'
+import {flagsSchema} from '@/lib/metric/flags/schema'
 
 function LcpContent({flags}: {flags: LcpFlags}) {
   return (
@@ -29,9 +32,21 @@ function LcpContent({flags}: {flags: LcpFlags}) {
   )
 }
 
-export default createMetricRoute({
-  name: 'LCP',
-  defaults: LCP_FLAGS_DEFAULTS,
-  Observer: LcpObserver,
-  Content: LcpContent,
-})
+export default createRoute(
+  zValidator('query', flagsSchema(LCP_FLAGS_DEFAULTS)),
+  (c) => {
+    const flags = c.req.valid('query')
+
+    return c.render(
+      <>
+        <LcpContent flags={flags} />
+        <LcpObserver flags={flags} />
+      </>,
+      {
+        metricName: 'LCP',
+        flags,
+        defaults: LCP_FLAGS_DEFAULTS,
+      },
+    )
+  },
+)

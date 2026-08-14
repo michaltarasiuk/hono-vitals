@@ -66,7 +66,7 @@ export default defineConfig(
     },
   },
   {
-    files: ['app/islands/**/*.{ts,tsx}'],
+    files: ['app/**/$*.{ts,tsx}'],
     rules: {
       'no-restricted-imports': [
         'error',

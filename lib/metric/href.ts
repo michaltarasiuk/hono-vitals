@@ -11,6 +11,6 @@ export function metricHref(
   defaults: Flags = {},
 ) {
   const path = joinPath('metric', metricSlug(metricName))
-  const query = flagsToSearchParams(flags, defaults).toString()
-  return query ? `${path}?${query}` : path
+  const query = flagsToSearchParams(flags, defaults)
+  return query.size > 0 ? `${path}?${query}` : path
 }

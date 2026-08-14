@@ -1,4 +1,4 @@
-import {Nav} from '@/app/islands/nav/nav'
+import {Nav} from '@/app/components/$nav'
 
 function Root({children}: {children: React.ReactNode}) {
   return (

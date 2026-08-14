@@ -1,12 +1,15 @@
+import {zValidator} from '@hono/zod-validator'
+import {createRoute} from 'honox/factory'
+
 import {SquareImage} from '@/app/components/metric/square-image'
 import {Heading} from '@/app/components/ui/heading'
 import {Text} from '@/app/components/ui/text'
-import {FcpObserver} from '@/app/islands/observers/fcp-observer'
-import {createMetricRoute} from '@/lib/metric/create-route'
+import {FcpObserver} from '@/app/routes/metric/$fcp-observer'
 import {
   FCP_FLAGS_DEFAULTS,
   type FcpFlags,
 } from '@/lib/metric/flags/defaults/fcp'
+import {flagsSchema} from '@/lib/metric/flags/schema'
 
 function FcpContent({flags}: {flags: FcpFlags}) {
   return (
@@ -24,9 +27,21 @@ function FcpContent({flags}: {flags: FcpFlags}) {
   )
 }
 
-export default createMetricRoute({
-  name: 'FCP',
-  defaults: FCP_FLAGS_DEFAULTS,
-  Observer: FcpObserver,
-  Content: FcpContent,
-})
+export default createRoute(
+  zValidator('query', flagsSchema(FCP_FLAGS_DEFAULTS)),
+  (c) => {
+    const flags = c.req.valid('query')
+
+    return c.render(
+      <>
+        <FcpContent flags={flags} />
+        <FcpObserver flags={flags} />
+      </>,
+      {
+        metricName: 'FCP',
+        flags,
+        defaults: FCP_FLAGS_DEFAULTS,
+      },
+    )
+  },
+)

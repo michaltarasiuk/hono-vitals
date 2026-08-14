@@ -1,13 +1,16 @@
+import {zValidator} from '@hono/zod-validator'
+import {createRoute} from 'honox/factory'
+
 import {Heading} from '@/app/components/ui/heading'
 import {Text} from '@/app/components/ui/text'
-import {InpBlockingControls} from '@/app/islands/inp-blocking-controls'
-import {InpObserver} from '@/app/islands/observers/inp-observer'
+import {InpBlockingControls} from '@/app/routes/metric/$inp-blocking-controls'
+import {InpObserver} from '@/app/routes/metric/$inp-observer'
 import {LOREM_IPSUM} from '@/lib/lorem-ipsum'
-import {createMetricRoute} from '@/lib/metric/create-route'
 import {
   INP_FLAGS_DEFAULTS,
   type InpFlags,
 } from '@/lib/metric/flags/defaults/inp'
+import {flagsSchema} from '@/lib/metric/flags/schema'
 
 function InpContent({flags}: {flags: InpFlags}) {
   return (
@@ -19,9 +22,21 @@ function InpContent({flags}: {flags: InpFlags}) {
   )
 }
 
-export default createMetricRoute({
-  name: 'INP',
-  defaults: INP_FLAGS_DEFAULTS,
-  Observer: InpObserver,
-  Content: InpContent,
-})
+export default createRoute(
+  zValidator('query', flagsSchema(INP_FLAGS_DEFAULTS)),
+  (c) => {
+    const flags = c.req.valid('query')
+
+    return c.render(
+      <>
+        <InpContent flags={flags} />
+        <InpObserver flags={flags} />
+      </>,
+      {
+        metricName: 'INP',
+        flags,
+        defaults: INP_FLAGS_DEFAULTS,
+      },
+    )
+  },
+)

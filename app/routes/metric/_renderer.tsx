@@ -1,8 +1,8 @@
 import {reactRenderer} from '@hono/react-renderer'
 
 import {MetricLayout} from '@/app/components/metric/layout'
-import {FlagsEditor} from '@/app/islands/flags-editor'
-import {MetricToasts} from '@/app/islands/metric-toasts'
+import {FlagsEditor} from '@/app/routes/metric/$flags-editor'
+import {MetricToasts} from '@/app/routes/metric/$metric-toasts'
 
 export default reactRenderer(
   ({children, Layout, metricName, flags, defaults}) => {
