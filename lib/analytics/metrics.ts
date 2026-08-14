@@ -1,41 +1,35 @@
-import {metricsTable, sql} from '@/lib/analytics/db'
 import {
   type Metric,
   METRIC_NAMES,
   METRIC_RATINGS,
   type MetricName,
-  type MetricRating,
 } from '@/lib/collect/metric-schema'
+import {getSql} from '@/lib/db/client'
+import {TABLES} from '@/lib/db/schema'
 
-export interface MetricSummary extends Record<MetricRating, number> {
+export interface MetricSummary {
   name: MetricName
   count: number
   avg: number
   p75: number
+  good: number
+  'needs-improvement': number
+  poor: number
 }
 
-const zeroRatings = Object.fromEntries(
-  METRIC_RATINGS.map((rating) => [rating, 0]),
-) as Record<MetricRating, number>
-
-const EMPTY_SUMMARY = {
-  count: 0,
-  avg: 0,
-  p75: 0,
-  ...zeroRatings,
-} satisfies Omit<MetricSummary, 'name'>
-
 export async function getMetricsSummary() {
+  const {sql, table} = await getMetricsTable()
+
   const rows = await sql<MetricSummary>`
     SELECT
       name,
       count(*)::DOUBLE AS count,
       avg(value)::DOUBLE AS avg,
       quantile_cont(value, 0.75)::DOUBLE AS p75,
-      count(*) FILTER (WHERE rating = 'good')::DOUBLE AS "good",
+      count(*) FILTER (WHERE rating = 'good')::DOUBLE AS good,
       count(*) FILTER (WHERE rating = 'needs-improvement')::DOUBLE AS "needs-improvement",
-      count(*) FILTER (WHERE rating = 'poor')::DOUBLE AS "poor"
-    FROM ${metricsTable}
+      count(*) FILTER (WHERE rating = 'poor')::DOUBLE AS poor
+    FROM ${table}
     GROUP BY name
     ORDER BY name
   `
@@ -54,8 +48,10 @@ export async function insertMetrics(metrics: Metric[]) {
     return
   }
 
+  const {sql, table} = await getMetricsTable()
+
   await sql`
-    INSERT OR REPLACE INTO ${metricsTable} (
+    INSERT OR REPLACE INTO ${table} (
       metric_id,
       name,
       value,
@@ -63,19 +59,36 @@ export async function insertMetrics(metrics: Metric[]) {
       rating,
       navigation_type
     )
-    VALUES ${sql.values(
-      metrics.map((metric) => [
-        metric.id,
-        metric.name,
-        metric.value,
-        metric.delta,
-        metric.rating,
-        metric.navigationType,
-      ]),
-    )}
+    VALUES ${sql.values(metrics.map(toInsertValues))}
   `
 }
 
 export async function clearMetrics() {
-  await sql`TRUNCATE TABLE ${metricsTable}`
+  const {sql, table} = await getMetricsTable()
+
+  await sql`DELETE FROM ${table}`
+}
+
+const EMPTY_SUMMARY = {
+  count: 0,
+  avg: 0,
+  p75: 0,
+  ...Object.fromEntries(METRIC_RATINGS.map((rating) => [rating, 0])),
+} as Omit<MetricSummary, 'name'>
+
+async function getMetricsTable() {
+  const sql = await getSql()
+
+  return {sql, table: sql.identifier(TABLES.metrics)}
+}
+
+function toInsertValues({
+  id,
+  name,
+  value,
+  delta,
+  rating,
+  navigationType,
+}: Metric) {
+  return [id, name, value, delta, rating, navigationType]
 }
