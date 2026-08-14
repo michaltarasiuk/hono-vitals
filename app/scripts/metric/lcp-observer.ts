@@ -1,8 +1,8 @@
 import {reportMetric} from '@/lib/collect/report'
-import {createMetricReporter} from '@/lib/metric/create-metric-reporter'
 import {LCP_FLAGS_DEFAULTS} from '@/lib/metric/flags/defaults/lcp'
 import {parseFlagsFromSearch} from '@/lib/metric/flags/search-params'
 import {loadWebVitals} from '@/lib/metric/load-web-vitals'
+import {createMetricReporter} from '@/lib/metric/metric-reporter'
 import {lcpObserverOptions} from '@/lib/metric/observer-options'
 import {removeLcpElement} from '@/lib/metric/remove-lcp-element'
 
