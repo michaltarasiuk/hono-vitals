@@ -2,7 +2,7 @@ import {SquareImage} from '@/app/components/metric/square-image'
 import {Heading} from '@/app/components/ui/heading'
 import {Text} from '@/app/components/ui/text'
 import {FcpObserver} from '@/app/islands/observers/fcp-observer'
-import {defineMetric} from '@/lib/metric/define-route'
+import {createMetricRoute} from '@/lib/metric/create-route'
 import {
   FCP_FLAGS_DEFAULTS,
   type FcpFlags,
@@ -24,7 +24,7 @@ function FcpContent({flags}: {flags: FcpFlags}) {
   )
 }
 
-export default defineMetric({
+export default createMetricRoute({
   name: 'FCP',
   defaults: FCP_FLAGS_DEFAULTS,
   Observer: FcpObserver,
