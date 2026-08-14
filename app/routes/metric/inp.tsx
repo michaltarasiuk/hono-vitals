@@ -6,21 +6,8 @@ import {InpBlockingControls} from '@/app/components/metric/$inp-blocking-control
 import {Heading} from '@/app/components/ui/heading'
 import {Text} from '@/app/components/ui/text'
 import {LOREM_IPSUM} from '@/lib/lorem-ipsum'
-import {
-  INP_FLAGS_DEFAULTS,
-  type InpFlags,
-} from '@/lib/metric/flags/defaults/inp'
+import {INP_FLAGS_DEFAULTS} from '@/lib/metric/flags/defaults/inp'
 import {flagsSchema} from '@/lib/metric/flags/schema'
-
-function InpContent({flags}: {flags: InpFlags}) {
-  return (
-    <>
-      <Heading elementtiming="main-heading">INP Test</Heading>
-      <Text>{LOREM_IPSUM}</Text>
-      <InpBlockingControls flags={flags} />
-    </>
-  )
-}
 
 export default createRoute(
   zValidator('query', flagsSchema(INP_FLAGS_DEFAULTS)),
@@ -29,7 +16,9 @@ export default createRoute(
 
     return c.render(
       <>
-        <InpContent flags={flags} />
+        <Heading elementtiming="main-heading">INP Test</Heading>
+        <Text>{LOREM_IPSUM}</Text>
+        <InpBlockingControls flags={flags} />
         <Script src="/app/scripts/metric/inp-observer.ts" />
       </>,
       {
