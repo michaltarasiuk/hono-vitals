@@ -2,7 +2,7 @@ import {SquareImage} from '@/app/components/metric/square-image'
 import {Heading} from '@/app/components/ui/heading'
 import {Text} from '@/app/components/ui/text'
 import {ClsObserver} from '@/app/islands/observers/cls-observer'
-import {defineMetric} from '@/lib/metric/define-route'
+import {createMetricRoute} from '@/lib/metric/create-route'
 import {
   CLS_FLAGS_DEFAULTS,
   type ClsFlags,
@@ -38,7 +38,7 @@ function ClsContent({flags}: {flags: ClsFlags}) {
   )
 }
 
-export default defineMetric({
+export default createMetricRoute({
   name: 'CLS',
   defaults: CLS_FLAGS_DEFAULTS,
   Observer: ClsObserver,

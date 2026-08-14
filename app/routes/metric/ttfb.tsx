@@ -2,7 +2,7 @@ import {SquareImage} from '@/app/components/metric/square-image'
 import {Heading} from '@/app/components/ui/heading'
 import {Text} from '@/app/components/ui/text'
 import {TtfbObserver} from '@/app/islands/observers/ttfb-observer'
-import {defineMetric} from '@/lib/metric/define-route'
+import {createMetricRoute} from '@/lib/metric/create-route'
 import {
   TTFB_FLAGS_DEFAULTS,
   type TtfbFlags,
@@ -24,7 +24,7 @@ function TtfbContent({flags}: {flags: TtfbFlags}) {
   )
 }
 
-export default defineMetric({
+export default createMetricRoute({
   name: 'TTFB',
   defaults: TTFB_FLAGS_DEFAULTS,
   Observer: TtfbObserver,

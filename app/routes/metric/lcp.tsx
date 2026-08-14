@@ -3,7 +3,7 @@ import {SquareImage} from '@/app/components/metric/square-image'
 import {Heading} from '@/app/components/ui/heading'
 import {Text} from '@/app/components/ui/text'
 import {LcpObserver} from '@/app/islands/observers/lcp-observer'
-import {defineMetric} from '@/lib/metric/define-route'
+import {createMetricRoute} from '@/lib/metric/create-route'
 import {
   LCP_FLAGS_DEFAULTS,
   type LcpFlags,
@@ -29,7 +29,7 @@ function LcpContent({flags}: {flags: LcpFlags}) {
   )
 }
 
-export default defineMetric({
+export default createMetricRoute({
   name: 'LCP',
   defaults: LCP_FLAGS_DEFAULTS,
   Observer: LcpObserver,
