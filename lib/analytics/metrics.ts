@@ -16,6 +16,15 @@ export interface MetricSummary {
   poor: number
 }
 
+const EMPTY_SUMMARY: Omit<MetricSummary, 'name'> = {
+  count: 0,
+  avg: 0,
+  p75: 0,
+  good: 0,
+  needsImprovement: 0,
+  poor: 0,
+}
+
 export async function getMetricsSummary() {
   const {sql, table} = await getMetricsTable()
 
@@ -66,15 +75,6 @@ export async function clearMetrics() {
   const {sql, table} = await getMetricsTable()
 
   await sql`DELETE FROM ${table}`
-}
-
-const EMPTY_SUMMARY: Omit<MetricSummary, 'name'> = {
-  count: 0,
-  avg: 0,
-  p75: 0,
-  good: 0,
-  needsImprovement: 0,
-  poor: 0,
 }
 
 async function getMetricsTable() {
