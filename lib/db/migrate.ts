@@ -1,9 +1,5 @@
-import type {waddler} from 'waddler/duckdb-neo'
-
-import {getSql} from '@/lib/db/client'
+import {getSql, type Sql} from '@/lib/db/client'
 import {TABLES} from '@/lib/db/schema'
-
-type Sql = ReturnType<typeof waddler>
 
 interface Migration {
   version: number

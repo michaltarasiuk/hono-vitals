@@ -5,26 +5,16 @@ import {waddler} from 'waddler/duckdb-neo'
 
 import {env} from '@/lib/env'
 
-type Sql = ReturnType<typeof waddler>
+export type Sql = ReturnType<typeof waddler>
 
-const client = createDbClient()
+let sqlPromise: Promise<Sql> | null = null
 
 export function getSql() {
-  return client.getSql()
+  sqlPromise ??= init()
+  return sqlPromise
 }
 
-function createDbClient() {
-  let connectPromise: Promise<Sql> | null = null
-
-  async function openConnection() {
-    await mkdir(dirname(env.DUCKDB_PATH), {recursive: true})
-    return waddler({url: env.DUCKDB_PATH})
-  }
-
-  function getSql() {
-    connectPromise ??= openConnection()
-    return connectPromise
-  }
-
-  return {getSql}
+async function init() {
+  await mkdir(dirname(env.DUCKDB_PATH), {recursive: true})
+  return waddler({url: env.DUCKDB_PATH})
 }
