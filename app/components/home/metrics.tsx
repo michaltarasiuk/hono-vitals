@@ -9,7 +9,7 @@ function Section({children}: {children: React.ReactNode}) {
 function Total({summaries}: {summaries: MetricSummary[]}) {
   const total = summaries.reduce((acc, summary) => acc + summary.count, 0)
 
-  return <Text>{total.toLocaleString()} lab reports across all metrics.</Text>
+  return <Text>{total.toLocaleString()} samples collected.</Text>
 }
 
 function Grid({children}: {children: React.ReactNode}) {
