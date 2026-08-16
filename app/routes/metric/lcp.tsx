@@ -24,7 +24,7 @@ function LCP({flags}: {flags: LcpFlags}) {
       />
       <Text>Text below the image.</Text>
       <Spacer />
-      <Text>Text below the full-height element.</Text>
+      <Text>Text below the spacer.</Text>
     </>
   )
 }
