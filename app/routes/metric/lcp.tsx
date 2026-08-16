@@ -1,6 +1,5 @@
+import {DelayedImage} from '@/app/components/metric/delayed-image'
 import {Spacer} from '@/app/components/metric/spacer'
-import {SquareImage} from '@/app/components/metric/square-image'
-import {Heading} from '@/app/components/ui/heading'
 import {Text} from '@/app/components/ui/text'
 import {createMetricRoute} from '@/lib/metric/create-metric-route'
 import {
@@ -17,17 +16,13 @@ export default createMetricRoute({
 function LCP({flags}: {flags: LcpFlags}) {
   return (
     <>
-      <Heading elementtiming="main-heading">LCP</Heading>
-      <Text>
-        <SquareImage
-          id={flags.removeElement ? 'lcp-image' : undefined}
-          data-target="main-image"
-          elementtiming="main-image"
-          delay={flags.imgDelay}
-          hidden={flags.imgHidden}
-        />
-      </Text>
-      <Text>Text below the image</Text>
+      <DelayedImage
+        id={flags.removeElement ? 'lcp-image' : undefined}
+        data-target="main-image"
+        delay={flags.imgDelay}
+        hidden={flags.imgHidden}
+      />
+      <Text>Text below the image.</Text>
       <Spacer />
       <Text>Text below the full-height element.</Text>
     </>

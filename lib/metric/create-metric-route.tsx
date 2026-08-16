@@ -7,6 +7,7 @@ import {Script} from 'honox/server'
 import type {MetricName} from '@/lib/collect/metric-schema'
 import type {Flags, ParsedFlags} from '@/lib/metric/flags/schema'
 
+import {Heading} from '@/app/components/ui/heading'
 import {flagsSchema} from '@/lib/metric/flags/schema'
 import {metricSlug} from '@/lib/metric/slug'
 
@@ -26,6 +27,7 @@ export function createMetricRoute<T extends Flags>({
 
     return c.render(
       <>
+        <Heading elementtiming="main-heading">{metricName}</Heading>
         <Component flags={flags} />
         <Script
           src={`/app/scripts/metric/${metricSlug(metricName)}-observer.ts`}
