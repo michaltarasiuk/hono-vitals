@@ -17,7 +17,7 @@ export default createMetricRoute({
 function INP({flags}: {flags: InpFlags}) {
   return (
     <>
-      <Heading elementtiming="main-heading">INP Test</Heading>
+      <Heading elementtiming="main-heading">INP</Heading>
       <Text>{LOREM_IPSUM}</Text>
       <InpBlockingControls flags={flags} />
     </>

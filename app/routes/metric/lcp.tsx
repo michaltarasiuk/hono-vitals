@@ -17,7 +17,7 @@ export default createMetricRoute({
 function LCP({flags}: {flags: LcpFlags}) {
   return (
     <>
-      <Heading elementtiming="main-heading">LCP Test</Heading>
+      <Heading elementtiming="main-heading">LCP</Heading>
       <Text>
         <SquareImage
           id={flags.removeElement ? 'lcp-image' : undefined}

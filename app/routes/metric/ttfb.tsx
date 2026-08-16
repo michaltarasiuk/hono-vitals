@@ -16,7 +16,7 @@ export default createMetricRoute({
 function TTFB({flags}: {flags: TtfbFlags}) {
   return (
     <>
-      <Heading elementtiming="main-heading">TTFB Test</Heading>
+      <Heading elementtiming="main-heading">TTFB</Heading>
       <Text>
         <SquareImage
           elementtiming="main-image"

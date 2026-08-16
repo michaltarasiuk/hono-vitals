@@ -16,7 +16,7 @@ export default createMetricRoute({
 function FCP({flags}: {flags: FcpFlags}) {
   return (
     <>
-      <Heading elementtiming="main-heading">FCP Test</Heading>
+      <Heading elementtiming="main-heading">FCP</Heading>
       <Text>
         <SquareImage
           elementtiming="main-image"
