@@ -15,7 +15,6 @@ export default createMetricRoute({
 function FCP({flags}: {flags: FcpFlags}) {
   return (
     <>
-      <Text>Text above the image.</Text>
       <DelayedImage delay={flags.imgDelay} hidden={flags.imgHidden} />
       <Text>Text below the image.</Text>
     </>
