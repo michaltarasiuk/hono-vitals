@@ -24,14 +24,13 @@ export function createMetricRoute<T extends Flags>({
 }: MetricRouteConfig<T>) {
   return createRoute(zValidator('query', flagsSchema(defaults)), (c) => {
     const flags = c.req.valid('query')
+    const src = `/app/scripts/metric/${metricSlug(metricName)}-observer.ts`
 
     return c.render(
       <>
         <Heading elementtiming="main-heading">{metricName}</Heading>
         <Component flags={flags} />
-        <Script
-          src={`/app/scripts/metric/${metricSlug(metricName)}-observer.ts`}
-        />
+        <Script src={src} />
       </>,
       {metricName, flags, defaults},
     )
