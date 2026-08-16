@@ -2,12 +2,19 @@ import {SquareImage} from '@/app/components/metric/square-image'
 import {Heading} from '@/app/components/ui/heading'
 import {Text} from '@/app/components/ui/text'
 import {createMetricRoute} from '@/lib/metric/create-metric-route'
-import {CLS_FLAGS_DEFAULTS} from '@/lib/metric/flags/defaults/cls'
+import {
+  CLS_FLAGS_DEFAULTS,
+  type ClsFlags,
+} from '@/lib/metric/flags/defaults/cls'
 
 export default createMetricRoute({
   metricName: 'CLS',
   defaults: CLS_FLAGS_DEFAULTS,
-  children: (flags) => (
+  Component: CLS,
+})
+
+function CLS({flags}: {flags: ClsFlags}) {
+  return (
     <>
       <Heading elementtiming="main-heading">CLS Test</Heading>
       {flags.noLayoutShifts ? (
@@ -33,5 +40,5 @@ export default createMetricRoute({
         </>
       )}
     </>
-  ),
-})
+  )
+}

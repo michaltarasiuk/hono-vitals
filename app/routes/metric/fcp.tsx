@@ -2,12 +2,19 @@ import {SquareImage} from '@/app/components/metric/square-image'
 import {Heading} from '@/app/components/ui/heading'
 import {Text} from '@/app/components/ui/text'
 import {createMetricRoute} from '@/lib/metric/create-metric-route'
-import {FCP_FLAGS_DEFAULTS} from '@/lib/metric/flags/defaults/fcp'
+import {
+  FCP_FLAGS_DEFAULTS,
+  type FcpFlags,
+} from '@/lib/metric/flags/defaults/fcp'
 
 export default createMetricRoute({
   metricName: 'FCP',
   defaults: FCP_FLAGS_DEFAULTS,
-  children: (flags) => (
+  Component: FCP,
+})
+
+function FCP({flags}: {flags: FcpFlags}) {
+  return (
     <>
       <Heading elementtiming="main-heading">FCP Test</Heading>
       <Text>
@@ -19,5 +26,5 @@ export default createMetricRoute({
       </Text>
       <Text>Text below the image</Text>
     </>
-  ),
-})
+  )
+}

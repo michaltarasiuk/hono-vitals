@@ -13,20 +13,20 @@ import {metricSlug} from '@/lib/metric/slug'
 interface MetricRouteConfig<T extends Flags> {
   metricName: MetricName
   defaults: T
-  children: (flags: ParsedFlags<T>) => ReactNode
+  Component: (props: {flags: ParsedFlags<T>}) => ReactNode
 }
 
 export function createMetricRoute<T extends Flags>({
   metricName,
   defaults,
-  children,
+  Component,
 }: MetricRouteConfig<T>) {
   return createRoute(zValidator('query', flagsSchema(defaults)), (c) => {
     const flags = c.req.valid('query')
 
     return c.render(
       <>
-        {children(flags)}
+        <Component flags={flags} />
         <Script
           src={`/app/scripts/metric/${metricSlug(metricName)}-observer.ts`}
         />
