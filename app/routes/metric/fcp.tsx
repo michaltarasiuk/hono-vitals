@@ -1,5 +1,4 @@
-import {SquareImage} from '@/app/components/metric/square-image'
-import {Heading} from '@/app/components/ui/heading'
+import {DelayedImage} from '@/app/components/metric/delayed-image'
 import {Text} from '@/app/components/ui/text'
 import {createMetricRoute} from '@/lib/metric/create-metric-route'
 import {
@@ -16,15 +15,9 @@ export default createMetricRoute({
 function FCP({flags}: {flags: FcpFlags}) {
   return (
     <>
-      <Heading elementtiming="main-heading">FCP</Heading>
-      <Text>
-        <SquareImage
-          elementtiming="main-image"
-          delay={flags.imgDelay}
-          hidden={flags.imgHidden}
-        />
-      </Text>
-      <Text>Text below the image</Text>
+      <Text>Text above the image.</Text>
+      <DelayedImage delay={flags.imgDelay} hidden={flags.imgHidden} />
+      <Text>Text below the image.</Text>
     </>
   )
 }

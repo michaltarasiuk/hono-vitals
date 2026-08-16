@@ -1,5 +1,4 @@
-import {SquareImage} from '@/app/components/metric/square-image'
-import {Heading} from '@/app/components/ui/heading'
+import {DelayedImage} from '@/app/components/metric/delayed-image'
 import {Text} from '@/app/components/ui/text'
 import {createMetricRoute} from '@/lib/metric/create-metric-route'
 import {
@@ -14,31 +13,23 @@ export default createMetricRoute({
 })
 
 function CLS({flags}: {flags: ClsFlags}) {
+  if (flags.noLayoutShifts) {
+    return <Text>This text does not shift.</Text>
+  }
   return (
     <>
-      <Heading elementtiming="main-heading">CLS</Heading>
-      {flags.noLayoutShifts ? (
-        <Text>This text does not shift.</Text>
-      ) : (
-        <>
-          <Text>
-            <SquareImage
-              elementtiming="main-image"
-              delay={500}
-              hidden={flags.imgHidden}
-            />{' '}
-            [text node contents]
-          </Text>
-          <Text data-target="secondary-image-wrapper">
-            <SquareImage
-              elementtiming="secondary-image"
-              delay={1000}
-              hidden={flags.imgHidden2}
-            />
-          </Text>
-          <Text>Text below the images that will get pushed down.</Text>
-        </>
-      )}
+      <Text>
+        <DelayedImage delay={500} hidden={flags.imgHidden} />
+        <span>[text node contents]</span>
+      </Text>
+      <Text data-target="secondary-image-wrapper">
+        <DelayedImage
+          elementtiming="secondary-image"
+          delay={1000}
+          hidden={flags.imgHidden2}
+        />
+      </Text>
+      <Text>Text below the images that will get pushed down.</Text>
     </>
   )
 }
