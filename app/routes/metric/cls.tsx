@@ -19,8 +19,8 @@ function CLS({flags}: {flags: ClsFlags}) {
   return (
     <>
       <Text>
-        <DelayedImage delay={500} hidden={flags.imgHidden} /> [text node
-        contents]
+        <DelayedImage delay={500} hidden={flags.imgHidden} />
+        {' [text node contents]'}
       </Text>
       <Text data-target="secondary-image-wrapper">
         <DelayedImage
