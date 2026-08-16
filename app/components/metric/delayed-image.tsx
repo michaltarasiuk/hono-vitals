@@ -1,15 +1,16 @@
-interface DelayedImageProps extends Omit<React.ComponentProps<'img'>, 'src'> {
+interface DelayedImageProps extends React.ComponentProps<'img'> {
   delay?: number
 }
 
 export function DelayedImage({
-  delay = 0,
+  src = '/public/square.png',
   elementtiming = 'main-image',
+  delay = 0,
   ...props
 }: DelayedImageProps) {
   return (
     <img
-      src={`/public/square.png?delay=${delay}`}
+      src={`${src}?delay=${delay}`}
       elementtiming={elementtiming}
       {...props}
     />
