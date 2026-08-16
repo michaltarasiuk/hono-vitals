@@ -16,7 +16,7 @@ export default createMetricRoute({
 function CLS({flags}: {flags: ClsFlags}) {
   return (
     <>
-      <Heading elementtiming="main-heading">CLS Test</Heading>
+      <Heading elementtiming="main-heading">CLS</Heading>
       {flags.noLayoutShifts ? (
         <Text>This text does not shift.</Text>
       ) : (
