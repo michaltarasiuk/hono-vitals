@@ -5,25 +5,32 @@ import {HTTPException} from 'hono/http-exception'
 import {clearMetrics, insertMetrics} from '@/lib/analytics/metrics'
 import {CollectBodySchema} from '@/lib/collect/body'
 
-async function runOrFail(message: string, run: () => Promise<void>) {
-  try {
-    await run()
-  } catch (cause) {
-    console.error(message, cause)
-    throw new HTTPException(500, {message, cause: cause as Error})
-  }
-}
-
 const collectRoutes = new Hono()
   .post('/', zValidator('json', CollectBodySchema), async (c) => {
     const {metrics} = c.req.valid('json')
 
-    await runOrFail('Failed to collect metrics', () => insertMetrics(metrics))
+    try {
+      await insertMetrics(metrics)
+    } catch (cause) {
+      console.error('Failed to collect metrics', cause)
+      throw new HTTPException(500, {
+        message: 'Failed to collect metrics',
+        cause: cause as Error,
+      })
+    }
 
     return c.body(null, 204)
   })
   .delete('/', async (c) => {
-    await runOrFail('Failed to clear metrics', () => clearMetrics())
+    try {
+      await clearMetrics()
+    } catch (cause) {
+      console.error('Failed to clear metrics', cause)
+      throw new HTTPException(500, {
+        message: 'Failed to clear metrics',
+        cause: cause as Error,
+      })
+    }
 
     return c.body(null, 204)
   })
