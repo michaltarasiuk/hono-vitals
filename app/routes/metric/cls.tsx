@@ -29,7 +29,7 @@ function CLS({flags}: {flags: ClsFlags}) {
           hidden={flags.imgHidden2}
         />
       </Text>
-      <Text>Text below the images that will get pushed down.</Text>
+      <Text>Text below the image.</Text>
     </>
   )
 }
