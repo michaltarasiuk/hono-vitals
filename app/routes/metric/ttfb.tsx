@@ -2,12 +2,19 @@ import {SquareImage} from '@/app/components/metric/square-image'
 import {Heading} from '@/app/components/ui/heading'
 import {Text} from '@/app/components/ui/text'
 import {createMetricRoute} from '@/lib/metric/create-metric-route'
-import {TTFB_FLAGS_DEFAULTS} from '@/lib/metric/flags/defaults/ttfb'
+import {
+  TTFB_FLAGS_DEFAULTS,
+  type TtfbFlags,
+} from '@/lib/metric/flags/defaults/ttfb'
 
 export default createMetricRoute({
   metricName: 'TTFB',
   defaults: TTFB_FLAGS_DEFAULTS,
-  children: (flags) => (
+  Component: TTFB,
+})
+
+function TTFB({flags}: {flags: TtfbFlags}) {
+  return (
     <>
       <Heading elementtiming="main-heading">TTFB Test</Heading>
       <Text>
@@ -19,5 +26,5 @@ export default createMetricRoute({
       </Text>
       <Text>Text below the image</Text>
     </>
-  ),
-})
+  )
+}
