@@ -1,11 +1,11 @@
 import {InpBlockingControls} from '@/app/components/metric/$inp-blocking-controls'
 import {Text} from '@/app/components/ui/text'
 import {LOREM_IPSUM} from '@/lib/lorem-ipsum'
-import {createMetricRoute} from '@/lib/metric/create-metric-route'
 import {
   INP_FLAGS_DEFAULTS,
   type InpFlags,
 } from '@/lib/metric/flags/defaults/inp'
+import {createMetricRoute} from '@/lib/metric/metric-route'
 
 export default createMetricRoute({
   metricName: 'INP',

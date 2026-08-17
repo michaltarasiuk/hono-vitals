@@ -1,10 +1,10 @@
 import {DelayedImage} from '@/app/components/metric/delayed-image'
 import {Text} from '@/app/components/ui/text'
-import {createMetricRoute} from '@/lib/metric/create-metric-route'
 import {
   CLS_FLAGS_DEFAULTS,
   type ClsFlags,
 } from '@/lib/metric/flags/defaults/cls'
+import {createMetricRoute} from '@/lib/metric/metric-route'
 
 export default createMetricRoute({
   metricName: 'CLS',
