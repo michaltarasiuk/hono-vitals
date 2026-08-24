@@ -1,6 +1,7 @@
 import {parseResponse} from 'hono/client';
 import {useTransition} from 'react';
 
+import {Header} from '@/app/components/header';
 import {AlertDialog} from '@/app/components/ui/alert-dialog';
 import {Button} from '@/app/components/ui/button';
 import {collectClient} from '@/lib/collect/client';
@@ -33,12 +34,10 @@ export function ClearMetrics() {
         disabled={isPending}
         render={<Button />}
       >
-        <span className="ClearMetricsLabel ClearMetricsLabel--full">
-          {isPending ? 'Clearing samples' : 'Clear samples'}
-        </span>
-        <span className="ClearMetricsLabel ClearMetricsLabel--short">
-          {isPending ? 'Clearing' : 'Clear'}
-        </span>
+        <Header.Label
+          full={isPending ? 'Clearing samples' : 'Clear samples'}
+          short={isPending ? 'Clearing' : 'Clear'}
+        />
       </AlertDialog.Trigger>
       <AlertDialog.Portal>
         <AlertDialog.Backdrop />

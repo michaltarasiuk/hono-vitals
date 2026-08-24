@@ -1,5 +1,6 @@
 import {useState} from 'react';
 
+import {Header} from '@/app/components/header';
 import {Button} from '@/app/components/ui/button';
 import {Dialog} from '@/app/components/ui/dialog';
 import {Field} from '@/app/components/ui/field';
@@ -37,10 +38,7 @@ export function FlagsEditor({flags, defaults}: FlagsEditorProps) {
   return (
     <Dialog.Root open={open} onOpenChange={handleOpenChange}>
       <Dialog.Trigger id={FLAGS_EDITOR_TRIGGER_ID} render={<Button />}>
-        <span className="FlagsEditorLabel FlagsEditorLabel--full">
-          Edit flags
-        </span>
-        <span className="FlagsEditorLabel FlagsEditorLabel--short">Flags</span>
+        <Header.Label full="Edit flags" short="Flags" />
       </Dialog.Trigger>
       <Dialog.Portal>
         <Dialog.Backdrop />
