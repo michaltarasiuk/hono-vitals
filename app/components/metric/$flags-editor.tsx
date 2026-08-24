@@ -1,7 +1,5 @@
 import {useState} from 'react'
 
-import type {Flags} from '@/lib/metric/flags/schema'
-
 import {Button} from '@/app/components/ui/button'
 import {Dialog} from '@/app/components/ui/dialog'
 import {Field} from '@/app/components/ui/field'
@@ -11,6 +9,8 @@ import {islandId} from '@/lib/island-id'
 import {formatFlagLabel} from '@/lib/metric/flags/format-flag-label'
 import {navigateWithFlags} from '@/lib/metric/flags/navigate-with-flags'
 import {sortFlagEntries} from '@/lib/metric/flags/sort-flag-entries'
+
+import type {Flags} from '@/lib/metric/flags/schema'
 
 const FLAGS_EDITOR_TRIGGER_ID = islandId('metric-flags-trigger')
 

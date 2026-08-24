@@ -1,7 +1,7 @@
-import type {Flags, ParsedFlags} from '../schema'
-
 import {BASE_FLAGS_DEFAULTS} from './base'
 import {GENERATE_TARGET_FLAGS_DEFAULTS} from './generate-target'
+
+import type {Flags, ParsedFlags} from '../schema'
 
 export const CLS_FLAGS_DEFAULTS = {
   ...BASE_FLAGS_DEFAULTS,

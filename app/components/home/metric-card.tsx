@@ -1,11 +1,11 @@
 import {createContext, use} from 'react'
 
-import type {MetricSummary} from '@/lib/analytics/metrics'
-
 import {isDefined} from '@/lib/is-defined'
 import {formatMetricRating} from '@/lib/metric/format-rating'
 import {formatMetricValue} from '@/lib/metric/format-value'
 import {metricHref} from '@/lib/metric/href'
+
+import type {MetricSummary} from '@/lib/analytics/metrics'
 
 const MetricCardContext = createContext<MetricSummary | null>(null)
 

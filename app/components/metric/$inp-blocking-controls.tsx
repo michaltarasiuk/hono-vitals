@@ -1,16 +1,16 @@
 import {useEffect, useState} from 'react'
 
-import type {InpFlags} from '@/lib/metric/flags/defaults/inp'
-
 import {Button} from '@/app/components/ui/button'
 import {NumberField} from '@/app/components/ui/number-field'
 import {islandId} from '@/lib/island-id'
 import {
   INP_BLOCKING_EVENT_NAMES,
-  type InpBlockingEventName,
   resetBlockingTimes,
   setBlockingTime,
+  type InpBlockingEventName,
 } from '@/lib/metric/inp-blocking'
+
+import type {InpFlags} from '@/lib/metric/flags/defaults/inp'
 
 function initialBlockingTimes(flags: InpFlags) {
   return Object.fromEntries(

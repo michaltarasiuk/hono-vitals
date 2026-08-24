@@ -1,6 +1,6 @@
 import {
-  type Metric,
   METRIC_NAMES,
+  type Metric,
   type MetricName,
 } from '@/lib/collect/metric-schema'
 import {getSql} from '@/lib/db/client'

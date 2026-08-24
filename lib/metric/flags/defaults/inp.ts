@@ -1,7 +1,7 @@
-import type {Flags, ParsedFlags} from '../schema'
-
 import {BASE_FLAGS_DEFAULTS} from './base'
 import {GENERATE_TARGET_FLAGS_DEFAULTS} from './generate-target'
+
+import type {Flags, ParsedFlags} from '../schema'
 
 const INP_REPORT_FLAGS_DEFAULTS = {
   durationThreshold: 40,

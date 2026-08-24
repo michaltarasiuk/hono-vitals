@@ -1,10 +1,9 @@
-import type {Metric} from 'web-vitals'
+import {COLLECT_PATH, collectClient} from '@/lib/collect/client'
+import {toastMetric} from '@/lib/toast/metric'
 
 import type {CollectBody} from '@/lib/collect/body'
 import type {ObserverInstance} from '@/lib/metric/observer-options'
-
-import {COLLECT_PATH, collectClient} from '@/lib/collect/client'
-import {toastMetric} from '@/lib/toast/metric'
+import type {Metric} from 'web-vitals'
 
 export interface ReportedMetric {
   metric: Metric

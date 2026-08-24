@@ -1,6 +1,6 @@
-import type {MetricSummary} from '@/lib/analytics/metrics'
-
 import {Text} from '@/app/components/ui/text'
+
+import type {MetricSummary} from '@/lib/analytics/metrics'
 
 function Section({children}: {children: React.ReactNode}) {
   return <div className="MetricsSummary">{children}</div>

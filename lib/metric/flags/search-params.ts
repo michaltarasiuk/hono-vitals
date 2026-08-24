@@ -1,6 +1,6 @@
-import type {Flags} from './schema'
-
 import {flagsSchema} from './schema'
+
+import type {Flags} from './schema'
 
 export function parseFlagsFromSearch<T extends Flags>(
   defaults: T,

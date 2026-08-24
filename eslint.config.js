@@ -1,7 +1,7 @@
 import js from '@eslint/js'
-import {defineConfig} from 'eslint/config'
+import perfectionist from 'eslint-plugin-perfectionist'
 import reactHooks from 'eslint-plugin-react-hooks'
-import simpleImportSort from 'eslint-plugin-simple-import-sort'
+import {defineConfig} from 'eslint/config'
 import tseslint from 'typescript-eslint'
 
 export default defineConfig(
@@ -30,7 +30,7 @@ export default defineConfig(
         'error',
         {
           prefer: 'type-imports',
-          fixStyle: 'separate-type-imports',
+          fixStyle: 'inline-type-imports',
         },
       ],
       '@typescript-eslint/no-import-type-side-effects': 'error',
@@ -43,23 +43,27 @@ export default defineConfig(
   {
     files: ['**/*.{js,mjs,cjs,ts,tsx}'],
     plugins: {
-      'simple-import-sort': simpleImportSort,
+      perfectionist,
     },
     rules: {
-      'simple-import-sort/exports': 'error',
-      'simple-import-sort/imports': [
+      'perfectionist/sort-exports': 'error',
+      'perfectionist/sort-named-exports': [
+        'error',
+        {groups: ['value-export', 'type-export']},
+      ],
+      'perfectionist/sort-named-imports': [
+        'error',
+        {groups: ['value-import', 'type-import']},
+      ],
+      'perfectionist/sort-imports': [
         'error',
         {
           groups: [
-            ['^\\u0000'],
-            ['^node:'],
-            ['^@?\\w.*\\u0000$'],
-            ['^@?\\w'],
-            ['^@/.*\\u0000$'],
-            ['^@/'],
-            ['^\\..*\\u0000$'],
-            ['^\\.'],
-            ['^'],
+            'side-effect',
+            'value-builtin',
+            'value-external',
+            'value-internal',
+            ['value-parent', 'value-sibling', 'value-index'],
           ],
         },
       ],

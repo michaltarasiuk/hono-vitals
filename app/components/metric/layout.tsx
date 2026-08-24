@@ -1,8 +1,5 @@
 import {createContext, use} from 'react'
 
-import type {MetricName} from '@/lib/collect/metric-schema'
-import type {Flags} from '@/lib/metric/flags/schema'
-
 import {Header} from '@/app/components/header'
 import {Text} from '@/app/components/ui/text'
 import {isDefined} from '@/lib/is-defined'
@@ -11,6 +8,9 @@ import {metricHref} from '@/lib/metric/href'
 import {metricSlug} from '@/lib/metric/slug'
 import {HIDDEN_STUB_SCRIPT} from '@/lib/metric/stub-hidden'
 import {WAS_DISCARDED_STUB_SCRIPT} from '@/lib/metric/stub-was-discarded'
+
+import type {MetricName} from '@/lib/collect/metric-schema'
+import type {Flags} from '@/lib/metric/flags/schema'
 
 interface MetricLayoutContextValue {
   metricName: MetricName

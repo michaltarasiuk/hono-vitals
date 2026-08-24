@@ -1,6 +1,6 @@
-import type {Flags} from './schema'
-
 import {isNonDefaultFlag} from './search-params'
+
+import type {Flags} from './schema'
 
 export function navigateWithFlags(flags: Flags, defaults: Flags) {
   const url = new URL(location.href)

@@ -1,4 +1,4 @@
-import {type ReportedMetric, reportMetric} from '@/lib/collect/report'
+import {reportMetric, type ReportedMetric} from '@/lib/collect/report'
 import {isDefined} from '@/lib/is-defined'
 import {createBatchReporter} from '@/lib/metric/batch-reporter'
 
