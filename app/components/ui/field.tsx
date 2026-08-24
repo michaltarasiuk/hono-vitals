@@ -1,6 +1,6 @@
 import {Field as BaseField} from '@base-ui/react/field'
 
-import {cx} from '@/lib/cx'
+import {cn} from '@/lib/cn'
 
 function Root({
   children,
@@ -8,7 +8,7 @@ function Root({
   ...props
 }: React.ComponentProps<typeof BaseField.Root>) {
   return (
-    <BaseField.Root className={cx('Field', className)} {...props}>
+    <BaseField.Root className={cn('Field', className)} {...props}>
       {children}
     </BaseField.Root>
   )
@@ -20,7 +20,7 @@ function Label({
   ...props
 }: React.ComponentProps<typeof BaseField.Label>) {
   return (
-    <BaseField.Label className={cx('Label', className)} {...props}>
+    <BaseField.Label className={cn('Label', className)} {...props}>
       {children}
     </BaseField.Label>
   )

@@ -1,6 +1,6 @@
 import {AlertDialog as BaseAlertDialog} from '@base-ui/react/alert-dialog'
 
-import {cx} from '@/lib/cx'
+import {cn} from '@/lib/cn'
 
 function Root({
   children,
@@ -31,7 +31,7 @@ function Backdrop({
 }: React.ComponentProps<typeof BaseAlertDialog.Backdrop>) {
   return (
     <BaseAlertDialog.Backdrop
-      className={cx('Backdrop', className)}
+      className={cn('Backdrop', className)}
       {...props}
     />
   )
@@ -43,7 +43,7 @@ function Popup({
   ...props
 }: React.ComponentProps<typeof BaseAlertDialog.Popup>) {
   return (
-    <BaseAlertDialog.Popup className={cx('Popup', className)} {...props}>
+    <BaseAlertDialog.Popup className={cn('Popup', className)} {...props}>
       {children}
     </BaseAlertDialog.Popup>
   )
@@ -51,7 +51,7 @@ function Popup({
 
 function Header({children, className, ...props}: React.ComponentProps<'div'>) {
   return (
-    <div className={cx('Header', className)} {...props}>
+    <div className={cn('Header', className)} {...props}>
       {children}
     </div>
   )
@@ -63,7 +63,7 @@ function Title({
   ...props
 }: React.ComponentProps<typeof BaseAlertDialog.Title>) {
   return (
-    <BaseAlertDialog.Title className={cx('Title', className)} {...props}>
+    <BaseAlertDialog.Title className={cn('Title', className)} {...props}>
       {children}
     </BaseAlertDialog.Title>
   )
@@ -76,7 +76,7 @@ function Description({
 }: React.ComponentProps<typeof BaseAlertDialog.Description>) {
   return (
     <BaseAlertDialog.Description
-      className={cx('Description', className)}
+      className={cn('Description', className)}
       {...props}
     >
       {children}
@@ -86,7 +86,7 @@ function Description({
 
 function Actions({children, className, ...props}: React.ComponentProps<'div'>) {
   return (
-    <div className={cx('Actions', className)} {...props}>
+    <div className={cn('Actions', className)} {...props}>
       {children}
     </div>
   )

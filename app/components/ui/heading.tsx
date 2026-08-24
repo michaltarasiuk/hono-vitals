@@ -1,5 +1,5 @@
-import {cx} from '@/lib/cx'
+import {cn} from '@/lib/cn'
 
 export function Heading({className, ...props}: React.ComponentProps<'h1'>) {
-  return <h1 className={cx('Heading', className)} {...props} />
+  return <h1 className={cn('Heading', className)} {...props} />
 }

@@ -1,6 +1,6 @@
 import {Drawer as BaseDrawer} from '@base-ui/react/drawer'
 
-import {cx} from '@/lib/cx'
+import {cn} from '@/lib/cn'
 
 function Root({
   children,
@@ -29,7 +29,7 @@ function Backdrop({
 }: React.ComponentProps<typeof BaseDrawer.Backdrop>) {
   return (
     <BaseDrawer.Backdrop
-      className={cx('DrawerBackdrop', className)}
+      className={cn('DrawerBackdrop', className)}
       {...props}
     />
   )
@@ -41,7 +41,7 @@ function Viewport({
   ...props
 }: React.ComponentProps<typeof BaseDrawer.Viewport>) {
   return (
-    <BaseDrawer.Viewport className={cx('DrawerViewport', className)} {...props}>
+    <BaseDrawer.Viewport className={cn('DrawerViewport', className)} {...props}>
       {children}
     </BaseDrawer.Viewport>
   )
@@ -53,7 +53,7 @@ function Popup({
   ...props
 }: React.ComponentProps<typeof BaseDrawer.Popup>) {
   return (
-    <BaseDrawer.Popup className={cx('DrawerPopup', className)} {...props}>
+    <BaseDrawer.Popup className={cn('DrawerPopup', className)} {...props}>
       {children}
     </BaseDrawer.Popup>
   )
@@ -65,7 +65,7 @@ function Content({
   ...props
 }: React.ComponentProps<typeof BaseDrawer.Content>) {
   return (
-    <BaseDrawer.Content className={cx('DrawerContent', className)} {...props}>
+    <BaseDrawer.Content className={cn('DrawerContent', className)} {...props}>
       {children}
     </BaseDrawer.Content>
   )
@@ -77,7 +77,7 @@ function Title({
   ...props
 }: React.ComponentProps<typeof BaseDrawer.Title>) {
   return (
-    <BaseDrawer.Title className={cx('DrawerTitle', className)} {...props}>
+    <BaseDrawer.Title className={cn('DrawerTitle', className)} {...props}>
       {children}
     </BaseDrawer.Title>
   )
@@ -91,7 +91,7 @@ function Close({
 }
 
 function Grip({className, ...props}: React.ComponentProps<'div'>) {
-  return <div className={cx('DrawerGrip', className)} {...props} />
+  return <div className={cn('DrawerGrip', className)} {...props} />
 }
 
 export const Drawer = {

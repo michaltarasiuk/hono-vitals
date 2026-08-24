@@ -1,6 +1,6 @@
 import {Dialog as BaseDialog} from '@base-ui/react/dialog'
 
-import {cx} from '@/lib/cx'
+import {cn} from '@/lib/cn'
 
 function Root({
   children,
@@ -28,7 +28,7 @@ function Backdrop({
   ...props
 }: React.ComponentProps<typeof BaseDialog.Backdrop>) {
   return (
-    <BaseDialog.Backdrop className={cx('Backdrop', className)} {...props} />
+    <BaseDialog.Backdrop className={cn('Backdrop', className)} {...props} />
   )
 }
 
@@ -38,7 +38,7 @@ function Popup({
   ...props
 }: React.ComponentProps<typeof BaseDialog.Popup>) {
   return (
-    <BaseDialog.Popup className={cx('Popup', className)} {...props}>
+    <BaseDialog.Popup className={cn('Popup', className)} {...props}>
       {children}
     </BaseDialog.Popup>
   )
@@ -46,7 +46,7 @@ function Popup({
 
 function Header({children, className, ...props}: React.ComponentProps<'div'>) {
   return (
-    <div className={cx('Header', className)} {...props}>
+    <div className={cn('Header', className)} {...props}>
       {children}
     </div>
   )
@@ -58,7 +58,7 @@ function Title({
   ...props
 }: React.ComponentProps<typeof BaseDialog.Title>) {
   return (
-    <BaseDialog.Title className={cx('Title', className)} {...props}>
+    <BaseDialog.Title className={cn('Title', className)} {...props}>
       {children}
     </BaseDialog.Title>
   )
@@ -70,7 +70,7 @@ function Description({
   ...props
 }: React.ComponentProps<typeof BaseDialog.Description>) {
   return (
-    <BaseDialog.Description className={cx('Description', className)} {...props}>
+    <BaseDialog.Description className={cn('Description', className)} {...props}>
       {children}
     </BaseDialog.Description>
   )
@@ -78,7 +78,7 @@ function Description({
 
 function Body({children, className, ...props}: React.ComponentProps<'div'>) {
   return (
-    <div className={cx('Body', className)} {...props}>
+    <div className={cn('Body', className)} {...props}>
       {children}
     </div>
   )
@@ -86,7 +86,7 @@ function Body({children, className, ...props}: React.ComponentProps<'div'>) {
 
 function Actions({children, className, ...props}: React.ComponentProps<'div'>) {
   return (
-    <div className={cx('Actions', className)} {...props}>
+    <div className={cn('Actions', className)} {...props}>
       {children}
     </div>
   )

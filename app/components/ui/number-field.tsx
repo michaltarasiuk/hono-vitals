@@ -1,6 +1,6 @@
 import {NumberField as BaseNumberField} from '@base-ui/react/number-field'
 
-import {cx} from '@/lib/cx'
+import {cn} from '@/lib/cn'
 
 function Root({
   children,
@@ -8,7 +8,7 @@ function Root({
   ...props
 }: React.ComponentProps<typeof BaseNumberField.Root>) {
   return (
-    <BaseNumberField.Root className={cx('NumberField', className)} {...props}>
+    <BaseNumberField.Root className={cn('NumberField', className)} {...props}>
       {children}
     </BaseNumberField.Root>
   )
@@ -21,7 +21,7 @@ function ScrubArea({
 }: React.ComponentProps<typeof BaseNumberField.ScrubArea>) {
   return (
     <BaseNumberField.ScrubArea
-      className={cx('NumberFieldScrubArea', className)}
+      className={cn('NumberFieldScrubArea', className)}
       {...props}
     >
       {children}
@@ -35,7 +35,7 @@ function ScrubAreaCursor({
 }: React.ComponentProps<typeof BaseNumberField.ScrubAreaCursor>) {
   return (
     <BaseNumberField.ScrubAreaCursor
-      className={cx('NumberFieldScrubAreaCursor', className)}
+      className={cn('NumberFieldScrubAreaCursor', className)}
       {...props}
     />
   )
@@ -48,7 +48,7 @@ function Group({
 }: React.ComponentProps<typeof BaseNumberField.Group>) {
   return (
     <BaseNumberField.Group
-      className={cx('NumberFieldGroup', className)}
+      className={cn('NumberFieldGroup', className)}
       {...props}
     >
       {children}
@@ -62,7 +62,7 @@ function Input({
 }: React.ComponentProps<typeof BaseNumberField.Input>) {
   return (
     <BaseNumberField.Input
-      className={cx('NumberFieldInput', className)}
+      className={cn('NumberFieldInput', className)}
       {...props}
     />
   )
@@ -77,7 +77,7 @@ function Decrement({
 }: React.ComponentProps<typeof BaseNumberField.Decrement>) {
   return (
     <BaseNumberField.Decrement
-      className={cx('NumberFieldDecrement', className)}
+      className={cn('NumberFieldDecrement', className)}
       {...STEPPER_BUTTON_PROPS}
       {...props}
     >
@@ -92,7 +92,7 @@ function Increment({
 }: React.ComponentProps<typeof BaseNumberField.Increment>) {
   return (
     <BaseNumberField.Increment
-      className={cx('NumberFieldIncrement', className)}
+      className={cn('NumberFieldIncrement', className)}
       {...STEPPER_BUTTON_PROPS}
       {...props}
     >

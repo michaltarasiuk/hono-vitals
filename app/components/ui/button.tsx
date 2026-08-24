@@ -1,10 +1,10 @@
 import {Button as BaseButton} from '@base-ui/react/button'
 
-import {cx} from '@/lib/cx'
+import {cn} from '@/lib/cn'
 
 export function Button({
   className,
   ...props
 }: React.ComponentProps<typeof BaseButton>) {
-  return <BaseButton className={cx('Button', className)} {...props} />
+  return <BaseButton className={cn('Button', className)} {...props} />
 }

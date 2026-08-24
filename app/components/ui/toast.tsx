@@ -1,6 +1,6 @@
 import {Toast as BaseToast} from '@base-ui/react/toast'
 
-import {cx} from '@/lib/cx'
+import {cn} from '@/lib/cn'
 
 function Provider({
   children,
@@ -22,7 +22,7 @@ function Viewport({
   ...props
 }: React.ComponentProps<typeof BaseToast.Viewport>) {
   return (
-    <BaseToast.Viewport className={cx('ToastViewport', className)} {...props}>
+    <BaseToast.Viewport className={cn('ToastViewport', className)} {...props}>
       {children}
     </BaseToast.Viewport>
   )
@@ -34,7 +34,7 @@ function Root({
   ...props
 }: React.ComponentProps<typeof BaseToast.Root>) {
   return (
-    <BaseToast.Root className={cx('Toast', className)} {...props}>
+    <BaseToast.Root className={cn('Toast', className)} {...props}>
       {children}
     </BaseToast.Root>
   )
@@ -46,7 +46,7 @@ function Content({
   ...props
 }: React.ComponentProps<typeof BaseToast.Content>) {
   return (
-    <BaseToast.Content className={cx('ToastContent', className)} {...props}>
+    <BaseToast.Content className={cn('ToastContent', className)} {...props}>
       {children}
     </BaseToast.Content>
   )
@@ -58,7 +58,7 @@ function Title({
   ...props
 }: React.ComponentProps<typeof BaseToast.Title>) {
   return (
-    <BaseToast.Title className={cx('ToastTitle', className)} {...props}>
+    <BaseToast.Title className={cn('ToastTitle', className)} {...props}>
       {children}
     </BaseToast.Title>
   )
@@ -71,7 +71,7 @@ function Description({
 }: React.ComponentProps<typeof BaseToast.Description>) {
   return (
     <BaseToast.Description
-      className={cx('ToastDescription', className)}
+      className={cn('ToastDescription', className)}
       {...props}
     >
       {children}
@@ -85,7 +85,7 @@ function Close({
   ...props
 }: React.ComponentProps<typeof BaseToast.Close>) {
   return (
-    <BaseToast.Close className={cx('ToastClose', className)} {...props}>
+    <BaseToast.Close className={cn('ToastClose', className)} {...props}>
       {children}
     </BaseToast.Close>
   )
@@ -97,7 +97,7 @@ function Action({
   ...props
 }: React.ComponentProps<typeof BaseToast.Action>) {
   return (
-    <BaseToast.Action className={cx('ToastAction', className)} {...props}>
+    <BaseToast.Action className={cn('ToastAction', className)} {...props}>
       {children}
     </BaseToast.Action>
   )
