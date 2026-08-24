@@ -1,9 +1,6 @@
 import {DelayedImage} from '@/app/components/metric/delayed-image';
 import {Text} from '@/app/components/ui/text';
-import {
-  TTFB_FLAGS_DEFAULTS,
-  type TtfbFlags,
-} from '@/lib/metric/flags/defaults/ttfb';
+import {TTFB_FLAGS_DEFAULTS, type TtfbFlags} from '@/lib/metric/flags/defaults';
 import {createMetricRoute} from '@/lib/metric/metric-route';
 
 export default createMetricRoute({

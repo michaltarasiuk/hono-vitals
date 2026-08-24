@@ -1,5 +1,5 @@
 import {reportMetric} from '@/lib/collect/report';
-import {LCP_FLAGS_DEFAULTS} from '@/lib/metric/flags/defaults/lcp';
+import {LCP_FLAGS_DEFAULTS} from '@/lib/metric/flags/defaults';
 import {parseFlagsFromSearch} from '@/lib/metric/flags/search-params';
 import {loadWebVitals} from '@/lib/metric/load-web-vitals';
 import {createMetricReporter} from '@/lib/metric/metric-reporter';

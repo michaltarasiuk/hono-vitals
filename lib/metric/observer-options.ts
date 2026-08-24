@@ -1,6 +1,8 @@
-import type {BaseFlags} from '@/lib/metric/flags/defaults/base';
-import type {GenerateTargetFlags} from '@/lib/metric/flags/defaults/generate-target';
-import type {InpReportFlags} from '@/lib/metric/flags/defaults/inp';
+import type {
+  BaseFlags,
+  GenerateTargetFlags,
+  InpReportFlags,
+} from '@/lib/metric/flags/defaults';
 
 export type ObserverInstance = 1 | 2;
 

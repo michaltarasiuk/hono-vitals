@@ -10,7 +10,7 @@ import {
   type InpBlockingEventName,
 } from '@/lib/metric/inp-blocking';
 
-import type {InpFlags} from '@/lib/metric/flags/defaults/inp';
+import type {InpFlags} from '@/lib/metric/flags/defaults';
 
 function initialBlockingTimes(flags: InpFlags) {
   return Object.fromEntries(
