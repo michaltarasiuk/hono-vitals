@@ -45,7 +45,7 @@ export function inpObserverOptions(
 ) {
   return {
     ...attributionOptions(flags, instance),
-    durationThreshold: dual(
+    durationThreshold: forInstance(
       instance,
       flags.durationThreshold,
       flags.durationThreshold2,
@@ -54,8 +54,8 @@ export function inpObserverOptions(
   };
 }
 
-function dual<T>(instance: ObserverInstance, primary: T, secondary: T) {
-  return instance === 1 ? primary : secondary;
+function forInstance<T>(instance: ObserverInstance, a: T, b: T) {
+  return instance === 1 ? a : b;
 }
 
 function generateTarget(node: Node | null) {
@@ -68,7 +68,7 @@ function reportAllChanges(
   flags: ReportAllChangesFlags,
   instance: ObserverInstance,
 ) {
-  return dual(instance, flags.reportAllChanges, flags.reportAllChanges2);
+  return forInstance(instance, flags.reportAllChanges, flags.reportAllChanges2);
 }
 
 function attributionOptions(
@@ -77,7 +77,7 @@ function attributionOptions(
 ) {
   return {
     reportAllChanges: reportAllChanges(flags, instance),
-    ...(dual(instance, flags.generateTarget, flags.generateTarget2)
+    ...(forInstance(instance, flags.generateTarget, flags.generateTarget2)
       ? {generateTarget}
       : {}),
   };

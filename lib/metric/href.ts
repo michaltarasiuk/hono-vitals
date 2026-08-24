@@ -1,9 +1,12 @@
 import {joinPath} from '@/lib/join-path';
 import {flagsToSearchParams} from '@/lib/metric/flags/search-params';
-import {metricSlug} from '@/lib/metric/slug';
 
-import type {MetricName} from '@/lib/collect/metric-schema';
 import type {Flags} from '@/lib/metric/flags/schema';
+import type {MetricName} from '@/lib/metric/schema';
+
+export function metricSlug(metricName: MetricName) {
+  return metricName.toLowerCase() as Lowercase<MetricName>;
+}
 
 export function metricHref(
   metricName: MetricName,

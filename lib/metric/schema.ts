@@ -8,6 +8,17 @@ export const METRIC_RATINGS = ['good', 'needs-improvement', 'poor'] as const;
 
 export type MetricRating = (typeof METRIC_RATINGS)[number];
 
+export const NAVIGATION_TYPES = [
+  'navigate',
+  'reload',
+  'back-forward',
+  'back-forward-cache',
+  'prerender',
+  'restore',
+] as const;
+
+export type NavigationType = (typeof NAVIGATION_TYPES)[number];
+
 export const MetricSchema = z.object({
   /**
    * The name of the metric (in acronym form).
@@ -38,12 +49,6 @@ export const MetricSchema = z.object({
    */
   id: z.string(),
   /**
-   * Any performance entries relevant to the metric value calculation.
-   * The array may also be empty if the metric value was not based on any
-   * entries (e.g. a CLS value of 0 given no layout shifts).
-   */
-  entries: z.array(z.unknown()),
-  /**
    * The type of navigation.
    *
    * This will be the value returned by the Navigation Timing API (or
@@ -55,14 +60,7 @@ export const MetricSchema = z.object({
    * - 'restore': for pages that were discarded by the browser and then
    * restored by the user.
    */
-  navigationType: z.enum([
-    'navigate',
-    'reload',
-    'back-forward',
-    'back-forward-cache',
-    'prerender',
-    'restore',
-  ]),
+  navigationType: z.enum(NAVIGATION_TYPES),
 });
 
 export type Metric = z.infer<typeof MetricSchema>;

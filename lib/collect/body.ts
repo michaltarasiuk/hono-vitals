@@ -1,6 +1,6 @@
 import * as z from 'zod';
 
-import {MetricSchema} from '@/lib/collect/metric-schema';
+import {MetricSchema} from '@/lib/metric/schema';
 
 export const CollectBodySchema = z.object({
   metrics: z.array(MetricSchema).min(1),

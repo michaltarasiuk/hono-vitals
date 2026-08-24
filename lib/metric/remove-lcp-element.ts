@@ -1,6 +1,5 @@
 import {yieldToEventLoop} from '@/lib/delay';
-
-import {afterElementsRendered} from './ready';
+import {afterElementsRendered} from '@/lib/metric/ready';
 
 export async function removeLcpElement() {
   await afterElementsRendered();

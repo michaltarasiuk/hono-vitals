@@ -26,13 +26,7 @@ export function createBatchReporter() {
   // `pagehide` is dispatched at the window and never reaches the document.
   addEventListener('pagehide', flush);
 
-  function dispose() {
-    document.removeEventListener('visibilitychange', onVisibilityChange);
-    removeEventListener('pagehide', flush);
-    flush();
-  }
-
-  return {enqueue, dispose};
+  return {enqueue};
 }
 
 export type BatchReporter = ReturnType<typeof createBatchReporter>;

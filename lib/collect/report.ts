@@ -50,7 +50,6 @@ function toCollectMetrics(reported: ReportedMetric[]): CollectBody['metrics'] {
       delta,
       rating,
       navigationType,
-      entries: [],
     }),
   );
 }

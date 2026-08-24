@@ -3,14 +3,12 @@ import {createContext, use} from 'react';
 import {Header} from '@/app/components/header';
 import {Text} from '@/app/components/ui/text';
 import {isDefined} from '@/lib/is-defined';
-import {joinPath} from '@/lib/join-path';
 import {metricHref} from '@/lib/metric/href';
-import {metricSlug} from '@/lib/metric/slug';
 import {HIDDEN_STUB_SCRIPT} from '@/lib/metric/stub-hidden';
 import {WAS_DISCARDED_STUB_SCRIPT} from '@/lib/metric/stub-was-discarded';
 
-import type {MetricName} from '@/lib/collect/metric-schema';
 import type {Flags} from '@/lib/metric/flags/schema';
+import type {MetricName} from '@/lib/metric/schema';
 
 interface MetricLayoutContextValue {
   metricName: MetricName;
@@ -49,7 +47,7 @@ function Provider({metricName, flags, defaults, children}: ProviderProps) {
 
 function Toolbar({children}: {children: React.ReactNode}) {
   const {metricName} = useMetricLayout();
-  const currentPath = joinPath('metric', metricSlug(metricName));
+  const currentPath = metricHref(metricName);
 
   return (
     <Header.Root>
