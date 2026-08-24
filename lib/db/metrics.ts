@@ -29,7 +29,7 @@ export async function getMetricStats() {
     ORDER BY name
   `;
 
-  const byName = new Map(rows.map((row) => [row.name, row]));
+  const byName = Map.groupBy(rows, ({name}) => name);
 
   return METRIC_NAMES.map((name) => ({
     name,
