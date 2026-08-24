@@ -15,10 +15,6 @@ export function reportMetric(reported: ReportedMetric) {
 }
 
 export function reportMetrics(reported: ReportedMetric[]) {
-  if (reported.length === 0) {
-    return;
-  }
-
   for (const r of reported) {
     logMetric(r);
     toastMetric(r.metric);
