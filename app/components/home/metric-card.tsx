@@ -1,49 +1,49 @@
-import {createContext, use} from 'react'
+import {createContext, use} from 'react';
 
-import {isDefined} from '@/lib/is-defined'
-import {formatMetricRating} from '@/lib/metric/format-rating'
-import {formatMetricValue} from '@/lib/metric/format-value'
-import {metricHref} from '@/lib/metric/href'
+import {isDefined} from '@/lib/is-defined';
+import {formatMetricRating} from '@/lib/metric/format-rating';
+import {formatMetricValue} from '@/lib/metric/format-value';
+import {metricHref} from '@/lib/metric/href';
 
-import type {MetricSummary} from '@/lib/analytics/metrics'
+import type {MetricSummary} from '@/lib/analytics/metrics';
 
-const MetricCardContext = createContext<MetricSummary | null>(null)
+const MetricCardContext = createContext<MetricSummary | null>(null);
 
 function useMetricCard() {
-  const summary = use(MetricCardContext)
+  const summary = use(MetricCardContext);
   if (!isDefined(summary)) {
-    throw new Error('useMetricCard must be used within MetricCard.Provider')
+    throw new Error('useMetricCard must be used within MetricCard.Provider');
   }
-  return summary
+  return summary;
 }
 
 interface ProviderProps {
-  summary: MetricSummary
-  children: React.ReactNode
+  summary: MetricSummary;
+  children: React.ReactNode;
 }
 
 function Provider({summary, children}: ProviderProps) {
-  return <MetricCardContext value={summary}>{children}</MetricCardContext>
+  return <MetricCardContext value={summary}>{children}</MetricCardContext>;
 }
 
 function Root({children}: {children: React.ReactNode}) {
-  const {name} = useMetricCard()
+  const {name} = useMetricCard();
 
   return (
     <a className="MetricsCard" href={metricHref(name)}>
       {children}
     </a>
-  )
+  );
 }
 
 function Title() {
-  const {name} = useMetricCard()
+  const {name} = useMetricCard();
 
-  return <h2 className="MetricsCardTitle">{name}</h2>
+  return <h2 className="MetricsCardTitle">{name}</h2>;
 }
 
 function Stats({children}: {children: React.ReactNode}) {
-  return <dl className="MetricsCardStats">{children}</dl>
+  return <dl className="MetricsCardStats">{children}</dl>;
 }
 
 function Stat({label, children}: {label: string; children: React.ReactNode}) {
@@ -52,29 +52,29 @@ function Stat({label, children}: {label: string; children: React.ReactNode}) {
       <dt>{label}</dt>
       <dd>{children}</dd>
     </div>
-  )
+  );
 }
 
 function Samples() {
-  const {count} = useMetricCard()
+  const {count} = useMetricCard();
 
-  return <Stat label="Samples">{count.toLocaleString()}</Stat>
+  return <Stat label="Samples">{count.toLocaleString()}</Stat>;
 }
 
 function Average() {
-  const {name, avg} = useMetricCard()
+  const {name, avg} = useMetricCard();
 
-  return <Stat label="Average">{formatMetricValue(name, avg)}</Stat>
+  return <Stat label="Average">{formatMetricValue(name, avg)}</Stat>;
 }
 
 function P75() {
-  const {name, p75} = useMetricCard()
+  const {name, p75} = useMetricCard();
 
-  return <Stat label="P75">{formatMetricValue(name, p75)}</Stat>
+  return <Stat label="P75">{formatMetricValue(name, p75)}</Stat>;
 }
 
 function Ratings({children}: {children: React.ReactNode}) {
-  return <div className="MetricsCardRatings">{children}</div>
+  return <div className="MetricsCardRatings">{children}</div>;
 }
 
 function ratingCounts(summary: MetricSummary) {
@@ -82,14 +82,14 @@ function ratingCounts(summary: MetricSummary) {
     {rating: 'good', count: summary.good},
     {rating: 'needs-improvement', count: summary.needsImprovement},
     {rating: 'poor', count: summary.poor},
-  ] as const
+  ] as const;
 }
 
 function RatingBar() {
-  const summary = useMetricCard()
+  const summary = useMetricCard();
 
   if (summary.count === 0) {
-    return <div className="MetricsRatingBar MetricsRatingBar--empty" />
+    return <div className="MetricsRatingBar MetricsRatingBar--empty" />;
   }
 
   return (
@@ -102,11 +102,11 @@ function RatingBar() {
         />
       ))}
     </div>
-  )
+  );
 }
 
 function RatingLegend() {
-  const summary = useMetricCard()
+  const summary = useMetricCard();
 
   return (
     <ul className="MetricsRatingLegend">
@@ -120,7 +120,7 @@ function RatingLegend() {
         </li>
       ))}
     </ul>
-  )
+  );
 }
 
 export const MetricCard = {
@@ -135,7 +135,7 @@ export const MetricCard = {
   Ratings,
   RatingBar,
   RatingLegend,
-}
+};
 
 export function MetricSummaryCard({summary}: {summary: MetricSummary}) {
   return (
@@ -153,5 +153,5 @@ export function MetricSummaryCard({summary}: {summary: MetricSummary}) {
         </MetricCard.Ratings>
       </MetricCard.Root>
     </MetricCard.Provider>
-  )
+  );
 }

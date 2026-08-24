@@ -1,20 +1,20 @@
-import {DelayedImage} from '@/app/components/metric/delayed-image'
-import {Text} from '@/app/components/ui/text'
+import {DelayedImage} from '@/app/components/metric/delayed-image';
+import {Text} from '@/app/components/ui/text';
 import {
   CLS_FLAGS_DEFAULTS,
   type ClsFlags,
-} from '@/lib/metric/flags/defaults/cls'
-import {createMetricRoute} from '@/lib/metric/metric-route'
+} from '@/lib/metric/flags/defaults/cls';
+import {createMetricRoute} from '@/lib/metric/metric-route';
 
 export default createMetricRoute({
   metricName: 'CLS',
   defaults: CLS_FLAGS_DEFAULTS,
   Component: CLS,
-})
+});
 
 function CLS({flags}: {flags: ClsFlags}) {
   if (flags.noLayoutShifts) {
-    return <Text>This text does not shift.</Text>
+    return <Text>This text does not shift.</Text>;
   }
   return (
     <>
@@ -31,5 +31,5 @@ function CLS({flags}: {flags: ClsFlags}) {
       </Text>
       <Text>Text below the image.</Text>
     </>
-  )
+  );
 }

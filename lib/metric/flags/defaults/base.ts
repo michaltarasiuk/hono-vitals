@@ -1,4 +1,4 @@
-import type {Flags, ParsedFlags} from '../schema'
+import type {Flags, ParsedFlags} from '../schema';
 
 export const BASE_FLAGS_DEFAULTS = {
   attribution: false,
@@ -15,6 +15,6 @@ export const BASE_FLAGS_DEFAULTS = {
   secondObserver: false,
   stubHidden: false,
   wasDiscarded: false,
-} as const satisfies Flags
+} as const satisfies Flags;
 
-export type BaseFlags = ParsedFlags<typeof BASE_FLAGS_DEFAULTS>
+export type BaseFlags = ParsedFlags<typeof BASE_FLAGS_DEFAULTS>;

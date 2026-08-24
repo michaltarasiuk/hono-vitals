@@ -5,10 +5,10 @@ export const ROUTES = [
   {label: 'INP', href: '/metric/inp'},
   {label: 'LCP', href: '/metric/lcp'},
   {label: 'TTFB', href: '/metric/ttfb'},
-] as const
+] as const;
 
-export type Route = (typeof ROUTES)[number]
+export type Route = (typeof ROUTES)[number];
 
 export function getActiveRoute(path: string) {
-  return ROUTES.find(({href}) => href === path) ?? ROUTES[0]
+  return ROUTES.find(({href}) => href === path) ?? ROUTES[0];
 }

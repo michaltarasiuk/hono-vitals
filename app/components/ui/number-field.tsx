@@ -1,6 +1,6 @@
-import {NumberField as BaseNumberField} from '@base-ui/react/number-field'
+import {NumberField as BaseNumberField} from '@base-ui/react/number-field';
 
-import {cn} from '@/lib/cn'
+import {cn} from '@/lib/cn';
 
 function Root({
   children,
@@ -11,7 +11,7 @@ function Root({
     <BaseNumberField.Root className={cn('NumberField', className)} {...props}>
       {children}
     </BaseNumberField.Root>
-  )
+  );
 }
 
 function ScrubArea({
@@ -26,7 +26,7 @@ function ScrubArea({
     >
       {children}
     </BaseNumberField.ScrubArea>
-  )
+  );
 }
 
 function ScrubAreaCursor({
@@ -38,7 +38,7 @@ function ScrubAreaCursor({
       className={cn('NumberFieldScrubAreaCursor', className)}
       {...props}
     />
-  )
+  );
 }
 
 function Group({
@@ -53,7 +53,7 @@ function Group({
     >
       {children}
     </BaseNumberField.Group>
-  )
+  );
 }
 
 function Input({
@@ -65,11 +65,11 @@ function Input({
       className={cn('NumberFieldInput', className)}
       {...props}
     />
-  )
+  );
 }
 
 // Opt out of browser form-state restore of disabled (Firefox soft-reload hydration mismatch).
-const STEPPER_BUTTON_PROPS = {autoComplete: 'off' as const}
+const STEPPER_BUTTON_PROPS = {autoComplete: 'off' as const};
 
 function Decrement({
   className,
@@ -83,7 +83,7 @@ function Decrement({
     >
       <MinusIcon />
     </BaseNumberField.Decrement>
-  )
+  );
 }
 
 function Increment({
@@ -98,7 +98,7 @@ function Increment({
     >
       <PlusIcon />
     </BaseNumberField.Increment>
-  )
+  );
 }
 
 function MinusIcon({style, ...props}: React.ComponentProps<'svg'>) {
@@ -116,7 +116,7 @@ function MinusIcon({style, ...props}: React.ComponentProps<'svg'>) {
     >
       <path d="M1.5 8h13" />
     </svg>
-  )
+  );
 }
 
 function PlusIcon({style, ...props}: React.ComponentProps<'svg'>) {
@@ -134,7 +134,7 @@ function PlusIcon({style, ...props}: React.ComponentProps<'svg'>) {
     >
       <path d="M1.5 8h13M8 14.5v-13" />
     </svg>
-  )
+  );
 }
 
 export const NumberField = {
@@ -145,4 +145,4 @@ export const NumberField = {
   Root,
   ScrubArea,
   ScrubAreaCursor,
-}
+};

@@ -1,8 +1,8 @@
-import type {MetricName} from '@/lib/collect/metric-schema'
+import type {MetricName} from '@/lib/collect/metric-schema';
 
 export function formatMetricValue(name: MetricName, value: number) {
   if (name === 'CLS') {
-    return value.toFixed(3)
+    return value.toFixed(3);
   }
-  return `${Math.round(value).toLocaleString()} ms`
+  return `${Math.round(value).toLocaleString()} ms`;
 }

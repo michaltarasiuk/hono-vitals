@@ -1,6 +1,6 @@
-import {Switch as BaseSwitch} from '@base-ui/react/switch'
+import {Switch as BaseSwitch} from '@base-ui/react/switch';
 
-import {cn} from '@/lib/cn'
+import {cn} from '@/lib/cn';
 
 export function Switch({
   className,
@@ -10,5 +10,5 @@ export function Switch({
     <BaseSwitch.Root className={cn('Switch', className)} {...props}>
       <BaseSwitch.Thumb className="Thumb" />
     </BaseSwitch.Root>
-  )
+  );
 }

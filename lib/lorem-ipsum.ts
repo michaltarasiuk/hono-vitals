@@ -12,4 +12,4 @@ export const LOREM_IPSUM =
   'Fusce mattis a risus at tincidunt. ' +
   'Donec ac fringilla magna, nec suscipit lectus. ' +
   'Sed risus massa, rutrum ut leo quis, tempor dapibus dui. ' +
-  'Proin in mauris non risus maximus tincidunt quis a mauris.'
+  'Proin in mauris non risus maximus tincidunt quis a mauris.';

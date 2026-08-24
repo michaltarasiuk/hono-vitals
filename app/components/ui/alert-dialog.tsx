@@ -1,12 +1,12 @@
-import {AlertDialog as BaseAlertDialog} from '@base-ui/react/alert-dialog'
+import {AlertDialog as BaseAlertDialog} from '@base-ui/react/alert-dialog';
 
-import {cn} from '@/lib/cn'
+import {cn} from '@/lib/cn';
 
 function Root({
   children,
   ...props
 }: React.ComponentProps<typeof BaseAlertDialog.Root>) {
-  return <BaseAlertDialog.Root {...props}>{children}</BaseAlertDialog.Root>
+  return <BaseAlertDialog.Root {...props}>{children}</BaseAlertDialog.Root>;
 }
 
 function Trigger({
@@ -15,14 +15,14 @@ function Trigger({
 }: React.ComponentProps<typeof BaseAlertDialog.Trigger>) {
   return (
     <BaseAlertDialog.Trigger {...props}>{children}</BaseAlertDialog.Trigger>
-  )
+  );
 }
 
 function Portal({
   children,
   ...props
 }: React.ComponentProps<typeof BaseAlertDialog.Portal>) {
-  return <BaseAlertDialog.Portal {...props}>{children}</BaseAlertDialog.Portal>
+  return <BaseAlertDialog.Portal {...props}>{children}</BaseAlertDialog.Portal>;
 }
 
 function Backdrop({
@@ -34,7 +34,7 @@ function Backdrop({
       className={cn('Backdrop', className)}
       {...props}
     />
-  )
+  );
 }
 
 function Popup({
@@ -46,7 +46,7 @@ function Popup({
     <BaseAlertDialog.Popup className={cn('Popup', className)} {...props}>
       {children}
     </BaseAlertDialog.Popup>
-  )
+  );
 }
 
 function Header({children, className, ...props}: React.ComponentProps<'div'>) {
@@ -54,7 +54,7 @@ function Header({children, className, ...props}: React.ComponentProps<'div'>) {
     <div className={cn('Header', className)} {...props}>
       {children}
     </div>
-  )
+  );
 }
 
 function Title({
@@ -66,7 +66,7 @@ function Title({
     <BaseAlertDialog.Title className={cn('Title', className)} {...props}>
       {children}
     </BaseAlertDialog.Title>
-  )
+  );
 }
 
 function Description({
@@ -81,7 +81,7 @@ function Description({
     >
       {children}
     </BaseAlertDialog.Description>
-  )
+  );
 }
 
 function Actions({children, className, ...props}: React.ComponentProps<'div'>) {
@@ -89,14 +89,14 @@ function Actions({children, className, ...props}: React.ComponentProps<'div'>) {
     <div className={cn('Actions', className)} {...props}>
       {children}
     </div>
-  )
+  );
 }
 
 function Close({
   children,
   ...props
 }: React.ComponentProps<typeof BaseAlertDialog.Close>) {
-  return <BaseAlertDialog.Close {...props}>{children}</BaseAlertDialog.Close>
+  return <BaseAlertDialog.Close {...props}>{children}</BaseAlertDialog.Close>;
 }
 
 export const AlertDialog = {
@@ -110,4 +110,4 @@ export const AlertDialog = {
   Description,
   Actions,
   Close,
-}
+};

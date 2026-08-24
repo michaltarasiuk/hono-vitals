@@ -1,17 +1,17 @@
-import {DelayedImage} from '@/app/components/metric/delayed-image'
-import {Spacer} from '@/app/components/metric/spacer'
-import {Text} from '@/app/components/ui/text'
+import {DelayedImage} from '@/app/components/metric/delayed-image';
+import {Spacer} from '@/app/components/metric/spacer';
+import {Text} from '@/app/components/ui/text';
 import {
   LCP_FLAGS_DEFAULTS,
   type LcpFlags,
-} from '@/lib/metric/flags/defaults/lcp'
-import {createMetricRoute} from '@/lib/metric/metric-route'
+} from '@/lib/metric/flags/defaults/lcp';
+import {createMetricRoute} from '@/lib/metric/metric-route';
 
 export default createMetricRoute({
   metricName: 'LCP',
   defaults: LCP_FLAGS_DEFAULTS,
   Component: LCP,
-})
+});
 
 function LCP({flags}: {flags: LcpFlags}) {
   return (
@@ -26,5 +26,5 @@ function LCP({flags}: {flags: LcpFlags}) {
       <Spacer />
       <Text>Text below the spacer.</Text>
     </>
-  )
+  );
 }

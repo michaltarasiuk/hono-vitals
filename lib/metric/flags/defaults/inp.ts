@@ -1,15 +1,15 @@
-import {BASE_FLAGS_DEFAULTS} from './base'
-import {GENERATE_TARGET_FLAGS_DEFAULTS} from './generate-target'
+import {BASE_FLAGS_DEFAULTS} from './base';
+import {GENERATE_TARGET_FLAGS_DEFAULTS} from './generate-target';
 
-import type {Flags, ParsedFlags} from '../schema'
+import type {Flags, ParsedFlags} from '../schema';
 
 const INP_REPORT_FLAGS_DEFAULTS = {
   durationThreshold: 40,
   durationThreshold2: 40,
   includeProcessedEventEntries: false,
-} as const satisfies Flags
+} as const satisfies Flags;
 
-export type InpReportFlags = ParsedFlags<typeof INP_REPORT_FLAGS_DEFAULTS>
+export type InpReportFlags = ParsedFlags<typeof INP_REPORT_FLAGS_DEFAULTS>;
 
 export const INP_FLAGS_DEFAULTS = {
   ...BASE_FLAGS_DEFAULTS,
@@ -22,6 +22,6 @@ export const INP_FLAGS_DEFAULTS = {
   mouseupBlockingTime: 0,
   pointerdownBlockingTime: 0,
   pointerupBlockingTime: 0,
-} as const satisfies Flags
+} as const satisfies Flags;
 
-export type InpFlags = ParsedFlags<typeof INP_FLAGS_DEFAULTS>
+export type InpFlags = ParsedFlags<typeof INP_FLAGS_DEFAULTS>;

@@ -1,9 +1,9 @@
-import {useEffect} from 'react'
+import {useEffect} from 'react';
 
-import {Toast} from '@/app/components/ui/toast'
-import {formatMetricRating} from '@/lib/metric/format-rating'
-import {formatMetricValue} from '@/lib/metric/format-value'
-import {subscribeMetricToasts} from '@/lib/toast/metric'
+import {Toast} from '@/app/components/ui/toast';
+import {formatMetricRating} from '@/lib/metric/format-rating';
+import {formatMetricValue} from '@/lib/metric/format-value';
+import {subscribeMetricToasts} from '@/lib/toast/metric';
 
 export function MetricToasts() {
   return (
@@ -15,11 +15,11 @@ export function MetricToasts() {
         </Toast.Viewport>
       </Toast.Portal>
     </Toast.Provider>
-  )
+  );
 }
 
 function MetricToastBridge() {
-  const {add} = Toast.useToastManager()
+  const {add} = Toast.useToastManager();
 
   useEffect(() => {
     return subscribeMetricToasts((metric) => {
@@ -27,9 +27,9 @@ function MetricToastBridge() {
         id: metric.id,
         title: `${metric.name} ${formatMetricValue(metric.name, metric.value)}`,
         description: formatMetricRating(metric.rating),
-      })
-    })
-  }, [add])
+      });
+    });
+  }, [add]);
 
-  return null
+  return null;
 }

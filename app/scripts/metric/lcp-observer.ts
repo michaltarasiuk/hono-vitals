@@ -1,24 +1,24 @@
-import {reportMetric} from '@/lib/collect/report'
-import {LCP_FLAGS_DEFAULTS} from '@/lib/metric/flags/defaults/lcp'
-import {parseFlagsFromSearch} from '@/lib/metric/flags/search-params'
-import {loadWebVitals} from '@/lib/metric/load-web-vitals'
-import {createMetricReporter} from '@/lib/metric/metric-reporter'
-import {lcpObserverOptions} from '@/lib/metric/observer-options'
-import {removeLcpElement} from '@/lib/metric/remove-lcp-element'
+import {reportMetric} from '@/lib/collect/report';
+import {LCP_FLAGS_DEFAULTS} from '@/lib/metric/flags/defaults/lcp';
+import {parseFlagsFromSearch} from '@/lib/metric/flags/search-params';
+import {loadWebVitals} from '@/lib/metric/load-web-vitals';
+import {createMetricReporter} from '@/lib/metric/metric-reporter';
+import {lcpObserverOptions} from '@/lib/metric/observer-options';
+import {removeLcpElement} from '@/lib/metric/remove-lcp-element';
 
-const flags = parseFlagsFromSearch(LCP_FLAGS_DEFAULTS)
+const flags = parseFlagsFromSearch(LCP_FLAGS_DEFAULTS);
 
 if (flags.removeElement) {
-  await removeLcpElement()
+  await removeLcpElement();
 }
 
 const {onLCP} = await loadWebVitals({
   attribution: flags.attribution,
   deferLibraryLoad: flags.deferLibraryLoad,
   loadAfterInput: flags.loadAfterInput,
-})
+});
 
-const report = createMetricReporter(flags.batchReporting)
+const report = createMetricReporter(flags.batchReporting);
 
 function registerLCP() {
   onLCP(
@@ -28,19 +28,19 @@ function registerLCP() {
         instance: 1,
       }),
     lcpObserverOptions(flags, 1),
-  )
+  );
 }
 
 if (flags.registerOnVisibilityChange) {
   document.addEventListener('visibilitychange', function onVisibilityChange() {
     if (document.visibilityState !== 'visible') {
-      return
+      return;
     }
-    document.removeEventListener('visibilitychange', onVisibilityChange)
-    registerLCP()
-  })
+    document.removeEventListener('visibilitychange', onVisibilityChange);
+    registerLCP();
+  });
 } else {
-  registerLCP()
+  registerLCP();
 }
 
 if (flags.secondObserver) {
@@ -51,5 +51,5 @@ if (flags.secondObserver) {
         instance: 2,
       }),
     lcpObserverOptions(flags, 2),
-  )
+  );
 }

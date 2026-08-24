@@ -1,10 +1,10 @@
 /** @type {import("prettier").Config} */
 const config = {
-  semi: false,
+  semi: true,
   singleQuote: true,
   bracketSpacing: false,
   trailingComma: 'all',
   printWidth: 80,
-}
+};
 
-export default config
+export default config;

@@ -1,1 +1,1 @@
-console.log('delay-dcl script executed!', performance.now())
+console.log('delay-dcl script executed!', performance.now());

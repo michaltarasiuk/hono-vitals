@@ -1,30 +1,30 @@
-import {parseResponse} from 'hono/client'
-import {useState} from 'react'
+import {parseResponse} from 'hono/client';
+import {useState} from 'react';
 
-import {AlertDialog} from '@/app/components/ui/alert-dialog'
-import {Button} from '@/app/components/ui/button'
-import {collectClient} from '@/lib/collect/client'
-import {islandId} from '@/lib/island-id'
+import {AlertDialog} from '@/app/components/ui/alert-dialog';
+import {Button} from '@/app/components/ui/button';
+import {collectClient} from '@/lib/collect/client';
+import {islandId} from '@/lib/island-id';
 
-const CLEAR_METRICS_TRIGGER_ID = islandId('clear-metrics-trigger')
+const CLEAR_METRICS_TRIGGER_ID = islandId('clear-metrics-trigger');
 
 export function ClearMetrics() {
-  const [pending, setPending] = useState(false)
+  const [pending, setPending] = useState(false);
 
   async function handleClear() {
     if (pending) {
-      return
+      return;
     }
 
-    setPending(true)
+    setPending(true);
 
     try {
-      await parseResponse(collectClient.index.$delete())
-      location.reload()
+      await parseResponse(collectClient.index.$delete());
+      location.reload();
     } catch (error) {
-      console.error('Failed to clear metrics', error)
+      console.error('Failed to clear metrics', error);
     } finally {
-      setPending(false)
+      setPending(false);
     }
   }
 
@@ -53,7 +53,7 @@ export function ClearMetrics() {
             <AlertDialog.Close
               render={<Button />}
               onClick={() => {
-                void handleClear()
+                void handleClear();
               }}
             >
               Clear
@@ -62,5 +62,5 @@ export function ClearMetrics() {
         </AlertDialog.Popup>
       </AlertDialog.Portal>
     </AlertDialog.Root>
-  )
+  );
 }

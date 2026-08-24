@@ -1,8 +1,8 @@
-import js from '@eslint/js'
-import perfectionist from 'eslint-plugin-perfectionist'
-import reactHooks from 'eslint-plugin-react-hooks'
-import {defineConfig} from 'eslint/config'
-import tseslint from 'typescript-eslint'
+import js from '@eslint/js';
+import perfectionist from 'eslint-plugin-perfectionist';
+import reactHooks from 'eslint-plugin-react-hooks';
+import {defineConfig} from 'eslint/config';
+import tseslint from 'typescript-eslint';
 
 export default defineConfig(
   {
@@ -98,4 +98,4 @@ export default defineConfig(
       ],
     },
   },
-)
+);

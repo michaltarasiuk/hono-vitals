@@ -1,5 +1,5 @@
-import {cn} from '@/lib/cn'
+import {cn} from '@/lib/cn';
 
 export function Text({className, ...props}: React.ComponentProps<'p'>) {
-  return <p className={cn('Text', className)} {...props} />
+  return <p className={cn('Text', className)} {...props} />;
 }

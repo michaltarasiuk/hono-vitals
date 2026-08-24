@@ -1,6 +1,6 @@
-import {Field as BaseField} from '@base-ui/react/field'
+import {Field as BaseField} from '@base-ui/react/field';
 
-import {cn} from '@/lib/cn'
+import {cn} from '@/lib/cn';
 
 function Root({
   children,
@@ -11,7 +11,7 @@ function Root({
     <BaseField.Root className={cn('Field', className)} {...props}>
       {children}
     </BaseField.Root>
-  )
+  );
 }
 
 function Label({
@@ -23,10 +23,10 @@ function Label({
     <BaseField.Label className={cn('Label', className)} {...props}>
       {children}
     </BaseField.Label>
-  )
+  );
 }
 
 export const Field = {
   Label,
   Root,
-}
+};

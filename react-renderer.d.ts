@@ -1,16 +1,16 @@
-import type {MetricName} from '@/lib/collect/metric-schema'
-import type {Flags} from '@/lib/metric/flags/schema'
+import type {MetricName} from '@/lib/collect/metric-schema';
+import type {Flags} from '@/lib/metric/flags/schema';
 
 declare module '@hono/react-renderer' {
   interface Props {
-    metricName: MetricName
-    flags: Flags
-    defaults: Flags
+    metricName: MetricName;
+    flags: Flags;
+    defaults: Flags;
   }
 }
 
 declare module 'react' {
   interface HTMLAttributes {
-    elementtiming?: string
+    elementtiming?: string;
   }
 }

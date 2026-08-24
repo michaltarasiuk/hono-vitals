@@ -1,8 +1,8 @@
-import {isDefined} from '@/lib/is-defined'
+import {isDefined} from '@/lib/is-defined';
 
 export function overrideResponseStart(responseStart: number) {
-  const [navEntry] = performance.getEntriesByType('navigation')
+  const [navEntry] = performance.getEntriesByType('navigation');
   if (isDefined(navEntry)) {
-    Object.defineProperty(navEntry, 'responseStart', {value: responseStart})
+    Object.defineProperty(navEntry, 'responseStart', {value: responseStart});
   }
 }

@@ -1,7 +1,7 @@
-import {BASE_FLAGS_DEFAULTS} from './base'
-import {GENERATE_TARGET_FLAGS_DEFAULTS} from './generate-target'
+import {BASE_FLAGS_DEFAULTS} from './base';
+import {GENERATE_TARGET_FLAGS_DEFAULTS} from './generate-target';
 
-import type {Flags, ParsedFlags} from '../schema'
+import type {Flags, ParsedFlags} from '../schema';
 
 export const CLS_FLAGS_DEFAULTS = {
   ...BASE_FLAGS_DEFAULTS,
@@ -9,6 +9,6 @@ export const CLS_FLAGS_DEFAULTS = {
   imgHidden: false,
   imgHidden2: false,
   noLayoutShifts: false,
-} as const satisfies Flags
+} as const satisfies Flags;
 
-export type ClsFlags = ParsedFlags<typeof CLS_FLAGS_DEFAULTS>
+export type ClsFlags = ParsedFlags<typeof CLS_FLAGS_DEFAULTS>;

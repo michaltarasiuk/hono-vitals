@@ -1,5 +1,5 @@
 interface DelayedImageProps extends React.ComponentProps<'img'> {
-  delay?: number
+  delay?: number;
 }
 
 export function DelayedImage({
@@ -14,5 +14,5 @@ export function DelayedImage({
       elementtiming={elementtiming}
       {...props}
     />
-  )
+  );
 }

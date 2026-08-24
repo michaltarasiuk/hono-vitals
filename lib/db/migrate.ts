@@ -1,16 +1,16 @@
-import {getSql, type Sql} from '@/lib/db/client'
-import {TABLES} from '@/lib/db/schema'
+import {getSql, type Sql} from '@/lib/db/client';
+import {TABLES} from '@/lib/db/schema';
 
 interface Migration {
-  version: number
-  up: (sql: Sql) => Promise<void>
+  version: number;
+  up: (sql: Sql) => Promise<void>;
 }
 
 const MIGRATIONS: Migration[] = [
   {
     version: 1,
     async up(sql) {
-      const metrics = sql.identifier(TABLES.metrics)
+      const metrics = sql.identifier(TABLES.metrics);
 
       await sql`
         CREATE TABLE IF NOT EXISTS ${metrics} (
@@ -22,42 +22,42 @@ const MIGRATIONS: Migration[] = [
           navigation_type VARCHAR NOT NULL,
           collected_at TIMESTAMPTZ NOT NULL DEFAULT current_timestamp
         )
-      `
+      `;
 
       await sql`
         CREATE INDEX IF NOT EXISTS idx_metrics_name_rating_value
         ON ${metrics} (name, rating, value)
-      `
+      `;
     },
   },
-]
+];
 
 export async function migrate() {
-  const sql = await getSql()
-  const migrationsTable = sql.identifier(TABLES.migrations)
+  const sql = await getSql();
+  const migrationsTable = sql.identifier(TABLES.migrations);
 
   await sql`
     CREATE TABLE IF NOT EXISTS ${migrationsTable} (
       version INTEGER PRIMARY KEY,
       applied_at TIMESTAMPTZ NOT NULL DEFAULT current_timestamp
     )
-  `
+  `;
 
   const applied = await sql<{version: number}>`
     SELECT version FROM ${migrationsTable} ORDER BY version
-  `
-  const appliedVersions = new Set(applied.map((row) => row.version))
+  `;
+  const appliedVersions = new Set(applied.map((row) => row.version));
 
   for (const migration of MIGRATIONS) {
     if (appliedVersions.has(migration.version)) {
-      continue
+      continue;
     }
 
-    await migration.up(sql)
+    await migration.up(sql);
 
     await sql`
       INSERT INTO ${migrationsTable} (version)
       VALUES (${migration.version})
-    `
+    `;
   }
 }

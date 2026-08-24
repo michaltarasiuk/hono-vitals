@@ -1,3 +1,3 @@
 interface Document {
-  wasDiscarded?: boolean
+  wasDiscarded?: boolean;
 }

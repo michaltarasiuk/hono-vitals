@@ -1,26 +1,26 @@
-import {Drawer as BaseDrawer} from '@base-ui/react/drawer'
+import {Drawer as BaseDrawer} from '@base-ui/react/drawer';
 
-import {cn} from '@/lib/cn'
+import {cn} from '@/lib/cn';
 
 function Root({
   children,
   ...props
 }: React.ComponentProps<typeof BaseDrawer.Root>) {
-  return <BaseDrawer.Root {...props}>{children}</BaseDrawer.Root>
+  return <BaseDrawer.Root {...props}>{children}</BaseDrawer.Root>;
 }
 
 function Trigger({
   children,
   ...props
 }: React.ComponentProps<typeof BaseDrawer.Trigger>) {
-  return <BaseDrawer.Trigger {...props}>{children}</BaseDrawer.Trigger>
+  return <BaseDrawer.Trigger {...props}>{children}</BaseDrawer.Trigger>;
 }
 
 function Portal({
   children,
   ...props
 }: React.ComponentProps<typeof BaseDrawer.Portal>) {
-  return <BaseDrawer.Portal {...props}>{children}</BaseDrawer.Portal>
+  return <BaseDrawer.Portal {...props}>{children}</BaseDrawer.Portal>;
 }
 
 function Backdrop({
@@ -32,7 +32,7 @@ function Backdrop({
       className={cn('DrawerBackdrop', className)}
       {...props}
     />
-  )
+  );
 }
 
 function Viewport({
@@ -44,7 +44,7 @@ function Viewport({
     <BaseDrawer.Viewport className={cn('DrawerViewport', className)} {...props}>
       {children}
     </BaseDrawer.Viewport>
-  )
+  );
 }
 
 function Popup({
@@ -56,7 +56,7 @@ function Popup({
     <BaseDrawer.Popup className={cn('DrawerPopup', className)} {...props}>
       {children}
     </BaseDrawer.Popup>
-  )
+  );
 }
 
 function Content({
@@ -68,7 +68,7 @@ function Content({
     <BaseDrawer.Content className={cn('DrawerContent', className)} {...props}>
       {children}
     </BaseDrawer.Content>
-  )
+  );
 }
 
 function Title({
@@ -80,18 +80,18 @@ function Title({
     <BaseDrawer.Title className={cn('DrawerTitle', className)} {...props}>
       {children}
     </BaseDrawer.Title>
-  )
+  );
 }
 
 function Close({
   children,
   ...props
 }: React.ComponentProps<typeof BaseDrawer.Close>) {
-  return <BaseDrawer.Close {...props}>{children}</BaseDrawer.Close>
+  return <BaseDrawer.Close {...props}>{children}</BaseDrawer.Close>;
 }
 
 function Grip({className, ...props}: React.ComponentProps<'div'>) {
-  return <div className={cn('DrawerGrip', className)} {...props} />
+  return <div className={cn('DrawerGrip', className)} {...props} />;
 }
 
 export const Drawer = {
@@ -105,4 +105,4 @@ export const Drawer = {
   Content,
   Title,
   Close,
-}
+};

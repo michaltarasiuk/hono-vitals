@@ -1,7 +1,7 @@
-import build from '@hono/vite-build/bun'
-import adapter from '@hono/vite-dev-server/bun'
-import honox from 'honox/vite'
-import {defineConfig, type CSSOptions} from 'vite'
+import build from '@hono/vite-build/bun';
+import adapter from '@hono/vite-dev-server/bun';
+import honox from 'honox/vite';
+import {defineConfig, type CSSOptions} from 'vite';
 
 export default defineConfig(({mode}) => {
   const css: CSSOptions = {
@@ -11,7 +11,7 @@ export default defineConfig(({mode}) => {
         customMedia: true,
       },
     },
-  }
+  };
 
   if (mode === 'client') {
     return {
@@ -36,7 +36,7 @@ export default defineConfig(({mode}) => {
         },
         manifest: true,
       },
-    }
+    };
   }
   return {
     css,
@@ -73,5 +73,5 @@ export default defineConfig(({mode}) => {
         staticRoot: './dist',
       }),
     ],
-  }
-})
+  };
+});

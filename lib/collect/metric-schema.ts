@@ -1,12 +1,12 @@
-import * as z from 'zod'
+import * as z from 'zod';
 
-export const METRIC_NAMES = ['CLS', 'FCP', 'INP', 'LCP', 'TTFB'] as const
+export const METRIC_NAMES = ['CLS', 'FCP', 'INP', 'LCP', 'TTFB'] as const;
 
-export type MetricName = (typeof METRIC_NAMES)[number]
+export type MetricName = (typeof METRIC_NAMES)[number];
 
-export const METRIC_RATINGS = ['good', 'needs-improvement', 'poor'] as const
+export const METRIC_RATINGS = ['good', 'needs-improvement', 'poor'] as const;
 
-export type MetricRating = (typeof METRIC_RATINGS)[number]
+export type MetricRating = (typeof METRIC_RATINGS)[number];
 
 export const MetricSchema = z.object({
   /**
@@ -63,6 +63,6 @@ export const MetricSchema = z.object({
     'prerender',
     'restore',
   ]),
-})
+});
 
-export type Metric = z.infer<typeof MetricSchema>
+export type Metric = z.infer<typeof MetricSchema>;

@@ -1,21 +1,21 @@
-import {Drawer} from '@/app/components/ui/drawer'
-import {islandId} from '@/lib/island-id'
-import {getActiveRoute, ROUTES} from '@/lib/routes'
+import {Drawer} from '@/app/components/ui/drawer';
+import {islandId} from '@/lib/island-id';
+import {getActiveRoute, ROUTES} from '@/lib/routes';
 
-const NAV_MOBILE_TRIGGER_ID = islandId('nav-mobile-trigger')
+const NAV_MOBILE_TRIGGER_ID = islandId('nav-mobile-trigger');
 
 interface NavProps {
-  currentPath: string
+  currentPath: string;
 }
 
 export function Nav({currentPath}: NavProps) {
-  const activeRoute = getActiveRoute(currentPath)
+  const activeRoute = getActiveRoute(currentPath);
 
   return (
     <>
       <nav className="NavDesktop">
         {ROUTES.map(({href, label}) => {
-          const active = href === currentPath
+          const active = href === currentPath;
           return (
             <a
               key={href}
@@ -24,7 +24,7 @@ export function Nav({currentPath}: NavProps) {
             >
               {label}
             </a>
-          )
+          );
         })}
       </nav>
       <div className="NavMobile">
@@ -45,7 +45,7 @@ export function Nav({currentPath}: NavProps) {
                   <Drawer.Title>Go to</Drawer.Title>
                   <nav className="NavMobileList">
                     {ROUTES.map(({href, label}) => {
-                      const active = href === currentPath
+                      const active = href === currentPath;
 
                       return (
                         <a
@@ -60,7 +60,7 @@ export function Nav({currentPath}: NavProps) {
                           <span>{label}</span>
                           {active ? <CheckIcon /> : null}
                         </a>
-                      )
+                      );
                     })}
                   </nav>
                 </Drawer.Content>
@@ -70,7 +70,7 @@ export function Nav({currentPath}: NavProps) {
         </Drawer.Root>
       </div>
     </>
-  )
+  );
 }
 
 function ChevronIcon() {
@@ -90,7 +90,7 @@ function ChevronIcon() {
         strokeLinecap="square"
       />
     </svg>
-  )
+  );
 }
 
 function CheckIcon() {
@@ -110,5 +110,5 @@ function CheckIcon() {
         strokeLinecap="square"
       />
     </svg>
-  )
+  );
 }

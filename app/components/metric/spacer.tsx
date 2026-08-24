@@ -1,3 +1,3 @@
 export function Spacer() {
-  return <div style={{height: '100vh'}} />
+  return <div style={{height: '100vh'}} />;
 }

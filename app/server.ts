@@ -1,12 +1,12 @@
-import {showRoutes} from 'hono/dev'
-import {createApp} from 'honox/server'
+import {showRoutes} from 'hono/dev';
+import {createApp} from 'honox/server';
 
-import {migrate} from '@/lib/db/migrate'
+import {migrate} from '@/lib/db/migrate';
 
-await migrate()
+await migrate();
 
-const app = createApp()
+const app = createApp();
 
-showRoutes(app)
+showRoutes(app);
 
-export default app
+export default app;

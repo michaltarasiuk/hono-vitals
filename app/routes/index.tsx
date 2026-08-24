@@ -1,14 +1,14 @@
-import {createRoute} from 'honox/factory'
+import {createRoute} from 'honox/factory';
 
-import {Header} from '@/app/components/header'
-import {ClearMetrics} from '@/app/components/home/$clear-metrics'
-import {MetricSummaryCard} from '@/app/components/home/metric-card'
-import {Metrics} from '@/app/components/home/metrics'
-import {Heading} from '@/app/components/ui/heading'
-import {getMetricsSummary} from '@/lib/analytics/metrics'
+import {Header} from '@/app/components/header';
+import {ClearMetrics} from '@/app/components/home/$clear-metrics';
+import {MetricSummaryCard} from '@/app/components/home/metric-card';
+import {Metrics} from '@/app/components/home/metrics';
+import {Heading} from '@/app/components/ui/heading';
+import {getMetricsSummary} from '@/lib/analytics/metrics';
 
 export default createRoute(async (c) => {
-  const summaries = await getMetricsSummary()
+  const summaries = await getMetricsSummary();
 
   return c.render(
     <>
@@ -30,5 +30,5 @@ export default createRoute(async (c) => {
         </Metrics.Section>
       </main>
     </>,
-  )
-})
+  );
+});

@@ -1,7 +1,7 @@
-import {reactRenderer} from '@hono/react-renderer'
-import {Link, Script} from 'honox/server'
+import {reactRenderer} from '@hono/react-renderer';
+import {Link, Script} from 'honox/server';
 
-import devStyles from '../styles/global.css?inline'
+import devStyles from '../styles/global.css?inline';
 
 export default reactRenderer(({children}) => {
   return (
@@ -28,5 +28,5 @@ export default reactRenderer(({children}) => {
         <div className="AppRoot">{children}</div>
       </body>
     </html>
-  )
-})
+  );
+});
