@@ -2,9 +2,9 @@
 
 ## Commit messages
 
-- Start with a lowercase letter
-- No trailing period
-- Single line, imperative mood, English
+- Single line, English
 - No conventional-commit prefixes (`feat:`, `refactor:`, etc.)
+- Use imperative mood, sentence case, no trailing period
+- Start with a capital verb, lowercase the rest unless a proper noun
 
-Example: `move metrics into the db layer`
+Example: `Move metrics into the db layer`
