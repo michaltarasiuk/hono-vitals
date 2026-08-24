@@ -44,10 +44,6 @@ export async function getMetricStats() {
 }
 
 export async function insertMetrics(metrics: Metric[]) {
-  if (metrics.length === 0) {
-    return;
-  }
-
   await sql`
     INSERT OR REPLACE INTO ${table} (
       metric_id,
