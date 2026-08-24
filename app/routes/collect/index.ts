@@ -2,8 +2,8 @@ import {zValidator} from '@hono/zod-validator';
 import {Hono} from 'hono';
 import {HTTPException} from 'hono/http-exception';
 
-import {clearMetrics, insertMetrics} from '@/lib/analytics/metrics';
 import {CollectBodySchema} from '@/lib/collect/body';
+import {deleteMetrics, insertMetrics} from '@/lib/db/metrics';
 
 const collectRoutes = new Hono()
   .post('/', zValidator('json', CollectBodySchema), async (c) => {
@@ -23,7 +23,7 @@ const collectRoutes = new Hono()
   })
   .delete('/', async (c) => {
     try {
-      await clearMetrics();
+      await deleteMetrics();
     } catch (cause) {
       console.error('Failed to clear metrics', cause);
       throw new HTTPException(500, {

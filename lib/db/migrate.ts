@@ -1,4 +1,4 @@
-import {getSql, type Sql} from '@/lib/db/client';
+import {sql, type Sql} from '@/lib/db/client';
 import {TABLES} from '@/lib/db/schema';
 
 interface Migration {
@@ -33,7 +33,6 @@ const MIGRATIONS: Migration[] = [
 ];
 
 export async function migrate() {
-  const sql = await getSql();
   const migrationsTable = sql.identifier(TABLES.migrations);
 
   await sql`

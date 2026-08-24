@@ -1,8 +1,8 @@
-import {getSql} from '@/lib/db/client';
+import {sql} from '@/lib/db/client';
 import {TABLES} from '@/lib/db/schema';
 import {METRIC_NAMES, type Metric, type MetricName} from '@/lib/metric/schema';
 
-export interface MetricSummary {
+export interface MetricStats {
   name: MetricName;
   count: number;
   avg: number;
@@ -12,19 +12,10 @@ export interface MetricSummary {
   poor: number;
 }
 
-const EMPTY_SUMMARY: Omit<MetricSummary, 'name'> = {
-  count: 0,
-  avg: 0,
-  p75: 0,
-  good: 0,
-  needsImprovement: 0,
-  poor: 0,
-};
+const table = sql.identifier(TABLES.metrics);
 
-export async function getMetricsSummary() {
-  const {sql, table} = await getMetricsTable();
-
-  const rows = await sql<MetricSummary>`
+export async function getMetricStats() {
+  const rows = await sql<MetricStats>`
     SELECT
       name,
       count(*)::DOUBLE AS count,
@@ -42,7 +33,12 @@ export async function getMetricsSummary() {
 
   return METRIC_NAMES.map((name) => ({
     name,
-    ...EMPTY_SUMMARY,
+    count: 0,
+    avg: 0,
+    p75: 0,
+    good: 0,
+    needsImprovement: 0,
+    poor: 0,
     ...byName.get(name),
   }));
 }
@@ -51,8 +47,6 @@ export async function insertMetrics(metrics: Metric[]) {
   if (metrics.length === 0) {
     return;
   }
-
-  const {sql, table} = await getMetricsTable();
 
   await sql`
     INSERT OR REPLACE INTO ${table} (
@@ -63,29 +57,19 @@ export async function insertMetrics(metrics: Metric[]) {
       rating,
       navigation_type
     )
-    VALUES ${sql.values(metrics.map(toInsertValues))}
+    VALUES ${sql.values(
+      metrics.map(({id, name, value, delta, rating, navigationType}) => [
+        id,
+        name,
+        value,
+        delta,
+        rating,
+        navigationType,
+      ]),
+    )}
   `;
 }
 
-export async function clearMetrics() {
-  const {sql, table} = await getMetricsTable();
-
+export async function deleteMetrics() {
   await sql`DELETE FROM ${table}`;
-}
-
-async function getMetricsTable() {
-  const sql = await getSql();
-
-  return {sql, table: sql.identifier(TABLES.metrics)};
-}
-
-function toInsertValues({
-  id,
-  name,
-  value,
-  delta,
-  rating,
-  navigationType,
-}: Metric) {
-  return [id, name, value, delta, rating, navigationType];
 }

@@ -7,9 +7,9 @@ import {Button} from '@/app/components/ui/button';
 import {collectClient} from '@/lib/collect/client';
 import {islandId} from '@/lib/island-id';
 
-const CLEAR_METRICS_TRIGGER_ID = islandId('clear-metrics-trigger');
+const DELETE_METRICS_TRIGGER_ID = islandId('delete-metrics-trigger');
 
-export function ClearMetrics() {
+export function DeleteMetrics() {
   const [isPending, startTransition] = useTransition();
 
   function handleClear() {
@@ -30,7 +30,7 @@ export function ClearMetrics() {
   return (
     <AlertDialog.Root>
       <AlertDialog.Trigger
-        id={CLEAR_METRICS_TRIGGER_ID}
+        id={DELETE_METRICS_TRIGGER_ID}
         disabled={isPending}
         render={<Button />}
       >

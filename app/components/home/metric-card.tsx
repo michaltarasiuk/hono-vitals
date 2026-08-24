@@ -5,25 +5,25 @@ import {formatMetricRating} from '@/lib/metric/format-rating';
 import {formatMetricValue} from '@/lib/metric/format-value';
 import {metricHref} from '@/lib/metric/href';
 
-import type {MetricSummary} from '@/lib/analytics/metrics';
+import type {MetricStats} from '@/lib/db/metrics';
 
-const MetricCardContext = createContext<MetricSummary | null>(null);
+const MetricCardContext = createContext<MetricStats | null>(null);
 
 function useMetricCard() {
-  const summary = use(MetricCardContext);
-  if (!isDefined(summary)) {
+  const stats = use(MetricCardContext);
+  if (!isDefined(stats)) {
     throw new Error('useMetricCard must be used within MetricCard.Provider');
   }
-  return summary;
+  return stats;
 }
 
 interface ProviderProps {
-  summary: MetricSummary;
+  stats: MetricStats;
   children: React.ReactNode;
 }
 
-function Provider({summary, children}: ProviderProps) {
-  return <MetricCardContext value={summary}>{children}</MetricCardContext>;
+function Provider({stats, children}: ProviderProps) {
+  return <MetricCardContext value={stats}>{children}</MetricCardContext>;
 }
 
 function Root({children}: {children: React.ReactNode}) {
@@ -77,28 +77,28 @@ function Ratings({children}: {children: React.ReactNode}) {
   return <div className="MetricsCardRatings">{children}</div>;
 }
 
-function ratingCounts(summary: MetricSummary) {
+function ratingCounts(stats: MetricStats) {
   return [
-    {rating: 'good', count: summary.good},
-    {rating: 'needs-improvement', count: summary.needsImprovement},
-    {rating: 'poor', count: summary.poor},
+    {rating: 'good', count: stats.good},
+    {rating: 'needs-improvement', count: stats.needsImprovement},
+    {rating: 'poor', count: stats.poor},
   ] as const;
 }
 
 function RatingBar() {
-  const summary = useMetricCard();
+  const stats = useMetricCard();
 
-  if (summary.count === 0) {
+  if (stats.count === 0) {
     return <div className="MetricsRatingBar MetricsRatingBar--empty" />;
   }
 
   return (
     <div className="MetricsRatingBar">
-      {ratingCounts(summary).map(({rating, count}) => (
+      {ratingCounts(stats).map(({rating, count}) => (
         <div
           key={rating}
           className={`MetricsRatingBarSegment MetricsRatingBarSegment--${rating}`}
-          style={{width: `${(count / summary.count) * 100}%`}}
+          style={{width: `${(count / stats.count) * 100}%`}}
         />
       ))}
     </div>
@@ -106,11 +106,11 @@ function RatingBar() {
 }
 
 function RatingLegend() {
-  const summary = useMetricCard();
+  const stats = useMetricCard();
 
   return (
     <ul className="MetricsRatingLegend">
-      {ratingCounts(summary).map(({rating, count}) => (
+      {ratingCounts(stats).map(({rating, count}) => (
         <li key={rating}>
           <span className="MetricsRatingLegendLabel">
             <span className={`MetricsRatingDot MetricsRatingDot--${rating}`} />
@@ -137,9 +137,9 @@ export const MetricCard = {
   RatingLegend,
 };
 
-export function MetricSummaryCard({summary}: {summary: MetricSummary}) {
+export function MetricStatsCard({stats}: {stats: MetricStats}) {
   return (
-    <MetricCard.Provider summary={summary}>
+    <MetricCard.Provider stats={stats}>
       <MetricCard.Root>
         <MetricCard.Title />
         <MetricCard.Stats>

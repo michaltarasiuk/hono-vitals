@@ -1,13 +1,13 @@
 import {Text} from '@/app/components/ui/text';
 
-import type {MetricSummary} from '@/lib/analytics/metrics';
+import type {MetricStats} from '@/lib/db/metrics';
 
 function Section({children}: {children: React.ReactNode}) {
   return <div className="MetricsSummary">{children}</div>;
 }
 
-function Total({summaries}: {summaries: MetricSummary[]}) {
-  const total = summaries.reduce((acc, summary) => acc + summary.count, 0);
+function Total({stats}: {stats: MetricStats[]}) {
+  const total = stats.reduce((acc, metric) => acc + metric.count, 0);
 
   return <Text>{total.toLocaleString()} samples collected.</Text>;
 }

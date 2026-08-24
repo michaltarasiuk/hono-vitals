@@ -1,30 +1,30 @@
 import {createRoute} from 'honox/factory';
 
 import {Header} from '@/app/components/header';
-import {ClearMetrics} from '@/app/components/home/$clear-metrics';
-import {MetricSummaryCard} from '@/app/components/home/metric-card';
+import {DeleteMetrics} from '@/app/components/home/$delete-metrics';
+import {MetricStatsCard} from '@/app/components/home/metric-card';
 import {Metrics} from '@/app/components/home/metrics';
 import {Heading} from '@/app/components/ui/heading';
-import {getMetricsSummary} from '@/lib/analytics/metrics';
+import {getMetricStats} from '@/lib/db/metrics';
 
 export default createRoute(async (c) => {
-  const summaries = await getMetricsSummary();
+  const stats = await getMetricStats();
 
   return c.render(
     <>
       <Header.Root>
         <Header.Nav currentPath={c.req.path} />
         <Header.Actions>
-          <ClearMetrics />
+          <DeleteMetrics />
         </Header.Actions>
       </Header.Root>
       <main className="MetricMain">
         <Metrics.Section>
           <Heading>Metrics</Heading>
-          <Metrics.Total summaries={summaries} />
+          <Metrics.Total stats={stats} />
           <Metrics.Grid>
-            {summaries.map((summary) => (
-              <MetricSummaryCard key={summary.name} summary={summary} />
+            {stats.map((metric) => (
+              <MetricStatsCard key={metric.name} stats={metric} />
             ))}
           </Metrics.Grid>
         </Metrics.Section>
