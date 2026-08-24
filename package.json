@@ -3,14 +3,13 @@
   "scripts": {
     "prepare": "lefthook install",
     "dev": "bunx --bun vite",
-    "build": "vite build --mode client && vite build && cp -r public dist/public",
     "start": "bun dist/index.js",
-    "check": "bun run format:check && bun run type:check && bun run lint",
+    "build": "vite build --mode client && vite build && cp -r public dist/public",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix",
-    "type:check": "tsc --noEmit"
+    "type:check": "tsc --noEmit",
+    "lint": "eslint",
+    "check": "bun run format:check && bun run type:check && bun run lint"
   },
   "dependencies": {
     "@base-ui/react": "^1.6.0",

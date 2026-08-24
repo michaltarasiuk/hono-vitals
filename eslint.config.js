@@ -46,15 +46,6 @@ export default defineConfig(
       perfectionist,
     },
     rules: {
-      'perfectionist/sort-exports': 'error',
-      'perfectionist/sort-named-exports': [
-        'error',
-        {groups: ['value-export', 'type-export']},
-      ],
-      'perfectionist/sort-named-imports': [
-        'error',
-        {groups: ['value-import', 'type-import']},
-      ],
       'perfectionist/sort-imports': [
         'error',
         {
@@ -66,6 +57,15 @@ export default defineConfig(
             ['value-parent', 'value-sibling', 'value-index'],
           ],
         },
+      ],
+      'perfectionist/sort-named-imports': [
+        'error',
+        {groups: ['value-import', 'type-import']},
+      ],
+      'perfectionist/sort-exports': 'error',
+      'perfectionist/sort-named-exports': [
+        'error',
+        {groups: ['value-export', 'type-export']},
       ],
     },
   },

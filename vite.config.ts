@@ -15,13 +15,13 @@ export default defineConfig(({mode}) => {
 
   if (mode === 'client') {
     return {
-      css,
       publicDir: false,
       resolve: {
         alias: {
           '@': import.meta.dirname,
         },
       },
+      css,
       build: {
         rollupOptions: {
           input: [
@@ -38,13 +38,24 @@ export default defineConfig(({mode}) => {
       },
     };
   }
+
   return {
-    css,
+    plugins: [
+      honox({
+        devServer: {
+          adapter,
+        },
+      }),
+      build({
+        staticRoot: './dist',
+      }),
+    ],
     resolve: {
       alias: {
         '@': import.meta.dirname,
       },
     },
+    css,
     ssr: {
       external: [
         'react',
@@ -59,15 +70,5 @@ export default defineConfig(({mode}) => {
     build: {
       copyPublicDir: false,
     },
-    plugins: [
-      honox({
-        devServer: {
-          adapter,
-        },
-      }),
-      build({
-        staticRoot: './dist',
-      }),
-    ],
   };
 });

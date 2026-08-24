@@ -9,9 +9,13 @@ export function metricHref(
   flags: Flags = {},
   defaults: Flags = {},
 ) {
-  const path = joinPath('metric', metricSlug(metricName));
   const query = flagsToSearchParams(flags, defaults);
-  return query.size > 0 ? `${path}?${query}` : path;
+
+  let path = joinPath('metric', metricSlug(metricName));
+  if (query.size > 0) {
+    path = `${path}?${query}`;
+  }
+  return path;
 }
 
 export function metricSlug(metricName: MetricName) {
