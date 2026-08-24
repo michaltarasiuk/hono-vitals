@@ -40,10 +40,6 @@ export default defineConfig(({mode}) => {
   }
   return {
     css,
-    // Avoid `publicDir: false`: Vite resolves that to "" and @hono/vite-build
-    // would scan the repo root for serveStatic paths. Copy is handled by
-    // `cp -r public dist/public` after build.
-    publicDir: 'public',
     resolve: {
       alias: {
         '@': import.meta.dirname,
