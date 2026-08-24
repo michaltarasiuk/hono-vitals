@@ -2,7 +2,7 @@ import {DelayedImage} from '@/app/components/metric/delayed-image';
 import {Spacer} from '@/app/components/metric/spacer';
 import {Text} from '@/app/components/ui/text';
 import {LCP_FLAGS_DEFAULTS, type LcpFlags} from '@/lib/metric/flags/defaults';
-import {createMetricRoute} from '@/lib/metric/metric-route';
+import {createMetricRoute} from '@/lib/metric/route';
 
 export default createMetricRoute({
   metricName: 'LCP',

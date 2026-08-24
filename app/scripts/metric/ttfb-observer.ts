@@ -1,10 +1,10 @@
 import {reportMetric} from '@/lib/collect/report';
 import {TTFB_FLAGS_DEFAULTS} from '@/lib/metric/flags/defaults';
 import {parseFlagsFromSearch} from '@/lib/metric/flags/search-params';
-import {loadWebVitals} from '@/lib/metric/load-web-vitals';
-import {createMetricReporter} from '@/lib/metric/metric-reporter';
-import {observerOptions} from '@/lib/metric/observer-options';
-import {overrideResponseStart} from '@/lib/metric/override-response-start';
+import {loadWebVitals} from '@/lib/metric/observer/load-web-vitals';
+import {observerOptions} from '@/lib/metric/observer/options';
+import {overrideResponseStart} from '@/lib/metric/observer/override-response-start';
+import {createMetricReporter} from '@/lib/metric/report/reporter';
 
 const flags = parseFlagsFromSearch(TTFB_FLAGS_DEFAULTS);
 

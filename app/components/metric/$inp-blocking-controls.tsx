@@ -8,7 +8,7 @@ import {
   resetBlockingTimes,
   setBlockingTime,
   type InpBlockingEventName,
-} from '@/lib/metric/inp-blocking';
+} from '@/lib/metric/observer/blocking';
 
 import type {InpFlags} from '@/lib/metric/flags/defaults';
 

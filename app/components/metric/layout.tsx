@@ -4,8 +4,8 @@ import {Header} from '@/app/components/header';
 import {Text} from '@/app/components/ui/text';
 import {isDefined} from '@/lib/is-defined';
 import {metricHref} from '@/lib/metric/href';
-import {HIDDEN_STUB_SCRIPT} from '@/lib/metric/stub-hidden';
-import {WAS_DISCARDED_STUB_SCRIPT} from '@/lib/metric/stub-was-discarded';
+import {HIDDEN_STUB_SCRIPT} from '@/lib/metric/stubs/hidden';
+import {WAS_DISCARDED_STUB_SCRIPT} from '@/lib/metric/stubs/was-discarded';
 
 import type {Flags} from '@/lib/metric/flags/schema';
 import type {MetricName} from '@/lib/metric/schema';

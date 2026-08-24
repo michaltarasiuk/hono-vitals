@@ -1,8 +1,7 @@
 import {createContext, use} from 'react';
 
 import {isDefined} from '@/lib/is-defined';
-import {formatMetricRating} from '@/lib/metric/format-rating';
-import {formatMetricValue} from '@/lib/metric/format-value';
+import {formatMetricRating, formatMetricValue} from '@/lib/metric/format';
 import {metricHref} from '@/lib/metric/href';
 
 import type {MetricStats} from '@/lib/db/metrics';

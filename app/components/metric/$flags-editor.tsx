@@ -7,9 +7,9 @@ import {Field} from '@/app/components/ui/field';
 import {NumberField} from '@/app/components/ui/number-field';
 import {Switch} from '@/app/components/ui/switch';
 import {islandId} from '@/lib/island-id';
-import {formatFlagLabel} from '@/lib/metric/flags/format-flag-label';
-import {navigateWithFlags} from '@/lib/metric/flags/navigate-with-flags';
-import {sortFlagEntries} from '@/lib/metric/flags/sort-flag-entries';
+import {formatFlagLabel} from '@/lib/metric/flags/format-label';
+import {navigateWithFlags} from '@/lib/metric/flags/navigate';
+import {sortFlagEntries} from '@/lib/metric/flags/sort-entries';
 
 import type {Flags} from '@/lib/metric/flags/schema';
 

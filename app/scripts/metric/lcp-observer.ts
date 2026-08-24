@@ -1,10 +1,10 @@
 import {reportMetric} from '@/lib/collect/report';
 import {LCP_FLAGS_DEFAULTS} from '@/lib/metric/flags/defaults';
 import {parseFlagsFromSearch} from '@/lib/metric/flags/search-params';
-import {loadWebVitals} from '@/lib/metric/load-web-vitals';
-import {createMetricReporter} from '@/lib/metric/metric-reporter';
-import {observerOptions} from '@/lib/metric/observer-options';
-import {removeLcpElement} from '@/lib/metric/remove-lcp-element';
+import {loadWebVitals} from '@/lib/metric/observer/load-web-vitals';
+import {observerOptions} from '@/lib/metric/observer/options';
+import {removeLcpElement} from '@/lib/metric/observer/remove-lcp-element';
+import {createMetricReporter} from '@/lib/metric/report/reporter';
 
 const flags = parseFlagsFromSearch(LCP_FLAGS_DEFAULTS);
 

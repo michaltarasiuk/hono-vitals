@@ -1,7 +1,7 @@
 import {DelayedImage} from '@/app/components/metric/delayed-image';
 import {Text} from '@/app/components/ui/text';
 import {CLS_FLAGS_DEFAULTS, type ClsFlags} from '@/lib/metric/flags/defaults';
-import {createMetricRoute} from '@/lib/metric/metric-route';
+import {createMetricRoute} from '@/lib/metric/route';
 
 export default createMetricRoute({
   metricName: 'CLS',
