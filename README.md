@@ -11,10 +11,9 @@ A local playground for exercising [web-vitals](https://github.com/GoogleChrome/w
 ```bash
 mise install
 bun install
-cp .env.example .env
 ```
 
-`DUCKDB_PATH` defaults to `data/vitals.duckdb` in `.env.example`. The metrics table is created automatically on server boot (`CREATE TABLE IF NOT EXISTS`), so there is no separate migration step.
+Metrics land in `data/vitals.duckdb`. The table is created automatically on server boot (`CREATE TABLE IF NOT EXISTS`), so there is no separate migration step.
 
 ## Scripts
 

@@ -1,9 +1,12 @@
 import {mkdir} from 'node:fs/promises'
 import {dirname} from 'node:path'
+import {fileURLToPath} from 'node:url'
 
 import {waddler} from 'waddler/duckdb-neo'
 
-import {env} from '@/lib/env'
+const duckdbPath = fileURLToPath(
+  new URL('../../data/vitals.duckdb', import.meta.url),
+)
 
 export type Sql = ReturnType<typeof waddler>
 
@@ -15,6 +18,6 @@ export function getSql() {
 }
 
 async function init() {
-  await mkdir(dirname(env.DUCKDB_PATH), {recursive: true})
-  return waddler({url: env.DUCKDB_PATH})
+  await mkdir(dirname(duckdbPath), {recursive: true})
+  return waddler({url: duckdbPath})
 }
