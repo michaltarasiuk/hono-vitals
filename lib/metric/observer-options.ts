@@ -18,9 +18,9 @@ export function observerOptions(
     reportAllChanges: flags[flagKey(instance, 'reportAllChanges')],
     durationThreshold: flags[flagKey(instance, 'durationThreshold')],
     includeProcessedEventEntries: flags.includeProcessedEventEntries,
-    generateTarget: flags[flagKey(instance, 'generateTarget')]
-      ? generateTarget
-      : undefined,
+    ...(flags[flagKey(instance, 'generateTarget')] && {
+      generateTarget,
+    }),
   };
 }
 
