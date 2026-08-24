@@ -1,5 +1,3 @@
-import {toInlineScript} from '@/lib/to-inline-script';
-
 function applyHiddenVisibilityStub() {
   Object.defineProperty(document, 'visibilityState', {
     value: 'hidden',
@@ -46,4 +44,4 @@ function applyHiddenVisibilityStub() {
   document.addEventListener('visibilitychange', onVisibilityChange, true);
 }
 
-export const HIDDEN_STUB_SCRIPT = toInlineScript(applyHiddenVisibilityStub);
+export const HIDDEN_STUB_SCRIPT = `(${applyHiddenVisibilityStub.toString()})();`;

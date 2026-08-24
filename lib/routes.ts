@@ -10,5 +10,5 @@ export const ROUTES = [
 export type Route = (typeof ROUTES)[number];
 
 export function getActiveRoute(path: string) {
-  return ROUTES.find(({href}) => href === path) ?? ROUTES[0];
+  return ROUTES.find((r) => r.href === path) ?? ROUTES[0];
 }
