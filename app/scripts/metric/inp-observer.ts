@@ -3,7 +3,7 @@ import {INP_FLAGS_DEFAULTS} from '@/lib/metric/flags/defaults/inp';
 import {parseFlagsFromSearch} from '@/lib/metric/flags/search-params';
 import {loadWebVitals} from '@/lib/metric/load-web-vitals';
 import {createMetricReporter} from '@/lib/metric/metric-reporter';
-import {inpObserverOptions} from '@/lib/metric/observer-options';
+import {observerOptions} from '@/lib/metric/observer-options';
 
 const flags = parseFlagsFromSearch(INP_FLAGS_DEFAULTS);
 
@@ -21,7 +21,7 @@ onINP(
       metric,
       instance: 1,
     }),
-  inpObserverOptions(flags, 1),
+  observerOptions(flags, 1),
 );
 
 if (flags.secondObserver) {
@@ -31,6 +31,6 @@ if (flags.secondObserver) {
         metric,
         instance: 2,
       }),
-    inpObserverOptions(flags, 2),
+    observerOptions(flags, 2),
   );
 }

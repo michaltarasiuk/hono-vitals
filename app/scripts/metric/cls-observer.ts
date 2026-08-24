@@ -3,7 +3,7 @@ import {CLS_FLAGS_DEFAULTS} from '@/lib/metric/flags/defaults/cls';
 import {parseFlagsFromSearch} from '@/lib/metric/flags/search-params';
 import {loadWebVitals} from '@/lib/metric/load-web-vitals';
 import {createMetricReporter} from '@/lib/metric/metric-reporter';
-import {clsObserverOptions} from '@/lib/metric/observer-options';
+import {observerOptions} from '@/lib/metric/observer-options';
 
 const flags = parseFlagsFromSearch(CLS_FLAGS_DEFAULTS);
 
@@ -21,7 +21,7 @@ onCLS(
       metric,
       instance: 1,
     }),
-  clsObserverOptions(flags, 1),
+  observerOptions(flags, 1),
 );
 
 if (flags.secondObserver) {
@@ -31,6 +31,6 @@ if (flags.secondObserver) {
         metric,
         instance: 2,
       }),
-    clsObserverOptions(flags, 2),
+    observerOptions(flags, 2),
   );
 }

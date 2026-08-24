@@ -3,7 +3,7 @@ import {FCP_FLAGS_DEFAULTS} from '@/lib/metric/flags/defaults/fcp';
 import {parseFlagsFromSearch} from '@/lib/metric/flags/search-params';
 import {loadWebVitals} from '@/lib/metric/load-web-vitals';
 import {createMetricReporter} from '@/lib/metric/metric-reporter';
-import {fcpObserverOptions} from '@/lib/metric/observer-options';
+import {observerOptions} from '@/lib/metric/observer-options';
 
 const flags = parseFlagsFromSearch(FCP_FLAGS_DEFAULTS);
 
@@ -21,7 +21,7 @@ onFCP(
       metric,
       instance: 1,
     }),
-  fcpObserverOptions(flags, 1),
+  observerOptions(flags, 1),
 );
 
 if (flags.secondObserver) {
@@ -31,6 +31,6 @@ if (flags.secondObserver) {
         metric,
         instance: 2,
       }),
-    fcpObserverOptions(flags, 2),
+    observerOptions(flags, 2),
   );
 }
