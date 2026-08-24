@@ -5,7 +5,7 @@ import {HTTPException} from 'hono/http-exception';
 import {CollectBodySchema} from '@/lib/collect/body';
 import {deleteMetrics, insertMetrics} from '@/lib/db/metrics';
 
-async function run(message: string, action: () => Promise<void>) {
+async function run(action: () => Promise<void>, message: string) {
   try {
     await action();
   } catch (cause) {
@@ -22,12 +22,12 @@ const collectRoutes = new Hono()
   .post('/', zValidator('json', CollectBodySchema), async (c) => {
     const {metrics} = c.req.valid('json');
 
-    await run('Failed to collect metrics', () => insertMetrics(metrics));
+    await run(() => insertMetrics(metrics), 'Failed to collect metrics');
 
     return c.body(null, 204);
   })
   .delete('/', async (c) => {
-    await run('Failed to clear metrics', () => deleteMetrics());
+    await run(() => deleteMetrics(), 'Failed to clear metrics');
 
     return c.body(null, 204);
   });
