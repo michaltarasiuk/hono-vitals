@@ -1,10 +1,6 @@
-import {
-  METRIC_NAMES,
-  type Metric,
-  type MetricName,
-} from '@/lib/collect/metric-schema';
 import {getSql} from '@/lib/db/client';
 import {TABLES} from '@/lib/db/schema';
+import {METRIC_NAMES, type Metric, type MetricName} from '@/lib/metric/schema';
 
 export interface MetricSummary {
   name: MetricName;
