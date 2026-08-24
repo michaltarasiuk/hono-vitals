@@ -22,9 +22,9 @@ const report = createMetricReporter(flags.batchReporting);
 
 function registerLCP() {
   onLCP(
-    (metric) =>
+    (m) =>
       report({
-        metric,
+        metric: m,
         instance: 1,
       }),
     observerOptions(flags, 1),
@@ -45,9 +45,9 @@ if (flags.registerOnVisibilityChange) {
 
 if (flags.secondObserver) {
   onLCP(
-    (metric) =>
+    (m) =>
       reportMetric({
-        metric,
+        metric: m,
         instance: 2,
       }),
     observerOptions(flags, 2),

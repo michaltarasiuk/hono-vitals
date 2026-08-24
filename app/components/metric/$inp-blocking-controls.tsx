@@ -14,15 +14,12 @@ import type {InpFlags} from '@/lib/metric/flags/defaults/inp';
 
 function initialBlockingTimes(flags: InpFlags) {
   return Object.fromEntries(
-    INP_BLOCKING_EVENT_NAMES.map((name) => [
-      name,
-      flags[`${name}BlockingTime`],
-    ]),
+    INP_BLOCKING_EVENT_NAMES.map((en) => [en, flags[`${en}BlockingTime`]]),
   ) as Record<InpBlockingEventName, number>;
 }
 
-function blockingTimeFieldId(eventName: InpBlockingEventName) {
-  return islandId(`inp-${eventName}-blocking-time`);
+function blockingTimeFieldId(en: InpBlockingEventName) {
+  return islandId(`inp-${en}-blocking-time`);
 }
 
 export function InpBlockingControls({flags}: {flags: InpFlags}) {
@@ -31,8 +28,8 @@ export function InpBlockingControls({flags}: {flags: InpFlags}) {
   );
 
   useEffect(() => {
-    for (const eventName of INP_BLOCKING_EVENT_NAMES) {
-      setBlockingTime(eventName, blockingTimes[eventName]);
+    for (const en of INP_BLOCKING_EVENT_NAMES) {
+      setBlockingTime(en, blockingTimes[en]);
     }
 
     return () => {
@@ -43,38 +40,38 @@ export function InpBlockingControls({flags}: {flags: InpFlags}) {
   function handleReset() {
     setBlockingTimes(
       Object.fromEntries(
-        INP_BLOCKING_EVENT_NAMES.map((eventName) => [eventName, 0]),
+        INP_BLOCKING_EVENT_NAMES.map((en) => [en, 0]),
       ) as Record<InpBlockingEventName, number>,
     );
   }
 
   return (
     <form
-      onSubmit={(event) => {
-        event.preventDefault();
+      onSubmit={(e) => {
+        e.preventDefault();
       }}
     >
-      {INP_BLOCKING_EVENT_NAMES.map((eventName) => {
-        const inputId = blockingTimeFieldId(eventName);
+      {INP_BLOCKING_EVENT_NAMES.map((en) => {
+        const inputId = blockingTimeFieldId(en);
 
         // Avoid Field.Root/Label: Base UI's LabelableProvider uses useId() for
         // control ids, which mismatch across Honox SSR vs island hydration.
         // Use islandId() + plain label instead (same Field/Label styles).
         return (
-          <div key={eventName} className="Field">
+          <div key={en} className="Field">
             <label htmlFor={inputId} className="Label">
-              {eventName} blocking time
+              {en} blocking time
             </label>
             <NumberField.Root
               id={inputId}
-              name={`${eventName}-blocking-time`}
-              value={blockingTimes[eventName]}
+              name={`${en}-blocking-time`}
+              value={blockingTimes[en]}
               min={0}
               step={1}
-              onValueChange={(next) => {
+              onValueChange={(v) => {
                 setBlockingTimes((bt) => ({
                   ...bt,
-                  [eventName]: next ?? 0,
+                  [en]: v ?? 0,
                 }));
               }}
             >

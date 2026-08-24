@@ -6,7 +6,6 @@ function typeRank(value: unknown) {
 
 export function sortFlagEntries(flags: Flags) {
   return Object.entries(flags).sort(
-    ([keyA, a], [keyB, b]) =>
-      typeRank(a) - typeRank(b) || keyA.localeCompare(keyB),
+    ([ka, a], [kb, b]) => typeRank(a) - typeRank(b) || ka.localeCompare(kb),
   );
 }

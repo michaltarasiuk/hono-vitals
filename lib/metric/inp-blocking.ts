@@ -12,8 +12,8 @@ export type InpBlockingEventName = (typeof INP_BLOCKING_EVENT_NAMES)[number];
 
 const blockingTimes = new Map<InpBlockingEventName, number>();
 
-function block(event: Event) {
-  const ms = blockingTimes.get(event.type as InpBlockingEventName) ?? 0;
+function block(e: Event) {
+  const ms = blockingTimes.get(e.type as InpBlockingEventName) ?? 0;
   if (ms <= 0) {
     return;
   }
@@ -25,18 +25,18 @@ export function setBlockingTime(
   eventName: InpBlockingEventName,
   value: number,
 ) {
-  const previous = blockingTimes.get(eventName) ?? 0;
+  const bt = blockingTimes.get(eventName) ?? 0;
   blockingTimes.set(eventName, value);
 
-  if (value > 0 && previous <= 0) {
+  if (value > 0 && bt <= 0) {
     addEventListener(eventName, block, true);
-  } else if (value <= 0 && previous > 0) {
+  } else if (value <= 0 && bt > 0) {
     removeEventListener(eventName, block, true);
   }
 }
 
 export function resetBlockingTimes() {
-  for (const eventName of INP_BLOCKING_EVENT_NAMES) {
-    setBlockingTime(eventName, 0);
+  for (const en of INP_BLOCKING_EVENT_NAMES) {
+    setBlockingTime(en, 0);
   }
 }

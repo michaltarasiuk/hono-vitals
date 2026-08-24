@@ -45,18 +45,18 @@ export async function migrate() {
   const applied = await sql<{version: number}>`
     SELECT version FROM ${migrationsTable} ORDER BY version
   `;
-  const appliedVersions = new Set(applied.map((row) => row.version));
+  const appliedVersions = new Set(applied.map((a) => a.version));
 
-  for (const migration of MIGRATIONS) {
-    if (appliedVersions.has(migration.version)) {
+  for (const m of MIGRATIONS) {
+    if (appliedVersions.has(m.version)) {
       continue;
     }
 
-    await migration.up(sql);
+    await m.up(sql);
 
     await sql`
       INSERT INTO ${migrationsTable} (version)
-      VALUES (${migration.version})
+      VALUES (${m.version})
     `;
   }
 }

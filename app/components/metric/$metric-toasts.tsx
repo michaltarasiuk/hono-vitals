@@ -22,11 +22,11 @@ function MetricToastBridge() {
   const {add} = Toast.useToastManager();
 
   useEffect(() => {
-    return subscribeMetricToasts((metric) => {
+    return subscribeMetricToasts((m) => {
       add({
-        id: metric.id,
-        title: `${metric.name} ${formatMetricValue(metric.name, metric.value)}`,
-        description: formatMetricRating(metric.rating),
+        id: m.id,
+        title: `${m.name} ${formatMetricValue(m.name, m.value)}`,
+        description: formatMetricRating(m.rating),
       });
     });
   }, [add]);

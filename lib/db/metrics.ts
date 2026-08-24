@@ -29,17 +29,17 @@ export async function getMetricStats() {
     ORDER BY name
   `;
 
-  const byName = new Map(rows.map((row) => [row.name, row]));
+  const byName = new Map(rows.map((r) => [r.name, r]));
 
-  return METRIC_NAMES.map((name) => ({
-    name,
+  return METRIC_NAMES.map((mn) => ({
+    name: mn,
     count: 0,
     avg: 0,
     p75: 0,
     good: 0,
     needsImprovement: 0,
     poor: 0,
-    ...byName.get(name),
+    ...byName.get(mn),
   }));
 }
 

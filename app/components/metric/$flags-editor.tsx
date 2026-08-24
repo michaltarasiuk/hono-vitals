@@ -24,9 +24,9 @@ export function FlagsEditor({flags, defaults}: FlagsEditorProps) {
   const [open, setOpen] = useState(false);
   const [draft, setDraft] = useState(flags);
 
-  function handleOpenChange(nextOpen: boolean) {
-    setOpen(nextOpen);
-    if (nextOpen) {
+  function handleOpenChange(o: boolean) {
+    setOpen(o);
+    if (o) {
       setDraft(flags);
     }
   }
@@ -50,38 +50,38 @@ export function FlagsEditor({flags, defaults}: FlagsEditorProps) {
             </Dialog.Description>
           </Dialog.Header>
           <Dialog.Body>
-            {sortFlagEntries(draft).map(([key, value]) => {
-              switch (typeof value) {
+            {sortFlagEntries(draft).map(([k, v]) => {
+              switch (typeof v) {
                 case 'boolean':
                   return (
-                    <Field.Root key={key} name={key}>
+                    <Field.Root key={k} name={k}>
                       <Field.Label>
                         <Switch
-                          checked={value}
-                          onCheckedChange={(checked) => {
+                          checked={v}
+                          onCheckedChange={(c) => {
                             setDraft((d) => ({
                               ...d,
-                              [key]: checked,
+                              [k]: c,
                             }));
                           }}
                         />
-                        {formatFlagLabel(key)}
+                        {formatFlagLabel(k)}
                       </Field.Label>
                     </Field.Root>
                   );
                 case 'number':
                   return (
-                    <Field.Root key={key} name={key}>
-                      <Field.Label>{formatFlagLabel(key)}</Field.Label>
+                    <Field.Root key={k} name={k}>
+                      <Field.Label>{formatFlagLabel(k)}</Field.Label>
                       <NumberField.Root
-                        name={key}
-                        value={value}
+                        name={k}
+                        value={v}
                         min={0}
                         step={1}
-                        onValueChange={(next) => {
+                        onValueChange={(n) => {
                           setDraft((d) => ({
                             ...d,
-                            [key]: next ?? 0,
+                            [k]: n ?? 0,
                           }));
                         }}
                       >
@@ -94,7 +94,7 @@ export function FlagsEditor({flags, defaults}: FlagsEditorProps) {
                     </Field.Root>
                   );
                 default:
-                  return value satisfies never;
+                  return v satisfies never;
               }
             })}
           </Dialog.Body>

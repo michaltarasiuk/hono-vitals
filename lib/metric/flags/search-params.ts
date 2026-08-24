@@ -13,8 +13,8 @@ export function parseFlagsFromSearch<T extends Flags>(
 export function flagsToSearchParams(flags: Flags, defaults: Flags = {}) {
   return new URLSearchParams(
     Object.entries(flags)
-      .filter(([key, value]) => isNonDefault(value, defaults[key]))
-      .map(([key, value]) => [key, String(value)]),
+      .filter(([k, v]) => isNonDefault(v, defaults[k]))
+      .map(([k, v]) => [k, String(v)]),
   );
 }
 

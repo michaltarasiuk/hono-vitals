@@ -23,8 +23,8 @@ export default createRoute(async (c) => {
           <Heading>Metrics</Heading>
           <Metrics.Total stats={stats} />
           <Metrics.Grid>
-            {stats.map((metric) => (
-              <MetricStatsCard key={metric.name} stats={metric} />
+            {stats.map((s) => (
+              <MetricStatsCard key={s.name} stats={s} />
             ))}
           </Metrics.Grid>
         </Metrics.Section>

@@ -106,8 +106,8 @@ function Action({
 function List() {
   const {toasts} = BaseToast.useToastManager();
 
-  return toasts.map((toast) => (
-    <Root key={toast.id} toast={toast}>
+  return toasts.map((t) => (
+    <Root key={t.id} toast={t}>
       <Content>
         <div className="ToastText">
           <Title />

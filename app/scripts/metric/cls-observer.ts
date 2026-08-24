@@ -16,9 +16,9 @@ const {onCLS} = await loadWebVitals({
 const report = createMetricReporter(flags.batchReporting);
 
 onCLS(
-  (metric) =>
+  (m) =>
     report({
-      metric,
+      metric: m,
       instance: 1,
     }),
   observerOptions(flags, 1),
@@ -26,9 +26,9 @@ onCLS(
 
 if (flags.secondObserver) {
   onCLS(
-    (metric) =>
+    (m) =>
       reportMetric({
-        metric,
+        metric: m,
         instance: 2,
       }),
     observerOptions(flags, 2),

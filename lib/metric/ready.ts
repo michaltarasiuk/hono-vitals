@@ -26,10 +26,10 @@ export function afterElementsRendered() {
         return;
       }
 
-      new PerformanceObserver((list) => {
-        for (const entry of list.getEntries()) {
-          if ('element' in entry && entry.element instanceof Element) {
-            nodes.delete(entry.element);
+      new PerformanceObserver((l) => {
+        for (const e of l.getEntries()) {
+          if ('element' in e && e.element instanceof Element) {
+            nodes.delete(e.element);
           }
         }
         if (nodes.size === 0) {

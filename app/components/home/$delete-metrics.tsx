@@ -21,8 +21,8 @@ export function DeleteMetrics() {
       try {
         await parseResponse(collectClient.index.$delete());
         location.reload();
-      } catch (error) {
-        console.error('Failed to clear metrics', error);
+      } catch (e) {
+        console.error('Failed to clear metrics', e);
       }
     });
   }

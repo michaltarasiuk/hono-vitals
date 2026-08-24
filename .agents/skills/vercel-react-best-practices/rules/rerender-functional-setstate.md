@@ -34,6 +34,8 @@ function TodoList() {
 
 The first callback is recreated every time `items` changes, which can cause child components to re-render unnecessarily. The second callback has a stale closure bug—it will always reference the initial `items` value.
 
+Name the callback argument by the first letters of the corresponding variable, not `prev`/`curr`/`next`. This applies to state updaters and to other previous-value or collection callbacks (for example `setItems((i) => …)`, `setFriendCount((fc) => …)`, `rows.map((r) => …)`). See [React naming conventions](https://react.dev/learn/queueing-a-series-of-state-updates#naming-conventions).
+
 **Correct (stable callbacks, no stale closures):**
 
 ```tsx
@@ -42,12 +44,12 @@ function TodoList() {
 
   // Stable callback, never recreated
   const addItems = useCallback((newItems: Item[]) => {
-    setItems((curr) => [...curr, ...newItems]);
+    setItems((i) => [...i, ...newItems]);
   }, []); // ✅ No dependencies needed
 
   // Always uses latest state, no stale closure risk
   const removeItem = useCallback((id: string) => {
-    setItems((curr) => curr.filter((item) => item.id !== id));
+    setItems((i) => i.filter((item) => item.id !== id));
   }, []); // ✅ Safe and stable
 
   return <ItemsEditor items={items} onAdd={addItems} onRemove={removeItem} />;

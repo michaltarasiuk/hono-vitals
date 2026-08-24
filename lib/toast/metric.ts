@@ -6,9 +6,9 @@ export function toastMetric(metric: Metric) {
   dispatchEvent(new CustomEvent<Metric>(METRIC_TOAST_EVENT, {detail: metric}));
 }
 
-export function subscribeMetricToasts(onMetric: (metric: Metric) => void) {
-  function handleMetricToast(event: Event) {
-    onMetric((event as CustomEvent<Metric>).detail);
+export function subscribeMetricToasts(onMetric: (m: Metric) => void) {
+  function handleMetricToast(e: Event) {
+    onMetric((e as CustomEvent<Metric>).detail);
   }
 
   addEventListener(METRIC_TOAST_EVENT, handleMetricToast);

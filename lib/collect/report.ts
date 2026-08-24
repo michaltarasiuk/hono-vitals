@@ -19,9 +19,9 @@ export function reportMetrics(reported: ReportedMetric[]) {
     return;
   }
 
-  for (const item of reported) {
-    logMetric(item);
-    toastMetric(item.metric);
+  for (const r of reported) {
+    logMetric(r);
+    toastMetric(r.metric);
   }
 
   sendCollect(toCollectMetrics(reported));

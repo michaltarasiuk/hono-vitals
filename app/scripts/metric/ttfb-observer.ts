@@ -21,9 +21,9 @@ const {onTTFB} = await loadWebVitals({
 const report = createMetricReporter(flags.batchReporting);
 
 onTTFB(
-  (metric) =>
+  (m) =>
     report({
-      metric,
+      metric: m,
       instance: 1,
     }),
   observerOptions(flags, 1),
@@ -31,9 +31,9 @@ onTTFB(
 
 if (flags.secondObserver) {
   onTTFB(
-    (metric) =>
+    (m) =>
       reportMetric({
-        metric,
+        metric: m,
         instance: 2,
       }),
     observerOptions(flags, 2),

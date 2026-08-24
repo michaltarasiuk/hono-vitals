@@ -8,10 +8,10 @@ function applyHiddenVisibilityStub() {
 
   const getEntriesByType = performance.getEntriesByType.bind(performance);
 
-  performance.getEntriesByType = (type: string) => {
-    const entries = [...getEntriesByType(type)];
+  performance.getEntriesByType = (t: string) => {
+    const entries = [...getEntriesByType(t)];
 
-    if (type !== 'visibility-state') {
+    if (t !== 'visibility-state') {
       return entries;
     }
 
@@ -37,8 +37,8 @@ function applyHiddenVisibilityStub() {
     document.removeEventListener('visibilitychange', onVisibilityChange, true);
   }
 
-  function onVisibilityChange(event: Event) {
-    if (event.isTrusted) {
+  function onVisibilityChange(e: Event) {
+    if (e.isTrusted) {
       restore();
     }
   }

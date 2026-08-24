@@ -16,9 +16,9 @@ const {onFCP} = await loadWebVitals({
 const report = createMetricReporter(flags.batchReporting);
 
 onFCP(
-  (metric) =>
+  (m) =>
     report({
-      metric,
+      metric: m,
       instance: 1,
     }),
   observerOptions(flags, 1),
@@ -26,9 +26,9 @@ onFCP(
 
 if (flags.secondObserver) {
   onFCP(
-    (metric) =>
+    (m) =>
       reportMetric({
-        metric,
+        metric: m,
         instance: 2,
       }),
     observerOptions(flags, 2),

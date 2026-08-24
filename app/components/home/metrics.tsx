@@ -7,7 +7,7 @@ function Section({children}: {children: React.ReactNode}) {
 }
 
 function Total({stats}: {stats: MetricStats[]}) {
-  const total = stats.reduce((acc, metric) => acc + metric.count, 0);
+  const total = stats.reduce((t, s) => t + s.count, 0);
 
   return <Text>{total.toLocaleString()} samples collected.</Text>;
 }

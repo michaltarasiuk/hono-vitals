@@ -16,9 +16,9 @@ const {onINP} = await loadWebVitals({
 const report = createMetricReporter(flags.batchReporting);
 
 onINP(
-  (metric) =>
+  (m) =>
     report({
-      metric,
+      metric: m,
       instance: 1,
     }),
   observerOptions(flags, 1),
@@ -26,9 +26,9 @@ onINP(
 
 if (flags.secondObserver) {
   onINP(
-    (metric) =>
+    (m) =>
       reportMetric({
-        metric,
+        metric: m,
         instance: 2,
       }),
     observerOptions(flags, 2),

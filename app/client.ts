@@ -3,10 +3,10 @@ import {createElement} from 'react';
 import {hydrateRoot} from 'react-dom/client';
 
 void createClient<React.ReactElement>({
-  createElement: (type, props) => {
-    return createElement(type, props);
+  createElement: (t, p) => {
+    return createElement(t, p);
   },
-  hydrate: (elem, root) => {
-    hydrateRoot(root, elem);
+  hydrate: (e, r) => {
+    hydrateRoot(r, e);
   },
 });

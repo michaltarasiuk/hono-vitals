@@ -21,11 +21,9 @@ export type ParsedFlags<T extends Flags> = {
 
 export function flagsSchema<T extends Flags>(defaults: T) {
   const shape = Object.fromEntries(
-    Object.entries(defaults).map(([key, value]) => [
-      key,
-      typeof value === 'boolean'
-        ? queryBooleanDefault(value)
-        : queryNumberDefault(value),
+    Object.entries(defaults).map(([k, v]) => [
+      k,
+      typeof v === 'boolean' ? queryBooleanDefault(v) : queryNumberDefault(v),
     ]),
   );
 

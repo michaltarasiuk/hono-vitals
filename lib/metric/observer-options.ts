@@ -31,8 +31,8 @@ function flagKey<K extends InstanceFlag>(
   return instance === 1 ? flag : `${flag}2`;
 }
 
-function generateTarget(node: Node | null) {
-  if (node instanceof HTMLElement) {
-    return node.dataset.target;
+function generateTarget(n: Node | null) {
+  if (n instanceof HTMLElement) {
+    return n.dataset.target;
   }
 }
