@@ -35,15 +35,15 @@ export function DeleteMetrics() {
         render={<Button />}
       >
         <Header.Label
-          full={isPending ? 'Clearing samples' : 'Clear samples'}
-          short={isPending ? 'Clearing' : 'Clear'}
+          full={isPending ? 'Deleting samples' : 'Delete samples'}
+          short={isPending ? 'Deleting' : 'Delete'}
         />
       </AlertDialog.Trigger>
       <AlertDialog.Portal>
         <AlertDialog.Backdrop />
         <AlertDialog.Popup>
           <AlertDialog.Header>
-            <AlertDialog.Title>Clear samples?</AlertDialog.Title>
+            <AlertDialog.Title>Delete samples?</AlertDialog.Title>
             <AlertDialog.Description>
               Deletes all stored samples from the database. This can’t be
               undone.
@@ -58,7 +58,7 @@ export function DeleteMetrics() {
               disabled={isPending}
               onClick={handleClear}
             >
-              {isPending ? 'Clearing' : 'Clear'}
+              {isPending ? 'Deleting' : 'Delete'}
             </AlertDialog.Close>
           </AlertDialog.Actions>
         </AlertDialog.Popup>
