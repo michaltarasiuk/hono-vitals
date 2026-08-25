@@ -1,9 +1,9 @@
-import {reportMetric} from '@/lib/collect/report';
+import {sendMetric} from '@/lib/collect/send-metrics';
 import {INP_FLAGS_DEFAULTS} from '@/lib/metric/flags/defaults';
 import {parseFlagsFromSearch} from '@/lib/metric/flags/search-params';
 import {loadWebVitals} from '@/lib/metric/observer/load-web-vitals';
 import {observerOptions} from '@/lib/metric/observer/options';
-import {createMetricReporter} from '@/lib/metric/report/reporter';
+import {createMetricReporter} from '@/lib/metric/reporter/reporter';
 
 const flags = parseFlagsFromSearch(INP_FLAGS_DEFAULTS);
 
@@ -27,7 +27,7 @@ onINP(
 if (flags.secondObserver) {
   onINP(
     (m) =>
-      reportMetric({
+      sendMetric({
         metric: m,
         instance: 2,
       }),

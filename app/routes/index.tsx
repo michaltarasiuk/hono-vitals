@@ -1,9 +1,9 @@
 import {createRoute} from 'honox/factory';
 
-import {Header} from '@/app/components/header';
 import {DeleteMetrics} from '@/app/components/home/$delete-metrics';
-import {MetricStatsCard} from '@/app/components/home/metric-card';
+import {MetricStatsCard} from '@/app/components/home/metric-stats-card';
 import {Metrics} from '@/app/components/home/metrics';
+import {Header} from '@/app/components/layout/header';
 import {Heading} from '@/app/components/ui/heading';
 import {getMetricStats} from '@/lib/db/metrics';
 

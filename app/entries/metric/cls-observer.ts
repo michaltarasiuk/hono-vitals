@@ -1,18 +1,13 @@
-import {reportMetric} from '@/lib/collect/report';
-import {TTFB_FLAGS_DEFAULTS} from '@/lib/metric/flags/defaults';
+import {sendMetric} from '@/lib/collect/send-metrics';
+import {CLS_FLAGS_DEFAULTS} from '@/lib/metric/flags/defaults';
 import {parseFlagsFromSearch} from '@/lib/metric/flags/search-params';
 import {loadWebVitals} from '@/lib/metric/observer/load-web-vitals';
 import {observerOptions} from '@/lib/metric/observer/options';
-import {overrideResponseStart} from '@/lib/metric/observer/override-response-start';
-import {createMetricReporter} from '@/lib/metric/report/reporter';
+import {createMetricReporter} from '@/lib/metric/reporter/reporter';
 
-const flags = parseFlagsFromSearch(TTFB_FLAGS_DEFAULTS);
+const flags = parseFlagsFromSearch(CLS_FLAGS_DEFAULTS);
 
-if (flags.responseStart) {
-  overrideResponseStart(flags.responseStart);
-}
-
-const {onTTFB} = await loadWebVitals({
+const {onCLS} = await loadWebVitals({
   attribution: flags.attribution,
   deferLibraryLoad: flags.deferLibraryLoad,
   loadAfterInput: flags.loadAfterInput,
@@ -20,7 +15,7 @@ const {onTTFB} = await loadWebVitals({
 
 const report = createMetricReporter(flags.batchReporting);
 
-onTTFB(
+onCLS(
   (m) =>
     report({
       metric: m,
@@ -30,9 +25,9 @@ onTTFB(
 );
 
 if (flags.secondObserver) {
-  onTTFB(
+  onCLS(
     (m) =>
-      reportMetric({
+      sendMetric({
         metric: m,
         instance: 2,
       }),

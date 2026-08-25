@@ -3,7 +3,7 @@
 @import '../components/header.css';
 @import '../components/nav.css';
 @import '../components/home/metrics.css';
-@import '../components/home/metric-card.css';
+@import '../components/home/metric-stats-card.css';
 @import '../components/metric/layout.css';
 @import '../components/ui/button.css';
 @import '../components/ui/dialog.css';

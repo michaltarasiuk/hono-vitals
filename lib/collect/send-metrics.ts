@@ -1,26 +1,26 @@
 import {COLLECT_PATH, collectClient} from '@/lib/collect/client';
-import {toastMetric} from '@/lib/toast/metric';
+import {toastMetric} from '@/lib/metric/toast';
 
 import type {CollectBody} from '@/lib/collect/body';
 import type {ObserverInstance} from '@/lib/metric/observer/options';
 import type {Metric} from 'web-vitals';
 
-export interface ReportedMetric {
+export interface CollectedMetric {
   metric: Metric;
   instance: ObserverInstance;
 }
 
-export function reportMetric(reported: ReportedMetric) {
-  reportMetrics([reported]);
+export function sendMetric(collected: CollectedMetric) {
+  sendMetrics([collected]);
 }
 
-export function reportMetrics(reported: ReportedMetric[]) {
-  for (const r of reported) {
-    logMetric(r);
-    toastMetric(r.metric);
+export function sendMetrics(collected: CollectedMetric[]) {
+  for (const c of collected) {
+    logMetric(c);
+    toastMetric(c.metric);
   }
 
-  sendCollect(toCollectMetrics(reported));
+  sendCollect(toCollectMetrics(collected));
 }
 
 function sendCollect(metrics: CollectBody['metrics']) {
@@ -37,8 +37,10 @@ function sendCollect(metrics: CollectBody['metrics']) {
     .catch(() => {});
 }
 
-function toCollectMetrics(reported: ReportedMetric[]): CollectBody['metrics'] {
-  return reported.map(
+function toCollectMetrics(
+  collected: CollectedMetric[],
+): CollectBody['metrics'] {
+  return collected.map(
     ({metric: {id, name, value, delta, rating, navigationType}}) => ({
       id,
       name,
@@ -50,7 +52,7 @@ function toCollectMetrics(reported: ReportedMetric[]): CollectBody['metrics'] {
   );
 }
 
-function logMetric({metric, instance}: ReportedMetric) {
+function logMetric({metric, instance}: CollectedMetric) {
   const {name, id, value, delta, rating, navigationType, entries} = metric;
   console.log(`[web-vitals] ${name}`, {
     id,

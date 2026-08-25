@@ -1,6 +1,6 @@
 import {Toast as BaseToast} from '@base-ui/react/toast';
 
-import {cn} from '@/lib/cn';
+import {cn} from '@/lib/utils/cn';
 
 function Provider({
   children,

@@ -9,6 +9,6 @@ export const ROUTES = [
 
 export type Route = (typeof ROUTES)[number];
 
-export function getActiveRoute(path: string) {
+export function findActiveNavRoute(path: string) {
   return ROUTES.find((r) => r.href === path) ?? ROUTES[0];
 }

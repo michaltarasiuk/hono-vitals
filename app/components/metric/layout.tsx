@@ -1,11 +1,11 @@
 import {createContext, use} from 'react';
 
-import {Header} from '@/app/components/header';
+import {Header} from '@/app/components/layout/header';
 import {Text} from '@/app/components/ui/text';
-import {isDefined} from '@/lib/is-defined';
 import {metricHref} from '@/lib/metric/href';
-import {HIDDEN_STUB_SCRIPT} from '@/lib/metric/stubs/hidden';
+import {HIDDEN_STUB_SCRIPT} from '@/lib/metric/stubs/hidden-visibility';
 import {WAS_DISCARDED_STUB_SCRIPT} from '@/lib/metric/stubs/was-discarded';
+import {isDefined} from '@/lib/utils/is-defined';
 
 import type {Flags} from '@/lib/metric/flags/schema';
 import type {MetricName} from '@/lib/metric/schema';
@@ -72,15 +72,17 @@ function Content({children}: {children: React.ReactNode}) {
   return <div className="MetricContent">{children}</div>;
 }
 
-function numericFlag(value: unknown) {
+function coerceNonNegativeNumber(value: unknown) {
   return typeof value === 'number' ? value : 0;
 }
 
 function DelayedScripts() {
   const {flags} = useMetricLayout();
-  const renderBlocking = numericFlag(flags.renderBlocking);
-  const delayDomContentLoaded = numericFlag(flags.delayDomContentLoaded);
-  const delayLoad = numericFlag(flags.delayLoad);
+  const renderBlocking = coerceNonNegativeNumber(flags.renderBlocking);
+  const delayDomContentLoaded = coerceNonNegativeNumber(
+    flags.delayDomContentLoaded,
+  );
+  const delayLoad = coerceNonNegativeNumber(flags.delayLoad);
 
   return (
     <>

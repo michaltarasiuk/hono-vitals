@@ -1,6 +1,6 @@
 import {Drawer} from '@/app/components/ui/drawer';
-import {islandId} from '@/lib/island-id';
-import {getActiveRoute, ROUTES} from '@/lib/routes';
+import {findActiveNavRoute, ROUTES} from '@/lib/nav/routes';
+import {islandId} from '@/lib/utils/island-id';
 
 const NAV_MOBILE_TRIGGER_ID = islandId('nav-mobile-trigger');
 
@@ -9,7 +9,7 @@ interface NavProps {
 }
 
 export function Nav({currentPath}: NavProps) {
-  const activeRoute = getActiveRoute(currentPath);
+  const activeRoute = findActiveNavRoute(currentPath);
 
   return (
     <>

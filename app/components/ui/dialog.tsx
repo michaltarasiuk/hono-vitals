@@ -1,6 +1,6 @@
 import {Dialog as BaseDialog} from '@base-ui/react/dialog';
 
-import {cn} from '@/lib/cn';
+import {cn} from '@/lib/utils/cn';
 
 function Root({
   children,

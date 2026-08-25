@@ -1,6 +1,6 @@
 import {Field as BaseField} from '@base-ui/react/field';
 
-import {cn} from '@/lib/cn';
+import {cn} from '@/lib/utils/cn';
 
 function Root({
   children,

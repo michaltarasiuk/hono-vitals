@@ -1,9 +1,9 @@
-import {uppercaseFirst} from '@/lib/uppercase-first';
+import {capitalize} from '@/lib/utils/capitalize';
 
 import type {MetricName, MetricRating} from '@/lib/metric/schema';
 
 export function formatMetricRating(rating: MetricRating) {
-  return uppercaseFirst(rating.replaceAll('-', ' '));
+  return capitalize(rating.replaceAll('-', ' '));
 }
 
 export function formatMetricValue(name: MetricName, value: number) {

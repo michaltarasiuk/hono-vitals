@@ -3,8 +3,8 @@ import {serveStatic} from 'hono/bun';
 import {HTTPException} from 'hono/http-exception';
 import * as z from 'zod';
 
-import {delay} from '@/lib/delay';
-import {isDefined} from '@/lib/is-defined';
+import {delay} from '@/lib/utils/delay';
+import {isDefined} from '@/lib/utils/is-defined';
 
 const DelayQuerySchema = z.object({
   delay: z.coerce.number().optional(),

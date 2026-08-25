@@ -3,9 +3,9 @@ import {createRoute} from 'honox/factory';
 import {Script} from 'honox/server';
 
 import {Heading} from '@/app/components/ui/heading';
-import {joinPath} from '@/lib/join-path';
 import {flagsSchema} from '@/lib/metric/flags/schema';
 import {metricSlug} from '@/lib/metric/href';
+import {joinPath} from '@/lib/utils/join-path';
 
 import type {Flags, ParsedFlags} from '@/lib/metric/flags/schema';
 import type {MetricName} from '@/lib/metric/schema';
@@ -26,7 +26,7 @@ export function createMetricRoute<T extends Flags>({
     const flags = c.req.valid('query');
     const src = joinPath(
       'app',
-      'scripts',
+      'entries',
       'metric',
       metricSlug(metricName) + '-observer.ts',
     );

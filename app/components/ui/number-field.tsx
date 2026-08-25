@@ -1,6 +1,6 @@
 import {NumberField as BaseNumberField} from '@base-ui/react/number-field';
 
-import {cn} from '@/lib/cn';
+import {cn} from '@/lib/utils/cn';
 
 function Root({
   children,

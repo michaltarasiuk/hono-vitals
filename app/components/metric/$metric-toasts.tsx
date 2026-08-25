@@ -2,7 +2,7 @@ import {useEffect} from 'react';
 
 import {Toast} from '@/app/components/ui/toast';
 import {formatMetricRating, formatMetricValue} from '@/lib/metric/format';
-import {subscribeMetricToasts} from '@/lib/toast/metric';
+import {subscribeMetricToasts} from '@/lib/metric/toast';
 
 export function MetricToasts() {
   return (

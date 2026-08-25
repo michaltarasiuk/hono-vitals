@@ -1,9 +1,9 @@
-import {fileURLToPath} from 'node:url';
+import {join} from 'node:path';
 
 import {waddler} from 'waddler/duckdb-neo';
 
-const url = fileURLToPath(new URL('../../data/vitals.duckdb', import.meta.url));
+const url = join(process.cwd(), 'data/vitals.duckdb');
 
-export const sql = waddler({url});
+export const db = waddler({url});
 
-export type Sql = typeof sql;
+export type Db = typeof db;

@@ -1,4 +1,4 @@
-import {sql} from '@/lib/db/client';
+import {db} from '@/lib/db/client';
 import {TABLES} from '@/lib/db/schema';
 import {METRIC_NAMES, type Metric, type MetricName} from '@/lib/metric/schema';
 
@@ -12,10 +12,10 @@ export interface MetricStats {
   poor: number;
 }
 
-const table = sql.identifier(TABLES.metrics);
+const table = db.identifier(TABLES.metrics);
 
 export async function getMetricStats() {
-  const rows = await sql<MetricStats>`
+  const rows = await db<MetricStats>`
     SELECT
       name,
       count(*)::DOUBLE AS count,
@@ -44,7 +44,7 @@ export async function getMetricStats() {
 }
 
 export async function insertMetrics(metrics: Metric[]) {
-  await sql`
+  await db`
     INSERT OR REPLACE INTO ${table} (
       metric_id,
       name,
@@ -53,7 +53,7 @@ export async function insertMetrics(metrics: Metric[]) {
       rating,
       navigation_type
     )
-    VALUES ${sql.values(
+    VALUES ${db.values(
       metrics.map(({id, name, value, delta, rating, navigationType}) => [
         id,
         name,
@@ -67,5 +67,5 @@ export async function insertMetrics(metrics: Metric[]) {
 }
 
 export async function deleteMetrics() {
-  await sql`DELETE FROM ${table}`;
+  await db`DELETE FROM ${table}`;
 }

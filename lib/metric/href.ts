@@ -1,5 +1,5 @@
-import {joinPath} from '@/lib/join-path';
 import {flagsToSearchParams} from '@/lib/metric/flags/search-params';
+import {joinPath} from '@/lib/utils/join-path';
 
 import type {Flags} from '@/lib/metric/flags/schema';
 import type {MetricName} from '@/lib/metric/schema';

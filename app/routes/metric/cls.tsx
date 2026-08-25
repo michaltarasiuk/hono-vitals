@@ -1,15 +1,15 @@
 import {DelayedImage} from '@/app/components/metric/delayed-image';
 import {Text} from '@/app/components/ui/text';
+import {createMetricRoute} from '@/lib/metric/create-route';
 import {CLS_FLAGS_DEFAULTS, type ClsFlags} from '@/lib/metric/flags/defaults';
-import {createMetricRoute} from '@/lib/metric/route';
 
 export default createMetricRoute({
   metricName: 'CLS',
   defaults: CLS_FLAGS_DEFAULTS,
-  Component: CLS,
+  Component: ClsPage,
 });
 
-function CLS({flags}: {flags: ClsFlags}) {
+function ClsPage({flags}: {flags: ClsFlags}) {
   if (flags.noLayoutShifts) {
     return <Text>This text does not shift.</Text>;
   }

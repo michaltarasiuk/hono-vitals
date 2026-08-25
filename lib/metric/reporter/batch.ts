@@ -1,10 +1,10 @@
-import {reportMetrics, type ReportedMetric} from '@/lib/collect/report';
+import {sendMetrics, type CollectedMetric} from '@/lib/collect/send-metrics';
 
 export function createBatchReporter() {
-  const queue = new Set<ReportedMetric>();
+  const queue = new Set<CollectedMetric>();
 
-  function enqueue(reported: ReportedMetric) {
-    queue.add(reported);
+  function enqueue(collected: CollectedMetric) {
+    queue.add(collected);
   }
 
   function flush() {
@@ -12,7 +12,7 @@ export function createBatchReporter() {
       return;
     }
 
-    reportMetrics([...queue]);
+    sendMetrics([...queue]);
     queue.clear();
   }
 

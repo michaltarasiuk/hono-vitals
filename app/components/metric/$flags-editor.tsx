@@ -1,15 +1,15 @@
 import {useState} from 'react';
 
-import {Header} from '@/app/components/header';
+import {Header} from '@/app/components/layout/header';
 import {Button} from '@/app/components/ui/button';
 import {Dialog} from '@/app/components/ui/dialog';
 import {Field} from '@/app/components/ui/field';
 import {NumberField} from '@/app/components/ui/number-field';
 import {Switch} from '@/app/components/ui/switch';
-import {islandId} from '@/lib/island-id';
 import {formatFlagLabel} from '@/lib/metric/flags/format-label';
 import {flagsToSearchParams} from '@/lib/metric/flags/search-params';
 import {sortFlagEntries} from '@/lib/metric/flags/sort-entries';
+import {islandId} from '@/lib/utils/island-id';
 
 import type {Flags} from '@/lib/metric/flags/schema';
 
@@ -33,7 +33,7 @@ export function FlagsEditor({flags, defaults}: FlagsEditorProps) {
 
   function handleSave() {
     const url = new URL(location.href);
-    url.search = flagsToSearchParams(flags, defaults).toString();
+    url.search = flagsToSearchParams(draft, defaults).toString();
     location.assign(url);
   }
 

@@ -1,6 +1,6 @@
 import {Button as BaseButton} from '@base-ui/react/button';
 
-import {cn} from '@/lib/cn';
+import {cn} from '@/lib/utils/cn';
 
 export function Button({
   className,

@@ -1,6 +1,6 @@
 import {AlertDialog as BaseAlertDialog} from '@base-ui/react/alert-dialog';
 
-import {cn} from '@/lib/cn';
+import {cn} from '@/lib/utils/cn';
 
 function Root({
   children,

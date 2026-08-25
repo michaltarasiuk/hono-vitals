@@ -2,13 +2,13 @@ import {useEffect, useState} from 'react';
 
 import {Button} from '@/app/components/ui/button';
 import {NumberField} from '@/app/components/ui/number-field';
-import {islandId} from '@/lib/island-id';
 import {
   INP_BLOCKING_EVENT_NAMES,
   resetBlockingTimes,
   setBlockingTime,
   type InpBlockingEventName,
-} from '@/lib/metric/observer/blocking';
+} from '@/lib/metric/observer/inp-blocking';
+import {islandId} from '@/lib/utils/island-id';
 
 import type {InpFlags} from '@/lib/metric/flags/defaults';
 

@@ -1,5 +1,5 @@
-import {yieldToEventLoop} from '@/lib/delay';
-import {afterElementsRendered} from '@/lib/metric/observer/ready';
+import {afterElementsRendered} from '@/lib/metric/observer/wait-for';
+import {yieldToEventLoop} from '@/lib/utils/delay';
 
 export async function removeLcpElement() {
   await afterElementsRendered();

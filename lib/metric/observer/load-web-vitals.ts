@@ -2,7 +2,7 @@ import {
   afterElementsRendered,
   afterFirstInput,
   afterLoad,
-} from '@/lib/metric/observer/ready';
+} from '@/lib/metric/observer/wait-for';
 
 export async function loadWebVitals(options: {
   attribution?: boolean;

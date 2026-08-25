@@ -1,6 +1,6 @@
 import {Switch as BaseSwitch} from '@base-ui/react/switch';
 
-import {cn} from '@/lib/cn';
+import {cn} from '@/lib/utils/cn';
 
 export function Switch({
   className,

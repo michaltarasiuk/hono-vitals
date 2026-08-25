@@ -1,11 +1,11 @@
 import {parseResponse} from 'hono/client';
 import {useTransition} from 'react';
 
-import {Header} from '@/app/components/header';
+import {Header} from '@/app/components/layout/header';
 import {AlertDialog} from '@/app/components/ui/alert-dialog';
 import {Button} from '@/app/components/ui/button';
 import {collectClient} from '@/lib/collect/client';
-import {islandId} from '@/lib/island-id';
+import {islandId} from '@/lib/utils/island-id';
 
 const DELETE_METRICS_TRIGGER_ID = islandId('delete-metrics-trigger');
 
