@@ -28,7 +28,7 @@ export function createMetricRoute<T extends Flags>({
       'app',
       'scripts',
       'metric',
-      `${metricSlug(metricName)}-observer.ts`,
+      metricSlug(metricName) + '-observer.ts',
     );
 
     return c.render(
